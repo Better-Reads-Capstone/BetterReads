@@ -16,6 +16,8 @@ public class Genre {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "genre")
     private List<Club> clubs;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "genre")
+    private List<Book> books;
     //CONSTRUCTORS
     //default
     public Genre() {}
