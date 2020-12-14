@@ -2,6 +2,7 @@ package com.codeup.betterreads.models;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "clubs")
@@ -33,6 +34,9 @@ public class Club {
     @ManyToOne
     @JoinColumn (name = "genre_id")
     private Genre genre;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "club")
+    private List<Post> posts;
 
     //default
     public Club() {}
