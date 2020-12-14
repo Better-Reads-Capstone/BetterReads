@@ -41,6 +41,9 @@ public class Club {
     @OneToMany
     private List<ClubBook> clubBooks;
 
+    @OneToMany
+    private List<ClubMember> clubMembers;
+
     //default
     public Club() {}
 

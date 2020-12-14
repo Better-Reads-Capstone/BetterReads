@@ -58,6 +58,9 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Post> posts;
 
+    @OneToMany
+    private List<ClubMember> clubMembers;
+
     //default
     public User() {
     }
