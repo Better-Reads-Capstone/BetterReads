@@ -10,8 +10,8 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(nullable = false)
-    private int isbn;
+    @Column(nullable = false, length = 11)
+    private String isbnTen;
 
     @ManyToOne
     @JoinColumn(name = "genre_id")
@@ -23,26 +23,26 @@ public class Book {
     public Book() {}
 
     //create
-    public Book(int isbn, Genre genre){
-        this.isbn = isbn;
+    public Book(String isbnTen, Genre genre){
+        this.isbnTen = isbnTen;
         this.genre = genre;
     }
 
     //read
-    public Book(long id, int isbn, Genre genre){
+    public Book(long id, String isbnTen, Genre genre){
         this.id = id;
-        this.isbn = isbn;
+        this.isbnTen = isbnTen;
         this.genre = genre;
     }
 
     //getters
     public long getId() {return id;}
-    public int getIsbn() {return isbn;}
+    public String getIsbnTen() {return isbnTen;}
     public Genre getGenre() {return genre;}
 
     //setters
     public void setId(long id) {this.id = id;}
-    public void setIsbn(int isbn) {this.isbn = isbn;}
+    public void setIsbnTen(String isbnTen) {this.isbnTen = isbnTen;}
     public void setGenre(Genre genre) {this.genre = genre;}
 
 

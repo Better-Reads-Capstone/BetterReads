@@ -21,7 +21,7 @@ public class Review {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
 
-    @Column(nullable = false)
+    @Column
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedDate;
 
