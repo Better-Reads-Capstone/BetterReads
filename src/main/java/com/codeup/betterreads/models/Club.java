@@ -38,6 +38,9 @@ public class Club {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "club")
     private List<Post> posts;
 
+    @OneToMany
+    private List<ClubBook> clubBooks;
+
     //default
     public Club() {}
 
