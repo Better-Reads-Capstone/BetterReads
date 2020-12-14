@@ -2,6 +2,7 @@ package com.codeup.betterreads.models;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -50,6 +51,15 @@ public class User {
     @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
+    private List<Club> clubs;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Post> posts;
+
+    @OneToMany
+    private List<ClubMember> clubMembers;
 
     //default
     public User() {
