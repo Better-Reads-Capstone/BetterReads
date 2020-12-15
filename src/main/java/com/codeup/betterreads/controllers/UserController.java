@@ -46,7 +46,7 @@ public class UserController {
         return "user/create-profile";
     }
 
-    @PostMapping("create-profile/{username}")
+    @PostMapping("/create-profile/{username}")
     public String createProfile(@PathVariable String username, @ModelAttribute User userToBeUpdated) {
         User user = userDao.findByUsername(username);
         userToBeUpdated.setId(user.getId());
@@ -56,6 +56,12 @@ public class UserController {
         userToBeUpdated.setCreatedDate(user.getCreatedDate());
         User dbUser = userDao.save(userToBeUpdated);
         return "redirect:/profile/" + dbUser.getUsername();
+    }
+
+    @GetMapping("/profile/{username}")
+    public String showUserProfile(Model viewModel, @PathVariable String username) {
+        viewModel.addAttribute("user", userDao.findByUsername(username));
+        return "user/profile-page";
     }
 
 }
