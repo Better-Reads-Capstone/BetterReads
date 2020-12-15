@@ -41,7 +41,7 @@ public class Club {
     @OneToMany
     private List<ClubBook> clubBooks;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "club")
     private List<ClubMember> clubMembers;
 
     //default
