@@ -66,7 +66,7 @@ public class User {
     }
 
     //create
-    public User(String email, String username, String password, String firstName, String middleName, String lastName, String aboutMe, String country, String websiteURL, String avatarURL, String pronouns, Date dob, Date createdDate) {
+    public User(String email, String username, String password, String firstName, String middleName, String lastName, String aboutMe, String country, String websiteURL, String avatarURL, String pronouns, Date dob, Date createdDate, List<Club> clubs, List<Post> posts, List<ClubMember> clubMembers) {
         this.email = email;
         this.username = username;
         this.password = password;
@@ -80,10 +80,13 @@ public class User {
         this.pronouns = pronouns;
         this.dob = dob;
         this.createdDate = createdDate;
+        this.clubs = clubs;
+        this.posts = posts;
+        this.clubMembers = clubMembers;
     }
 
     //read
-    public User(long id, String email, String username, String password, String firstName, String middleName, String lastName, String aboutMe, String country, String websiteURL, String avatarURL, String pronouns, Date dob, Date createdDate) {
+    public User(long id, String email, String username, String password, String firstName, String middleName, String lastName, String aboutMe, String country, String websiteURL, String avatarURL, String pronouns, Date dob, Date createdDate, List<Club> clubs, List<Post> posts, List<ClubMember> clubMembers) {
         this.id = id;
         this.email = email;
         this.username = username;
@@ -98,6 +101,9 @@ public class User {
         this.pronouns = pronouns;
         this.dob = dob;
         this.createdDate = createdDate;
+        this.clubs = clubs;
+        this.posts = posts;
+        this.clubMembers = clubMembers;
     }
 
     //copy
@@ -116,6 +122,9 @@ public class User {
         pronouns = copy.pronouns;
         dob = copy.dob;
         createdDate = copy.createdDate;
+        clubs = copy.clubs;
+        posts = copy.posts;
+        clubMembers = copy.clubMembers;
     }
 
     //getters
@@ -133,6 +142,9 @@ public class User {
     public String getPronouns() {return pronouns;}
     public Date getDob() {return dob;}
     public Date getCreatedDate() {return createdDate;}
+    public List<Club> getClubs() {return clubs;}
+    public List<Post> getPosts() {return posts;}
+    public List<ClubMember> getClubMembers() {return clubMembers;}
 
     //setters
     public void setId(long id) {this.id = id;}
@@ -148,4 +160,7 @@ public class User {
     public void setAvatarURL(String avatarURL) {this.avatarURL = avatarURL;}
     public void setDob(Date dob) {this.dob = dob;}
     public void setCreatedDate(Date createdDate) {this.createdDate = createdDate;}
+    public void setClubs(List<Club> clubs) {this.clubs = clubs;}
+    public void setPosts(List<Post> posts) {this.posts = posts;}
+    public void setClubMembers(List<ClubMember> clubMembers) {this.clubMembers = clubMembers;}
 }
