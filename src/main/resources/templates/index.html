@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
+<head th:replace="partials/head :: head('Home Page')">
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
+    <nav th:replace="partials/navbar :: navbar"></nav>
+
     <h1>Index Page</h1>
 
     <a th:href="@{/}">Home</a>
@@ -25,5 +27,6 @@
         <button class="btn-link btn" style="margin-top: 8px">Logout</button>
     </form>
 
+    <footer th:replace="partials/footer :: footer"></footer>
 </body>
 </html>
