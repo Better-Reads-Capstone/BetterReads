@@ -17,33 +17,36 @@ public class Book {
     @JoinColumn(name = "genre_id")
     private Genre genre;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "book")
     private List<ClubBook> clubBooks;
 
     public Book() {}
 
     //create
-    public Book(String isbnTen, Genre genre){
+    public Book(String isbnTen, Genre genre, List<ClubBook> clubBooks){
         this.isbnTen = isbnTen;
         this.genre = genre;
+        this.clubBooks = clubBooks;
     }
 
     //read
-    public Book(long id, String isbnTen, Genre genre){
+    public Book(long id, String isbnTen, Genre genre, List<ClubBook> clubBooks){
         this.id = id;
         this.isbnTen = isbnTen;
         this.genre = genre;
+        this.clubBooks = clubBooks;
     }
 
     //getters
     public long getId() {return id;}
     public String getIsbnTen() {return isbnTen;}
     public Genre getGenre() {return genre;}
+    public List<ClubBook> getClubBooks() {return clubBooks;}
 
     //setters
     public void setId(long id) {this.id = id;}
     public void setIsbnTen(String isbnTen) {this.isbnTen = isbnTen;}
     public void setGenre(Genre genre) {this.genre = genre;}
-
+    public void setClubBooks(List<ClubBook> clubBooks) {this.clubBooks = clubBooks;}
 
 }
