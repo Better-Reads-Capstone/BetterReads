@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <main>
+        <h1>Create a Profile</h1>
+        <form th:action="@{/create-profile/{username} (username = ${user.username})}" method="POST" th:object="${user}">
+
+            <div class="form-group">
+                <label for="image-url">Image URL</label>
+                <input id="image-url" class="form-control" th:field="*{imageUrl}" />
+            </div>
+
+            <div class="form-group">
+                <label for="first-name">First Name</label>
+                <input id="first-name" class="form-control" th:field="*{firstName}" />
+            </div>
+
+            <div class="form-group">
+                <label for="middle-name">Middle Name</label>
+                <input id="middle-name" class="form-control" th:field="*{middleName}" />
+            </div>
+
+            <div class="form-group">
+                <label for="last-name">Last Name</label>
+                <input id="last-name" class="form-control" th:field="*{lastName}" />
+            </div>
+
+            <div class="form-group">
+                <label for="website-url">Website</label>
+                <input id="website-url" class="form-control" th:field="*{websiteUrl}" />
+            </div>
+
+            <div class="form-group">
+                <label for="about-me">About Me</label>
+                <textarea class="form-control" id="about-me" rows="3" cols="50" th:field="*{aboutMe}"></textarea>
+            </div>
+
+            <select th:field="*{pronouns}">
+                <option th:value="'he'" th:text="He/Him">He/Him</option>
+                <option th:value="'she'" th:text="She/Her">She/Her</option>
+                <option th:value="'nonbinary'" th:text="Nonbinary">Nonbinary</option>
+                <option th:value="'nondisclosed'" th:text="Decline to Specify">Decline to Specify</option>
+            </select>
+
+            <select th:field="*{country}">
+                <option th:value="'US'" th:text="United States">United States</option>
+                <option th:value="'UK'" th:text="United Kingdom">United Kingdom</option>
+                <option th:value="'CA'" th:text="Canada">Canada</option>
+            </select>
+            <br />
+            <button type="submit" class="btn btn-primary">Save</button>
+        </form>
+    </main>
+
+</body>
+</html>
