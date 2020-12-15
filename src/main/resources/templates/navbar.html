@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li>
+                <a href="/">Better Reads</a>
+            </li>
+            <li>
+                <a href="/login">Login</a>
+            </li>
+            <li>
+                <a href="/sign-up">Register</a>
+            </li>
+            <li>
+                <form th:action="@{/logout}" th:method="post">
+                    <button class="nav-link btn-link btn">Logout</button>
+                </form>
+            </li>
+        </ul>
+    </nav>
+
+<!--Will need to eventually add user profile link-->
+
+</body>
+</html>
