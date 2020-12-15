@@ -7,23 +7,21 @@
 <body>
     <h1>Index Page</h1>
 
-    <form action="" method="get">
-    <a>Home</a>
-    </form>
+    <a th:href="@{/}">Home</a>
 
-    <form action="" method="post">
+    <form action="/profile/edit" method="post">
         <a>Register</a>
     </form>
 
-    <form action="" method="get">
+    <form action="/" method="get">
         <a>Login</a>
     </form>
 
-    <form action="" method="get">
+    <form action="/profile" method="get">
         <a>Profile</a>
     </form>
 
-    <form action="" method="get">
+    <form action="/" method="get">
         <a>Logout</a>
     </form>
 
