@@ -31,30 +31,31 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         ;
     }
 
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-//        http
-//                /* Login configuration */
-//                .formLogin()
-//                .loginPage("/login")
-//                .defaultSuccessUrl("/ads") // user's home page, it can be any URL
-//                .permitAll() // Anyone can go to the login page
-//                /* Logout configuration */
-//                .and()
-//                .logout()
-//                .logoutSuccessUrl("/login?logout") // append a query string value
-//                /* Pages that can be viewed without having to log in */
-//                .and()
-//                .authorizeRequests()
-//                .antMatchers("/", "/ads") // anyone can see the home and the ads pages
-//                .permitAll()
-//                /* Pages that require authentication */
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+                /* Login configuration */
+                .formLogin()
+                .loginPage("/login")
+                // TODO redirects to /, probably needs to be updated once we know where we are sending a logged in user
+                .defaultSuccessUrl("/") // user's home page, it can be any URL
+                .permitAll() // Anyone can go to the login page
+                /* Logout configuration */
+                .and()
+                .logout()
+                .logoutSuccessUrl("/login?logout") // append a query string value
+                /* Pages that can be viewed without having to log in */
+                .and()
+                .authorizeRequests()
+                .antMatchers("/") // anyone can see the home and the ads pages
+                .permitAll()
+                /* Pages that require authentication */
 //                .and()
 //                .authorizeRequests()
 //                .antMatchers(
 //                        // Pages only for authenticated users
 //                )
 //                .authenticated()
-//        ;
-//    }
+        ;
+    }
 }

@@ -21,8 +21,8 @@
         <a>Profile</a>
     </form>
 
-    <form action="/" method="get">
-        <a>Logout</a>
+    <form th:action="@{/logout}" th:method="post">
+        <button class="btn-link btn" style="margin-top: 8px">Logout</button>
     </form>
 
 </body>
