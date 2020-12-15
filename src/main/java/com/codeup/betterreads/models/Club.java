@@ -38,7 +38,7 @@ public class Club {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "club")
     private List<Post> posts;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "club")
     private List<ClubBook> clubBooks;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "club")
@@ -48,7 +48,7 @@ public class Club {
     public Club() {}
 
     //create
-    public Club(String name, Date createdDate, String about, String headerImageUrl, boolean privacy, User owner, Genre genre) {
+    public Club(String name, Date createdDate, String about, String headerImageUrl, boolean privacy, User owner, Genre genre, List<Post> posts, List<ClubBook> clubBooks, List<ClubMember> clubMembers) {
         this.name = name;
         this.createdDate = createdDate;
         this.about = about;
@@ -56,10 +56,13 @@ public class Club {
         this.privacy = privacy;
         this.owner = owner;
         this.genre = genre;
+        this.posts = posts;
+        this.clubBooks = clubBooks;
+        this.clubMembers = clubMembers;
     }
 
     //read
-    public Club(long id, String name, Date createdDate, String about, String headerImageUrl, boolean privacy, User owner, Genre genre) {
+    public Club(long id, String name, Date createdDate, String about, String headerImageUrl, boolean privacy, User owner, Genre genre, List<Post> posts, List<ClubBook> clubBooks, List<ClubMember> clubMembers) {
         this.id = id;
         this.name = name;
         this.createdDate = createdDate;
@@ -68,6 +71,9 @@ public class Club {
         this.privacy = privacy;
         this.owner = owner;
         this.genre = genre;
+        this.posts = posts;
+        this.clubBooks = clubBooks;
+        this.clubMembers = clubMembers;
     }
 
     //getters
@@ -79,6 +85,9 @@ public class Club {
     public boolean getPrivacy() { return privacy; }
     public User getOwner() { return owner; }
     public Genre getGenre() { return genre; }
+    public List<Post> getPosts() { return posts; }
+    public List<ClubBook> getClubBooks() { return clubBooks; }
+    public List<ClubMember> getClubMembers() { return clubMembers; }
 
     //setters
     public void setId(long id) { this.id = id;}
@@ -89,5 +98,7 @@ public class Club {
     public void setPrivacy(boolean privacy) { this.privacy = privacy;}
     public void setOwner(User owner) { this.owner = owner;}
     public void setGenre(Genre genre) { this.genre = genre;}
-
+    public void setPosts(List<Post> posts) { this.posts = posts;}
+    public void setClubBooks(List<ClubBook> clubBooks) { this.clubBooks = clubBooks;}
+    public void setClubMembers(List<ClubMember> clubMembers) { this.clubMembers = clubMembers;}
 }
