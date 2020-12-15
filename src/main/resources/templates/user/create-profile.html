@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
+<head th:replace="partials/head :: head('Create a profile')">
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Create a profile</title>
 </head>
 <body>
+
+    <nav th:replace="partials/navbar :: navbar"></nav>
 
     <main>
         <h1>Create a Profile</h1>
@@ -57,5 +59,6 @@
         </form>
     </main>
 
+    <footer th:replace="partials/footer :: footer"></footer>
 </body>
 </html>
