@@ -68,17 +68,10 @@ public class UserController {
     public String showUserProfile(Model viewModel, @PathVariable String username) {
         viewModel.addAttribute("user", userDao.findByUsername(username));
 
-        // will store the User dbUser
         User dbUser = userDao.findByUsername(username);
-        // will create a list of books that belong to the user by userId
-        List<Bookshelf> dbBookshelf = bookshelfDao.findAllByUserId(dbUser.getId());
-        // will get a list of books with the read status
-//        List<Bookshelf> dbRead = bookshelfDao.findAllByBookShelfStatusAndUserId((BookshelfStatus.READ), dbUser.getId());
 
-        // will get a list of books with the reading status
-//        List<Bookshelf> dbReading = bookshelfDao.findAllByBookShelfStatusEqualsAndUserId(dbUser.getId());
-        // will get a list of books with the wishlist status
-//        List<Bookshelf> dbWishlist = bookshelfDao.findAllByBookShelfStatusEqualsAndUserId(dbUser.getId(),"WISHLIST");
+        List<Bookshelf> dbBookshelf = bookshelfDao.findAllByUserId(dbUser.getId());
+
         ArrayList<String> readList = new ArrayList<>();
         ArrayList<String> readingList = new ArrayList<>();
         ArrayList<String> wishlist = new ArrayList<>();
@@ -98,7 +91,6 @@ public class UserController {
         viewModel.addAttribute("read", readList);
         viewModel.addAttribute("reading", readingList);
         viewModel.addAttribute("wishlist", wishlist);
-
         return "user/profile-page";
     }
 
