@@ -52,15 +52,12 @@ public class User {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
 
-//    @OneToMany
-//    private List<Club> clubs;
-
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Post> posts;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<ClubMember> clubMembers;
-    //
+
 
     //default
     public User() {
