@@ -1,6 +1,7 @@
 package com.codeup.betterreads.controllers;
 
 import com.codeup.betterreads.models.Bookshelf;
+import com.codeup.betterreads.models.BookshelfStatus;
 import com.codeup.betterreads.models.User;
 import com.codeup.betterreads.repositories.BookRepo;
 import com.codeup.betterreads.repositories.BookshelfRepo;
@@ -13,8 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Controller
 public class UserController {
@@ -68,11 +68,36 @@ public class UserController {
     public String showUserProfile(Model viewModel, @PathVariable String username) {
         viewModel.addAttribute("user", userDao.findByUsername(username));
 
-        // WILL GET ALL BOOKS
+        // will store the User dbUser
         User dbUser = userDao.findByUsername(username);
+        // will create a list of books that belong to the user by userId
         List<Bookshelf> dbBookshelf = bookshelfDao.findAllByUserId(dbUser.getId());
-        System.out.println(dbBookshelf);
-        viewModel.addAttribute("books", dbBookshelf);
+        // will get a list of books with the read status
+//        List<Bookshelf> dbRead = bookshelfDao.findAllByBookShelfStatusAndUserId((BookshelfStatus.READ), dbUser.getId());
+
+        // will get a list of books with the reading status
+//        List<Bookshelf> dbReading = bookshelfDao.findAllByBookShelfStatusEqualsAndUserId(dbUser.getId());
+        // will get a list of books with the wishlist status
+//        List<Bookshelf> dbWishlist = bookshelfDao.findAllByBookShelfStatusEqualsAndUserId(dbUser.getId(),"WISHLIST");
+        ArrayList<String> readList = new ArrayList<>();
+        ArrayList<String> readingList = new ArrayList<>();
+        ArrayList<String> wishlist = new ArrayList<>();
+
+        for(Bookshelf book : dbBookshelf) {
+            String isbn = book.getBook().getIsbnTen();
+            if(book.getBookShelfStatus() == BookshelfStatus.READ) {
+                readList.add(isbn);
+            }
+            else if(book.getBookShelfStatus() == BookshelfStatus.READING) {
+                readingList.add(isbn);
+            }
+            else if(book.getBookShelfStatus() == BookshelfStatus.WISHLIST) {
+                wishlist.add(isbn);
+            }
+        }
+        viewModel.addAttribute("read", readList);
+        viewModel.addAttribute("reading", readingList);
+        viewModel.addAttribute("wishlist", wishlist);
 
         return "user/profile-page";
     }
