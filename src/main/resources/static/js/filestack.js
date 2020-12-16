@@ -1,14 +1,13 @@
 // Make sure to put your personal FileStackKey in the keys.js file
 console.log("hello");
 const client = filestack.init(filestackAPIKey);
-client.picker().open();
 
 // we will pass this object as an argument in the picker method.
 const options = {
     onFileUploadFinished: callback =>{
         const imgURL = callback.url;
-        $('#image').val(imgURL);
-        $('#imagePreview').attr('src',imgURL);
+        $('#avatar').val(imgURL);
+        $('#avatarPreview').attr('src',imgURL);
     }
 }
 // This is an event listen for listening to a click on a button
