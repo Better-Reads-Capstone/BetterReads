@@ -34,7 +34,6 @@ public class UserController {
         user.setPassword(hash);
         Date currentDate = new Date();
         user.setCreatedDate(currentDate);
-
         User dbUser = userDao.save(user);
         viewModel.addAttribute("user", dbUser);
         return "redirect:/create-profile/" + dbUser.getUsername();
