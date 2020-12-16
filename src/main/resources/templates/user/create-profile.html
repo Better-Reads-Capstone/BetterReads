@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
+<head th:replace="partials/head :: head('Create a profile')">
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
 
 <main>
+    <nav th:replace="partials/navbar :: navbar"></nav>
+
     <h1>Create a Profile</h1>
     <form th:action="@{/create-profile/{username} (username = ${user.username})}" method="POST" th:object="${user}">
 
@@ -56,6 +58,8 @@
         <button type="submit" class="btn btn-primary">Save</button>
     </form>
 </main>
+
+<footer th:replace="partials/footer :: footer"></footer>
 
 </body>
 </html>
