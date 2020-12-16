@@ -1,6 +1,9 @@
 package com.codeup.betterreads.controllers;
 
+import com.codeup.betterreads.models.Bookshelf;
 import com.codeup.betterreads.models.User;
+import com.codeup.betterreads.repositories.BookRepo;
+import com.codeup.betterreads.repositories.BookshelfRepo;
 import com.codeup.betterreads.repositories.UserRepo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,15 +14,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Date;
+import java.util.List;
 
 @Controller
 public class UserController {
     private UserRepo userDao;
     private PasswordEncoder passwordEncoder;
+    private BookshelfRepo bookshelfDao;
 
-    public UserController(UserRepo userDao, PasswordEncoder passwordEncoder) {
+    public UserController(UserRepo userDao, PasswordEncoder passwordEncoder, BookshelfRepo bookshelfDao) {
         this.userDao = userDao;
         this.passwordEncoder = passwordEncoder;
+        this.bookshelfDao = bookshelfDao;
     }
 
     @GetMapping("/sign-up")
@@ -61,7 +67,15 @@ public class UserController {
     @GetMapping("/profile/{username}")
     public String showUserProfile(Model viewModel, @PathVariable String username) {
         viewModel.addAttribute("user", userDao.findByUsername(username));
+
+        // WILL GET ALL BOOKS
+        User dbUser = userDao.findByUsername(username);
+        List<Bookshelf> dbBookshelf = bookshelfDao.findAllByUserId(dbUser.getId());
+        System.out.println(dbBookshelf);
+        viewModel.addAttribute("books", dbBookshelf);
+
         return "user/profile-page";
     }
+
 
 }
