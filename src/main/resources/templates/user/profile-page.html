@@ -19,12 +19,12 @@
         <h3 th:text="${user.aboutMe}"></h3>
     </div>
 
-    <div>
+    <div class="bookshelf">
         <!--   READ BOOKS     -->
         <div>
             <h4>Read</h4>
             <div th:each="isbn : ${read}">
-                <div th:value="${isbn}">
+                <div class="userBook" th:value="${isbn}">
                     <input type="text" th:value="${isbn}">
                 </div>
             </div>
@@ -33,7 +33,7 @@
         <div>
             <h4>Reading</h4>
             <div th:each="isbn : ${reading}">
-                <div th:value="${isbn}">
+                <div class="userBook" th:value="${isbn}">
                     <input type="text" th:value="${isbn}">
                 </div>
             </div>
@@ -43,7 +43,7 @@
         <div>
             <h4>Wishlist</h4>
             <div th:each="isbn : ${wishlist}">
-                <div th:value="${isbn}">
+                <div class="userBook" th:value="${isbn}">
                     <input type="text" th:value="${isbn}">
                 </div>
             </div>
@@ -51,6 +51,9 @@
     </div>
 </main>
 
+<th:block th:include="partials/scripts :: scripts"></th:block>
+<script type="text/javascript" src="/js/keys.js"></script>
+<script type="text/javascript" src="/js/profileBooks.js"></script>
 </body>
 <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
 </html>
