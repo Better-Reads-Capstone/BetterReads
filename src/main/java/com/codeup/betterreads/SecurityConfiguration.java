@@ -34,7 +34,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+
                 /* Login configuration */
+
+                // TODO: Disabling CORS for POST testing
+                .cors().and().csrf().disable()
+                // TODO: Verify if we need this before deploying to prod
+
                 .formLogin()
                 .loginPage("/login")
                 // TODO redirects to /, probably needs to be updated once we know where we are sending a logged in user
@@ -47,7 +53,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 /* Pages that can be viewed without having to log in */
                 .and()
                 .authorizeRequests()
-                .antMatchers("/") // anyone can see the home and the ads pages
+                .antMatchers("*") // anyone can see the home and the ads pages
                 .permitAll()
                 /* Pages that require authentication */
 //                .and()
