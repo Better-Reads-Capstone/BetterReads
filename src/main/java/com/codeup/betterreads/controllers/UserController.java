@@ -68,6 +68,24 @@ public class UserController {
         return "redirect:/profile/" + dbUser.getUsername();
     }
 
+    @GetMapping("/edit-profile/{username}")
+    public String showEditProfile(Model viewModel, @PathVariable String username) {
+        viewModel.addAttribute("user", userDao.findByUsername(username));
+        return "user/create-profile";
+    }
+
+    @PostMapping("/edit-profile/{username}")
+    public String editProfile(@PathVariable String username, @ModelAttribute User userToBeUpdated) {
+        User user = userDao.findByUsername(username);
+        userToBeUpdated.setId(user.getId());
+        userToBeUpdated.setUsername(user.getUsername());
+        userToBeUpdated.setEmail(user.getEmail());
+        userToBeUpdated.setPassword(user.getPassword());
+        userToBeUpdated.setCreatedDate(user.getCreatedDate());
+        User dbUser = userDao.save(userToBeUpdated);
+        return "redirect:/profile/" + dbUser.getUsername();
+    }
+
     @GetMapping("/profile/{username}")
     public String showUserProfile(Model viewModel, @PathVariable String username) {
         viewModel.addAttribute("user", userDao.findByUsername(username));
