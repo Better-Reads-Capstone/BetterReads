@@ -1,6 +1,7 @@
 package com.codeup.betterreads.controllers;
 
 import com.codeup.betterreads.models.Club;
+import com.codeup.betterreads.models.Genre;
 import com.codeup.betterreads.models.User;
 import com.codeup.betterreads.repositories.ClubRepo;
 import com.codeup.betterreads.repositories.UserRepo;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.persistence.GeneratedValue;
 import java.util.Date;
 
 @Controller
@@ -38,12 +40,23 @@ public class ClubController {
                              @ModelAttribute Club club) {
         User user = userDao.findByUsername(username);
         Date currentDate = new Date();
+
         club.setOwner(user);
         club.setCreatedDate(currentDate);
 
         Club dbClub = clubDao.save(club);
-        return "redirect:/";
-//        need club view
+        return "redirect:/bookclub/" + dbClub.getId();
     }
+
+    @GetMapping("/bookclub/{id}")
+    public String showBookClub(Model viewModel,
+                               @PathVariable long id,
+                               @ModelAttribute Club club) {
+//        Club viewClub = clubDao.getOne(id);
+        viewModel.addAttribute("club", clubDao.getOne(id));
+
+        return "user/bookclub";
+    }
+
 
 }
