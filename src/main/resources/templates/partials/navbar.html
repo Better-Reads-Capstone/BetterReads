@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Navbar</title>
@@ -39,9 +40,12 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/sign-up">Register</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/create-bookclub">Start a Bookclub</a>
-                </li>
+                <div sec:authorize="isAuthenticated()">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/create-club/{username} (username = ${#authentication.principal.username})}">Start a Bookclub</a>
+                    </li>
+                </div>
+
                 <form class="form-inline my-2 my-lg-0">
                     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>

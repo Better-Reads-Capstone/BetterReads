@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
+<head th:replace="partials/head :: head('Book Club')"
     <meta charset="UTF-8">
-    <title>Profile</title>
+    <title>Book Club</title>
 </head>
 <body>
+<nav th:replace="partials/navbar :: navbar"></nav>
     <main>
         <h1 th:text="${user.avatarURL}"></h1>
         <h1>Hi, <span th:text="${user.firstName}"></span> <span th:text="${user.middleName}"></span> <span th:text="${user.lastName}"></span>! </h1>
@@ -14,6 +15,6 @@
         <h3 th:text="${user.country}"></h3>
         <h3 th:text="${user.aboutMe}"></h3>
     </main>
-
+<footer th:replace="partials/footer :: footer"></footer>
 </body>
 </html>

@@ -45,8 +45,18 @@ public class ClubController {
         club.setCreatedDate(currentDate);
 
         Club dbClub = clubDao.save(club);
-        return "redirect:/";
-//        need club view
+        return "redirect:/bookclub/" + dbClub.getId();
     }
+
+    @GetMapping("/bookclub/{id}")
+    public String showBookClub(Model viewModel,
+                               @PathVariable long id,
+                               @ModelAttribute Club club) {
+//        Club viewClub = clubDao.getOne(id);
+        viewModel.addAttribute("club", clubDao.getOne(id));
+
+        return "user/bookclub";
+    }
+
 
 }
