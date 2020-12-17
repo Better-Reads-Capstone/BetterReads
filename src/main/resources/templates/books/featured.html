@@ -1,10 +1,63 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="partials/head :: head(title = 'Bestsellers')">
 </head>
 <body>
+    <nav th:replace="partials/navbar :: navbar"></nav>
+    <br />
+    <div class="container">
+        <div class="print-ebook-fiction">
+            <h2>Combined Print & E-Book Fiction</h2>
+            <br />
+            <div class="print-ebook-fiction-list row row-cols-1">
 
+            </div>
+        </div>
+        <div class="hardcover-fiction">
+            <h2>Hardcover Fiction</h2>
+            <br />
+            <div class="hardcover-fiction-list row row-cols-1">
+
+            </div>
+        </div>
+        <div class="trade-fiction-paperback">
+            <h2>Paperback Trade Fiction</h2>
+            <br />
+            <div class="trade-fiction-paperback-list row row-cols-1">
+
+            </div>
+        </div>
+        <div class="print-ebook-nonfiction">
+            <h2>Combined Print & E-Book Nonfiction</h2>
+            <br />
+            <div class="print-ebook-nonfiction-list row row-cols-1">
+
+            </div>
+        </div>
+        <div class="hardcover-nonfiction">
+            <h2>Hardcover Nonfiction</h2>
+            <br />
+            <div class="hardcover-nonfiction-list row row-cols-1">
+
+            </div>
+        </div>
+        <div class="paperback-nonfiction">
+            <h2>Paperback Trade Nonfiction</h2>
+            <br />
+            <div class="paperback-nonfiction-list row row-cols-1">
+
+            </div>
+        </div>
+        <div class="advice-how-to">
+            <h2>Advice, How-To & Miscellaneous</h2>
+            <div class="advice-how-to-list row row-cols-1">
+
+            </div>
+        </div>
+    </div>
+    <br />
+    <footer th:replace="partials/footer :: footer"></footer>
+    <script type="text/javascript" th:src="@{/js/keys.js}"></script>
+    <script type="text/javascript" th:src="@{/js/nyt.js}"></script>
 </body>
 </html>
