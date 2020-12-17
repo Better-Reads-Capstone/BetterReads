@@ -1,34 +1,17 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="partials/head :: head('Home Page')">
+<head th:replace="partials/head :: head(title = 'Home Page')">
 <!--    <meta charset="UTF-8">-->
 <!--    <title>Title</title>-->
 </head>
 <body>
     <nav th:replace="partials/navbar :: navbar"></nav>
+    <div class="container">
+        <h1>Index Page</h1>
 
-    <h1>Index Page</h1>
+        <p><span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias aliquid amet animi assumenda consequuntur doloribus ea eaque earum facilis, ipsam itaque iure minima numquam quia sint sunt, veniam voluptatum? Ullam.</span><span>A adipisci animi aut, autem et exercitationem expedita explicabo fugiat inventore iste iusto magnam maxime minus, mollitia obcaecati odio optio, pariatur porro provident reprehenderit suscipit tempora velit veniam veritatis voluptates.</span><span>Ab aliquam architecto aut autem delectus error esse id, ipsam itaque labore libero molestias necessitatibus possimus quaerat, quam, qui quis! Accusantium aliquid dignissimos eum facilis fuga inventore quaerat sed, voluptatibus.</span><span>Animi asperiores beatae consequuntur earum eius necessitatibus, nobis non numquam quam sequi ut, velit. Aperiam blanditiis delectus dignissimos excepturi ipsum necessitatibus obcaecati possimus, praesentium quidem repellendus reprehenderit repudiandae, rerum sapiente!</span><span>Aliquid dolor nemo nesciunt nisi! Alias amet animi cum cumque delectus eaque eius fuga impedit ipsam ipsum, maiores non officia placeat porro quam repellat rerum similique sit tempora vel velit!</span></p>
 
-    <p><span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias aliquid amet animi assumenda consequuntur doloribus ea eaque earum facilis, ipsam itaque iure minima numquam quia sint sunt, veniam voluptatum? Ullam.</span><span>A adipisci animi aut, autem et exercitationem expedita explicabo fugiat inventore iste iusto magnam maxime minus, mollitia obcaecati odio optio, pariatur porro provident reprehenderit suscipit tempora velit veniam veritatis voluptates.</span><span>Ab aliquam architecto aut autem delectus error esse id, ipsam itaque labore libero molestias necessitatibus possimus quaerat, quam, qui quis! Accusantium aliquid dignissimos eum facilis fuga inventore quaerat sed, voluptatibus.</span><span>Animi asperiores beatae consequuntur earum eius necessitatibus, nobis non numquam quam sequi ut, velit. Aperiam blanditiis delectus dignissimos excepturi ipsum necessitatibus obcaecati possimus, praesentium quidem repellendus reprehenderit repudiandae, rerum sapiente!</span><span>Aliquid dolor nemo nesciunt nisi! Alias amet animi cum cumque delectus eaque eius fuga impedit ipsam ipsum, maiores non officia placeat porro quam repellat rerum similique sit tempora vel velit!</span></p>
-
-<!--    <a th:href="@{/}">Home</a>-->
-
-<!--    <form action="/profile/edit" method="post">-->
-<!--        <a>Register</a>-->
-<!--    </form>-->
-
-<!--    <form action="/" method="get">-->
-<!--        <a>Login</a>-->
-<!--    </form>-->
-
-<!--    <form action="/profile" method="get">-->
-<!--        <a>Profile</a>-->
-<!--    </form>-->
-
-<!--    <form th:action="@{/logout}" th:method="post">-->
-<!--        <button class="btn-link btn" style="margin-top: 8px">Logout</button>-->
-<!--    </form>-->
-
+    </div>
     <footer th:replace="partials/footer :: footer"></footer>
 </body>
 </html>
