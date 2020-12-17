@@ -1,65 +1,83 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="partials/head :: head('Create a profile')">
-    <meta charset="UTF-8">
-    <title>Title</title>
+<head th:replace="partials/head :: head(title = 'Create a profile')">
 </head>
-<body>
-
-<main>
+<body>          
     <nav th:replace="partials/navbar :: navbar"></nav>
+    <br />
+    <main>
+        <div class="container">
+            <!--Create and Edit Profile-->
+            <div class="card">
+                <div class="card-header">
+                    <h1>Profile Information</h1>
+                </div>
+                    <form th:action="@{/create-profile/{username} (username = ${user.username})}" method="POST" th:object="${user}">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="first-name">First Name</label>
+                                <input id="first-name" class="form-control" th:field="*{firstName}" />
+                            </div>
+                            <div class="form-group">
+                                <label for="middle-name">Middle Name</label>
+                                <input id="middle-name" class="form-control" th:field="*{middleName}" />
+                            </div>
+                            <div class="form-group">
+                                <label for="last-name">Last Name</label>
+                                <input id="last-name" class="form-control" th:field="*{lastName}" />
+                            </div>
 
-    <h1>Create a Profile</h1>
-    <form th:action="@{/create-profile/{username} (username = ${user.username})}" method="POST" th:object="${user}">
+                            <div class="form-group">
+                                <label for="website-url">Website</label>
+                                <input id="website-url" class="form-control" th:field="*{websiteURL}" />
+                            </div>
 
-        <div class="form-group">
-            <label for="image-url">Image URL</label>
-            <input id="image-url" class="form-control" th:field="*{avatarURL}" />
+                            <div class="form-group">
+                                <label for="country">Country</label>
+                                <select name="country" class="form-control" th:field="*{country}" id="country">
+                                    <option th:value="'United States'">United States</option>
+                                    <option th:value="'United Kingdom'">United Kingdom</option>
+                                    <option th:value="'Canada'">Canada</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="pronouns">Preferred Pronouns</label>
+                                <select name="pronouns" class="form-control" th:field="*{pronouns}" id="pronouns">
+                                    <option th:value="''" selected>Prefer to Not Disclose</option>
+                                    <option th:value="'he'" selected>He/Him</option>
+                                    <option th:value="'she'" selected>She/Her</option>
+                                    <option th:value="'nonbinary'" selected>Non-Binary</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="about-me">About Me</label>
+                                <textarea class="form-control" id="about-me" rows="3" cols="50" th:field="*{aboutMe}"></textarea>
+                            </div>
+                            <br />
+
+                            <!--filestack api-->
+                            <div class="filestack">
+                                <img id="avatarPreview" th:src="${user.avatarURL}" alt="">
+                                <br />
+                                <input type="hidden" id="avatar" name="product_image_url" th:field="*{avatarURL}" />
+                                <button class="btn" id="addPicture">addPicture</button>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
+                    </form>
+            </div>
         </div>
+    </main>
 
-        <div class="form-group">
-            <label for="first-name">First Name</label>
-            <input id="first-name" class="form-control" th:field="*{firstName}" />
-        </div>
-
-        <div class="form-group">
-            <label for="middle-name">Middle Name</label>
-            <input id="middle-name" class="form-control" th:field="*{middleName}" />
-        </div>
-
-        <div class="form-group">
-            <label for="last-name">Last Name</label>
-            <input id="last-name" class="form-control" th:field="*{lastName}" />
-        </div>
-
-        <div class="form-group">
-            <label for="website-url">Website</label>
-            <input id="website-url" class="form-control" th:field="*{websiteURL}" />
-        </div>
-
-        <div class="form-group">
-            <label for="about-me">About Me</label>
-            <textarea class="form-control" id="about-me" rows="3" cols="50" th:field="*{aboutMe}"></textarea>
-        </div>
-
-        <select th:field="*{pronouns}">
-            <option th:value="'he'">He/Him</option>
-            <option th:value="'she'">She/Her</option>
-            <option th:value="'nonbinary'">Nonbinary</option>
-            <option th:value="'nondisclosed'">Decline to Specify</option>
-        </select>
-
-        <select th:field="*{country}">
-            <option th:value="'US'">United States</option>
-            <option th:value="'UK'">United Kingdom</option>
-            <option th:value="'CA'">Canada</option>
-        </select>
-        <br />
-        <button type="submit" class="btn btn-primary">Save</button>
-    </form>
-</main>
-
-<footer th:replace="partials/footer :: footer"></footer>
+    <footer th:replace="partials/footer :: footer"></footer>
+  
+    <script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
+    <script type="text/javascript" th:src="@{/js/keys.js}"></script>
+    <script type="text/javascript" th:src="@{/js/filestack.js}"></script>
 
 </body>
 </html>

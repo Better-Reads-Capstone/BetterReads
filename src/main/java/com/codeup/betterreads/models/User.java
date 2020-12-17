@@ -52,15 +52,12 @@ public class User {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
 
-//    @OneToMany
-//    private List<Club> clubs;
-
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Post> posts;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<ClubMember> clubMembers;
-    //
+
 
     //default
     public User() {
@@ -151,6 +148,7 @@ public class User {
     public void setFirstName(String firstName) {this.firstName = firstName;}
     public void setMiddleName(String middleName) {this.middleName = middleName;}
     public void setLastName(String lastName) {this.lastName = lastName;}
+    public void setPronouns(String pronouns) {this.pronouns = pronouns;}
     public void setAboutMe(String aboutMe) {this.aboutMe = aboutMe;}
     public void setCountry(String country) {this.country = country;}
     public void setWebsiteURL(String websiteURL) {this.websiteURL = websiteURL;}

@@ -20,6 +20,7 @@ public class Book {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "book")
     private List<ClubBook> clubBooks;
 
+
     public Book() {}
 
     //create
@@ -48,5 +49,4 @@ public class Book {
     public void setIsbnTen(String isbnTen) {this.isbnTen = isbnTen;}
     public void setGenre(Genre genre) {this.genre = genre;}
     public void setClubBooks(List<ClubBook> clubBooks) {this.clubBooks = clubBooks;}
-
 }

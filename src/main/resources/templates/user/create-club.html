@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="partials/head :: head('Start a Bookclub')">
-    <meta charset="UTF-8">
-    <title>Start a Bookclub</title>
+<head th:replace="partials/head :: head(title = 'Start a Bookclub')">
 </head>
 <body>
-
+<nav th:replace="partials/navbar :: navbar"></nav>
 <main>
     <h1>Start a Bookclub</h1>
     <form th:action="@{/create-club/{username} (username = ${user.username})}" method="POST" th:object="${club}">
@@ -50,6 +48,6 @@
         <button type="submit" class="btn btn-primary">Save</button>
     </form>
 </main>
-
+<footer th:replace="partials/footer :: footer"></footer>
 </body>
 </html>
