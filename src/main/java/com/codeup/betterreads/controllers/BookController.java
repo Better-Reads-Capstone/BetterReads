@@ -18,33 +18,35 @@ public class BookController {
     }
 
     @GetMapping("/booksearch")
-    public String searchResults() {return "book/results";}
+    public String searchResults() {return "books/results";}
 
     @PostMapping("/book/{isbn}")
     public String createBook(@PathVariable String isbn, Model viewModel) {
-//        Book newBook = bookDao.findBookByIsbnTenEquals(isbn);
-//        Book newDbBook = new Book();
-//
-//        System.out.println("newBook = " + newBook);
-//
-//        if (newBook == null){
-//            newDbBook.setIsbnTen(isbn);
-//            bookDao.save(newDbBook);
-//        }
-//
-//        System.out.println("newDbBook = " + newDbBook);
-//        viewModel.addAttribute("book", newDbBook);
-        System.out.println("isbn = " + isbn);
-        Book newBook = new Book();
-        newBook.setIsbnTen(isbn);
-        System.out.println("newBook.getIsbnTen() = " + newBook.getIsbnTen());
-        Book dbBook = bookDao.save(newBook);
-        System.out.println("dbBook.getId() = " + dbBook.getId());
-        System.out.println("dbBook.getIsbnTen() = " + dbBook.getIsbnTen());
+        Book newBook = bookDao.findBookByIsbnTenEquals(isbn);
+        Book newDbBook = new Book();
 
-        viewModel.addAttribute("book", dbBook);
+        System.out.println("newBook = " + newBook);
 
-        return "book/viewbook";
+        if (newBook == null){
+            newDbBook.setIsbnTen(isbn);
+            newBook = bookDao.save(newDbBook);
+        }
+
+        System.out.println("newDbBook = " + newDbBook);
+        System.out.println("newBook = " + newBook);
+        viewModel.addAttribute("book", newBook);
+
+
+//        System.out.println("isbn = " + isbn);
+//        Book newBook = new Book();
+//        newBook.setIsbnTen(isbn);
+//        System.out.println("newBook.getIsbnTen() = " + newBook.getIsbnTen());
+//        Book dbBook = bookDao.save(newBook);
+//        System.out.println("dbBook.getId() = " + dbBook.getId());
+//        System.out.println("dbBook.getIsbnTen() = " + dbBook.getIsbnTen());
+//        viewModel.addAttribute("book", dbBook);
+
+        return "books/viewbook";
     }
 
     @GetMapping("/book/{isbn}")
@@ -55,7 +57,7 @@ public class BookController {
     {
         Book dbBook = bookDao.findBookByIsbnTenEquals(isbn);
         viewModel.addAttribute("book", dbBook);
-        return "book/viewbook";
+        return "books/viewbook";
     }
 //    {
 //        System.out.println("isbn = " + isbn);
