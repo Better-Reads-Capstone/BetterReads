@@ -1,80 +1,21 @@
 const url = "https://api.nytimes.com/svc/books/v3/lists.json?list="
 const apiKey = `&api-key=${nytAPIKey}`
+const urlList = ["combined-print-and-e-book-fiction","hardcover-fiction","trade-fiction-paperback","combined-print-and-e-book-nonfiction","hardcover-nonfiction","paperback-nonfiction", "advice-how-to-and-miscellaneous"];
+const selectors = ["print-ebook-fiction-list","hardcover-fiction-list", "trade-fiction-paperback-list", "print-ebook-nonfiction-list", "hardcover-nonfiction-list", "paperback-nonfiction-list", "advice-how-to-list"]
+
 
 function displayBestSellers() {
-    displayPrintAndEbook();
-    displayHardcoverFiction();
-    displayTradeFictionPaperback();
-    displayPrintAndEbookNonfiction();
-    displayHardcoverNonfiction();
-    displayPaperbackNonfiction();
-    displayAdviceAndHowTo();
+    for(let i = 0; i < urlList.length; i++) {
+        fetch(`${url}${urlList[i]}${apiKey}`)
+            .then(response => response.json())
+            .then(data => {
+                document.querySelector(`.${selectors[i]}`).innerHTML = displayBookCard(data);
+            })
+            .catch(errors => console.log(errors))
+    }
 }
 
 displayBestSellers();
-
-function displayPrintAndEbook() {
-    fetch(`${url}combined-print-and-e-book-fiction${apiKey}`)
-        .then(response => response.json())
-        .then(data => {
-            document.querySelector(".print-ebook-fiction-list").innerHTML = displayBookCard(data);
-        })
-        .catch(errors => console.log(errors))
-}
-
-function displayHardcoverFiction() {
-    fetch(`${url}hardcover-fiction${apiKey}`)
-        .then(response => response.json())
-        .then(data => {
-            document.querySelector(".hardcover-fiction-list").innerHTML = displayBookCard(data);
-        })
-        .catch(errors => console.log(errors))
-}
-
-function displayTradeFictionPaperback() {
-    fetch(`${url}trade-fiction-paperback${apiKey}`)
-        .then(response => response.json())
-        .then(data => {
-            document.querySelector(".trade-fiction-paperback-list").innerHTML = displayBookCard(data);
-        })
-        .catch(errors => console.log(errors))
-}
-
-function displayPrintAndEbookNonfiction() {
-    fetch(`${url}combined-print-and-e-book-nonfiction${apiKey}`)
-        .then(response => response.json())
-        .then(data => {
-            document.querySelector(".print-ebook-nonfiction-list").innerHTML = displayBookCard(data);
-        })
-        .catch(errors => console.log(errors))
-}
-
-function displayHardcoverNonfiction() {
-    fetch(`${url}hardcover-nonfiction${apiKey}`)
-        .then(response => response.json())
-        .then(data => {
-            document.querySelector(".hardcover-nonfiction-list").innerHTML = displayBookCard(data);
-        })
-        .catch(errors => console.log(errors))
-}
-
-function displayPaperbackNonfiction() {
-    fetch(`${url}paperback-nonfiction${apiKey}`)
-        .then(response => response.json())
-        .then(data => {
-            document.querySelector(".paperback-nonfiction-list").innerHTML = displayBookCard(data);
-        })
-        .catch(errors => console.log(errors))
-}
-
-function displayAdviceAndHowTo() {
-    fetch(`${url}advice-how-to-and-miscellaneous${apiKey}`)
-        .then(response => response.json())
-        .then(data => {
-            document.querySelector(".advice-how-to-list").innerHTML = displayBookCard(data);
-        })
-        .catch(errors => console.log(errors))
-}
 
 function displayBookCard(data) {
     let finalHTML = '';
