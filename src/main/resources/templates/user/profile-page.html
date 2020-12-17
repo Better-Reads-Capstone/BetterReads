@@ -20,39 +20,40 @@
                 <h3 th:text="${user.aboutMe}"></h3>
             </div>
 
-            <div>
-                <!--   READ BOOKS     -->
-                <div>
-                    <h4>Read</h4>
-                    <div th:each="isbn : ${read}">
-                        <div th:value="${isbn}">
-                            <input type="text" th:value="${isbn}">
-                        </div>
-                    </div>
-                </div>
-                <!--   READING BOOKS     -->
-                <div>
-                    <h4>Reading</h4>
-                    <div th:each="isbn : ${reading}">
-                        <div th:value="${isbn}">
-                            <input type="text" th:value="${isbn}">
-                        </div>
-                    </div>
-                </div>
-
-                <!--   WISHLIST     -->
-                <div>
-                    <h4>Wishlist</h4>
-                    <div th:each="isbn : ${wishlist}">
-                        <div th:value="${isbn}">
-                            <input type="text" th:value="${isbn}">
-                        </div>
-                    </div>
+    <div class="bookshelf">
+        <!--   READ BOOKS     -->
+        <div>
+            <h4>Read</h4>
+            <div th:each="isbn : ${read}">
+                <div class="userBook" th:value="${isbn}">
+                    <input type="text" th:value="${isbn}">
                 </div>
             </div>
-        </main>
+        </div>
+        <!--   READING BOOKS     -->
+        <div>
+            <h4>Reading</h4>
+            <div th:each="isbn : ${reading}">
+                <div class="userBook" th:value="${isbn}">
+                    <input type="text" th:value="${isbn}">
+                </div>
+          </div>
+      </div>
+        <!--   WISHLIST     -->
+        <div>
+            <h4>Wishlist</h4>
+            <div th:each="isbn : ${wishlist}">
+                <div class="userBook" th:value="${isbn}">
+                    <input type="text" th:value="${isbn}">
+                </div>
+            </div>
+        </div>
     </div>
+ </main>
 
     <footer th:replace="partials/footer :: footer"></footer>
+<th:block th:include="partials/scripts :: scripts"></th:block>
+<script type="text/javascript" src="/js/keys.js"></script>
+<script type="text/javascript" src="/js/profileBooks.js"></script>
 </body>
 </html>
