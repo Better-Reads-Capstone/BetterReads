@@ -22,7 +22,6 @@ function simpleQuery(searchTerm) {
                 document.getElementById("search-results").innerHTML += `<p class='card-text'>${item.volumeInfo.description}</p>`;
                 document.getElementById("search-results").innerHTML += `<p class='card-text'>${item.volumeInfo.industryIdentifiers[0].identifier}</p>`;
                 document.getElementById("search-results").innerHTML += `<form class='form-inline my-2 my-lg-0' method="POST" action="/book/${item.volumeInfo.industryIdentifiers[0].identifier}"><button class='btn my-2 my-sm-0' type='submit' id='addBookBtn'>Add Book</button>`;
-                // document.getElementById("search-results").innerHTML += "<button class='btn my-2 my-sm-0' type='submit' id='addBookBtn'>Add Book</button>";
                 document.getElementById("search-results").innerHTML += "</form>";
                 document.getElementById("search-results").innerHTML += "</div>";
                 document.getElementById("search-results").innerHTML += "</div>";
@@ -31,10 +30,6 @@ function simpleQuery(searchTerm) {
             }
         })
 }
-
-
-
-// simpleQuery("frankenstein");
 
 $('#searchbtn').click(function(event) {
     event.preventDefault();

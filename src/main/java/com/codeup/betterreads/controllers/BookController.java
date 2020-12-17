@@ -25,27 +25,12 @@ public class BookController {
         Book newBook = bookDao.findBookByIsbnTenEquals(isbn);
         Book newDbBook = new Book();
 
-        System.out.println("newBook = " + newBook);
-
         if (newBook == null){
             newDbBook.setIsbnTen(isbn);
             newBook = bookDao.save(newDbBook);
         }
 
-        System.out.println("newDbBook = " + newDbBook);
-        System.out.println("newBook = " + newBook);
         viewModel.addAttribute("book", newBook);
-
-
-//        System.out.println("isbn = " + isbn);
-//        Book newBook = new Book();
-//        newBook.setIsbnTen(isbn);
-//        System.out.println("newBook.getIsbnTen() = " + newBook.getIsbnTen());
-//        Book dbBook = bookDao.save(newBook);
-//        System.out.println("dbBook.getId() = " + dbBook.getId());
-//        System.out.println("dbBook.getIsbnTen() = " + dbBook.getIsbnTen());
-//        viewModel.addAttribute("book", dbBook);
-
         return "books/viewbook";
     }
 
@@ -59,15 +44,4 @@ public class BookController {
         viewModel.addAttribute("book", dbBook);
         return "books/viewbook";
     }
-//    {
-//        System.out.println("isbn = " + isbn);
-//        Book newBook = new Book();
-//        newBook.setIsbnTen(isbn);
-//        System.out.println("newBook.getIsbnTen() = " + newBook.getIsbnTen());
-//        Book dbBook = bookDao.save(newBook);
-//        System.out.println("dbBook.getIsbnTen() = " + dbBook.getIsbnTen());
-//        System.out.println("dbBook.getId() = " + dbBook.getId());
-//        viewModel.addAttribute("book", dbBook);
-//        return "book/viewbook";
-//    }
 }
