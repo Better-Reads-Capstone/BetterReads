@@ -6,6 +6,7 @@ import com.codeup.betterreads.models.User;
 import com.codeup.betterreads.repositories.BookRepo;
 import com.codeup.betterreads.repositories.BookshelfRepo;
 import com.codeup.betterreads.repositories.UserRepo;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +22,8 @@ public class UserController {
     private UserRepo userDao;
     private PasswordEncoder passwordEncoder;
     private BookshelfRepo bookshelfDao;
+//    @Value("${googleBooksAPI}")
+//    private String googleBooksApi;
 
     public UserController(UserRepo userDao, PasswordEncoder passwordEncoder, BookshelfRepo bookshelfDao) {
         this.userDao = userDao;
