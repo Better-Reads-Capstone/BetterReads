@@ -20,20 +20,30 @@ public class BookController {
     @GetMapping("/booksearch")
     public String searchResults() {return "book/results";}
 
-    @PostMapping("/book/{isbn}/create")
+    @PostMapping("/book/{isbn}")
     public String createBook(@PathVariable String isbn, Model viewModel) {
-        Book newBook = bookDao.findBookByIsbnTenEquals(isbn);
-        Book newDbBook = new Book();
+//        Book newBook = bookDao.findBookByIsbnTenEquals(isbn);
+//        Book newDbBook = new Book();
+//
+//        System.out.println("newBook = " + newBook);
+//
+//        if (newBook == null){
+//            newDbBook.setIsbnTen(isbn);
+//            bookDao.save(newDbBook);
+//        }
+//
+//        System.out.println("newDbBook = " + newDbBook);
+//        viewModel.addAttribute("book", newDbBook);
+        System.out.println("isbn = " + isbn);
+        Book newBook = new Book();
+        newBook.setIsbnTen(isbn);
+        System.out.println("newBook.getIsbnTen() = " + newBook.getIsbnTen());
+        Book dbBook = bookDao.save(newBook);
+        System.out.println("dbBook.getId() = " + dbBook.getId());
+        System.out.println("dbBook.getIsbnTen() = " + dbBook.getIsbnTen());
 
-        System.out.println("newBook = " + newBook);
+        viewModel.addAttribute("book", dbBook);
 
-        if (newBook == null){
-            newDbBook.setIsbnTen(isbn);
-            bookDao.save(newDbBook);
-        }
-
-        System.out.println("newDbBook = " + newDbBook);
-        viewModel.addAttribute("book", newDbBook);
         return "book/viewbook";
     }
 
@@ -41,9 +51,21 @@ public class BookController {
     public String showBook(
             @PathVariable String isbn,
             Model viewModel
-    ) {
+    )
+    {
         Book dbBook = bookDao.findBookByIsbnTenEquals(isbn);
         viewModel.addAttribute("book", dbBook);
         return "book/viewbook";
     }
+//    {
+//        System.out.println("isbn = " + isbn);
+//        Book newBook = new Book();
+//        newBook.setIsbnTen(isbn);
+//        System.out.println("newBook.getIsbnTen() = " + newBook.getIsbnTen());
+//        Book dbBook = bookDao.save(newBook);
+//        System.out.println("dbBook.getIsbnTen() = " + dbBook.getIsbnTen());
+//        System.out.println("dbBook.getId() = " + dbBook.getId());
+//        viewModel.addAttribute("book", dbBook);
+//        return "book/viewbook";
+//    }
 }
