@@ -18,23 +18,25 @@
             <textarea class="form-control" id="about" rows="3" cols="50" th:field="*{about}"></textarea>
         </div>
 
+<!--        todo filestack implementation-->
 <!--        <div class="form-group">-->
 <!--            <label for="image-url">Image URL</label>-->
 <!--            <input id="image-url" class="form-control" th:field="*{avatarURL}" />-->
 <!--        </div>-->
 
-        <div class="form-check">
-            <input class="form-check-input" type="radio" th:field="*{privacy}" id="privateFalse" th:value="false" checked>
-            <label class="form-check-label" for="privateFalse">
-                Public
-            </label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="radio" th:field="*{privacy}" id="privateTrue" th:value="true">
-            <label class="form-check-label" for="privateTrue">
-                Private
-            </label>
-        </div>
+<!--        todo privacy option for book clubs should be revisted at a later time-->
+<!--        <div class="form-check">-->
+<!--            <input class="form-check-input" type="radio" th:field="*{privacy}" id="privateFalse" th:value="false" checked>-->
+<!--            <label class="form-check-label" for="privateFalse">-->
+<!--                Public-->
+<!--            </label>-->
+<!--        </div>-->
+<!--        <div class="form-check">-->
+<!--            <input class="form-check-input" type="radio" th:field="*{privacy}" id="privateTrue" th:value="true">-->
+<!--            <label class="form-check-label" for="privateTrue">-->
+<!--                Private-->
+<!--            </label>-->
+<!--        </div>-->
 
         <select th:field="*{genre}">
             <option th:value="1">Genre 1</option>

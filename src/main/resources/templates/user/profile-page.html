@@ -6,6 +6,13 @@
     <nav th:replace="partials/navbar :: navbar"></nav>
     <div class="container">
         <main>
+            <div>
+                <form th:action="@{/edit-profile/{username} (username = ${user.username})}">
+                    <button class = "btn btn-primary" type="submit">
+                        Edit Profile
+                    </button>
+                </form>
+            </div>
             <div th:name="user-info">
                 <img class="avatar-responsive" style="max-height:230px;max-width:230px;" th:src="${user.avatarURL}" />
                 <h1>Hi,
@@ -19,6 +26,8 @@
                 <h3 th:text="${user.country}"></h3>
                 <h3 th:text="${user.aboutMe}"></h3>
             </div>
+
+            <br />
 
     <div class="bookshelf">
         <!--   READ BOOKS     -->
