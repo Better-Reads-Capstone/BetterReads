@@ -7,9 +7,11 @@
 <body>
 <main>
     <div th:name="user-info">
+      <img class="avatar-responsive" style="max-height:230px;max-width:230px;" th:src="${user.avatarURL}" />
         <h1 th:text="${user.avatarURL}"></h1>
         <h1>Hi, <span th:text="${user.firstName}"></span> <span th:text="${user.middleName}"></span> <span
                 th:text="${user.lastName}"></span>! </h1>
+
         <h3 th:text="${user.email}"></h3>
         <h3 th:text="${user.websiteURL}"></h3>
         <h3 th:text="${user.pronouns}"></h3>
@@ -53,4 +55,5 @@
 <script type="text/javascript" src="/js/keys.js"></script>
 <script type="text/javascript" src="/js/profileBooks.js"></script>
 </body>
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
 </html>
