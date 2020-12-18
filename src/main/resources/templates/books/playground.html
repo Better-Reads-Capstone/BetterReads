@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="partials/head :: head('Search Results')">
+<head th:replace="partials/head :: head('Levis API Testing Playground')">
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
@@ -11,9 +11,18 @@
 
     <form class="form-inline my-2 my-lg-0">
         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="searchterm">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="button" id="searchbtn">Search</button>
+        <button class="btn btn-outline-success my-2 my-sm-0" type="button" id="searchbtn">General Search</button>
     </form>
-
+    <br>
+    <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="isbnterm">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="button" id="isbntermbtn">ISBN Search</button>
+    </form>
+    <br>
+    <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="refterm">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="button" id="reftermbtn">Reference ID Search</button>
+    </form>
     <div id="search-results" class="container"></div>
 
     <footer th:replace="partials/footer :: footer"></footer>
