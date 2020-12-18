@@ -76,11 +76,33 @@ getBook()
 //
 setTimeout(() =>
 {
+    // for(let isbn of isbns) {
+    //     let store = $(`#${isbn}`);
+    //     for(let book of books) {
+    //         if(book.isbn[0].identifier === store || book.isbn[1].identifier === store) {
+    //
+    //             }
+    //     }
+    // }
+    //FIRST GET AN ELEMENT WITH AN ID WHERE VALUE = ISBN
+    //THEN CHECK THROUGH THE BOOKS AND IF A BOOK HAS AN ISBN VALUE THAT MATCHES THE CURRENT ELEMENT
+    //PLACE THAT BOOKS PROPERTIES TO THE CURRENT ELEMENT $(THIS)
+    $('.userBook').each(function () {
+        let valueToBeChecked = ($(this).attr('id'));
+        console.log(valueToBeChecked)
+        for(let book of books) {
+            if(book.isbn[1].identifier === valueToBeChecked || book.isbn[0].identifier === valueToBeChecked) {
+                console.log(book)
+                let renderBook = `
+                <div>
+                <h6>${book.title}</h6>
+                </div>
+                `
+                $(this).html(renderBook);
+            }
+        }
+    })
 
-for(let book of books) {
-
-    console.log(book)
-}
         // voila!
 
 }, 1000);
