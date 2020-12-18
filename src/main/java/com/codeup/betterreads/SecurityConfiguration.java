@@ -54,7 +54,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                     .antMatchers(
                         // Pages only for authenticated users
                         "/profile/{username}",
-                        "/edit-profile/{username}"
+                        "/edit-profile/{username}",
+                            "/create-club/{username}"
                     )
                     .authenticated()
         ;
