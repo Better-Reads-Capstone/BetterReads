@@ -43,6 +43,8 @@ public class ClubController {
 
         club.setOwner(user);
         club.setCreatedDate(currentDate);
+        String defaultIMG = "/img/logo.png";
+        club.setHeaderImageUrl(defaultIMG);
 
         Club dbClub = clubDao.save(club);
         return "redirect:/bookclub/" + dbClub.getId();
@@ -58,5 +60,20 @@ public class ClubController {
         return "user/bookclub";
     }
 
+    @GetMapping("/edit-bookclub/{id}")
+    public String showEditBookClub (Model viewModel, @PathVariable long id) {
+        viewModel.addAttribute("club", clubDao.getOne(id));
+        return "user/edit-bookclub";
+    }
+
+    @PostMapping("/edit-bookclub/{id}")
+    public String editProfile(@PathVariable long id, @ModelAttribute Club clubToBeUpdated) {
+        Club club = clubDao.getOne(id);
+        clubToBeUpdated.setOwner(club.getOwner());
+        clubToBeUpdated.setCreatedDate(club.getCreatedDate());
+
+        Club dbClub = clubDao.save(clubToBeUpdated);
+        return "redirect:/bookclub/" + dbClub.getId();
+    }
 
 }
