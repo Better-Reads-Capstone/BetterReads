@@ -62,28 +62,11 @@ const getBook = () => {
     }
 }
 getBook()
-//
-// const setBook = async () => {
-//     const book = await getBook()
-//     return book
-// }
-// setBook().then(book => {
-//     console.log(book)
-// })
-
 
 // //will display each book after the timeout
 //
 setTimeout(() =>
 {
-    // for(let isbn of isbns) {
-    //     let store = $(`#${isbn}`);
-    //     for(let book of books) {
-    //         if(book.isbn[0].identifier === store || book.isbn[1].identifier === store) {
-    //
-    //             }
-    //     }
-    // }
     //FIRST GET AN ELEMENT WITH AN ID WHERE VALUE = ISBN
     //THEN CHECK THROUGH THE BOOKS AND IF A BOOK HAS AN ISBN VALUE THAT MATCHES THE CURRENT ELEMENT
     //PLACE THAT BOOKS PROPERTIES TO THE CURRENT ELEMENT $(THIS)
@@ -107,10 +90,6 @@ setTimeout(() =>
 
 }, 1000);
 
-// console.log(books)
-// $('.userBook').each(function() {
-//     console.log($(this).attr('value'));
-// })
 
 
 
