@@ -1,89 +1,165 @@
-const url = "https://api.nytimes.com/svc/books/v3/lists.json?list=";
-const apiKey = `&api-key=${nytAPIKey}`;
-const urlList = ["combined-print-and-e-book-fiction","hardcover-fiction","trade-fiction-paperback","combined-print-and-e-book-nonfiction","hardcover-nonfiction","paperback-nonfiction", "advice-how-to-and-miscellaneous"];
-const selectors = ["print-ebook-fiction-list","hardcover-fiction-list", "trade-fiction-paperback-list", "print-ebook-nonfiction-list", "hardcover-nonfiction-list", "paperback-nonfiction-list", "advice-how-to-list"];
+$(document).ready(function() {
+    const url = "https://api.nytimes.com/svc/books/v3/lists/overview.json?api-key=" + nytAPIKey;
+    const selectors = ["print-ebook-fiction-list","hardcover-fiction-list", "trade-fiction-paperback-list", "print-ebook-nonfiction-list", "hardcover-nonfiction-list", "paperback-nonfiction-list", "advice-how-to-list", "middle-grade-list", "picture-books-list", "series-books-list", "ya-hardcover-list", "audio-fiction-list", "audio-nonfiction-list", "business-list"];
+    let booksList = [];
 
+    //function calls
+    retrieveNYTBookInfo();
 
-
-function checkLocalStorage() {
-    if(window.localStorage.length === 0) {
-        saveBestSellersISBNS();
-    }
-    let retrievedISBNs = localStorage.getItem("ISBNS");
-    let storedISBNs = JSON.parse(retrievedISBNs);
-    console.log(storedISBNs);
-
-
-
-}
-
-checkLocalStorage();
-
-//Using Local Storage to save the best sellers ISBNs
-function saveBestSellersISBNS() {
-    let ISBNs = [];
-
-    for(let i = 0; i < urlList.length; i++) {
-        fetch(`${url}${urlList[i]}${apiKey}`)
+    // retrieveNYTBookInfo saves info from the NYT api, saves the info as book objects and then stores those objects into the booksList array. displayBestSellers is called in this function.
+    function retrieveNYTBookInfo(){
+        fetch(url)
             .then(response => response.json())
-            .then(data => {
-                for(let x = 0; x < data.results.length; x++) {
-                    let isbn = data.results[x].isbns[0].isbn13;
-                    // let title = data.results[x].book_details[0].title
-                    ISBNs.push(isbn);
+            .then(books => {
+                const bestSellerLists = books.results.lists;
+                // console.log(bestSellerLists);
+                for(let i = 0; i < bestSellerLists.length - 4; i++) {
+                    // console.log(bestSellerLists[i]);
+                    for(let x = 0; x < bestSellerLists[i].books.length; x++) {
+                        // console.log(bestSellerLists[i].books[x].title);
+                        booksList.push({
+                            listName: bestSellerLists[i].list_name,
+                            title: bestSellerLists[i].books[x].title,
+                            author: bestSellerLists[i].books[x].author,
+                            rank: bestSellerLists[i].books[x].rank,
+                            lastWeekRank: bestSellerLists[i].books[x].rank_last_week,
+                            publisher: bestSellerLists[i].books[x].publisher,
+                            isbn: bestSellerLists[i].books[x].primary_isbn13,
+                            description: bestSellerLists[i].books[x].description,
+                            image: bestSellerLists[i].books[x].book_image
+                        })
+                    }
                 }
-
-                localStorage.setItem("ISBNS", JSON.stringify(ISBNs));
+                console.log(booksList);
+                displayBestSellers(booksList);
             })
-            .catch(errors => console.log(errors))
+            // TODO: Find a better solution for taking care of errors.
+            .catch(err => console.log(err))
     }
-}
 
+    // This loops through the booksList and creates a card for each book object using displayBookCard. During each iteration, the "card" gets added to the appropriate variable, depending on the listName (using a switch case for conditional). Once the loop is complete, each variable gets added to it's corresponding div class.
+    function displayBestSellers(books) {
+        let printAndEbookFic = "";
+        let printAndEbookNon = "";
+        let hardcoverFiction = "";
+        let hardcoverNonfiction = "";
+        let tradeFictionPaperback = "";
+        let paperbackNonfiction = "";
+        let adviceHowToAndMiscellaneous = "";
+        let childrensMiddleGradeHardcover = "";
+        let pictureBooks = "";
+        let seriesBooks = "";
+        let youngAdultHardcover = "";
+        let audioFic = "";
+        let audioNon = "";
+        let businessBooks = "";
 
-$(".clear-local").click(function (event) {
-    event.preventDefault();
-    window.localStorage.clear();
-})
+        books.forEach(book => {
+            switch(book.listName) {
+                case "Combined Print and E-Book Fiction":
+                    printAndEbookFic += displayBookCard(book);
+                    console.log(book.title);
+                    break;
+                case "Combined Print and E-Book Nonfiction":
+                    printAndEbookNon += displayBookCard(book);
+                    console.log(book.title);
+                    break;
+                case "Hardcover Fiction":
+                    console.log(book.title);
+                    hardcoverFiction += displayBookCard(book);
+                    break;
+                case "Hardcover Nonfiction":
+                    hardcoverNonfiction += displayBookCard(book);
+                    console.log(book.title);
+                    break;
+                case "Trade Fiction Paperback":
+                    tradeFictionPaperback += displayBookCard(book);
+                    console.log(book.title);
+                    break;
+                case "Paperback Nonfiction":
+                    paperbackNonfiction += displayBookCard(book);
+                    console.log(book.title);
+                    break;
+                case "Advice How-To and Miscellaneous":
+                    adviceHowToAndMiscellaneous += displayBookCard(book);
+                    console.log(book.title);
+                    break;
+                case "Childrens Middle Grade Hardcover":
+                    childrensMiddleGradeHardcover += displayBookCard(book);
+                    console.log(book.title);
+                    break;
+                case "Picture Books":
+                    pictureBooks += displayBookCard(book);
+                    console.log(book.title);
+                    break;
+                case "Series Books":
+                    seriesBooks += displayBookCard(book);
+                    console.log(book.title);
+                    break;
+                case "Young Adult Hardcover":
+                    youngAdultHardcover += displayBookCard(book);
+                    console.log(book.title);
+                    break;
+                case "Audio Fiction":
+                    audioFic += displayBookCard(book);
+                    console.log(book.title);
+                    break;
+                case "Audio Nonfiction":
+                    audioNon += displayBookCard(book);
+                    console.log(book.title);
+                    break;
+                case "Business Books":
+                    businessBooks += displayBookCard(book);
+                    console.log(book.title);
+                    break;
+                default:
+                    console.log("none");
+                    break;
+            }
+        })
 
+        document.querySelector(".print-ebook-fiction-list").innerHTML = printAndEbookFic;
+        document.querySelector(".print-ebook-nonfiction-list").innerHTML = printAndEbookNon;
+        document.querySelector(".hardcover-fiction-list").innerHTML = hardcoverFiction;
+        document.querySelector(".hardcover-nonfiction-list").innerHTML = hardcoverNonfiction;
+        document.querySelector(".trade-fiction-paperback-list").innerHTML = tradeFictionPaperback
+        document.querySelector(".paperback-nonfiction-list").innerHTML = paperbackNonfiction;
+        document.querySelector(".advice-how-to-list").innerHTML = adviceHowToAndMiscellaneous;
+        document.querySelector(".middle-grade-list").innerHTML = childrensMiddleGradeHardcover;
+        document.querySelector(".picture-books-list").innerHTML = pictureBooks;
+        document.querySelector(".series-books-list").innerHTML = seriesBooks;
+        document.querySelector(".ya-hardcover-list").innerHTML = youngAdultHardcover;
+        document.querySelector(".audio-fiction-list").innerHTML = audioFic;
+        document.querySelector(".audio-nonfiction-list").innerHTML = audioNon;
+        document.querySelector(".business-list").innerHTML = businessBooks;
+    }
 
-
-// function displayBestSellers() {
-//     for(let i = 0; i < urlList.length; i++) {
-//         fetch(`${url}${urlList[i]}${apiKey}`)
-//             .then(response => response.json())
-//             .then(data => {
-//                 document.querySelector(`.${selectors[i]}`).innerHTML = displayBookCard(data);
-//             })
-//             .catch(errors => console.log(errors))
-//     }
-// }
-
-// displayBestSellers();
-
-function displayBookCard(data) {
-    let finalHTML = '';
-    console.log(data.results[0]);
-    for(let i = 0; i < data.results.length; i++) {
-        finalHTML +=
+    // Card creation
+    function displayBookCard(book) {
+        let finalHTML;
+        finalHTML =
             `<div class="col mb-4">
-                        <div class="card">
-                            <div class="card-header">
-                                <p>${data.results[i].book_details[0].title}</p>
-                            </div>
+                        <div class="card" style="width: 12rem;">
+                            <img src="${book.image}" class="card-img-top" alt="Book cover for ${book.title}">
                             <div class="card-body">
-                                <p>${data.results[i].isbns[0].isbn10}</p>
+                                <p>Author: ${book.author}</p>
+                                <p>Rank: ${book.rank}</p>
+                                <p>Rank last week: ${book.lastWeekRank}</p>
+                                <p>ISBN: ${book.isbn}</p>
+                                <p>Publisher: ${book.publisher}</p>
+                                <p>Description: ${book.description}</p>
                             </div>
                             <div class="card-footer">
                                 <form>
-                                    <input hidden value="${data.results[i].isbns[0].isbn10}">
+                                    <input hidden value="${book.isbn}">
                                     <button type="submit" class="btn btn-primary">Add Book!</button>
                                 </form>
                             </div>
                         </div>
                     </div>`
+        return finalHTML;
     }
 
-    return finalHTML;
-}
+});
 
 
