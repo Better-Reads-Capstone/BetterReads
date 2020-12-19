@@ -80,7 +80,7 @@ $('.book').click(function (event) {
                 <div>
                     <!-- LEFT BOTH IMAGE PATHS AVAILABLE FOR STYLING PURPOSES -->
                     <img src="${drillPath.imageLinks.thumbnail}" alt="book-image">
-                    <img src="${drillPath.imageLinks.smallThumbnail}" alt="book-image"></img>
+                    <img src="${drillPath.imageLinks.smallThumbnail}" alt="book-image-small">
                 </div>
                 <div>
                     <h6>${drillPath.title}</h6>
@@ -97,6 +97,19 @@ $('.book').click(function (event) {
                         </div>
                         <!-- NEED A CONDITIONAL TO NOT DISPLAY A VALUE IF UNDEFINED -->
                         <a href="#">${book.items[0].saleInfo.buyLink}</a>
+                    </div>
+                    <div>
+                        <div class="d-flex">
+                            <h6>Leave a Review</h6>
+                            <button class="minimize">-</button>
+                        </div>
+                        <!-- PROFILE USER REVIEW FORM -->
+                        <form action="" method="post">
+                           <div>
+                              <textarea name="" id="" cols="30" rows="10"></textarea>
+                           </div>
+                           <button type="submit">Submit</button>
+                        </form>
                     </div>
                 </div>
             </div>
