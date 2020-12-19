@@ -75,7 +75,7 @@ $('.book').click(function (event) {
             let drillPath = book.items[0].volumeInfo;
             console.log(drillPath)
             $('.modal-body').html(
-                    `
+                `
             <div>
                 <div>
                     <!-- LEFT BOTH IMAGE PATHS AVAILABLE FOR STYLING PURPOSES -->
