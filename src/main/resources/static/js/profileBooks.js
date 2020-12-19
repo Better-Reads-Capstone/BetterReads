@@ -46,6 +46,7 @@ const getBook = (isbns) => {
                                         currentStatus goes here
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                        <!-- POST METHOD TO CHANGE A BOOKS BOOKSHELF STATUS -->
                                         <form action="#" method="post">
                                             <button type="submit" class="dropdown-item" th:value="READ" th:href="#">Read</button>
                                             <button type="submit" class="dropdown-item" th:value="READING" th:href="#">Reading</button>

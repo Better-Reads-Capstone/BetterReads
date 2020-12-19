@@ -33,28 +33,43 @@
             <!--   READ BOOKS     -->
             <div class="d-flex">
                 <h4>Read</h4>
-                <div th:each="isbn : ${read}">
-                    <button class="book readBook" th:id="${isbn}" data-toggle="modal" data-target="#bookModal">
-                        <input type="text" th:value="${isbn}">
-                    </button>
+                <div th:each="extract : ${read}">
+                    <div>
+                        <button class="book readBook" th:value="${extract.book.id}" th:id="${extract.book.isbnTen}" data-toggle="modal" data-target="#bookModal">
+                            <input type="text" th:value="${extract.book.isbnTen}">
+                        </button>
+                        <form th:action="@{/profile/{username}/delete/{id}(username=${user.username},id=${extract.book.id})}" method="post">
+                            <button class="btn btn-danger" type="submit">Delete</button>
+                        </form>
+                    </div>
                 </div>
             </div>
             <!--   READING BOOKS     -->
             <div>
                 <h4>Reading</h4>
-                <div th:each="isbn : ${reading}">
-                    <button class="book activeBook" th:id="${isbn}" data-toggle="modal" data-target="#bookModal">
-                        <input type="text" th:value="${isbn}">
-                    </button>
+                <div th:each="extract : ${reading}">
+                    <div>
+                        <button class="book activeBook" th:value="${extract.book.id}" th:id="${extract.book.isbnTen}" data-toggle="modal" data-target="#bookModal">
+                            <input type="text" th:value="${extract.book.isbnTen}">
+                        </button>
+                        <form th:action="@{/profile/{username}/delete/{id}(username=${user.username},id=${extract.book.id})}" method="post">
+                            <button class="btn btn-danger" type="submit">Delete</button>
+                        </form>
+                    </div>
                 </div>
             </div>
             <!--   WISHLIST     -->
             <div>
                 <h4>Wishlist</h4>
-                <div th:each="isbn : ${wishlist}">
-                    <button class="book wishList" th:id="${isbn}" data-toggle="modal" data-target="#bookModal">
-                        <input type="text" th:value="${isbn}">
-                    </button>
+                <div th:each="extract : ${wishlist}">
+                    <div>
+                        <button class="book wishList" th:value="${extract.book.id}" th:id="${extract.book.isbnTen}" data-toggle="modal" data-target="#bookModal">
+                            <input type="text" th:value="${extract.book.isbnTen}">
+                        </button>
+                        <form th:action="@{/profile/{username}/delete/{id}(username=${user.username},id=${extract.book.id})}" method="post">
+                            <button class="btn btn-danger" type="submit">Delete</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

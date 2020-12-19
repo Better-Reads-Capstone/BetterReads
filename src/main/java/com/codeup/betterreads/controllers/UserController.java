@@ -1,5 +1,6 @@
 package com.codeup.betterreads.controllers;
 
+import com.codeup.betterreads.models.Book;
 import com.codeup.betterreads.models.Bookshelf;
 import com.codeup.betterreads.models.BookshelfStatus;
 import com.codeup.betterreads.models.User;
@@ -22,13 +23,15 @@ public class UserController {
     private UserRepo userDao;
     private PasswordEncoder passwordEncoder;
     private BookshelfRepo bookshelfDao;
+    private BookRepo bookDao;
 //    @Value("${googleBooksAPI}")
 //    private String googleBooksApi;
 
-    public UserController(UserRepo userDao, PasswordEncoder passwordEncoder, BookshelfRepo bookshelfDao) {
+    public UserController(UserRepo userDao, PasswordEncoder passwordEncoder, BookshelfRepo bookshelfDao, BookRepo bookDao) {
         this.userDao = userDao;
         this.passwordEncoder = passwordEncoder;
         this.bookshelfDao = bookshelfDao;
+        this.bookDao = bookDao;
     }
 
     @GetMapping("/sign-up")
@@ -89,32 +92,50 @@ public class UserController {
     @GetMapping("/profile/{username}")
     public String showUserProfile(Model viewModel, @PathVariable String username) {
         viewModel.addAttribute("user", userDao.findByUsername(username));
-
+        //FINDS THE CURRENT LOGGED IN USERS USERNAME
         User dbUser = userDao.findByUsername(username);
-
+        //CREATES A BOOKSHELF LIST THAT PLACES ALL EXISTING BOOKS THE LOGGED IN USER OWNS BY USERID
         List<Bookshelf> dbBookshelf = bookshelfDao.findAllByUserId(dbUser.getId());
 
-        ArrayList<String> readList = new ArrayList<>();
-        ArrayList<String> readingList = new ArrayList<>();
-        ArrayList<String> wishlist = new ArrayList<>();
-
+        ArrayList<Bookshelf> readList = new ArrayList<>();
+        ArrayList<Bookshelf> readingList = new ArrayList<>();
+        ArrayList<Bookshelf> wishlist = new ArrayList<>();
+        //LOOP THAT WILL CHECK A BOOKS STATUS AND PLACES EACH BOOK INTO THE ARRAYLISTS
+        // BASED ON THE BOOK STATUS
+        //WILL CHANGE EXTRACTING BY ISBN TO EXTRACT BY REFERENCE ID SOON
         for(Bookshelf book : dbBookshelf) {
-            String isbn = book.getBook().getIsbnTen();
+//            String isbn = book.getBook().getIsbnTen();
             if(book.getBookShelfStatus() == BookshelfStatus.READ) {
-                readList.add(isbn);
+                readList.add(book);
+//                readList.add(isbn);
             }
             else if(book.getBookShelfStatus() == BookshelfStatus.READING) {
-                readingList.add(isbn);
+                readingList.add(book);
+//                readingList.add(isbn);
             }
             else if(book.getBookShelfStatus() == BookshelfStatus.WISHLIST) {
-                wishlist.add(isbn);
+                wishlist.add(book);
+//                wishlist.add(isbn);
             }
         }
+
+        //NEED TO FIND OUT HOW TO DRAW OUT THE BOOK ID ON THE BOOKSHELF TO PASS TO THE VIEW
+        //SHOULD I CREATE NEW BOOK OBJECTS AND PASS ISBN(REFERENCE ID) AND BOOK ID TO THE ARRAY LIST
+        //AND THEN PASS A BOOK OBJECT TO THE VIEW INSTEAD OF ISBN(REFERENCE ID)?
         viewModel.addAttribute("read", readList);
         viewModel.addAttribute("reading", readingList);
         viewModel.addAttribute("wishlist", wishlist);
         return "user/profile-page";
     }
 
+    @PostMapping("/profile/{username}/delete/{id}")
+    public String deleteBook(@PathVariable String username, @PathVariable Book id) {
+        System.out.println(username);
+        //THOUGHT THIS WOULD DELETE THE BOOKSHELF BY THE BOOK ID, EVERTHING WORKS TO THIS POINT
+        //THERE MAY BE FOREIGN KEYS ATTACHED THAT IS NOT ALLOWING THE BOOKSHELF TO BE DELETED...
+        bookshelfDao.deleteBookshelfByBook(id);
+        User dbUser = userDao.findByUsername(username);
+        return "redirect:/profile/" + dbUser.getUsername();
+    }
 
 }
