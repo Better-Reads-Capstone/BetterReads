@@ -42,17 +42,20 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/sign-up">Register</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/create-bookclub">Start a Bookclub</a>
-                </li>
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
             </ul>
-            <form class="form-inline my-2 my-lg-0">
+            <form class="form-inline my-2 my-lg-0" action="/booksearch" method="get">
                 <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
             </form>
         </div>
         <div sec:authorize="isAuthenticated()" class="d-flex">
             <div class="d-flex">
+                <div th:text="${#authentication.principal.username}"></div>
+                <a class="nav-link" th:href="@{/create-club/{username} (username = ${#authentication.principal.username})}">Start a Bookclub</a>
                 <a class="align-self-center" th:href="@{/profile/{username}(username=${#authentication.principal.username})}">Profile</a>
             </div>
             <form th:action="@{/logout}" th:method="post">

@@ -3,24 +3,31 @@
 <head th:replace="partials/head :: head(title = 'Start a Bookclub')">
 </head>
 <body>
-<nav th:replace="partials/navbar :: navbar"></nav>
+    <nav th:replace="partials/navbar :: navbar"></nav>
+    <div class="container">
+        <main>
+            <div>
+                <form th:action="@{/edit-profile/{username} (username = ${user.username})}">
+                    <button class = "btn btn-primary" type="submit">
+                        Edit Profile
+                    </button>
+                </form>
+            </div>
+            <div th:name="user-info">
+                <img class="avatar-responsive" style="max-height:230px;max-width:230px;" th:src="${user.avatarURL}" />
+                <h1>Hi,
+                    <span th:text="${user.firstName}"></span>
+                    <span th:text="${user.middleName}"></span>
+                    <span th:text="${user.lastName}"></span>!
+                </h1>
+                <h3 th:text="${user.email}"></h3>
+                <h3 th:text="${user.websiteURL}"></h3>
+                <h3 th:text="${user.pronouns}"></h3>
+                <h3 th:text="${user.country}"></h3>
+                <h3 th:text="${user.aboutMe}"></h3>
+            </div>
 
-    <main class="container">
-        <div th:name="user-info">
-            <img class="avatar-responsive" style="max-height:230px;max-width:230px;" th:src="${user.avatarURL}"/>
-            <h1>Hi,
-                <span th:text="${user.firstName}"></span>
-                <span th:text="${user.middleName}"></span>
-                <span th:text="${user.lastName}"></span>!
-            </h1>
-            <h3 th:text="${user.email}"></h3>
-            <h3 th:text="${user.websiteURL}"></h3>
-            <h3 th:text="${user.pronouns}"></h3>
-            <h3 th:text="${user.country}"></h3>
-            <h3 th:text="${user.aboutMe}"></h3>
-        </div>
-
-        <div class="bookshelf d-flex flex-column">
+       <div class="bookshelf d-flex flex-column">
             <div id="loader">Loading....</div>
 
             <!--   READ BOOKS     -->
@@ -68,15 +75,11 @@
             </div>
         </div>
     </main>
+  </div>  
 
     <footer th:replace="partials/footer :: footer"></footer>
     <th:block th:include="partials/scripts :: scripts"></th:block>
     <script type="text/javascript" src="/js/keys.js"></script>
     <script type="text/javascript" src="/js/profileBooks.js"></script>
-    <script  type="text/javascript">
-        $('.book').click(function() {
-            console.log($(this));
-        })
-    </script>
 </body>
 </html>
