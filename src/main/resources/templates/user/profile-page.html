@@ -20,33 +20,51 @@
             <h3 th:text="${user.aboutMe}"></h3>
         </div>
 
-        <div class="bookshelf">
+        <div class="bookshelf d-flex flex-column">
+            <div id="loader">Loading....</div>
+
             <!--   READ BOOKS     -->
-            <div>
+            <div class="d-flex">
                 <h4>Read</h4>
                 <div th:each="isbn : ${read}">
-                    <div class="userBook" th:id="${isbn}">
+                    <button class="book readBook" th:id="${isbn}" data-toggle="modal" data-target="#bookModal">
                         <input type="text" th:value="${isbn}">
-                    </div>
+                    </button>
                 </div>
             </div>
             <!--   READING BOOKS     -->
             <div>
                 <h4>Reading</h4>
                 <div th:each="isbn : ${reading}">
-                    <div class="userBook" th:id="${isbn}">
+                    <button class="book activeBook" th:id="${isbn}" data-toggle="modal" data-target="#bookModal">
                         <input type="text" th:value="${isbn}">
-                    </div>
+                    </button>
                 </div>
             </div>
             <!--   WISHLIST     -->
             <div>
                 <h4>Wishlist</h4>
                 <div th:each="isbn : ${wishlist}">
-                    <div class="userBook" th:id="${isbn}">
+                    <button class="book wishList" th:id="${isbn}" data-toggle="modal" data-target="#bookModal">
                         <input type="text" th:value="${isbn}">
-                    </div>
+                    </button>
                 </div>
+            </div>
+        </div>
+
+        <!--    SHOW BOOK MODAL    -->
+        <div class="modal" id="bookModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title"></h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <section class='container-fluid section' id="result">
+                    </section>
+                    <div class="putModal"></div>
+                </div>
+                <button type="button" class="modal-ft btn btn-dark" data-dismiss="modal">Close</button>
             </div>
         </div>
     </main>
@@ -55,5 +73,10 @@
     <th:block th:include="partials/scripts :: scripts"></th:block>
     <script type="text/javascript" src="/js/keys.js"></script>
     <script type="text/javascript" src="/js/profileBooks.js"></script>
+    <script  type="text/javascript">
+        $('.book').click(function() {
+            console.log($(this));
+        })
+    </script>
 </body>
 </html>
