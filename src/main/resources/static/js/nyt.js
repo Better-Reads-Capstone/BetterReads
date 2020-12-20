@@ -8,18 +8,20 @@ $(document).ready(function() {
     retrieveNYTBookInfo();
 
     //Loading Icon
-    function showSpinner() {
-        loadingIcon.classList.add('show');
-        setTimeout(() => {
-            loadingIcon.classList.remove('show');
-        }, 5000);
+    function showLoadingIcon() {
+        $(".loading-icon").removeAttr("style").addClass("show");
+    }
+    function hideLoadingIcon() {
+        $(".loading-icon").css("display", "none");
     }
 
     // retrieveNYTBookInfo saves info from the NYT api, saves the info as book objects and then stores those objects into the booksList array. displayBestSellers is called in this function.
     function retrieveNYTBookInfo(){
+        showLoadingIcon();
         fetch(url)
             .then(response => response.json())
             .then(books => {
+                hideLoadingIcon();
                 const bestSellerLists = books.results.lists;
                 // console.log(bestSellerLists);
                 for(let i = 0; i < bestSellerLists.length - 4; i++) {
@@ -44,6 +46,10 @@ $(document).ready(function() {
             })
             // TODO: Find a better solution for taking care of errors.
             .catch(err => {
+                showLoadingIcon();
+                setTimeout( () => {
+                    location.reload();
+                }, 10000);
                 console.log(err)
             });
     }

@@ -1,5 +1,4 @@
 .loading-icon{
-    /*visibility: hidden;*/
     width: 80px;
     height: 80px;
 
@@ -19,5 +18,5 @@
 }
 
 .loading-icon.show {
-    visibility: visible;
+    display: block;
 }
