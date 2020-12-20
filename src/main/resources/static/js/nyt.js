@@ -1,10 +1,19 @@
 $(document).ready(function() {
     const url = "https://api.nytimes.com/svc/books/v3/lists/overview.json?api-key=" + nytAPIKey;
     const selectors = ["print-ebook-fiction-list","hardcover-fiction-list", "trade-fiction-paperback-list", "print-ebook-nonfiction-list", "hardcover-nonfiction-list", "paperback-nonfiction-list", "advice-how-to-list", "middle-grade-list", "picture-books-list", "series-books-list", "ya-hardcover-list", "audio-fiction-list", "audio-nonfiction-list", "business-list"];
+    const loadingIcon = document.querySelector(".loading-icon");
     let booksList = [];
 
     //function calls
     retrieveNYTBookInfo();
+
+    //Loading Icon
+    function showSpinner() {
+        loadingIcon.classList.add('show');
+        setTimeout(() => {
+            loadingIcon.classList.remove('show');
+        }, 5000);
+    }
 
     // retrieveNYTBookInfo saves info from the NYT api, saves the info as book objects and then stores those objects into the booksList array. displayBestSellers is called in this function.
     function retrieveNYTBookInfo(){
@@ -34,7 +43,9 @@ $(document).ready(function() {
                 displayBestSellers(booksList);
             })
             // TODO: Find a better solution for taking care of errors.
-            .catch(err => console.log(err))
+            .catch(err => {
+                console.log(err)
+            });
     }
 
     // This loops through the booksList and creates a card for each book object using displayBookCard. During each iteration, the "card" gets added to the appropriate variable, depending on the listName (using a switch case for conditional). Once the loop is complete, each variable gets added to it's corresponding div class.
