@@ -10,10 +10,7 @@ import com.codeup.betterreads.repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.*;
@@ -125,4 +122,16 @@ public class UserController {
         return "redirect:/profile/" + dbUser.getUsername();
     }
 
+    @PostMapping("/profile/{username}/{bookshelfId}")
+    public String updateBookshelfStatus(
+            @RequestParam(value="bookshelfStatus") BookshelfStatus status,
+            @PathVariable String username,
+            @PathVariable long bookshelfId) {
+        User dbUser = userDao.findByUsername(username);
+
+        Bookshelf dbBookshelf = bookshelfDao.getOne(bookshelfId);
+        dbBookshelf.setStatus(status);
+        bookshelfDao.save(dbBookshelf);
+        return "redirect:/profile/" + dbUser.getUsername();
+    }
 }

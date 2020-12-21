@@ -4,23 +4,29 @@ function generatePath(path) {
     return getUrl;
 }
 
-//CREATES ARRAYS OF ISBNS FROM THE VIEW
-let readIsbns = [];
-$('.readBook').each(function () {
-    readIsbns.push($(this).attr('id'))
+//WILL CREATE AN ARRAY OF OBJECTS THAT CAN BE PASSED INTO getBook() and accessed
+let readBooks = [];
+let activeBooks = [];
+let wishlistBooks = [];
+$('.readBook').each(function() {
+    let book = {}
+    book.isbn = $(this).attr('id');
+    readBooks.push(book);
 })
-let activeIsbns = [];
-$('.activeBook').each(function () {
-    activeIsbns.push($(this).attr('id'))
+$('.activeBook').each(function() {
+    let book = {}
+    book.isbn = $(this).attr('id');
+    activeBooks.push(book);
 })
-let wishlistIsbns = [];
-$('.wishList').each(function () {
-    wishlistIsbns.push($(this).attr('id'))
+$('.wishlistBook').each(function() {
+    let book = {}
+    book.isbn = $(this).attr('id');
+    wishlistBooks.push(book);
 })
 
-const getBook = (isbns) => {
-    for (let isbn of isbns) {
-        fetch(generatePath(isbn))
+const getBook = (books) => {
+    for (let currentBook of books) {
+        fetch(generatePath(currentBook.isbn))
             .then(res => res.json())
             .then(book => {
                 let drillPath = book.items[0].volumeInfo;
@@ -35,31 +41,18 @@ const getBook = (isbns) => {
                 createBook.categories = drillPath.categories;
                 createBook.isbn = drillPath.industryIdentifiers;
                 createBook.saleInfo = book.items[0].saleInfo.buyLink;
-                if (createBook.isbn[1].identifier === isbn || createBook.isbn[0].identifier === isbn) {
+                if (createBook.isbn[1].identifier === currentBook.isbn || createBook.isbn[0].identifier === currentBook.isbn) {
                     let renderBook = `
                         <div>
                                 <img src="${createBook.img}" alt="book-img">
                             <div class="d-flex">
                                 <h6>${createBook.title}</h6>
-                                <div class="dropdown show">
-                                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        currentStatus goes here
-                                    </a>
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                        <!-- POST METHOD TO CHANGE A BOOKS BOOKSHELF STATUS -->
-                                        <form action="#" method="post">
-                                            <button type="submit" class="dropdown-item" th:value="READ" th:href="#">Read</button>
-                                            <button type="submit" class="dropdown-item" th:value="READING" th:href="#">Reading</button>
-                                            <button type="submit" class="dropdown-item" th:value="WISHLIST" th:href="#">Wishlist</button>
-                                        </form>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                         
-                        <div id="${'book-' + isbn}"></div>
+                        <div id="${'book-' + currentBook.isbn}"></div>
                         `
-                    $(`#${isbn}`).html(renderBook);
+                    $(`#${currentBook.isbn}`).html(renderBook);
                 }
             })
             .catch(error => console.error("ERROR"))
@@ -122,8 +115,8 @@ $('.book').click(function (event) {
 document.onreadystatechange = function () {
     if (document.readyState === "complete") {
         $('#loader').remove()
-        getBook(readIsbns)
-        getBook(activeIsbns)
-        getBook(wishlistIsbns)
+        getBook(readBooks)
+        getBook(activeBooks)
+        getBook(wishlistBooks)
     }
 };
