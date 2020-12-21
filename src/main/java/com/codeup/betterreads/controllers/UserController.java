@@ -92,36 +92,26 @@ public class UserController {
     @GetMapping("/profile/{username}")
     public String showUserProfile(Model viewModel, @PathVariable String username) {
         viewModel.addAttribute("user", userDao.findByUsername(username));
-        //FINDS THE CURRENT LOGGED IN USERS USERNAME
+
         User dbUser = userDao.findByUsername(username);
-        //CREATES A BOOKSHELF LIST THAT PLACES ALL EXISTING BOOKS THE LOGGED IN USER OWNS BY USERID
         List<Bookshelf> dbBookshelf = bookshelfDao.findAllByUserId(dbUser.getId());
 
         ArrayList<Bookshelf> readList = new ArrayList<>();
         ArrayList<Bookshelf> readingList = new ArrayList<>();
         ArrayList<Bookshelf> wishlist = new ArrayList<>();
-        //LOOP THAT WILL CHECK A BOOKS STATUS AND PLACES EACH BOOK INTO THE ARRAYLISTS
-        // BASED ON THE BOOK STATUS
-        //WILL CHANGE EXTRACTING BY ISBN TO EXTRACT BY REFERENCE ID SOON
+
         for(Bookshelf book : dbBookshelf) {
-//            String isbn = book.getBook().getIsbnTen();
             if(book.getBookShelfStatus() == BookshelfStatus.READ) {
                 readList.add(book);
-//                readList.add(isbn);
             }
             else if(book.getBookShelfStatus() == BookshelfStatus.READING) {
                 readingList.add(book);
-//                readingList.add(isbn);
             }
             else if(book.getBookShelfStatus() == BookshelfStatus.WISHLIST) {
                 wishlist.add(book);
-//                wishlist.add(isbn);
             }
         }
 
-        //NEED TO FIND OUT HOW TO DRAW OUT THE BOOK ID ON THE BOOKSHELF TO PASS TO THE VIEW
-        //SHOULD I CREATE NEW BOOK OBJECTS AND PASS ISBN(REFERENCE ID) AND BOOK ID TO THE ARRAY LIST
-        //AND THEN PASS A BOOK OBJECT TO THE VIEW INSTEAD OF ISBN(REFERENCE ID)?
         viewModel.addAttribute("read", readList);
         viewModel.addAttribute("reading", readingList);
         viewModel.addAttribute("wishlist", wishlist);
@@ -130,23 +120,7 @@ public class UserController {
 
     @PostMapping("/profile/{username}/delete/{id}")
     public String deleteBook(@PathVariable String username, @PathVariable Bookshelf id) {
-        System.out.println(username);
-
-        //THOUGHT THIS WOULD DELETE THE BOOKSHELF BY THE BOOK ID, EVERTHING WORKS TO THIS POINT
-        //THERE MAY BE FOREIGN KEYS ATTACHED THAT IS NOT ALLOWING THE BOOKSHELF TO BE DELETED...
         User dbUser = userDao.findByUsername(username);
-        //Am getting a book and user object...
-        System.out.println(id);
-        System.out.println(dbUser);
-//        Bookshelf dbBookshelf = bookshelfDao.findBookshelfByBookAndUser(id, dbUser);
-        //proves I am getting the right bookshelf...
-//        System.out.println("dbBookshelf = " + dbBookshelf.getId());
-//        System.out.println("dbBookshelf = " + dbBookshelf.getBookShelfStatus());
-//        System.out.println("dbBookshelf = " + dbBookshelf.getBook().getId());
-//        System.out.println("dbBookshelf = " + dbBookshelf.getUser().getId());
-        //gives me a error status 500... why?
-//        bookshelfDao.deleteBookshelfByBookAndUser(id, dbUser);
-        //maybe I need to delete the book
         bookshelfDao.deleteById(id.getId());
         return "redirect:/profile/" + dbUser.getUsername();
     }
