@@ -125,5 +125,17 @@ public class UserController {
         return "redirect:/profile/" + dbUser.getUsername();
     }
 
+    @PostMapping("/profile/{username}/{status}_update/{id}")
+    public String updateBookshelfStatus(
+            @PathVariable String username,
+            @PathVariable BookshelfStatus status,
+            @ModelAttribute Bookshelf bookshelfToBeUpdated) {
+        User dbUser = userDao.findByUsername(username);
+        //need to pass in a bookshelf object to extract values and
+        // set new values plus the updated status to a new book(),
+        // then use dbBookshelf.save(bookshelfToBeUpdated) to store the updated book in the bookshelf
 
+
+        return "redirect:/profile/" + dbUser.getUsername();
+    }
 }
