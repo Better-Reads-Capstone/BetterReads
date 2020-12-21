@@ -10,10 +10,7 @@ import com.codeup.betterreads.repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.*;
@@ -125,17 +122,16 @@ public class UserController {
         return "redirect:/profile/" + dbUser.getUsername();
     }
 
-    @PostMapping("/profile/{username}/{status}_update/{id}")
+    @PostMapping("/profile/{username}/{bookshelfId}")
     public String updateBookshelfStatus(
+            @RequestParam(value="bookshelfStatus") BookshelfStatus status,
             @PathVariable String username,
-            @PathVariable BookshelfStatus status,
-            @ModelAttribute Bookshelf bookshelfToBeUpdated) {
+            @PathVariable long bookshelfId) {
         User dbUser = userDao.findByUsername(username);
-        //need to pass in a bookshelf object to extract values and
-        // set new values plus the updated status to a new book(),
-        // then use dbBookshelf.save(bookshelfToBeUpdated) to store the updated book in the bookshelf
 
-
+        Bookshelf dbBookshelf = bookshelfDao.getOne(bookshelfId);
+        dbBookshelf.setStatus(status);
+        bookshelfDao.save(dbBookshelf);
         return "redirect:/profile/" + dbUser.getUsername();
     }
 }

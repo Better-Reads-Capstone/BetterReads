@@ -3,8 +3,6 @@ function generatePath(path) {
     const getUrl = `https://www.googleapis.com/books/v1/volumes?q=isbn:${path}&key=${googleBooksAPI}`;
     return getUrl;
 }
-//TODO: THEN I SHOULD BE GOOD TO SETUP THE CONTROLLER TO CHANGE A BOOKS STATUS (SHOULD LOOK SIMILAR AND FUNCTION THE
-//  SAME AS THE SHOWPROFILEPAGE() METHOD IN USERCONTROLLER.JAVA
 
 //WILL CREATE AN ARRAY OF OBJECTS THAT CAN BE PASSED INTO getBook() and accessed
 let readBooks = [];
@@ -13,19 +11,16 @@ let wishlistBooks = [];
 $('.readBook').each(function() {
     let book = {}
     book.isbn = $(this).attr('id');
-    book.status = $(this).attr('data-status');
     readBooks.push(book);
 })
 $('.activeBook').each(function() {
     let book = {}
     book.isbn = $(this).attr('id');
-    book.status = $(this).attr('data-status');
     activeBooks.push(book);
 })
 $('.wishlistBook').each(function() {
     let book = {}
     book.isbn = $(this).attr('id');
-    book.status = $(this).attr('data-status');
     wishlistBooks.push(book);
 })
 
@@ -52,19 +47,6 @@ const getBook = (books) => {
                                 <img src="${createBook.img}" alt="book-img">
                             <div class="d-flex">
                                 <h6>${createBook.title}</h6>
-                                <div class="dropdown show">
-                                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        ${currentBook.status}
-                                    </a>
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                        <!-- POST METHOD TO CHANGE A BOOKS BOOKSHELF STATUS -->
-                                        <form action="#" method="post">
-                                            <button type="submit" class="dropdown-item" th:value="READ" th:href="#">Read</button>
-                                            <button type="submit" class="dropdown-item" th:value="READING" th:href="#">Reading</button>
-                                            <button type="submit" class="dropdown-item" th:value="WISHLIST" th:href="#">Wishlist</button>
-                                        </form>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                         

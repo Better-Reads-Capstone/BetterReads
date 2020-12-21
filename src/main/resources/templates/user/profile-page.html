@@ -35,39 +35,54 @@
                 <h4>Read</h4>
                 <div th:each="extract : ${read}">
                     <div>
-                        <button class="book readBook" th:value="${extract.book.id}" th:id="${extract.book.isbnTen}" th:data-status="${extract.bookShelfStatus}" data-toggle="modal" data-target="#bookModal">
-                            <input type="text" th:value="${extract.book.isbnTen}">
-                        </button>
+                        <button class="book readBook" th:id="${extract.book.isbnTen}" data-toggle="modal" data-target="#bookModal"></button>
                         <form th:action="@{/profile/{username}/delete/{id}(username=${user.username}, id=${extract.id})}" method="post">
                             <button class="btn btn-danger" type="submit">Delete</button>
+                        </form>
+                        <form th:action="@{/profile/{username}/{bookshelfId}(username=${user.username}, bookshelfId=${extract.id})}" method="post">
+                            <select name="bookshelfStatus" onchange="this.form.submit()">
+                                <option th:value="'READ'" selected disabled>READ</option>
+                                <option th:value="'READING'">READING</option>
+                                <option th:value="'WISHLIST'">WISHLIST</option>
+                            </select>
                         </form>
                     </div>
                 </div>
             </div>
             <!--   READING BOOKS     -->
-            <div>
+            <div class="d-flex">
                 <h4>Reading</h4>
                 <div th:each="extract : ${reading}">
                     <div>
-                        <button class="book activeBook" th:value="${extract.book.id}" th:id="${extract.book.isbnTen}" th:data-status="${extract.bookShelfStatus}" data-toggle="modal" data-target="#bookModal">
-                            <input type="text" th:value="${extract.book.isbnTen}">
-                        </button>
+                        <button class="book activeBook" th:id="${extract.book.isbnTen}" data-toggle="modal" data-target="#bookModal"></button>
                         <form th:action="@{/profile/{username}/delete/{id}(username=${user.username}, id=${extract.id})}" method="post">
                             <button class="btn btn-danger" type="submit">Delete</button>
+                        </form>
+                        <form th:action="@{/profile/{username}/{bookshelfId}(username=${user.username}, bookshelfId=${extract.id})}" method="post">
+                            <select name="bookshelfStatus" onchange="this.form.submit()">
+                                <option th:value="'READ'">READ</option>
+                                <option th:value="'READING'" selected disabled>READING</option>
+                                <option th:value="'WISHLIST'">WISHLIST</option>
+                            </select>
                         </form>
                     </div>
                 </div>
             </div>
             <!--   WISHLIST     -->
-            <div>
+            <div class="d-flex">
                 <h4>Wishlist</h4>
                 <div th:each="extract : ${wishlist}">
                     <div>
-                        <button class="book wishlistBook" th:value="${extract.book.id}" th:id="${extract.book.isbnTen}" th:data-status="${extract.bookShelfStatus}" data-toggle="modal" data-target="#bookModal">
-                            <input type="text" th:value="${extract.book.isbnTen}">
-                        </button>
+                        <button class="book wishlistBook" th:id="${extract.book.isbnTen}" data-toggle="modal" data-target="#bookModal"></button>
                         <form th:action="@{/profile/{username}/delete/{id}(username=${user.username}, id=${extract.id})}" method="post">
                             <button class="btn btn-danger" type="submit">Delete</button>
+                        </form>
+                        <form th:action="@{/profile/{username}/{bookshelfId}(username=${user.username}, bookshelfId=${extract.id})}" method="post">
+                            <select name="bookshelfStatus" onchange="this.form.submit()">
+                                <option th:value="'READ'">READ</option>
+                                <option th:value="'READING'">READING</option>
+                                <option th:value="'WISHLIST'" selected disabled>WISHLIST</option>
+                            </select>
                         </form>
                     </div>
                 </div>
