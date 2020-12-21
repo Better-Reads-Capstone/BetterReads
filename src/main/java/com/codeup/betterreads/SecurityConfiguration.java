@@ -55,7 +55,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         // Pages only for authenticated users
                         "/profile/{username}",
                         "/edit-profile/{username}",
-                            "/create-club/{username}"
+                            "/create-club/{username}",
+                            "/edit-bookclub/{id}",
+                            "/bookclub/{username}"
                     )
                     .authenticated()
         ;

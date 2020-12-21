@@ -18,11 +18,13 @@
             <textarea class="form-control" id="about" rows="3" cols="50" th:field="*{about}"></textarea>
         </div>
 
-<!--        todo filestack implementation-->
-<!--        <div class="form-group">-->
-<!--            <label for="image-url">Image URL</label>-->
-<!--            <input id="image-url" class="form-control" th:field="*{avatarURL}" />-->
-<!--        </div>-->
+        <!--filestack api-->
+        <div class="filestack">
+            <img id="avatarPreview" th:src="${club.headerImageUrl}" alt="">
+            <br />
+            <input type="hidden" id="avatar" name="product_image_url" th:field="*{headerImageUrl}" />
+            <button class="btn" id="addPicture">addPicture</button>
+        </div>
 
 <!--        todo privacy option for book clubs should be revisted at a later time-->
 <!--        <div class="form-check">-->
@@ -49,5 +51,8 @@
     </form>
 </main>
 <footer th:replace="partials/footer :: footer"></footer>
+<script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
+<script type="text/javascript" th:src="@{/js/keys.js}"></script>
+<script type="text/javascript" th:src="@{/js/filestack.js}"></script>
 </body>
 </html>

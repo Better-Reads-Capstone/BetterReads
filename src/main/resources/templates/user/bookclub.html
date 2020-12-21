@@ -6,11 +6,17 @@
 </head>
 <body>
 <nav th:replace="partials/navbar :: navbar"></nav>
+<form th:action="@{/edit-bookclub/{id} (id = ${club.id})}">
+    <button class = "btn btn-primary" type="submit">
+        Edit Club
+    </button>
+</form>
 <main>
     <p>Name of club: </p><h1 th:text="${club.name}"></h1>
     <p>About: </p><h3 th:text="${club.about}"></h3>
     <p>Club genre: </p><h3 th:text="${club.genre.name}"></h3>
     <p>Club Owner: </p><h3 th:text="${club.owner.username}"></h3>
+    <img th:src="${club.headerImageUrl}" alt="">
 </main>
 <footer th:replace="partials/footer :: footer"></footer>
 </body>
