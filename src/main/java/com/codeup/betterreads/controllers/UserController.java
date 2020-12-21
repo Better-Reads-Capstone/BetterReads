@@ -129,12 +129,25 @@ public class UserController {
     }
 
     @PostMapping("/profile/{username}/delete/{id}")
-    public String deleteBook(@PathVariable String username, @PathVariable Book id) {
+    public String deleteBook(@PathVariable String username, @PathVariable Bookshelf id) {
         System.out.println(username);
+
         //THOUGHT THIS WOULD DELETE THE BOOKSHELF BY THE BOOK ID, EVERTHING WORKS TO THIS POINT
         //THERE MAY BE FOREIGN KEYS ATTACHED THAT IS NOT ALLOWING THE BOOKSHELF TO BE DELETED...
-        bookshelfDao.deleteBookshelfByBook(id);
         User dbUser = userDao.findByUsername(username);
+        //Am getting a book and user object...
+        System.out.println(id);
+        System.out.println(dbUser);
+//        Bookshelf dbBookshelf = bookshelfDao.findBookshelfByBookAndUser(id, dbUser);
+        //proves I am getting the right bookshelf...
+//        System.out.println("dbBookshelf = " + dbBookshelf.getId());
+//        System.out.println("dbBookshelf = " + dbBookshelf.getBookShelfStatus());
+//        System.out.println("dbBookshelf = " + dbBookshelf.getBook().getId());
+//        System.out.println("dbBookshelf = " + dbBookshelf.getUser().getId());
+        //gives me a error status 500... why?
+//        bookshelfDao.deleteBookshelfByBookAndUser(id, dbUser);
+        //maybe I need to delete the book
+        bookshelfDao.deleteById(id.getId());
         return "redirect:/profile/" + dbUser.getUsername();
     }
 
