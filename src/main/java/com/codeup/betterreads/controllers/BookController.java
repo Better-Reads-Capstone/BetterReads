@@ -20,13 +20,13 @@ public class BookController {
     @GetMapping("/booksearch")
     public String searchResults() {return "books/results";}
 
-    @PostMapping("/book/{isbn}")
-    public String createBook(@PathVariable String isbn, Model viewModel) {
-        Book newBook = bookDao.findBookByIsbnTenEquals(isbn);
+    @GetMapping("/book/{gbreference}")
+    public String createBook(@PathVariable String gbreference, Model viewModel) {
+        Book newBook = bookDao.findBookByGbreferenceEquals(gbreference);
         Book newDbBook = new Book();
 
         if (newBook == null){
-            newDbBook.setIsbnTen(isbn);
+            newDbBook.setGbreference(gbreference);
             newBook = bookDao.save(newDbBook);
         }
 
@@ -34,14 +34,14 @@ public class BookController {
         return "books/viewbook";
     }
 
-    @GetMapping("/book/{isbn}")
-    public String showBook(
-            @PathVariable String isbn,
-            Model viewModel
-    )
-    {
-        Book dbBook = bookDao.findBookByIsbnTenEquals(isbn);
-        viewModel.addAttribute("book", dbBook);
-        return "books/viewbook";
-    }
+//    @GetMapping("/book/{isbn}")
+//    public String showBook(
+//            @PathVariable String isbn,
+//            Model viewModel
+//    )
+//    {
+//        Book dbBook = bookDao.findBookByIsbnEquals(isbn);
+//        viewModel.addAttribute("book", dbBook);
+//        return "books/viewbook";
+//    }
 }

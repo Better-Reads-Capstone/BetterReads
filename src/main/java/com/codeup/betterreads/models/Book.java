@@ -10,8 +10,11 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(nullable = false, length = 11)
-    private String isbnTen;
+    @Column(nullable = false, length = 25)
+    private String gbreference;
+
+    @Column(nullable = true, length = 15)
+    private String isbn;
 
     @ManyToOne
     @JoinColumn(name = "genre_id")
@@ -24,29 +27,33 @@ public class Book {
     public Book() {}
 
     //create
-    public Book(String isbnTen, Genre genre, List<ClubBook> clubBooks){
-        this.isbnTen = isbnTen;
+    public Book(String gbreference, String isbn, Genre genre, List<ClubBook> clubBooks){
+        this.gbreference = gbreference;
+        this.isbn = isbn;
         this.genre = genre;
         this.clubBooks = clubBooks;
     }
 
     //read
-    public Book(long id, String isbnTen, Genre genre, List<ClubBook> clubBooks){
+    public Book(long id, String gbreference, String isbn, Genre genre, List<ClubBook> clubBooks){
         this.id = id;
-        this.isbnTen = isbnTen;
+        this.gbreference = gbreference;
+        this.isbn = isbn;
         this.genre = genre;
         this.clubBooks = clubBooks;
     }
 
     //getters
     public long getId() {return id;}
-    public String getIsbnTen() {return isbnTen;}
+    public String getGbreference() {return gbreference;}
+    public String getIsbn() {return isbn;}
     public Genre getGenre() {return genre;}
     public List<ClubBook> getClubBooks() {return clubBooks;}
 
     //setters
     public void setId(long id) {this.id = id;}
-    public void setIsbnTen(String isbnTen) {this.isbnTen = isbnTen;}
+    public void setGbreference(String gbreference) {this.gbreference = gbreference;}
+    public void setIsbn(String isbnTen) {this.isbn = isbnTen;}
     public void setGenre(Genre genre) {this.genre = genre;}
     public void setClubBooks(List<ClubBook> clubBooks) {this.clubBooks = clubBooks;}
 }
