@@ -11,7 +11,7 @@ public class KeysController {
     @Value("${googleBooksAPIKey}")
     private String gbapikey;
 
-    @Value("${nytAPIKey}")
+    @Value("${nytapikey}")
     private String nytapikey;
 
     @Value("${filestackAPIKey}")
