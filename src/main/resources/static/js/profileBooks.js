@@ -1,6 +1,7 @@
 //will access the stored value of each element with the class userBook
 function generatePath(path) {
-    const getUrl = `https://www.googleapis.com/books/v1/volumes?q=isbn:${path}&key=${googleBooksAPI}`;
+    // const getUrl = `https://www.googleapis.com/books/v1/volumes?q=isbn:${path}&key=${googleBooksAPI}`;
+    const getUrl = `https://www.googleapis.com/books/v1/volumes/${path}?&key=${googleBooksAPI}`
     return getUrl;
 }
 
@@ -9,64 +10,50 @@ let readBooks = [];
 let activeBooks = [];
 let wishlistBooks = [];
 $('.readBook').each(function() {
-    let book = {}
-    book.isbn = $(this).attr('id');
-    readBooks.push(book);
+    readBooks.push($(this).attr('id'));
 })
 $('.activeBook').each(function() {
-    let book = {}
-    book.isbn = $(this).attr('id');
-    activeBooks.push(book);
+    activeBooks.push($(this).attr('id'));
 })
 $('.wishlistBook').each(function() {
-    let book = {}
-    book.isbn = $(this).attr('id');
-    wishlistBooks.push(book);
+    wishlistBooks.push($(this).attr('id'));
 })
 
 const getBook = (books) => {
     for (let currentBook of books) {
-        fetch(generatePath(currentBook.isbn))
+        console.log(generatePath(currentBook))
+        fetch(generatePath(currentBook))
             .then(res => res.json())
             .then(book => {
-                let drillPath = book.items[0].volumeInfo;
-
-                let createBook = {};
-                createBook.img = drillPath.imageLinks.smallThumbnail;
-                createBook.title = drillPath.title;
-                createBook.authors = drillPath.authors;
-                createBook.description = drillPath.description;
-                createBook.publishedDate = drillPath.publishedDate;
-                createBook.language = drillPath.language;
-                createBook.categories = drillPath.categories;
-                createBook.isbn = drillPath.industryIdentifiers;
-                createBook.saleInfo = book.items[0].saleInfo.buyLink;
-                if (createBook.isbn[1].identifier === currentBook.isbn || createBook.isbn[0].identifier === currentBook.isbn) {
+                let drillPath = book.volumeInfo;
+                console.log(drillPath)
                     let renderBook = `
                         <div>
-                                <img src="${createBook.img}" alt="book-img">
+                                <img src="${drillPath.imageLinks.smallThumbnail}" alt="book-img">
                             <div class="d-flex">
-                                <h6>${createBook.title}</h6>
+                                <h6>${drillPath.title}</h6>
                             </div>
                         </div>
-                        
-                        <div id="${'book-' + currentBook.isbn}"></div>
+
+                        <div id="${'book-' + currentBook}"></div>
                         `
-                    $(`#${currentBook.isbn}`).html(renderBook);
-                }
+                    $(`#${currentBook}`).html(renderBook);
             })
             .catch(error => console.error("ERROR"))
     }
 }
 
-$('.book').click(function (event) {
+$(document).ready(function(){
+    $('.book').click(function (event) {
     event.preventDefault();
-
-    let isbn = $(this).attr("id")
-    fetch(generatePath(isbn))
+    let username = $('#userProfile').attr("data-username");
+    let id = $(this).attr("id");
+    let bookId = $(this).attr("data-bookId")
+    $('#ratingForm').attr('action', `/profile/${username}/review/${bookId}`)
+    fetch(generatePath(id))
         .then(res => res.json())
         .then(book => {
-            let drillPath = book.items[0].volumeInfo;
+            let drillPath = book.volumeInfo;
             console.log(drillPath)
             $('.modal-body').html(
                 `
@@ -90,26 +77,15 @@ $('.book').click(function (event) {
                         <p>(${drillPath.industryIdentifiers[1].identifier})</p>
                         </div>
                         <!-- NEED A CONDITIONAL TO NOT DISPLAY A VALUE IF UNDEFINED -->
-                        <a href="#">${book.items[0].saleInfo.buyLink}</a>
-                    </div>
-                    <div>
-                        <div class="d-flex">
-                            <h6>Leave a Review</h6>
-                            <button class="minimize">-</button>
-                        </div>
-                        <!-- PROFILE USER REVIEW FORM -->
-                        <form action="" method="post">
-                           <div>
-                              <textarea name="" id="" cols="30" rows="10"></textarea>
-                           </div>
-                           <button type="submit">Submit</button>
-                        </form>
+                        <a href="#">${book.saleInfo.buyLink}</a>
                     </div>
                 </div>
             </div>
             `)
         })
         .catch(error => console.log("ERROR"))
+})
+
 })
 
 document.onreadystatechange = function () {
