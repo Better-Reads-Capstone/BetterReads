@@ -1,7 +1,6 @@
 //will access the stored value of each element with the class userBook
 function generatePath(path) {
-    // const getUrl = `https://www.googleapis.com/books/v1/volumes?q=isbn:${path}&key=${googleBooksAPI}`;
-    const getUrl = `https://www.googleapis.com/books/v1/volumes/${path}?&key=${googleBooksAPI}`
+    const getUrl = `https://www.googleapis.com/books/v1/volumes/${path}?&key=${googleBooksAPIKey}`
     return getUrl;
 }
 

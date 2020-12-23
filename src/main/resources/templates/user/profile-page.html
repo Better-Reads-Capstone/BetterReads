@@ -126,7 +126,7 @@
 
 <footer th:replace="partials/footer :: footer"></footer>
 <th:block th:include="partials/scripts :: scripts"></th:block>
-<script type="text/javascript" src="/js/keys.js"></script>
-<script type="text/javascript" src="/js/profileBooks.js"></script>
+<script type="text/javascript" th:src="@{/keys.js}"></script>
+<script type="text/javascript" th:src="@{/js/profileBooks.js}"></script>
 </body>
 </html>
