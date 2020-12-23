@@ -1,11 +1,9 @@
 package com.codeup.betterreads.controllers;
 
-import com.codeup.betterreads.models.Book;
-import com.codeup.betterreads.models.Bookshelf;
-import com.codeup.betterreads.models.BookshelfStatus;
-import com.codeup.betterreads.models.User;
+import com.codeup.betterreads.models.*;
 import com.codeup.betterreads.repositories.BookRepo;
 import com.codeup.betterreads.repositories.BookshelfRepo;
+import com.codeup.betterreads.repositories.ReviewRepo;
 import com.codeup.betterreads.repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -21,14 +19,16 @@ public class UserController {
     private PasswordEncoder passwordEncoder;
     private BookshelfRepo bookshelfDao;
     private BookRepo bookDao;
+    private ReviewRepo reviewDao;
 //    @Value("${googleBooksAPI}")
 //    private String googleBooksApi;
 
-    public UserController(UserRepo userDao, PasswordEncoder passwordEncoder, BookshelfRepo bookshelfDao, BookRepo bookDao) {
+    public UserController(UserRepo userDao, PasswordEncoder passwordEncoder, BookshelfRepo bookshelfDao, BookRepo bookDao, ReviewRepo reviewDao) {
         this.userDao = userDao;
         this.passwordEncoder = passwordEncoder;
         this.bookshelfDao = bookshelfDao;
         this.bookDao = bookDao;
+        this.reviewDao = reviewDao;
     }
 
     @GetMapping("/sign-up")
@@ -112,6 +112,7 @@ public class UserController {
         viewModel.addAttribute("read", readList);
         viewModel.addAttribute("reading", readingList);
         viewModel.addAttribute("wishlist", wishlist);
+        viewModel.addAttribute("review", new Review());
         return "user/profile-page";
     }
 
@@ -132,6 +133,27 @@ public class UserController {
         Bookshelf dbBookshelf = bookshelfDao.getOne(bookshelfId);
         dbBookshelf.setStatus(status);
         bookshelfDao.save(dbBookshelf);
+        return "redirect:/profile/" + dbUser.getUsername();
+    }
+
+    @PostMapping("/profile/{username}/review/{bookId}")
+    public String profileBookReview(
+            @PathVariable String username,
+            @PathVariable long bookId,
+            @ModelAttribute Review dbReview
+    ){
+        User dbUser = userDao.findByUsername(username);
+        Book dbBook = bookDao.getOne(bookId);
+        System.out.println("before storing user with the username: "+dbUser.getUsername());
+        System.out.println("before storing book with the id: "+dbBook.getId());
+        dbReview.setOwner(dbUser);
+        dbReview.setBookId(dbBook);
+        System.out.println("stored review with the user with the username: "+dbReview.getOwner().getUsername());
+        System.out.println("stored review with the book with the id: "+dbReview.getBookId().getId());
+        System.out.println("stored review rating: "+dbReview.getRating());
+        System.out.println("stored review created_date: "+dbReview.getCreatedDate());
+        System.out.println("stored review body: "+dbReview.getBody());
+        reviewDao.save(dbReview);
         return "redirect:/profile/" + dbUser.getUsername();
     }
 }

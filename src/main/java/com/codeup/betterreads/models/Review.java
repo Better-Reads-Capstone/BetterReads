@@ -1,5 +1,8 @@
 package com.codeup.betterreads.models;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -18,11 +21,11 @@ public class Review {
     private String body;
 
     @Column(nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
+    @CreationTimestamp
     private Date createdDate;
 
     @Column
-    @Temporal(TemporalType.TIMESTAMP)
+    @UpdateTimestamp
     private Date updatedDate;
 
     @ManyToOne
