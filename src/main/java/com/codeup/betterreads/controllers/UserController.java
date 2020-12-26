@@ -20,8 +20,6 @@ public class UserController {
     private BookshelfRepo bookshelfDao;
     private BookRepo bookDao;
     private ReviewRepo reviewDao;
-//    @Value("${googleBooksAPI}")
-//    private String googleBooksApi;
 
     public UserController(UserRepo userDao, PasswordEncoder passwordEncoder, BookshelfRepo bookshelfDao, BookRepo bookDao, ReviewRepo reviewDao) {
         this.userDao = userDao;
@@ -109,6 +107,9 @@ public class UserController {
             }
         }
 
+        //review auto-populate test
+
+
         viewModel.addAttribute("read", readList);
         viewModel.addAttribute("reading", readingList);
         viewModel.addAttribute("wishlist", wishlist);
@@ -144,16 +145,31 @@ public class UserController {
     ){
         User dbUser = userDao.findByUsername(username);
         Book dbBook = bookDao.getOne(bookId);
-        System.out.println("before storing user with the username: "+dbUser.getUsername());
-        System.out.println("before storing book with the id: "+dbBook.getId());
         dbReview.setOwner(dbUser);
-        dbReview.setBookId(dbBook);
-        System.out.println("stored review with the user with the username: "+dbReview.getOwner().getUsername());
-        System.out.println("stored review with the book with the id: "+dbReview.getBookId().getId());
-        System.out.println("stored review rating: "+dbReview.getRating());
-        System.out.println("stored review created_date: "+dbReview.getCreatedDate());
-        System.out.println("stored review body: "+dbReview.getBody());
+        dbReview.setBook(dbBook);
+
         reviewDao.save(dbReview);
+        return "redirect:/profile/" + dbUser.getUsername();
+    }
+
+    @PostMapping("/profile/{username}/{bookId}/editReview/{reviewId}")
+    public String editBookReview(
+            @PathVariable String username,
+            @PathVariable long bookId,
+            @PathVariable long reviewId,
+            @ModelAttribute Review reviewToBeEdited
+    ){
+        User dbUser = userDao.findByUsername(username);
+        Book dbBook = bookDao.getOne(bookId);
+        Review extractReview = reviewDao.getOne(reviewId);
+
+        reviewToBeEdited.setId(reviewId);
+        reviewToBeEdited.setOwner(dbUser);
+        reviewToBeEdited.setBook(dbBook);
+        reviewToBeEdited.setCreatedDate(extractReview.getCreatedDate());
+
+        reviewDao.save(reviewToBeEdited);
+
         return "redirect:/profile/" + dbUser.getUsername();
     }
 

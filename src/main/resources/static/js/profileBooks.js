@@ -42,20 +42,21 @@ const getBook = (books) => {
     }
 }
 
-$(document).ready(function(){
+$(document).ready(function() {
     $('.book').click(function (event) {
-    event.preventDefault();
-    let username = $('#userProfile').attr("data-username");
-    let id = $(this).attr("id");
-    let bookId = $(this).attr("data-bookId")
-    $('#ratingForm').attr('action', `/profile/${username}/review/${bookId}`)
-    fetch(generatePath(id))
-        .then(res => res.json())
-        .then(book => {
-            let drillPath = book.volumeInfo;
-            console.log(drillPath)
-            $('.modal-body').html(
-                `
+        event.preventDefault();
+        let username = $('#userProfile').attr("data-username");
+        let id = $(this).attr("id");
+        let bookId = $(this).attr("data-bookId");
+        $('#createReview').attr('action', `/profile/${username}/review/${bookId}`);
+        // $('#editReview').attr('action', `/profile/${username}/review/${bookId}`);
+        fetch(generatePath(id))
+            .then(res => res.json())
+            .then(book => {
+                let drillPath = book.volumeInfo;
+                // console.log(drillPath)
+                $('.modal-body').html(
+                    `
             <div>
                 <div>
                     <!-- LEFT BOTH IMAGE PATHS AVAILABLE FOR STYLING PURPOSES -->
@@ -80,10 +81,34 @@ $(document).ready(function(){
                     </div>
                 </div>
             </div>
-            `)
-        })
-        .catch(error => console.log("ERROR"))
-})
+            `
+                );
+            })
+            .catch(error => console.log("ERROR"))
+        console.log(`/profile/${username}/editReview/${bookId}`)
+        fetch(`/profile/${username}/editReview/${bookId}`)
+            .then(res => res.json())
+            .then(review => {
+                if(review.id > 0) {
+                    let id = review.id;
+                    let body = review.body;
+                    let rating = review.rating;
+                    $('#createReview').attr('action', `/profile/${username}/${bookId}/editReview/${id}`);
+                    $('#reviewId').val(id);
+                    $('#createBody').val(body);
+                    $('#currentRating').html('Current Rating: ' + rating + ' Change your rating: ');
+                    $('#reviewSubmit').html('Submit Changes');
+                }
+                else {
+                    $('#createReview').attr('action', `/profile/${username}/review/${bookId}`);
+                    $('#currentRating').html('Leave A Rating: ');
+                    $('#reviewId').val('');
+                    $('#createBody').val('');
+                    $('#reviewSubmit').html('Submit');
+                }
+            })
+    })
+    //HAVE LOGIC HERE TO RUN A GET REQUEST TO RETRIEVE REVIEW OBJECT?
 
 })
 

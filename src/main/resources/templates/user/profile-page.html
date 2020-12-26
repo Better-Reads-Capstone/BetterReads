@@ -35,11 +35,15 @@
                 <h4>Read</h4>
                 <div th:each="extract : ${read}">
                     <div>
-                        <button class="book readBook" th:id="${extract.book.gbreference}" th:data-bookId="${extract.book.id}" data-toggle="modal" data-target="#bookModal"></button>
-                        <form th:action="@{/profile/{username}/delete/{id}(username=${user.username}, id=${extract.id})}" method="post">
+                        <button class="book readBook" th:id="${extract.book.gbreference}"
+                                th:data-bookId="${extract.book.id}" data-toggle="modal"
+                                data-target="#bookModal"></button>
+                        <form th:action="@{/profile/{username}/delete/{id}(username=${user.username}, id=${extract.id})}"
+                              method="post">
                             <button class="btn btn-danger" type="submit">Delete</button>
                         </form>
-                        <form th:action="@{/profile/{username}/{bookshelfId}(username=${user.username}, bookshelfId=${extract.id})}" method="post">
+                        <form th:action="@{/profile/{username}/{bookshelfId}(username=${user.username}, bookshelfId=${extract.id})}"
+                              method="post">
                             <select name="bookshelfStatus" onchange="this.form.submit()">
                                 <option th:value="'READ'" selected disabled>READ</option>
                                 <option th:value="'READING'">READING</option>
@@ -54,11 +58,15 @@
                 <h4>Reading</h4>
                 <div th:each="extract : ${reading}">
                     <div>
-                        <button class="book activeBook" th:id="${extract.book.gbreference}" th:data-bookId="${extract.book.id}" data-toggle="modal" data-target="#bookModal"></button>
-                        <form th:action="@{/profile/{username}/delete/{id}(username=${user.username}, id=${extract.id})}" method="post">
+                        <button class="book activeBook" th:id="${extract.book.gbreference}"
+                                th:data-bookId="${extract.book.id}" data-toggle="modal"
+                                data-target="#bookModal"></button>
+                        <form th:action="@{/profile/{username}/delete/{id}(username=${user.username}, id=${extract.id})}"
+                              method="post">
                             <button class="btn btn-danger" type="submit">Delete</button>
                         </form>
-                        <form th:action="@{/profile/{username}/{bookshelfId}(username=${user.username}, bookshelfId=${extract.id})}" method="post">
+                        <form th:action="@{/profile/{username}/{bookshelfId}(username=${user.username}, bookshelfId=${extract.id})}"
+                              method="post">
                             <select name="bookshelfStatus" onchange="this.form.submit()">
                                 <option th:value="'READ'">READ</option>
                                 <option th:value="'READING'" selected disabled>READING</option>
@@ -73,11 +81,15 @@
                 <h4>Wishlist</h4>
                 <div th:each="extract : ${wishlist}">
                     <div>
-                        <button class="book wishlistBook" th:id="${extract.book.gbreference}" th:data-bookId="${extract.book.id}" data-toggle="modal" data-target="#bookModal"></button>
-                        <form th:action="@{/profile/{username}/delete/{id}(username=${user.username}, id=${extract.id})}" method="post">
+                        <button class="book wishlistBook" th:id="${extract.book.gbreference}"
+                                th:data-bookId="${extract.book.id}" data-toggle="modal"
+                                data-target="#bookModal"></button>
+                        <form th:action="@{/profile/{username}/delete/{id}(username=${user.username}, id=${extract.id})}"
+                              method="post">
                             <button class="btn btn-danger" type="submit">Delete</button>
                         </form>
-                        <form th:action="@{/profile/{username}/{bookshelfId}(username=${user.username}, bookshelfId=${extract.id})}" method="post">
+                        <form th:action="@{/profile/{username}/{bookshelfId}(username=${user.username}, bookshelfId=${extract.id})}"
+                              method="post">
                             <select name="bookshelfStatus" onchange="this.form.submit()">
                                 <option th:value="'READ'">READ</option>
                                 <option th:value="'READING'">READING</option>
@@ -102,21 +114,25 @@
                         <h6>Leave a Review</h6>
                         <button class="minimize">-</button>
                     </div>
-                    <!-- PROFILE USER REVIEW FORM -->
-                    <form id="ratingForm" th:action="@{/changeRating}" th:object="${review}" method="post">
-                        <label for="rating">Rate Me: </label>
-                        <select name="rating" id="rating" th:field="*{rating}">
-                            <option th:value="1">1</option>
-                            <option th:value="2">2</option>
-                            <option th:value="3">3</option>
-                            <option th:value="4">4</option>
-                            <option th:value="5">5</option>
-                        </select>
-                        <div>
-                            <textarea name="rateBody" id="rateBody" cols="30" rows="10" th:field="*{body}"></textarea>
-                        </div>
-                        <button type="submit">Submit</button>
-                    </form>
+                    <!-- CREATE A NEW REVIEW -->
+                    <div >
+                        <form id="createReview" th:action="@{/createReview}" th:object="${review}" method="post">
+                            <input id="reviewId" type="hidden">
+                            <label for="createRating" id="currentRating"></label>
+                            <select name="createRating" id="createRating" th:field="*{rating}">
+                                <option th:value="1">1</option>
+                                <option th:value="2">2</option>
+                                <option th:value="3">3</option>
+                                <option th:value="4">4</option>
+                                <option th:value="5">5</option>
+                            </select>
+                            <div>
+                                <textarea name="createBody" id="createBody" cols="30"
+                                          rows="10" th:field="*{body}"></textarea>
+                            </div>
+                            <button type="submit" id="reviewSubmit">Submit</button>
+                        </form>
+                    </div>
                 </div>
                 <button type="button" class="modal-ft btn btn-dark" data-dismiss="modal">Close</button>
             </div>

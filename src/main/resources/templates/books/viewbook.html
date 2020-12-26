@@ -9,96 +9,10 @@
 <nav th:replace="partials/navbar :: navbar"></nav>
 
 <h1>View Book</h1>
-<!-- PLACE BOOK OBJECT TO THE ENTIRE CONTAINER TO MAKE IT ACCESSIBLE ON THE ENTIRE PAGE -->
 <div class="container">
     <div>
         <h5 th:text="${book.id}"></h5>
         <p th:text="${book.gbreference}"></p>
-    </div>
-
-    <!-- SUBMIT REVIEW FORM - PASS FROM CONTROLLER REVIEW OBJECT TO VIEW FROM METHOD THAT SHOWS BOOK IN BOOKCONTROLLER -->
-    <div>
-        <form th:action="@{/book/{gbreference}(gbreference=${book.gbreference})}" th:object="${review}">
-            <label for="rating">Rate Me: </label>
-            <select name="rating" id="rating" th:field="*{rating}">
-                <option th:value="1">1</option>
-                <option th:value="2">2</option>
-                <option th:value="3">3</option>
-                <option th:value="4">4</option>
-                <option th:value="5">5</option>
-            </select>
-            <div>
-                <textarea name="rateBody" id="rateBody" cols="30" rows="10" th:field="*{body}"></textarea>
-            </div>
-            <button type="submit">Submit</button>
-        </form>
-    </div>
-
-    <!-- REVIEWS CONTAINER - PASS FROM CONTROLLER A LIST OF REVIEWS -->
-    <div th:each="review : ${reviews}">
-        <div>
-            <!-- REVIEW CREDS -->
-            <div>
-                <p th:text="'written by: '+${#authentication.principal.username}"></p>
-                <p th:if="${review.createdDate == review.updatedDate}"
-                   th:text="'written on: '+${review.createdDate}"></p>
-                <p th:if="${review.createdDate != review.updatedDate}"
-                   th:text="'edited on: '+${review.updatedDate}"></p>
-            </div>
-            <!-- EDIT & DELETE BUTTONS -->
-            <div class="d-flex" sec:authorize="isAuthenticated()"
-                 th:if="${#authentication.principal.id == review.owner.id}">
-                <!-- EDIT MODEL ACTIVATION -->
-                <button class="btn btn-warning mr-2 editReview"
-                        th:data-reviewId="${review.id}"
-                        th:data-username="${#authentication.principal.username}"
-                        th:data-reviewBody="${review.body}"
-                        th:data-reviewRating="${review.rating}">Edit</button>
-                <!-- DELETE REVIEW BUTTON -->
-                <form th:action="@{/book/{username}/delete/id={reviewId}(username=${#authentication.principal.username}, reviewId=${review.id})}"
-                      method="post">
-                    <button class="btn btn-danger mr-2" type="submit">Delete</button>
-                </form>
-            </div>
-        </div>
-        <!-- RATING AND BODY -->
-        <div>
-            <p th:text="${review.rating}"></p>
-            <p th:text="${review.body}"></p>
-        </div>
-    </div>
-</div>
-
-<!-- EDIT REVIEW MODAL BODY -->
-<div class="modal" id="reviewModal">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h4 class="modal-title"></h4>
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-        <div class="modal-body"></div>
-        <div>
-            <div class="d-flex">
-                <h6>Edit Review</h6>
-                <button class="minimize">-</button>
-            </div>
-            <!-- EDIT REVIEW FORM -->
-            <form id="editReviewForm" th:action="@{/editReview}" method="post">
-                <label for="rating" id="currentRating"></label>
-                <select name="rating" id="rating" th:field="*{rating}">
-                    <option th:value="1">1</option>
-                    <option th:value="2">2</option>
-                    <option th:value="3">3</option>
-                    <option th:value="4">4</option>
-                    <option th:value="5">5</option>
-                </select>
-                <div>
-                    <textarea name="editBody" id="editBody" cols="30" rows="10" th:field="*{body}"></textarea>
-                </div>
-                <button type="submit">Submit</button>
-            </form>
-        </div>
-        <button type="button" class="modal-ft btn btn-dark" data-dismiss="modal">Close</button>
     </div>
 </div>
 <footer th:replace="partials/footer :: footer"></footer>
@@ -113,7 +27,5 @@
         crossorigin="anonymous"></script>
 <script th:src="@{/keys.js}"></script>
 <script th:src="@{/JS/books_api.js}"></script>
-<!--REPLACE CONTENTS IN book_api.js-->
-<script th:src="@{/js/review.js}"></script>
 </body>
 </html>
