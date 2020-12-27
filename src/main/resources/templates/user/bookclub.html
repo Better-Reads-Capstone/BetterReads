@@ -11,6 +11,11 @@
         Edit Club
     </button>
 </form>
+<form th:action="@{/bookclub-poll/{id} (id = ${club.id})}">
+    <button class = "btn btn-primary" type="submit">
+        Create Poll
+    </button>
+</form>
 <main>
     <p>Name of club: </p><h1 th:text="${club.name}"></h1>
     <p>About: </p><h3 th:text="${club.about}"></h3>

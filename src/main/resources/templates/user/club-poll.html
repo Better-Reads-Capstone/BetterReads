@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="partials/head :: head('Poll')">
+</head>
+<body>
+    <nav th:replace="partials/navbar :: navbar"></nav>
+    <main>
+        <h1>Create a Poll</h1>
+<!--        <form class="form-inline my-2 my-lg-0">-->
+<!--            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="searchterm">-->
+<!--            <button class="btn btn-outline-success my-2 my-sm-0" type="button" id="searchbtn">Search</button>-->
+<!--        </form>-->
+
+        <form th:action="@{/bookclub-poll/{id} (id = ${club.id})}" method="POST" th:object="${club}">
+            <div id="search-results" class="container"></div>
+            <div class="form-group">
+                <label for="book-one">Book One</label>
+                <input id="book-one" class="form-control" th:field="*{bookOne}" />
+            </div>
+            <div class="form-group">
+                <label for="book-two">Book Two</label>
+                <input id="book-two" class="form-control" th:field="*{bookTwo}" />
+            </div>
+            <button type="submit" class="btn btn-primary">Sign me up!</button>
+        </form>
+    </main>
+    <footer th:replace="partials/footer :: footer"></footer>
+    <script type="text/javascript" th:src="@{/js/keys.js}"></script>
+    <script type="text/javascript" th:src="@{/js/books_api.js}"></script>
+</body>
+</html>
