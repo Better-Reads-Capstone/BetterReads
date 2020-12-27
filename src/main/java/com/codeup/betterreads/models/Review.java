@@ -35,7 +35,6 @@ public class Review {
     @ManyToOne
     @JoinColumn (name = "book_id")
     private Book book;
-//    private Book bookId;
 
     //default
     public Review() {}

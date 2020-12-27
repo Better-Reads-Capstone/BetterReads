@@ -9,13 +9,13 @@ import com.codeup.betterreads.repositories.UserRepo;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-public class GetReview {
+public class GetReviewRestController {
 
     private UserRepo userDao;
     private BookRepo bookDao;
     private ReviewRepo reviewDao;
 
-    public GetReview(UserRepo userDao, BookRepo bookDao, ReviewRepo reviewDao) {
+    public GetReviewRestController(UserRepo userDao, BookRepo bookDao, ReviewRepo reviewDao) {
         this.userDao = userDao;
         this.bookDao = bookDao;
         this.reviewDao = reviewDao;

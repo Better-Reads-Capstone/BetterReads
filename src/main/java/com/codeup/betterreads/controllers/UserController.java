@@ -107,9 +107,6 @@ public class UserController {
             }
         }
 
-        //review auto-populate test
-
-
         viewModel.addAttribute("read", readList);
         viewModel.addAttribute("reading", readingList);
         viewModel.addAttribute("wishlist", wishlist);
@@ -167,8 +164,18 @@ public class UserController {
         reviewToBeEdited.setOwner(dbUser);
         reviewToBeEdited.setBook(dbBook);
         reviewToBeEdited.setCreatedDate(extractReview.getCreatedDate());
-
         reviewDao.save(reviewToBeEdited);
+
+        return "redirect:/profile/" + dbUser.getUsername();
+    }
+
+    @PostMapping("/profile/{username}/deleteReview/{reviewId}")
+    public String deleteProfileReview(
+            @PathVariable String username,
+            @PathVariable long reviewId
+    ){
+        User dbUser = userDao.findByUsername(username);
+        reviewDao.deleteById(reviewId);
 
         return "redirect:/profile/" + dbUser.getUsername();
     }

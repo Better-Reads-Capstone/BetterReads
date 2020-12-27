@@ -46,6 +46,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 /* Pages that can be viewed without having to log in */
                 .and()
                     .authorizeRequests()
+
                     .antMatchers("/") // anyone can see the home page
                     .permitAll()
                 /* Pages that require authentication */
@@ -59,7 +60,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                             "/edit-bookclub/{id}",
                             "/bookclub/{username}"
                     )
-                    .authenticated()
+
+                .authenticated();
+                //CALEB ADDED THIS LINE TO ALLOW FOR A COMPLEX METHOD TO HANDLE FETCH FOR GetReviewController
+                http.csrf().disable()
         ;
     }
 }

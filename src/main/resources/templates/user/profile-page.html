@@ -115,7 +115,7 @@
                         <button class="minimize">-</button>
                     </div>
                     <!-- CREATE A NEW REVIEW -->
-                    <div >
+                    <div>
                         <form id="createReview" th:action="@{/createReview}" th:object="${review}" method="post">
                             <input id="reviewId" type="hidden">
                             <label for="createRating" id="currentRating"></label>
@@ -130,8 +130,9 @@
                                 <textarea name="createBody" id="createBody" cols="30"
                                           rows="10" th:field="*{body}"></textarea>
                             </div>
-                            <button type="submit" id="reviewSubmit">Submit</button>
+                                <button class="btn btn-warning" type="submit" id="reviewSubmit">Submit</button>
                         </form>
+                        <div id="deleteReview"></div>
                     </div>
                 </div>
                 <button type="button" class="modal-ft btn btn-dark" data-dismiss="modal">Close</button>

@@ -91,6 +91,7 @@ $(document).ready(function() {
             .then(review => {
                 if(review.id > 0) {
                     let id = review.id;
+                    console.log(id);
                     let body = review.body;
                     let rating = review.rating;
                     $('#createReview').attr('action', `/profile/${username}/${bookId}/editReview/${id}`);
@@ -98,6 +99,11 @@ $(document).ready(function() {
                     $('#createBody').val(body);
                     $('#currentRating').html('Current Rating: ' + rating + ' Change your rating: ');
                     $('#reviewSubmit').html('Submit Changes');
+                    $('#deleteReview').html(`
+                    <form action="/profile/${username}/deleteReview/${id}" method="post">
+                        <button class="btn btn-danger" type="submit">Delete Review</button>
+                    </form>
+                    `)
                 }
                 else {
                     $('#createReview').attr('action', `/profile/${username}/review/${bookId}`);
@@ -108,8 +114,6 @@ $(document).ready(function() {
                 }
             })
     })
-    //HAVE LOGIC HERE TO RUN A GET REQUEST TO RETRIEVE REVIEW OBJECT?
-
 })
 
 document.onreadystatechange = function () {
