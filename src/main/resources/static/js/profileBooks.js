@@ -8,25 +8,23 @@ function generatePath(path) {
 let readBooks = [];
 let activeBooks = [];
 let wishlistBooks = [];
-$('.readBook').each(function() {
+$('.readBook').each(function () {
     readBooks.push($(this).attr('id'));
 })
-$('.activeBook').each(function() {
+$('.activeBook').each(function () {
     activeBooks.push($(this).attr('id'));
 })
-$('.wishlistBook').each(function() {
+$('.wishlistBook').each(function () {
     wishlistBooks.push($(this).attr('id'));
 })
 
 const getBook = (books) => {
     for (let currentBook of books) {
-        console.log(generatePath(currentBook))
         fetch(generatePath(currentBook))
             .then(res => res.json())
             .then(book => {
                 let drillPath = book.volumeInfo;
-                console.log(drillPath)
-                    let renderBook = `
+                let renderBook = `
                         <div>
                                 <img src="${drillPath.imageLinks.smallThumbnail}" alt="book-img">
                             <div class="d-flex">
@@ -36,25 +34,33 @@ const getBook = (books) => {
 
                         <div id="${'book-' + currentBook}"></div>
                         `
-                    $(`#${currentBook}`).html(renderBook);
+                $(`#${currentBook}`).html(renderBook);
             })
             .catch(error => console.error("ERROR"))
     }
 }
 
-$(document).ready(function() {
+$(document).ready(function () {
     $('.book').click(function (event) {
         event.preventDefault();
+        //bug fix: selected and disabled values persisted if a user didn't
+        //         edit a review and clicked on another book modal.
+        $('#createRating').html(
+            `
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            `)
         let username = $('#userProfile').attr("data-username");
         let id = $(this).attr("id");
         let bookId = $(this).attr("data-bookId");
         $('#createReview').attr('action', `/profile/${username}/review/${bookId}`);
-        // $('#editReview').attr('action', `/profile/${username}/review/${bookId}`);
         fetch(generatePath(id))
             .then(res => res.json())
             .then(book => {
                 let drillPath = book.volumeInfo;
-                // console.log(drillPath)
                 $('.modal-body').html(
                     `
             <div>
@@ -85,11 +91,11 @@ $(document).ready(function() {
                 );
             })
             .catch(error => console.log("ERROR"))
-        console.log(`/profile/${username}/editReview/${bookId}`)
         fetch(`/profile/${username}/editReview/${bookId}`)
             .then(res => res.json())
             .then(review => {
-                if(review.id > 0) {
+
+                if (review.id > 0) {
                     let id = review.id;
                     let body = review.body;
                     let rating = review.rating;
@@ -97,24 +103,29 @@ $(document).ready(function() {
                     $('#reviewId').val(id);
                     $('#createBody').val(body);
                     $('#currentRating').html('Current Rating: ');
-                    $(`#createRating option[value=${rating}]`).attr({selected:'selected', disabled:'disabled'});
+                    $(`#createRating option[value=${rating}]`).attr({selected: 'selected', disabled: 'disabled'});
                     $('#reviewSubmit').html('Submit Changes');
                     $('#deleteReview').html(`
                     <form action="/profile/${username}/deleteReview/${id}" method="post">
                         <button class="btn btn-danger" type="submit">Delete Review</button>
                     </form>
                     `)
-                }
-                else {
+                } else {
                     $('#createReview').attr('action', `/profile/${username}/review/${bookId}`);
                     $('#currentRating').html('Leave A Rating: ');
+                    let i = 1;
+                    $('#createRating option').each(function () {
+                        $(this).attr('value', i++)
+                    })
                     $('#reviewId').val('');
                     $('#createBody').val('');
                     $('#reviewSubmit').html('Submit');
                 }
+
             })
     })
 })
+
 
 document.onreadystatechange = function () {
     if (document.readyState === "complete") {
@@ -123,4 +134,5 @@ document.onreadystatechange = function () {
         getBook(activeBooks)
         getBook(wishlistBooks)
     }
+
 };

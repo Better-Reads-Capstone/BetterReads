@@ -40,23 +40,18 @@ public class Review {
     public Review() {}
 
     //create
-    public Review(int rating, String body, Date createdDate, Date updatedDate, User owner,
-//                  Book bookId
-                  Book book
+    public Review(int rating, String body, Date createdDate, Date updatedDate, User owner, Book book
     ) {
         this.rating = rating;
         this.body = body;
         this.createdDate = createdDate;
         this.updatedDate = updatedDate;
         this.owner = owner;
-//        this.bookId = bookId;
         this.book = book;
     }
 
     //read
-    public Review(long id, int rating, String body, Date createdDate, Date updatedDate, User owner,
-//                  Book bookId
-                  Book book
+    public Review(long id, int rating, String body, Date createdDate, Date updatedDate, User owner, Book book
     ) {
         this.id = id;
         this.rating = rating;
@@ -64,7 +59,6 @@ public class Review {
         this.createdDate = createdDate;
         this.updatedDate = updatedDate;
         this.owner = owner;
-//        this.bookId = bookId;
         this.book = book;
     }
 
@@ -74,7 +68,6 @@ public class Review {
     public Date getCreatedDate() {return createdDate;}
     public Date getUpdatedDate() {return updatedDate;}
     public User getOwner() {return owner;}
-//    public Book getBookId() {return bookId;}
     public Book getBook() {return book;}
 
     public void setId(long id) {this.id = id;}
@@ -83,6 +76,5 @@ public class Review {
     public void setCreatedDate(Date createdDate) {this.createdDate = createdDate;}
     public void setUpdatedDate(Date updatedDate) {this.updatedDate = updatedDate;}
     public void setOwner(User owner) {this.owner = owner;}
-//    public void setBookId(Book bookId) {this.bookId = bookId;}
     public void setBook(Book book) {this.book = book;}
 }
