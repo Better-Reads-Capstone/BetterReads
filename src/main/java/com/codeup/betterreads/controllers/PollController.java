@@ -1,12 +1,17 @@
 package com.codeup.betterreads.controllers;
 
+import com.codeup.betterreads.models.Club;
 import com.codeup.betterreads.models.Poll;
 import com.codeup.betterreads.repositories.ClubRepo;
 import com.codeup.betterreads.repositories.PollRepo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.Date;
 
 @Controller
 public class PollController {
@@ -24,5 +29,28 @@ public class PollController {
         viewModel.addAttribute("club", clubDao.getOne(id));
         viewModel.addAttribute("poll", new Poll());
         return "user/club-poll";
+    }
+
+    @PostMapping("/bookclub-poll")
+    public String createPoll(
+            @ModelAttribute Club club,
+            @ModelAttribute Poll pollToBeCreated
+    ) {
+        Date currentDate = new Date();
+
+        pollToBeCreated.setClub(club);
+        pollToBeCreated.setUser(club.getOwner());
+        pollToBeCreated.setActive(true);
+        pollToBeCreated.setCreatedDate(currentDate);
+
+        Poll dbPoll = pollDao.save(pollToBeCreated);
+        return "redirect:/show-poll/" + dbPoll.getId();
+    }
+
+    @GetMapping("/show-poll/{id}")
+    public String showPoll(Model viewModel, @PathVariable long id) {
+        viewModel.addAttribute("poll", pollDao.getOne(id));
+
+        return "partials/show-poll";
     }
 }

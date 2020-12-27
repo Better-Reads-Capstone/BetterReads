@@ -1,5 +1,7 @@
 package com.codeup.betterreads.models;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -30,26 +32,28 @@ public class Poll {
     private User user;
 
     @Column
-    @Temporal(TemporalType.TIMESTAMP)
+    @CreationTimestamp
     private Date createdDate;
 
     public Poll(){}
 
-    public Poll(boolean active, Club club, Book bookOne, Book bookTwo, User user){
+    public Poll(boolean active, Club club, Book bookOne, Book bookTwo, User user, Date createdDate){
         this.active = active;
         this.club = club;
         this.bookOne = bookOne;
         this.bookTwo = bookTwo;
         this.user = user;
+        this.createdDate = createdDate;
     }
 
-    public Poll(long id, boolean active, Club club, Book bookOne, Book bookTwo, User user){
+    public Poll(long id, boolean active, Club club, Book bookOne, Book bookTwo, User user, Date createdDate){
         this.id = id;
         this.active = active;
         this.club = club;
         this.bookOne = bookOne;
         this.bookTwo = bookTwo;
         this.user = user;
+        this.createdDate = createdDate;
     }
 
     public long getId(){return id;}
@@ -58,6 +62,7 @@ public class Poll {
     public Book getBookOne(){return bookOne;}
     public Book getBookTwo(){return bookTwo;}
     public User getUser(){return user;}
+    public Date getCreatedDate(){return createdDate;}
 
     public void setId(long id){this.id = id;}
     public void setActive(boolean active){this.active = active;}
@@ -65,4 +70,5 @@ public class Poll {
     public void setBookOne(Book bookOne){this.bookOne = bookOne;}
     public void setBookTwo(Book bookTwo){this.bookTwo = bookTwo;}
     public void setUser(User user){this.user = user;}
+    public void setCreatedDate(Date createdDate){this.createdDate = createdDate;}
 }
