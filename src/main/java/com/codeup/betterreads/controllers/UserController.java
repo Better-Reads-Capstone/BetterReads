@@ -149,6 +149,24 @@ public class UserController {
         return "redirect:/profile/" + dbUser.getUsername();
     }
 
+    @GetMapping("/review.json")
+    public @ResponseBody List<Review> getReview() {
+        return reviewDao.findAll();
+    }
+//
+//    @GetMapping("/profile/{username}/editReview/{bookId}")
+//    public @ResponseBody Review getReviewToEdit(@PathVariable String username, @PathVariable long bookId) {
+//        Book dbBook = bookDao.getOne(bookId);
+//        User dbUser = userDao.findByUsername(username);
+//        Review dbReview = reviewDao.findByOwnerIdAndBookId(dbUser.getId(), dbBook.getId());
+//        if(dbReview.getId() < 1) {
+//            return new Review();
+//        }
+//        else {
+//            return dbReview;
+//        }
+//    }
+
     @PostMapping("/profile/{username}/{bookId}/editReview/{reviewId}")
     public String editBookReview(
             @PathVariable String username,
@@ -158,12 +176,12 @@ public class UserController {
     ){
         User dbUser = userDao.findByUsername(username);
         Book dbBook = bookDao.getOne(bookId);
-        Review extractReview = reviewDao.getOne(reviewId);
+        Review extractedReview = reviewDao.getOne(reviewId);
 
         reviewToBeEdited.setId(reviewId);
         reviewToBeEdited.setOwner(dbUser);
         reviewToBeEdited.setBook(dbBook);
-        reviewToBeEdited.setCreatedDate(extractReview.getCreatedDate());
+        reviewToBeEdited.setCreatedDate(extractedReview.getCreatedDate());
         reviewDao.save(reviewToBeEdited);
 
         return "redirect:/profile/" + dbUser.getUsername();

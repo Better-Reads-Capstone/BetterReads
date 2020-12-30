@@ -132,7 +132,9 @@
                             </div>
                                 <button class="btn btn-warning" type="submit" id="reviewSubmit">Submit</button>
                         </form>
-                        <div id="deleteReview"></div>
+                        <form id="deleteReview" th:action="@{/deleteReview}" method="post">
+                            <button class="btn btn-danger" type="submit">Delete Review</button>
+                        </form>
                     </div>
                 </div>
                 <button type="button" class="modal-ft btn btn-dark" data-dismiss="modal">Close</button>

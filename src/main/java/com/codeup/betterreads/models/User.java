@@ -1,5 +1,8 @@
 package com.codeup.betterreads.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -18,6 +21,7 @@ public class User {
     private String username;
 
     @Column(nullable = false, unique = true)
+    @JsonIgnore
     private String password;
 
     @Column(nullable = false)
@@ -58,13 +62,18 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<ClubMember> clubMembers;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
+    @JsonBackReference
+    private List<Review> userReviews;
 
     //default
     public User() {
     }
 
     //create
-    public User(String email, String username, String password, String firstName, String middleName, String lastName, String aboutMe, String country, String websiteURL, String avatarURL, String pronouns, Date dob, Date createdDate, List<Post> posts, List<ClubMember> clubMembers) {
+    public User(String email, String username, String password, String firstName, String middleName, String lastName, String aboutMe, String country, String websiteURL, String avatarURL, String pronouns, Date dob, Date createdDate, List<Post> posts, List<ClubMember> clubMembers
+    , List<Review> userReviews
+    ) {
         this.email = email;
         this.username = username;
         this.password = password;
@@ -80,10 +89,13 @@ public class User {
         this.createdDate = createdDate;
         this.posts = posts;
         this.clubMembers = clubMembers;
+        this.userReviews = userReviews;
     }
 
     //read
-    public User(long id, String email, String username, String password, String firstName, String middleName, String lastName, String aboutMe, String country, String websiteURL, String avatarURL, String pronouns, Date dob, Date createdDate, List<Post> posts, List<ClubMember> clubMembers) {
+    public User(long id, String email, String username, String password, String firstName, String middleName, String lastName, String aboutMe, String country, String websiteURL, String avatarURL, String pronouns, Date dob, Date createdDate, List<Post> posts, List<ClubMember> clubMembers
+            , List<Review> userReviews
+    ) {
         this.id = id;
         this.email = email;
         this.username = username;
@@ -100,6 +112,7 @@ public class User {
         this.createdDate = createdDate;
         this.posts = posts;
         this.clubMembers = clubMembers;
+        this.userReviews = userReviews;
     }
 
     //copy
@@ -120,6 +133,7 @@ public class User {
         createdDate = copy.createdDate;
         posts = copy.posts;
         clubMembers = copy.clubMembers;
+        userReviews = copy.userReviews;
     }
 
     //getters
@@ -139,6 +153,7 @@ public class User {
     public Date getCreatedDate() {return createdDate;}
     public List<Post> getPosts() {return posts;}
     public List<ClubMember> getClubMembers() {return clubMembers;}
+    public List<Review> getUserReviews() {return userReviews;}
 
     //setters
     public void setId(long id) {this.id = id;}
@@ -157,4 +172,5 @@ public class User {
     public void setCreatedDate(Date createdDate) {this.createdDate = createdDate;}
     public void setPosts(List<Post> posts) {this.posts = posts;}
     public void setClubMembers(List<ClubMember> clubMembers) {this.clubMembers = clubMembers;}
+    public void setUserReviews(List<Review> userReviews) {this.userReviews = userReviews;}
 }
