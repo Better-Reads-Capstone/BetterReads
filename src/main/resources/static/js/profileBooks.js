@@ -83,7 +83,7 @@ $(document).ready(function () {
             .catch(error => console.log("ERROR"))
 
         const constructDefaultReviewForm = () => {
-            $('#createReview').attr('action', ``);
+            $('#createReview').attr('action', `/profile/${username}/review/${bookId}`);
             $('#currentRating').html('Leave A Rating: ');
             $('#createRating').html(`
                     <option value="1">1</option>
