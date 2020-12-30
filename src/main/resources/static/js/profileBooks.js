@@ -100,17 +100,11 @@ $(document).ready(function () {
         fetch(`/review.json`)
             .then(res => res.json())
             .then(reviews => {
-                console.log(reviews)
-                console.log(bookId)
-                console.log(username)
                 for (let review of reviews) {
                     let reviewId = review.id;
                     let body = review.body;
                     let rating = review.rating;
                     if (review.book.id == bookId) {
-                        console.log(review.book.id + " = " + bookId)
-                        console.log(body)
-                        console.log(rating)
                         $('#createReview').attr('action', `/profile/${username}/${bookId}/editReview/${reviewId}`);
                         $('#reviewId').val(id);
                         $('#createBody').val(body);
