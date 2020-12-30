@@ -62,8 +62,5 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                     )
 
                 .authenticated();
-                //CALEB ADDED THIS LINE TO ALLOW FOR A COMPLEX METHOD TO HANDLE FETCH FOR GetReviewController
-                http.csrf().disable()
-        ;
     }
 }

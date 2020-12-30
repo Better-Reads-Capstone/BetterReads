@@ -1,5 +1,6 @@
 package com.codeup.betterreads.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -29,10 +30,12 @@ public class Review {
     private Date updatedDate;
 
     @ManyToOne
+    @JsonManagedReference
     @JoinColumn (name = "owner_id")
     private User owner;
 
     @ManyToOne
+    @JsonManagedReference
     @JoinColumn (name = "book_id")
     private Book book;
 

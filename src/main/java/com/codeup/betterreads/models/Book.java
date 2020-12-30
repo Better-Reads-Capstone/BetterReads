@@ -1,5 +1,7 @@
 package com.codeup.betterreads.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -23,24 +25,34 @@ public class Book {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "book")
     private List<ClubBook> clubBooks;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "book")
+    @JsonBackReference
+    private List<Review> bookReviews;
+
 
     public Book() {}
 
     //create
-    public Book(String gbreference, String isbn, Genre genre, List<ClubBook> clubBooks){
+    public Book(String gbreference, String isbn, Genre genre, List<ClubBook> clubBooks
+    , List<Review> bookReviews
+    ){
         this.gbreference = gbreference;
         this.isbn = isbn;
         this.genre = genre;
         this.clubBooks = clubBooks;
+        this.bookReviews = bookReviews;
     }
 
     //read
-    public Book(long id, String gbreference, String isbn, Genre genre, List<ClubBook> clubBooks){
+    public Book(long id, String gbreference, String isbn, Genre genre, List<ClubBook> clubBooks
+    , List<Review> bookReviews
+    ){
         this.id = id;
         this.gbreference = gbreference;
         this.isbn = isbn;
         this.genre = genre;
         this.clubBooks = clubBooks;
+        this.bookReviews = bookReviews;
     }
 
     //getters
@@ -49,6 +61,7 @@ public class Book {
     public String getIsbn() {return isbn;}
     public Genre getGenre() {return genre;}
     public List<ClubBook> getClubBooks() {return clubBooks;}
+    public List<Review> getBookReviews() {return bookReviews;}
 
     //setters
     public void setId(long id) {this.id = id;}
@@ -56,4 +69,5 @@ public class Book {
     public void setIsbn(String isbnTen) {this.isbn = isbnTen;}
     public void setGenre(Genre genre) {this.genre = genre;}
     public void setClubBooks(List<ClubBook> clubBooks) {this.clubBooks = clubBooks;}
+    public void setBookReviews(List<Review> bookReviews) {this.bookReviews = bookReviews;}
 }
