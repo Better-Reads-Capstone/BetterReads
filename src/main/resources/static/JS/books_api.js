@@ -108,9 +108,3 @@ const displaySingleBookCard = (data) => {
                 </div>`
     return finalHTML;
 }
-
-// $('#searchbtn').click(function(event) {
-//     event.preventDefault();
-//     let searchterm = $('#searchterm').val();
-//     simpleQuery(searchterm, "search-results", displayMultiBookCards);
-// })
