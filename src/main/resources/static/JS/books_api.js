@@ -1,39 +1,116 @@
-const baseUrl = new URL('https://www.googleapis.com/books/v1/volumes?');
+const baseUrl = new URL('https://www.googleapis.com/books/v1/volumes');
 const apiKey = googleBooksAPIKey;
 
-function simpleQuery(searchTerm) {
-    fetch(baseUrl + new URLSearchParams({
+// Fetch functions
+const simpleQuery = (searchTerm, elementId, callback) => {
+    document.getElementById(elementId).innerHTML = "";
+    fetch(baseUrl + '?' + new URLSearchParams({
         q: searchTerm,
+        printType: 'books',
         key: apiKey
     }))
         .then(response => response.json())
         .then(result => {
-            for (let i = 0; i < result.items.length; i++) {
-                let item = result.items[i];
-                console.log(item);
-                document.getElementById("search-results").innerHTML += "<div class='card mb-3' style='max-width: 540px;'>";
-                document.getElementById("search-results").innerHTML += "<div class='row no-gutters'>";
-                document.getElementById("search-results").innerHTML += "<div class='col-md-4'>";
-                document.getElementById("search-results").innerHTML += `<img src='${item.volumeInfo.imageLinks.thumbnail}' class='card-img' alt='thumbnail-image' style='width: 70px'>`;
-                document.getElementById("search-results").innerHTML += "</div>";
-                document.getElementById("search-results").innerHTML += "<div class='col-md-8'>";
-                document.getElementById("search-results").innerHTML += "<div class='card-body'>";
-                document.getElementById("search-results").innerHTML += `<h5 class="card-title>">${item.volumeInfo.title}</h5>`;
-                document.getElementById("search-results").innerHTML += `<p class='card-text'>${item.volumeInfo.description}</p>`;
-                document.getElementById("search-results").innerHTML += `<p class='card-text'>${item.volumeInfo.industryIdentifiers[0].identifier}</p>`;
-                document.getElementById("search-results").innerHTML += `<p class='card-text'>${item.id}</p>`;
-                document.getElementById("search-results").innerHTML += `<form class='form-inline my-2 my-lg-0' method="GET" action="/book/${item.id}"><button class='btn my-2 my-sm-0' type='submit' id='addBookBtn'>Add Book</button>`;
-                document.getElementById("search-results").innerHTML += "</form>";
-                document.getElementById("search-results").innerHTML += "</div>";
-                document.getElementById("search-results").innerHTML += "</div>";
-                document.getElementById("search-results").innerHTML += "</div>";
-                document.getElementById("search-results").innerHTML += "</div>";
-            }
+            let finalhtml = callback(result);
+            document.getElementById(elementId).innerHTML += finalhtml;
+        })
+        .catch(e => {
+            console.log(e);
         })
 }
 
-$('#searchbtn').click(function(event) {
-    event.preventDefault();
-    let searchterm = $('#searchterm').val();
-    simpleQuery(searchterm);
-})
+const isbnQuery = (isbn, elementId, callback) => {
+    document.getElementById(elementId).innerHTML = "";
+    fetch(baseUrl + '?' + new URLSearchParams({
+        q: 'isbn:' + isbn,
+        printType: 'books',
+        key: apiKey
+    }))
+        .then(response => response.json())
+        .then(result => {
+            let finalhtml = callback(result);
+            document.getElementById(elementId).innerHTML += finalhtml;
+        })
+        .catch(e => {
+            console.log(e);
+        })
+}
+
+const referenceQuery = (gbid, elementId, callback) => {
+    document.getElementById(elementId).innerHTML = "";
+    fetch(baseUrl + '/' + gbid)
+        .then(response => response.json())
+        .then(result => {
+            let finalhtml = callback(result);
+            document.getElementById(elementId).innerHTML += finalhtml;
+        })
+        .catch(e => {
+            console.log(e);
+        })
+}
+
+// Callback functions to manipulate the data
+
+const displayMultiBookCards = (data) => {
+    let finalHTML = '';
+    for(let i = 0; i < data.items.length; i++) {
+        let book = data.items[i];
+        let thumbnail = 'https://via.placeholder.com/75';
+        try {
+            thumbnail = book.volumeInfo.imageLinks.thumbnail;
+        } catch (error) {
+            console.error("No thumbnail exists for this book.")
+        }
+        finalHTML +=
+            `<div class="col mb-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <p>${book.volumeInfo.title}</p>
+                            </div>
+                            <div class="card-body">
+                                <img src='${thumbnail}' class='card-img' alt='thumbnail-image' style='width: 70px'>
+                                <p>ISBN: ${book.volumeInfo.industryIdentifiers[0].identifier}</p>
+                            </div>
+                            <div class="card-footer">
+                                <form class='form-inline my-2 my-lg-0' method="GET" action="/book/${book.id}"><button class='btn btn-success my-2 my-sm-0' type='submit' id='viewBookBtn'>View Book</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>`
+    }
+
+    return finalHTML;
+}
+
+const displaySingleBookCard = (data) => {
+    let finalHTML;
+    let book = data;
+    let thumbnail = 'https://via.placeholder.com/75';
+    try {
+        thumbnail = book.volumeInfo.imageLinks.thumbnail;
+    } catch (error) {
+        console.error("No thumbnail exists for this book.")
+    }
+    finalHTML =
+        `<div class="col mb-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <p>${book.volumeInfo.title}</p>
+                        </div>
+                        <div class="card-body">
+                            <img src='${thumbnail}' class='card-img' alt='thumbnail-image' style='width: 70px'>
+                            <p>ISBN: ${book.volumeInfo.industryIdentifiers[0].identifier}</p>
+                            <p>Author: ${book.volumeInfo.authors[0]}</p>
+                            <p>${book.volumeInfo.description}</p>
+                            <p>Book ID: ${book.id}</p>
+                        </div>
+                    </div>
+                </div>`
+    return finalHTML;
+}
+
+// $('#searchbtn').click(function(event) {
+//     event.preventDefault();
+//     let searchterm = $('#searchterm').val();
+//     simpleQuery(searchterm, "search-results", displayMultiBookCards);
+// })
