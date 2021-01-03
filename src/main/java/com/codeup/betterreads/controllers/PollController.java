@@ -2,6 +2,7 @@ package com.codeup.betterreads.controllers;
 
 import com.codeup.betterreads.models.Club;
 import com.codeup.betterreads.models.Poll;
+import com.codeup.betterreads.models.User;
 import com.codeup.betterreads.repositories.ClubRepo;
 import com.codeup.betterreads.repositories.PollRepo;
 import org.springframework.stereotype.Controller;
@@ -31,15 +32,17 @@ public class PollController {
         return "user/club-poll";
     }
 
-    @PostMapping("/bookclub-poll")
+    @PostMapping("/bookclub-poll/{id}")
     public String createPoll(
             @ModelAttribute Club club,
-            @ModelAttribute Poll pollToBeCreated
+            @ModelAttribute Poll pollToBeCreated,
+            @PathVariable long id
     ) {
         Date currentDate = new Date();
+        User clubOwner = (clubDao.getOne(id)).getOwner();
 
         pollToBeCreated.setClub(club);
-        pollToBeCreated.setUser(club.getOwner());
+        pollToBeCreated.setUser(clubOwner);
         pollToBeCreated.setActive(true);
         pollToBeCreated.setCreatedDate(currentDate);
 
