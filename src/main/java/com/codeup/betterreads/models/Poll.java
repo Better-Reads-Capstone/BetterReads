@@ -15,6 +15,12 @@ public class Poll {
     @Column
     private boolean active;
 
+    @Column
+    private long bookOneCount;
+
+    @Column
+    private long bookTwoCount;
+
     @ManyToOne
     @JoinColumn(name = "club_id")
     private Club club;
@@ -37,8 +43,10 @@ public class Poll {
 
     public Poll(){}
 
-    public Poll(boolean active, Club club, Book bookOne, Book bookTwo, User user, Date createdDate){
+    public Poll(boolean active, long bookOneCount, long bookTwoCount, Club club, Book bookOne, Book bookTwo, User user, Date createdDate){
         this.active = active;
+        this.bookOneCount = bookOneCount;
+        this.bookTwoCount = bookTwoCount;
         this.club = club;
         this.bookOne = bookOne;
         this.bookTwo = bookTwo;
@@ -46,9 +54,11 @@ public class Poll {
         this.createdDate = createdDate;
     }
 
-    public Poll(long id, boolean active, Club club, Book bookOne, Book bookTwo, User user, Date createdDate){
+    public Poll(long id, boolean active, long bookOneCount, long bookTwoCount, Club club, Book bookOne, Book bookTwo, User user, Date createdDate){
         this.id = id;
         this.active = active;
+        this.bookOneCount = bookOneCount;
+        this.bookTwoCount = bookTwoCount;
         this.club = club;
         this.bookOne = bookOne;
         this.bookTwo = bookTwo;
@@ -58,6 +68,8 @@ public class Poll {
 
     public long getId(){return id;}
     public boolean getActive(){return active;}
+    public long getBookOneCount(){return bookOneCount;}
+    public long getBookTwoCount(){return bookTwoCount;}
     public Club getClub(){return club;}
     public Book getBookOne(){return bookOne;}
     public Book getBookTwo(){return bookTwo;}
@@ -69,6 +81,8 @@ public class Poll {
     public void setClub(Club club){this.club = club;}
     public void setBookOne(Book bookOne){this.bookOne = bookOne;}
     public void setBookTwo(Book bookTwo){this.bookTwo = bookTwo;}
+    public void setBookOneCount(long bookOneCount){this.bookOneCount = bookOneCount;}
+    public void setBookTwoCount(long bookTwoCount) {this.bookTwoCount = bookTwoCount;}
     public void setUser(User user){this.user = user;}
     public void setCreatedDate(Date createdDate){this.createdDate = createdDate;}
 }

@@ -32,6 +32,7 @@ public class PollController {
         return "user/club-poll";
     }
 
+    //Still need to add "Search Book" Functionality.
     @PostMapping("/bookclub-poll/{id}")
     public String createPoll(
             @ModelAttribute Club club,
@@ -55,5 +56,17 @@ public class PollController {
         viewModel.addAttribute("poll", pollDao.getOne(id));
 
         return "partials/show-poll";
+    }
+
+    @PostMapping("/show-poll/{id}/book-one")
+    public String voteBookOne(Model viewModel, @PathVariable long id) {
+        Poll poll = pollDao.getOne(id);
+        viewModel.addAttribute("poll", poll);
+
+        long bookOneVotes = poll.getBookOneCount();
+        long updateBookOneVotes = bookOneVotes + 1;
+
+        poll.setBookOneCount(updateBookOneVotes);
+        return "redirect:/show-poll/" + poll.getId();
     }
 }

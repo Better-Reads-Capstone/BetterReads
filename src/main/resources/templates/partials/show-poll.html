@@ -1,10 +1,33 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Poll</title>
-</head>
+<head th:replace="partials/head :: head(title = 'Start a Bookclub')">
 <body>
+    <nav th:replace="partials/navbar :: navbar"></nav>
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <h3>Monthly Poll</h3>
+            </div>
+            <div class="card-body">
+                <p>Poll ID: <span th:text="${poll.id}"></span></p>
+                <div>Book One Votes:
+                    <span th:text="${poll.bookOne.getId()}"></span> --
+                    <span th:text="${poll.bookOneCount}"></span>
+                    <form th:action="@{/show-poll/{id}/book-one (id = ${poll.getId()})}" method="POST">
+                        <input class="btn btn-sm btn-success btn-vote" type="submit">
+                    </form>
+                </div>
+                <div>Book Two Votes:
+                    <span th:text="${poll.bookTwo.getId()}"></span> --
+                    <span th:text="${poll.bookTwoCount}"></span>
+                    <form th:action="@{/show-poll/{id}/book-two (id = ${poll.getId()})}" method="POST">
+                        <input class="btn btn-sm btn-success btn-vote" type="submit">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <footer th:replace="partials/footer :: footer"></footer>
 </body>
 </html>
