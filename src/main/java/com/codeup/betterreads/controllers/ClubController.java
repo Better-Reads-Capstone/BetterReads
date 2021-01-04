@@ -32,6 +32,7 @@ public class ClubController {
         this.clubMemberDao = clubMemberDao;
     }
 
+    // Create Club
     @GetMapping("/create-club/{username}")
     public String showCreateClub(Model viewModel, @PathVariable String username) {
         viewModel.addAttribute("user", userDao.findByUsername(username));
@@ -63,6 +64,7 @@ public class ClubController {
         return "redirect:/bookclub/" + dbClub.getId();
     }
 
+    // View Club Page
     @GetMapping("/bookclub/{id}")
     public String showBookClub(
             Model viewModel,
@@ -70,6 +72,7 @@ public class ClubController {
             @ModelAttribute Club club) {
         viewModel.addAttribute("user", SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         viewModel.addAttribute("club", clubDao.getOne(id));
+        viewModel.addAttribute("members", clubMemberDao.findAllByClub(club));
 
         // For the conditional in the bookclub template; prevents users from joining a club multiple times!
         User clubUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -79,6 +82,7 @@ public class ClubController {
         return "user/bookclub";
     }
 
+    //Join Club
     @PostMapping("/bookclub/{id}/join")
     public String joinBookClub(@PathVariable long id) {
         User clubUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -95,6 +99,7 @@ public class ClubController {
         return "redirect:/bookclub/" + id;
     }
 
+    //Leave Club
     @PostMapping("/bookclub/{id}/leave")
     public String leaveBookClub(@PathVariable long id) {
         User clubUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -106,6 +111,7 @@ public class ClubController {
         return "redirect:/bookclub/" + id;
     }
 
+    //Edit Club Page
     @GetMapping("/edit-bookclub/{id}")
     public String showEditBookClub (Model viewModel, @PathVariable long id) {
         viewModel.addAttribute("club", clubDao.getOne(id));

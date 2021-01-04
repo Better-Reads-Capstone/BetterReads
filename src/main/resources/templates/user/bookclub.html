@@ -28,6 +28,18 @@
         <p>Club genre: </p><h3 th:text="${club.genre.name}"></h3>
         <p>Club Owner: </p><h3 th:text="${club.owner.username}"></h3>
         <img th:src="${club.headerImageUrl}" alt="">
+        <br>
+        <h3>Members</h3>
+        <div th:each="clubMember: ${members}">
+            <div>
+                <p>
+                    <span th:text="${clubMember.user.getFirstName()}"></span>
+                    <span th:text="${clubMember.user.getLastName()}"></span>
+                </p>
+                <p th:if="${clubMember.isAdmin == true}">Admin</p>
+                <p th:unless="${clubMember.isAdmin == true}">Member</p>
+            </div>
+        </div>
     </main>
     <footer th:replace="partials/footer :: footer"></footer>
 </body>
