@@ -14,14 +14,14 @@
                     <span th:text="${poll.bookOne.getId()}"></span> --
                     <span th:text="${poll.bookOneCount}"></span>
                     <form th:action="@{/show-poll/{id}/book-one (id = ${poll.getId()})}" method="POST">
-                        <input class="btn btn-sm btn-success btn-vote" type="submit">
+                        <input class="btn btn-sm btn-success btn-vote" type="submit" value="Vote">
                     </form>
                 </div>
                 <div>Book Two Votes:
                     <span th:text="${poll.bookTwo.getId()}"></span> --
                     <span th:text="${poll.bookTwoCount}"></span>
                     <form th:action="@{/show-poll/{id}/book-two (id = ${poll.getId()})}" method="POST">
-                        <input class="btn btn-sm btn-success btn-vote" type="submit">
+                        <input class="btn btn-sm btn-success btn-vote" type="submit" value="Vote">
                     </form>
                 </div>
             </div>

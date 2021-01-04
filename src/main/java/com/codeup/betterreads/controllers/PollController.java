@@ -64,9 +64,25 @@ public class PollController {
         viewModel.addAttribute("poll", poll);
 
         long bookOneVotes = poll.getBookOneCount();
+        System.out.println(bookOneVotes);
         long updateBookOneVotes = bookOneVotes + 1;
 
         poll.setBookOneCount(updateBookOneVotes);
-        return "redirect:/show-poll/" + poll.getId();
+        Poll dbPoll = pollDao.save(poll);
+        return "redirect:/show-poll/" + dbPoll.getId();
+    }
+
+    @PostMapping("/show-poll/{id}/book-two")
+    public String voteTwoOne(Model viewModel, @PathVariable long id) {
+        Poll poll = pollDao.getOne(id);
+        viewModel.addAttribute("poll", poll);
+
+        long bookTwoVotes = poll.getBookTwoCount();
+        System.out.println(bookTwoVotes);
+        long updateBookTwoVotes = bookTwoVotes + 1;
+
+        poll.setBookTwoCount(updateBookTwoVotes);
+        Poll dbPoll = pollDao.save(poll);
+        return "redirect:/show-poll/" + dbPoll.getId();
     }
 }
