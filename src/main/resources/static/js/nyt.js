@@ -1,7 +1,5 @@
 $(document).ready(function() {
     const url = "https://api.nytimes.com/svc/books/v3/lists/overview.json?api-key=" + nytAPIKey;
-    const selectors = ["print-ebook-fiction-list","hardcover-fiction-list", "trade-fiction-paperback-list", "print-ebook-nonfiction-list", "hardcover-nonfiction-list", "paperback-nonfiction-list", "advice-how-to-list", "middle-grade-list", "picture-books-list", "series-books-list", "ya-hardcover-list", "audio-fiction-list", "audio-nonfiction-list", "business-list"];
-    const loadingIcon = document.querySelector(".loading-icon");
     let booksList = [];
 
     //function calls
@@ -24,7 +22,7 @@ $(document).ready(function() {
                 hideLoadingIcon();
                 const bestSellerLists = books.results.lists;
                 // console.log(bestSellerLists);
-                for(let i = 0; i < bestSellerLists.length - 4; i++) {
+                for(let i = 0; i < bestSellerLists.length; i++) {
                     // console.log(bestSellerLists[i]);
                     for(let x = 0; x < bestSellerLists[i].books.length; x++) {
                         // console.log(bestSellerLists[i].books[x].title);
@@ -67,9 +65,6 @@ $(document).ready(function() {
         let pictureBooks = "";
         let seriesBooks = "";
         let youngAdultHardcover = "";
-        let audioFic = "";
-        let audioNon = "";
-        let businessBooks = "";
 
         books.forEach(book => {
             switch(book.listName) {
@@ -117,18 +112,6 @@ $(document).ready(function() {
                     youngAdultHardcover += displayBookCard(book);
                     console.log(book.title);
                     break;
-                case "Audio Fiction":
-                    audioFic += displayBookCard(book);
-                    console.log(book.title);
-                    break;
-                case "Audio Nonfiction":
-                    audioNon += displayBookCard(book);
-                    console.log(book.title);
-                    break;
-                case "Business Books":
-                    businessBooks += displayBookCard(book);
-                    console.log(book.title);
-                    break;
                 default:
                     console.log("none");
                     break;
@@ -146,9 +129,6 @@ $(document).ready(function() {
         document.querySelector(".picture-books-list").innerHTML = pictureBooks;
         document.querySelector(".series-books-list").innerHTML = seriesBooks;
         document.querySelector(".ya-hardcover-list").innerHTML = youngAdultHardcover;
-        document.querySelector(".audio-fiction-list").innerHTML = audioFic;
-        document.querySelector(".audio-nonfiction-list").innerHTML = audioNon;
-        document.querySelector(".business-list").innerHTML = businessBooks;
     }
 
     // Card creation
