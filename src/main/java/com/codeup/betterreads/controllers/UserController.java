@@ -5,6 +5,7 @@ import com.codeup.betterreads.repositories.BookRepo;
 import com.codeup.betterreads.repositories.BookshelfRepo;
 import com.codeup.betterreads.repositories.ReviewRepo;
 import com.codeup.betterreads.repositories.UserRepo;
+import com.codeup.betterreads.services.MailService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,13 +21,15 @@ public class UserController {
     private BookshelfRepo bookshelfDao;
     private BookRepo bookDao;
     private ReviewRepo reviewDao;
+    private MailService mailService;
 
-    public UserController(UserRepo userDao, PasswordEncoder passwordEncoder, BookshelfRepo bookshelfDao, BookRepo bookDao, ReviewRepo reviewDao) {
+    public UserController(UserRepo userDao, PasswordEncoder passwordEncoder, BookshelfRepo bookshelfDao, BookRepo bookDao, ReviewRepo reviewDao, MailService mailService) {
         this.userDao = userDao;
         this.passwordEncoder = passwordEncoder;
         this.bookshelfDao = bookshelfDao;
         this.bookDao = bookDao;
         this.reviewDao = reviewDao;
+        this.mailService = mailService;
     }
 
     @GetMapping("/sign-up")
