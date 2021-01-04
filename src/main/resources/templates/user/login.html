@@ -6,17 +6,22 @@
 <body>
     <nav th:replace="partials/navbar :: navbar"></nav>
     <main>
-        <form th:action="@{/login}" method="POST">
-            <div>
-                <label for="username">Username (Levi Testing)</label>
-                <input id="username" name="username" class="form-control" type="text" />
+        <div class="container">
+            <div class="container p-3" id="login-container">
+                <h3>Account Login</h3>
+                <form th:action="@{/login}" method="POST" class="p-3">
+                    <div class="p-1">
+                        <label for="username">Username</label>
+                        <input id="username" name="username" class="form-control" type="text" />
+                    </div>
+                    <div class="p-1">
+                        <label for="password">Password</label>
+                        <input id="password" name="password" class="form-control" type="password" />
+                    </div>
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </form>
             </div>
-            <div>
-                <label for="password">Password</label>
-                <input id="password" name="password" type="password" />
-            </div>
-            <button type="submit">Login</button>
-        </form>
+        </div>
     </main>
     <footer th:replace="partials/footer :: footer"></footer>
 </body>
