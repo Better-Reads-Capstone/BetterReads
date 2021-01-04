@@ -12,13 +12,15 @@
         </button>
     </form>
     <!--Join and Leave Buttons-->
-    <div th:if="${member.user == null}">
+    <div th:if="${member == null}">
         <form th:action="@{/bookclub/{id}/join (id = ${club.id})}" method="post">
             <input class="btn btn-primary" type="submit" value="Join Club">
         </form>
     </div>
-    <div th:unless="${member.user == user}">
-        <p>LEAVE</p>
+    <div th:unless="${member == null}">
+        <form th:action="@{/bookclub/{id}/leave (id = ${club.id})}" method="post">
+            <input class="btn btn-primary" type="submit" value="Leave Club">
+        </form>
     </div>
 
     <main>

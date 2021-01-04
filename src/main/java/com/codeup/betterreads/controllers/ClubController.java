@@ -68,12 +68,10 @@ public class ClubController {
             @ModelAttribute Club club) {
         viewModel.addAttribute("user", SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         viewModel.addAttribute("club", clubDao.getOne(id));
+
+        // For the conditional in the bookclub template; prevents users from joining a club multiple times!
         User clubUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         ClubMember clubMember = clubMemberDao.findClubMemberByUser(clubUser);
-        System.out.println("Club Member Obj: " + clubMember);
-        System.out.println("User Obj: " + clubUser);
-        System.out.println("Club Obj: " + club);
-
         viewModel.addAttribute("member", clubMember);
 
         return "user/bookclub";
@@ -91,6 +89,17 @@ public class ClubController {
         clubMemberDao.save(clubMember);
         System.out.println(clubUser.getId());
         System.out.println(clubMember.getId());
+
+        return "redirect:/bookclub/" + id;
+    }
+
+    @PostMapping("/bookclub/{id}/leave")
+    public String leaveBookClub(@PathVariable long id) {
+        User clubUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        ClubMember clubMember = clubMemberDao.findClubMemberByUser(clubUser);
+
+        clubMemberDao.deleteById(clubMember.getId());
+
         return "redirect:/bookclub/" + id;
     }
 
