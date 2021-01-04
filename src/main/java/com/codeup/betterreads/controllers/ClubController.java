@@ -58,6 +58,8 @@ public class ClubController {
         clubMember.setClub(dbClub);
         clubMember.setUser(user);
         clubMember.setIsAdmin(true);
+        clubMemberDao.save(clubMember);
+
         return "redirect:/bookclub/" + dbClub.getId();
     }
 
@@ -71,7 +73,7 @@ public class ClubController {
 
         // For the conditional in the bookclub template; prevents users from joining a club multiple times!
         User clubUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        ClubMember clubMember = clubMemberDao.findClubMemberByUser(clubUser);
+        ClubMember clubMember = clubMemberDao.findClubMemberByUserAndClub(clubUser, club);
         viewModel.addAttribute("member", clubMember);
 
         return "user/bookclub";
@@ -96,7 +98,8 @@ public class ClubController {
     @PostMapping("/bookclub/{id}/leave")
     public String leaveBookClub(@PathVariable long id) {
         User clubUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        ClubMember clubMember = clubMemberDao.findClubMemberByUser(clubUser);
+        Club club = clubDao.getOne(id);
+        ClubMember clubMember = clubMemberDao.findClubMemberByUserAndClub(clubUser, club);
 
         clubMemberDao.deleteById(clubMember.getId());
 
