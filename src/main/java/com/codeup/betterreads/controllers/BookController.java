@@ -27,7 +27,13 @@ public class BookController {
     }
 
     @GetMapping("/booksearch")
-    public String searchResults() {return "books/results";}
+    public String searchResults(
+            @RequestParam(name = "searchvalue") String searchvalue,
+            Model viewModel) {
+
+        viewModel.addAttribute("searchvalue", searchvalue);
+        return "books/results";
+    }
 
     @GetMapping("/book/{gbreference}")
     public String createBook(@PathVariable String gbreference, Model viewModel) {
@@ -81,14 +87,4 @@ public class BookController {
         return "redirect:/books/viewbook";
     }
 
-//    @GetMapping("/book/{isbn}")
-//    public String showBook(
-//            @PathVariable String isbn,
-//            Model viewModel
-//    )
-//    {
-//        Book dbBook = bookDao.findBookByIsbnEquals(isbn);
-//        viewModel.addAttribute("book", dbBook);
-//        return "books/viewbook";
-//    }
 }

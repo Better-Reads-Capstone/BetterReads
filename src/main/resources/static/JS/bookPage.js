@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    let gbreferenceId = $('#book-value').val()
     let edit = $('#editReview');
     $(edit).click(function(event) {
         event.preventDefault();
@@ -19,4 +20,6 @@ $(document).ready(function() {
         });
         $('#reviewSubmit').html('Submit Changes');
     })
+    // Fetch the book data and populate the "book-container" HTML element with the book card
+    referenceQuery(gbreferenceId, "book-container", displaySingleBookCard);
 })
