@@ -5,6 +5,8 @@ import com.codeup.betterreads.repositories.BookRepo;
 import com.codeup.betterreads.repositories.BookshelfRepo;
 import com.codeup.betterreads.repositories.ReviewRepo;
 import com.codeup.betterreads.repositories.UserRepo;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
@@ -50,18 +52,26 @@ public class BookController {
         //Should get all reviews by the created books id
         List<Review> dbReviews = reviewDao.findAllByBookId(newBook.getId());
         //places a new review object to review form and places all reviews retrieved to view
-        User dbUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Bookshelf dbBookshelf = bookshelfDao.findBookshelfByUserIdAndBookId(dbUser.getId(), newBook.getId());
-        System.out.println("test getting bookshelf: " + dbBookshelf);
-        String isNull = "null";
-        if(dbBookshelf == null) {
-            viewModel.addAttribute("bookshelf", isNull);
+        Authentication authentication =  SecurityContextHolder.getContext().getAuthentication();
+        if(authentication instanceof AnonymousAuthenticationToken) {
+            System.out.println("nada");
         }
         else {
-            viewModel.addAttribute("bookshelf", dbBookshelf);
+            User dbUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            Bookshelf dbBookshelf = bookshelfDao.findBookshelfByUserIdAndBookId(dbUser.getId(), newBook.getId());
+            System.out.println("test getting bookshelf: " + dbBookshelf);
+            String isNull = "null";
+            if(dbBookshelf == null) {
+                viewModel.addAttribute("bookshelf", isNull);
+            }
+            else {
+                viewModel.addAttribute("bookshelf", dbBookshelf);
+            }
+            viewModel.addAttribute("user", dbUser);
+            viewModel.addAttribute("review", new Review());
         }
-        viewModel.addAttribute("user", dbUser);
-        viewModel.addAttribute("review", new Review());
+        
+
         viewModel.addAttribute("reviews", dbReviews);
         viewModel.addAttribute("book", newBook);
         return "books/viewbook";
