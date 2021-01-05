@@ -9,6 +9,12 @@
         <div class="container">
             <div class="container p-3" id="login-container">
                 <h3>Account Login</h3>
+                <div th:if="${param.error}">
+                    Invalid Username and/or Password.
+                </div>
+                <div th:if="${param.logout}">
+                    You have been logged out.
+                </div>
                 <form th:action="@{/login}" method="POST" class="p-3">
                     <div class="p-1">
                         <label for="username">Username</label>
@@ -21,8 +27,12 @@
                     <button type="submit" class="btn btn-primary">Login</button>
                 </form>
             </div>
+            <div class="container" id="reg-link-container">
+                <p class="text-center">No account, no worries!  <a th:href="@{/sign-up}">Create one</a></p>
+            </div>
         </div>
     </main>
     <footer th:replace="partials/footer :: footer"></footer>
+    <script th:replace="partials/scripts :: scripts"></script>
 </body>
 </html>
