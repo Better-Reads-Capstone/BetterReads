@@ -7,16 +7,45 @@
 </head>
 <body>
 <nav th:replace="partials/navbar :: navbar"></nav>
-<div id="book" th:data-book="${book}">
+<div id="book" th:data-book="${book}" th:data-user="${user}">
     <h1>View Book</h1>
     <div class="container">
         <input id="book-value" th:value="${book.gbreference}" hidden>
-        <div class="container" id="book-container"></div>
+
+        <div class="col mb-4">
+            <div class="card">
+                <div class="container" id="book-container"></div>
+                <div class="card-footer">
+                    <form sec:authorize="isAnonymous()" th:action="@{/{gbreference}(gbreference=${book.gbreference})}"
+                          method="get">
+                        <button type="submit">Login to add this book</button>
+                    </form>
+                    <div sec:authorize="isAuthenticated()">
+                        <form th:if="${bookshelf == 'null'}"
+                              th:action="@{/book/{gbreference}(gbreference = ${book.gbreference})}" method="post">
+                            <label for="bookshelfStatus">Choose a Status:</label>
+                            <select id="bookshelfStatus" name="bookshelfStatus">
+                                <option th:value="'READ'">READ</option>
+                                <option th:value="'READING'">READING</option>
+                                <option th:value="'WISHLIST'" selected>WISHLIST</option>
+                            </select>
+                            <button type="submit">Add Book</button>
+                        </form>
+                        <form th:unless="${bookshelf == 'null'}"
+                              th:action="@{/profile/{username}(username=${user.username})}">
+                            <button type="submit">Go to Profile</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- SUBMIT REVIEW FORM - PASS FROM CONTROLLER REVIEW OBJECT TO VIEW FROM METHOD THAT SHOWS BOOK IN BOOKCONTROLLER -->
     <div>
-        <form th:action="@{/book/{bookId}/createReview/{username}(bookId = ${book.id}, username = ${#authentication.principal.username})}"
+        <!-- TODO: GET USER TO PASS IN CONTROLLER -->
+        <button sec:authorize="isAnonymous()"></button>
+        <form sec:authorize="isAuthenticated()" th:action="@{/book/{bookId}/createReview/{username}(bookId = ${book.id})}"
               th:object="${review}">
             <label for="createRating">Rate Me: </label>
             <select name="createRating" id="createRating" th:field="*{rating}">
@@ -38,7 +67,8 @@
         <div>
             <!-- REVIEW CREDS -->
             <div>
-                <p th:text="'written by: '+${#authentication.principal.username}"></p>
+                <!-- TODO: FIX HOW YOU GET THE USER -->
+                <p th:text="'written by: '"></p>
                 <p th:if="${review.createdDate == review.updatedDate}"
                    th:text="'written on: '+${review.createdDate}"></p>
                 <p th:if="${review.createdDate != review.updatedDate}"
@@ -72,7 +102,7 @@
 </div>
 
 <!-- EDIT REVIEW MODAL BODY -->
-<div class="modal" id="reviewModal">
+<div sec:authorize="isAuthenticated()" class="modal" id="reviewModal">
     <div class="modal-content">
         <div class="modal-header">
             <h4 class="modal-title"></h4>
@@ -106,16 +136,6 @@
 </div>
 </div>
 <footer th:replace="partials/footer :: footer"></footer>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-        crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js"
-        integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s"
-        crossorigin="anonymous"></script>
-<script th:replace="partials/scripts :: scripts"></script>
-<script th:src="@{/js/bookPage.js}"></script>
+<script th:src="@{/js/bookPage.js}" defer></script>
 </body>
 </html>

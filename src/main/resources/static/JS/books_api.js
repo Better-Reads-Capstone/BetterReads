@@ -92,19 +92,15 @@ const displaySingleBookCard = (data) => {
         console.error("No thumbnail exists for this book.")
     }
     finalHTML =
-        `<div class="col mb-4">
-                    <div class="card">
-                        <div class="card-header">
-                            <p>${book.volumeInfo.title}</p>
-                        </div>
-                        <div class="card-body">
-                            <img src='${thumbnail}' class='card-img' alt='thumbnail-image' style='width: 70px'>
-                            <p>ISBN: ${book.volumeInfo.industryIdentifiers[0].identifier}</p>
-                            <p>Author: ${book.volumeInfo.authors[0]}</p>
-                            <p>${book.volumeInfo.description}</p>
-                            <p>Book ID: ${book.id}</p>
-                        </div>
-                    </div>
-                </div>`
+        `<div class="card-header">
+             <p>${book.volumeInfo.title}</p>
+         </div>
+         <div class="card-body">
+             <img src='${thumbnail}' class='card-img' alt='thumbnail-image' style='width: 70px'>
+             <p>ISBN: ${book.volumeInfo.industryIdentifiers[0].identifier}</p>
+             <p>Author: ${book.volumeInfo.authors[0]}</p>
+             <p>${book.volumeInfo.description}</p>
+             <p>Book ID: ${book.id}</p>
+         </div>`
     return finalHTML;
 }
