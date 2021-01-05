@@ -5,7 +5,7 @@
 <body>
     <nav th:replace="partials/navbar :: navbar"></nav>
 
-    <div th:if="${member.isAdmin == true}">
+    <div th:if="${member != null && member.isAdmin == true}">
         <!-- Create Blog Post Button for owner/admin -->
         <form th:action="@{/bookclub/{id}/create-post (id = ${club.id})}">
             <input class="btn btn-primary" type="submit" value="Create Post">

@@ -163,6 +163,9 @@ public class ClubController {
 
         viewModel.addAttribute("post", postDao.getOne(postId));
         viewModel.addAttribute("club", clubDao.getOne(id));
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        ClubMember clubMember = clubMemberDao.findClubMemberByUserAndClub(user, clubDao.getOne(id));
+        viewModel.addAttribute("member", clubMember);
 
         return "user/club-post";
     }

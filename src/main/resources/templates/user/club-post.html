@@ -11,9 +11,11 @@
             <br>
             <div th:utext="${post.body}"></div>
             <br>
-            <form class="form-group" th:action="@{/bookclub/{id}/edit-post/{postId} (id = ${club.id}, postId = ${post.id})}">
-                <input class="btn btn-secondary" type="submit" value="Edit"/>
-            </form>
+            <div th:if="${member != null && member.isAdmin == true}">
+                <form class="form-group" th:action="@{/bookclub/{id}/edit-post/{postId} (id = ${club.id}, postId = ${post.id})}">
+                    <input class="btn btn-secondary" type="submit" value="Edit"/>
+                </form>
+            </div>
         </div>
     </main>
     <footer th:replace="partials/footer :: footer"></footer>
