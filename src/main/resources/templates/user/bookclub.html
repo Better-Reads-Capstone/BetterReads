@@ -5,19 +5,42 @@
     <title>Club</title>
 </head>
 <body>
-<nav th:replace="partials/navbar :: navbar"></nav>
-<form th:action="@{/edit-bookclub/{id} (id = ${club.id})}">
-    <button class = "btn btn-primary" type="submit">
-        Edit Club
-    </button>
-</form>
-<main>
-    <p>Name of club: </p><h1 th:text="${club.name}"></h1>
-    <p>About: </p><h3 th:text="${club.about}"></h3>
-    <p>Club genre: </p><h3 th:text="${club.genre.name}"></h3>
-    <p>Club Owner: </p><h3 th:text="${club.owner.username}"></h3>
-    <img th:src="${club.headerImageUrl}" alt="">
-</main>
-<footer th:replace="partials/footer :: footer"></footer>
+    <nav th:replace="partials/navbar :: navbar"></nav>
+    <form th:action="@{/edit-bookclub/{id} (id = ${club.id})}">
+        <button class = "btn btn-primary" type="submit">
+            Edit Club
+        </button>
+    </form>
+    <!--Join and Leave Buttons-->
+    <div th:if="${member == null}">
+        <form th:action="@{/bookclub/{id}/join (id = ${club.id})}" method="post">
+            <input class="btn btn-primary" type="submit" value="Join Club">
+        </form>
+    </div>
+    <div th:unless="${member == null}">
+        <form th:action="@{/bookclub/{id}/leave (id = ${club.id})}" method="post">
+            <input class="btn btn-primary" type="submit" value="Leave Club">
+        </form>
+    </div>
+    <main>
+        <p>Name of club: </p><h1 th:text="${club.name}"></h1>
+        <p>About: </p><h3 th:text="${club.about}"></h3>
+        <p>Club genre: </p><h3 th:text="${club.genre.name}"></h3>
+        <p>Club Owner: </p><h3 th:text="${club.owner.username}"></h3>
+        <img th:src="${club.headerImageUrl}" alt="">
+        <br>
+        <h3>Members</h3>
+        <div th:each="clubMember: ${members}">
+            <div>
+                <p>
+                    <span th:text="${clubMember.user.getFirstName()}"></span>
+                    <span th:text="${clubMember.user.getLastName()}"></span>
+                </p>
+                <p th:if="${clubMember.isAdmin == true}">Admin</p>
+                <p th:unless="${clubMember.isAdmin == true}">Member</p>
+            </div>
+        </div>
+    </main>
+    <footer th:replace="partials/footer :: footer"></footer>
 </body>
 </html>
