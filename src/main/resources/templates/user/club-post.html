@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="partials/head :: head(title = 'Create Post')">
+</head>
+<body>
+    <nav th:replace="partials/navbar :: navbar"></nav>
+    <main>
+        <br>
+        <div class="container">
+            <div th:text="${post.title}"></div>
+            <br>
+            <div th:utext="${post.body}"></div>
+            <br>
+            <form class="form-group" th:action="@{/bookclub/{id}/edit-post/{postId} (id = ${club.id}, postId = ${post.id})}">
+                <input class="btn btn-secondary" type="submit" value="Edit"/>
+            </form>
+        </div>
+    </main>
+    <footer th:replace="partials/footer :: footer"></footer>
+</body>
+</html>
