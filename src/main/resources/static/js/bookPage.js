@@ -15,7 +15,6 @@ $(document).ready(function() {
         console.log(body)
         console.log(rating)
 
-        let book = $('#book').attr('data-book');
         $('#editReview').attr('action', `/${username}/${gbreferenceId}/editReview/${reviewId}`);
         $('#editReviewBtn').attr('data-reviewId');
         $('#editBody').val(body);
