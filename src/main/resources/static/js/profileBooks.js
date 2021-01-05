@@ -43,6 +43,7 @@ const getBook = (books) => {
 $(document).ready(function () {
     $('.book').click(function (event) {
         event.preventDefault();
+        let userId = $('#userProfile').attr("data-userId");
         let username = $('#userProfile').attr("data-username");
         let id = $(this).attr("id");
         let bookId = $(this).attr("data-bookId");
@@ -94,17 +95,19 @@ $(document).ready(function () {
                 `)
             $('#reviewId').val('');
             $('#createBody').val('');
-            $('#reviewSubmit').html('Submit');
+            $('#reviewSubmit').html('Submit Review');
+            $('#deleteReview').hide();
         }
         constructDefaultReviewForm();
         fetch(`/review.json`)
             .then(res => res.json())
             .then(reviews => {
                 for (let review of reviews) {
+                    console.log(review.owner.id);
                     let reviewId = review.id;
                     let body = review.body;
                     let rating = review.rating;
-                    if (review.book.id == bookId) {
+                    if (review.book.id == bookId && review.owner.id == userId) {
                         $('#createReview').attr('action', `/profile/${username}/${bookId}/editReview/${reviewId}`);
                         $('#reviewId').val(id);
                         $('#createBody').val(body);
@@ -114,7 +117,7 @@ $(document).ready(function () {
                             disabled: 'disabled'
                         });
                         $('#reviewSubmit').html('Submit Changes');
-                        $('#deleteReview').attr('action', `/profile/${username}/deleteReview/${reviewId}`);
+                        $('#deleteReview').show().attr('action', `/profile/${username}/deleteReview/${reviewId}`);
                     }
                 }
             })
