@@ -1,17 +1,18 @@
 package com.codeup.betterreads.controllers;
 
-import com.codeup.betterreads.models.Book;
-import com.codeup.betterreads.models.Review;
-import com.codeup.betterreads.models.User;
+import com.codeup.betterreads.models.*;
 import com.codeup.betterreads.repositories.BookRepo;
+import com.codeup.betterreads.repositories.BookshelfRepo;
 import com.codeup.betterreads.repositories.ReviewRepo;
 import com.codeup.betterreads.repositories.UserRepo;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 public class BookController {
@@ -19,11 +20,13 @@ public class BookController {
     private BookRepo bookDao;
     private UserRepo userDao;
     private ReviewRepo reviewDao;
+    private BookshelfRepo bookshelfDao;
 
-    public BookController(BookRepo bookDao, UserRepo userDao, ReviewRepo reviewDao) {
+    public BookController(BookRepo bookDao, UserRepo userDao, ReviewRepo reviewDao, BookshelfRepo bookshelfDao) {
         this.bookDao = bookDao;
         this.userDao = userDao;
         this.reviewDao = reviewDao;
+        this.bookshelfDao = bookshelfDao;
     }
 
     @GetMapping("/booksearch")
@@ -47,10 +50,40 @@ public class BookController {
         //Should get all reviews by the created books id
         List<Review> dbReviews = reviewDao.findAllByBookId(newBook.getId());
         //places a new review object to review form and places all reviews retrieved to view
+        User dbUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Bookshelf dbBookshelf = bookshelfDao.findBookshelfByUserIdAndBookId(dbUser.getId(), newBook.getId());
+        System.out.println("test getting bookshelf: " + dbBookshelf);
+        String isNull = "null";
+        if(dbBookshelf == null) {
+            viewModel.addAttribute("bookshelf", isNull);
+        }
+        else {
+            viewModel.addAttribute("bookshelf", dbBookshelf);
+        }
+        viewModel.addAttribute("user", dbUser);
         viewModel.addAttribute("review", new Review());
         viewModel.addAttribute("reviews", dbReviews);
         viewModel.addAttribute("book", newBook);
         return "books/viewbook";
+    }
+
+    @PostMapping("/book/{gbreference}")
+    public String addToBookshelf(@PathVariable String gbreference,
+                                 @RequestParam(value="bookshelfStatus") BookshelfStatus status
+    ){
+        User dbUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Book dbBook = bookDao.findBookByGbreferenceEquals(gbreference);
+        Bookshelf currentBookshelf = bookshelfDao.findBookshelfByUserIdAndBookId(dbUser.getId(), dbBook.getId());
+        System.out.println(currentBookshelf);
+
+        Bookshelf dbBookshelf = new Bookshelf();
+        dbBookshelf.setUser(dbUser);
+        dbBookshelf.setBook(dbBook);
+        dbBookshelf.setStatus(status);
+        bookshelfDao.save(Objects.requireNonNullElse(currentBookshelf, dbBookshelf));
+
+
+        return "redirect:/book/" + gbreference;
     }
 
     //will need to test these two PostMappings After Levi completes viewbook
