@@ -44,7 +44,8 @@
     <!-- SUBMIT REVIEW FORM - PASS FROM CONTROLLER REVIEW OBJECT TO VIEW FROM METHOD THAT SHOWS BOOK IN BOOKCONTROLLER -->
     <div>
         <!-- TODO: GET USER TO PASS IN CONTROLLER -->
-        <form th:action="@{/book/{bookId}/createReview/{username}(bookId = ${book.id})}"
+        <button sec:authorize="isAnonymous()"></button>
+        <form sec:authorize="isAuthenticated()" th:action="@{/book/{bookId}/createReview/{username}(bookId = ${book.id})}"
               th:object="${review}">
             <label for="createRating">Rate Me: </label>
             <select name="createRating" id="createRating" th:field="*{rating}">
@@ -101,7 +102,7 @@
 </div>
 
 <!-- EDIT REVIEW MODAL BODY -->
-<div class="modal" id="reviewModal">
+<div sec:authorize="isAuthenticated()" class="modal" id="reviewModal">
     <div class="modal-content">
         <div class="modal-header">
             <h4 class="modal-title"></h4>
