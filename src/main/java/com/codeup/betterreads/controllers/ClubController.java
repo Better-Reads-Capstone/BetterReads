@@ -5,6 +5,8 @@ import com.codeup.betterreads.repositories.ClubMemberRepo;
 import com.codeup.betterreads.repositories.ClubRepo;
 import com.codeup.betterreads.repositories.PostRepo;
 import com.codeup.betterreads.repositories.UserRepo;
+import com.codeup.betterreads.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -24,6 +26,9 @@ public class ClubController {
     private ClubRepo clubDao;
     private ClubMemberRepo clubMemberDao;
     private PostRepo postDao;
+
+    @Autowired
+    UserService usersSvc;
 
     public ClubController(UserRepo userDao, ClubRepo clubDao, ClubMemberRepo clubMemberDao, PostRepo postDao) {
         this.userDao = userDao;
@@ -85,7 +90,7 @@ public class ClubController {
     //Join Club
     @PostMapping("/bookclub/{id}/join")
     public String joinBookClub(@PathVariable long id) {
-        User clubUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User clubUser = usersSvc.loggedInUser();
         ClubMember clubMember = new ClubMember();
 
         clubMember.setClub(clubDao.getOne(id));
@@ -102,7 +107,7 @@ public class ClubController {
     //Leave Club
     @PostMapping("/bookclub/{id}/leave")
     public String leaveBookClub(@PathVariable long id) {
-        User clubUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User clubUser = usersSvc.loggedInUser();
         Club club = clubDao.getOne(id);
         ClubMember clubMember = clubMemberDao.findClubMemberByUserAndClub(clubUser, club);
 
@@ -143,7 +148,7 @@ public class ClubController {
             @ModelAttribute Post post) {
 
         Date currentDate = new Date();
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = usersSvc.loggedInUser();
 
         post.setClub(club);
         post.setUser(user);
@@ -163,7 +168,7 @@ public class ClubController {
 
         viewModel.addAttribute("post", postDao.getOne(postId));
         viewModel.addAttribute("club", clubDao.getOne(id));
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = usersSvc.loggedInUser();
         ClubMember clubMember = clubMemberDao.findClubMemberByUserAndClub(user, clubDao.getOne(id));
         viewModel.addAttribute("member", clubMember);
 
@@ -175,6 +180,12 @@ public class ClubController {
             Model viewModel,
             @PathVariable long id,
             @PathVariable long postId) {
+
+        Post post = postDao.getOne(postId);
+
+        if(!usersSvc.isOwner(post.getUser())){
+            return "redirect:/bookclub/" + id + "/" + postId;
+        }
 
         viewModel.addAttribute("post", postDao.getOne(postId));
         viewModel.addAttribute("club", clubDao.getOne(id));
