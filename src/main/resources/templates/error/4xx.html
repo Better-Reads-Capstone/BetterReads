@@ -3,25 +3,31 @@
 <head th:replace="partials/head :: head('We\'re Sorry')">
 </head>
 <body>
-<th:block th:switch="${error}">
-    <div th:case="'Not Found'">
-        <h1>Hmm... it seems we can't find the page you're looking for.</h1>
-        <h4>Try going back to our <a href="/">homepage,</a></h4>
+<nav th:replace="partials/navbar :: navbar"></nav>
+<br><br><br>
+<div style="text-align: center;">
+    <th:block th:switch="${error}">
+        <div th:case="'Not Found'">
+            <h1>Hmm... it seems we can't find the page you're looking for.</h1>
+            <h4>Try going back to our <a href="/">homepage,</a></h4>
 
-        <br><br><br>
+            <br><br><br>
 
-        <h4>Or, use this <button type="button" onclick="javascript:history.back()">Back</button> button to go back one page.
-        </h4>
-    </div>
-    <div th:case="'Forbidden'">
-        <h1>Sorry...<br>You don't have permission to go here yet.</h1>
-        <h4>Try going back to our <a href="/">homepage</a></h4>
+            <h4>Or, use this <button type="button" onclick="javascript:history.back()">Back</button> button to go back one page.
+            </h4>
+        </div>
+        <div th:case="'Forbidden'">
+            <h1>Sorry...<br>You don't have permission to go here yet.</h1>
+            <h4>Try going back to our <a href="/">homepage</a></h4>
 
-        <br><br><br>
+            <br><br><br>
 
-        <h4>Or, use this <button type="button" onclick="javascript:history.back()">Back</button> button to go back one page.
-        </h4>
-    </div>
-</th:block>
+            <h4>Or, use this <button type="button" onclick="javascript:history.back()">Back</button> button to go back one page.
+            </h4>
+        </div>
+    </th:block>
+</div>
+<br><br><br>
+<footer th:replace="partials/footer :: footer"></footer>
 </body>
 </html>

@@ -64,6 +64,8 @@ public class UserIntegrationTest {
 
         testUser = userDao.findByUsername("TestUsername");
 
+        //CREATE
+
         // Creates the test user if not exists
         if(testUser == null){
             User newUser = new User();
@@ -99,17 +101,19 @@ public class UserIntegrationTest {
                 .getSession();
     }
 
+    //Sanity Check
     @Test
     public void contextLoads() {
         // Sanity Test, just to make sure the MVC bean is working
         assertNotNull(mvc);
     }
-
     @Test
     public void testIfUserSessionIsActive() throws Exception {
         // It makes sure the returned session is not null
         assertNotNull(httpSession);
     }
+
+
 
 
 }
