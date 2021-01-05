@@ -15,6 +15,9 @@
                 <form class="form-group" th:action="@{/bookclub/{id}/edit-post/{postId} (id = ${club.id}, postId = ${post.id})}">
                     <input class="btn btn-secondary" type="submit" value="Edit"/>
                 </form>
+                <form class="form-group" th:action="@{/bookclub/{id}/delete-post/{postId} (id = ${club.id}, postId = ${post.id})}" method="POST">
+                    <input class="btn btn-secondary" type="submit" value="Delete"/>
+                </form>
             </div>
         </div>
     </main>
