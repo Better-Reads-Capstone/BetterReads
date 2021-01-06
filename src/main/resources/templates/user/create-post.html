@@ -10,21 +10,17 @@
                 <form class="form-group" th:action="@{/bookclub/{id}/create-post (id = ${club.id})}" th:object="${post}" method="post">
                     <label for="blog-title">Title</label>
                     <input id="blog-title" class="form-control" type="text" th:field="*{title}"/>
-                    <label for="editor">Body</label>
-                    <textarea id="editor" class="form-control" rows="5" cols="20" th:field="*{body}"></textarea>
+                    <label for="editor1">Body</label>
+                    <textarea id="editor1" class="form-control" rows="5" cols="20" th:field="*{body}"></textarea>
                     <input class="btn btn-secondary" type="submit" value="Submit" />
                 </form>
             </div>
         </div>
     </main>
 
-    <script src="https://cdn.ckeditor.com/ckeditor5/24.0.0/classic/ckeditor.js"></script>
+    <script src="https://cdn.ckeditor.com/4.15.1/standard-all/ckeditor.js"></script>
     <script>
-        ClassicEditor
-            .create( document.querySelector( '#editor' ) )
-            .catch( error => {
-                console.error( error );
-            } );
+        CKEDITOR.replace( 'editor1' );
     </script>
 </body>
 </html>
