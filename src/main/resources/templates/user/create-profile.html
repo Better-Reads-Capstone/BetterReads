@@ -12,7 +12,7 @@
                 <div class="card-header">
                     <h1>Profile Information</h1>
                 </div>
-                    <form th:action="@{/create-profile/{username} (username = ${user.username})}" method="POST" th:object="${user}">
+                    <form th:action="@{/create-profile/{username} (username = ${user.getUsername()})}" method="POST" th:object="${user}">
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="first-name">First Name</label>
@@ -26,9 +26,10 @@
                                 <label for="last-name">Last Name</label>
                                 <input id="last-name" class="form-control" th:field="*{lastName}" />
                             </div>
+
                             <div class="form-group">
-                                <label>Date of Birth</label>
-                                <input type="text" id="dob" class="form-control" th:field="*{dob}"/>
+                                <label for="dob">Date of Birth</label>
+                                <input id="dob" class="form-control" th:field="*{dob}"/>
                             </div>
 
                             <div class="form-group">
@@ -79,6 +80,7 @@
     <footer th:replace="partials/footer :: footer"></footer>
     <script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js" defer></script>
     <script type="text/javascript" th:src="@{/js/filestack.js}" defer></script>
+    <script src="pikaday.js"></script>
     <script th:src="@{/js/utils/datepicker.js}" defer></script>
 </body>
 </html>
