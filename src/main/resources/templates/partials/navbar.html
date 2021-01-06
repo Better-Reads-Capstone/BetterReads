@@ -43,14 +43,10 @@
                     <a class="nav-link" href="/sign-up">Register</a>
                 </li>
                 <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="search-term">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="button" id="search-btn">Search</button>
                 </form>
             </ul>
-            <form class="form-inline my-2 my-lg-0" action="/booksearch" method="get">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
         </div>
         <div sec:authorize="isAuthenticated()" class="d-flex">
             <div class="d-flex">
@@ -60,6 +56,10 @@
             </div>
             <form th:action="@{/logout}" th:method="post">
                 <button class="nav-link btn-link btn">Logout</button>
+            </form>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="search-term">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="button" id="search-btn">Search</button>
             </form>
         </div>
     </div>

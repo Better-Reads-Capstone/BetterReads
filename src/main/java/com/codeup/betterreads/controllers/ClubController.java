@@ -1,10 +1,13 @@
 package com.codeup.betterreads.controllers;
 
 import com.codeup.betterreads.models.Club;
+import com.codeup.betterreads.models.ClubMember;
 import com.codeup.betterreads.models.Genre;
 import com.codeup.betterreads.models.User;
+import com.codeup.betterreads.repositories.ClubMemberRepo;
 import com.codeup.betterreads.repositories.ClubRepo;
 import com.codeup.betterreads.repositories.UserRepo;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,12 +24,15 @@ public class ClubController {
 
     private UserRepo userDao;
     private ClubRepo clubDao;
+    private ClubMemberRepo clubMemberDao;
 
-    public ClubController(UserRepo userDao, ClubRepo clubDao) {
+    public ClubController(UserRepo userDao, ClubRepo clubDao, ClubMemberRepo clubMemberDao) {
         this.userDao = userDao;
         this.clubDao = clubDao;
+        this.clubMemberDao = clubMemberDao;
     }
 
+    // Create Club
     @GetMapping("/create-club/{username}")
     public String showCreateClub(Model viewModel, @PathVariable String username) {
         viewModel.addAttribute("user", userDao.findByUsername(username));
@@ -47,19 +53,65 @@ public class ClubController {
         club.setHeaderImageUrl(defaultIMG);
 
         Club dbClub = clubDao.save(club);
+
+        ClubMember clubMember = new ClubMember();
+
+        clubMember.setClub(dbClub);
+        clubMember.setUser(user);
+        clubMember.setIsAdmin(true);
+        clubMemberDao.save(clubMember);
+
         return "redirect:/bookclub/" + dbClub.getId();
     }
 
+    // View Club Page
     @GetMapping("/bookclub/{id}")
-    public String showBookClub(Model viewModel,
-                               @PathVariable long id,
-                               @ModelAttribute Club club) {
-//        Club viewClub = clubDao.getOne(id);
+    public String showBookClub(
+            Model viewModel,
+            @PathVariable long id,
+            @ModelAttribute Club club) {
+        viewModel.addAttribute("user", SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         viewModel.addAttribute("club", clubDao.getOne(id));
+        viewModel.addAttribute("members", clubMemberDao.findAllByClub(club));
+
+        // For the conditional in the bookclub template; prevents users from joining a club multiple times!
+        User clubUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        ClubMember clubMember = clubMemberDao.findClubMemberByUserAndClub(clubUser, club);
+        viewModel.addAttribute("member", clubMember);
 
         return "user/bookclub";
     }
 
+    //Join Club
+    @PostMapping("/bookclub/{id}/join")
+    public String joinBookClub(@PathVariable long id) {
+        User clubUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        ClubMember clubMember = new ClubMember();
+
+        clubMember.setClub(clubDao.getOne(id));
+        clubMember.setUser(clubUser);
+        clubMember.setIsAdmin(false);
+
+        clubMemberDao.save(clubMember);
+        System.out.println(clubUser.getId());
+        System.out.println(clubMember.getId());
+
+        return "redirect:/bookclub/" + id;
+    }
+
+    //Leave Club
+    @PostMapping("/bookclub/{id}/leave")
+    public String leaveBookClub(@PathVariable long id) {
+        User clubUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Club club = clubDao.getOne(id);
+        ClubMember clubMember = clubMemberDao.findClubMemberByUserAndClub(clubUser, club);
+
+        clubMemberDao.deleteById(clubMember.getId());
+
+        return "redirect:/bookclub/" + id;
+    }
+
+    //Edit Club Page
     @GetMapping("/edit-bookclub/{id}")
     public String showEditBookClub (Model viewModel, @PathVariable long id) {
         viewModel.addAttribute("club", clubDao.getOne(id));

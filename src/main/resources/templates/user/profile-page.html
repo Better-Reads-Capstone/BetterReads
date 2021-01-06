@@ -4,7 +4,7 @@
 </head>
 <body>
 <nav th:replace="partials/navbar :: navbar"></nav>
-<div class="container" id="userProfile" th:data-username="${user.username}">
+<div class="container" id="userProfile" th:data-userId="${user.id}" th:data-username="${user.username}">
     <main>
         <div>
             <form th:action="@{/edit-profile/{username} (username = ${user.username})}">
@@ -130,7 +130,7 @@
                                 <textarea name="createBody" id="createBody" cols="30"
                                           rows="10" th:field="*{body}"></textarea>
                             </div>
-                                <button class="btn btn-warning" type="submit" id="reviewSubmit">Submit</button>
+                                <button class="btn btn-warning" type="submit" id="reviewSubmit">Submit Review</button>
                         </form>
                         <form id="deleteReview" th:action="@{/deleteReview}" method="post">
                             <button class="btn btn-danger" type="submit">Delete Review</button>
@@ -144,8 +144,6 @@
 </div>
 
 <footer th:replace="partials/footer :: footer"></footer>
-<th:block th:include="partials/scripts :: scripts"></th:block>
-<script type="text/javascript" th:src="@{/keys.js}"></script>
-<script type="text/javascript" th:src="@{/js/profileBooks.js}"></script>
+<script type="text/javascript" th:src="@{/js/profileBooks.js}" defer></script>
 </body>
 </html>
