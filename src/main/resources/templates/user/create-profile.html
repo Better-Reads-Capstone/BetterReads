@@ -29,7 +29,7 @@
 
                             <div class="form-group">
                                 <label for="dob">Date of Birth</label>
-                                <input id="dob" class="form-control" th:field="*{dob}"/>
+                                <input id="dob" class="form-control" th:field="*{dob}" placeholder="yyyy-mm-dd"/>
                             </div>
 
                             <div class="form-group">
@@ -71,7 +71,7 @@
                             </div>
                         </div>
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-primary">Save</button>
+                            <button id="submit-btn" type="submit" class="btn btn-primary">Save</button>
                         </div>
                     </form>
             </div>
@@ -80,7 +80,6 @@
     <footer th:replace="partials/footer :: footer"></footer>
     <script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js" defer></script>
     <script type="text/javascript" th:src="@{/js/filestack.js}" defer></script>
-    <script src="pikaday.js"></script>
     <script th:src="@{/js/utils/datepicker.js}" defer></script>
 </body>
 </html>

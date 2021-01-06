@@ -1,6 +1,7 @@
+let curYear = new Date().getFullYear();
 let picker = new Pikaday({
     field: document.getElementById('dob'),
-    yearRange: [1900, 2030],
+    yearRange: [1900, curYear],
     format: 'YYYY-MM-DD',
     toString(date, format) {
         const day = date.getDate();

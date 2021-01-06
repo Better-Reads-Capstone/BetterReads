@@ -54,14 +54,12 @@ public class UserController {
     @GetMapping("/create-profile/{username}")
     public String showCreateProfile(Model viewModel, @PathVariable String username) {
         viewModel.addAttribute("user", userDao.findByUsername(username));
-        System.out.println("profile username: " + userDao.findByUsername(username).getUsername());
         return "user/create-profile";
     }
 
     @PostMapping("/create-profile/{username}")
     public String createProfile(@PathVariable String username, @ModelAttribute User userToBeUpdated) {
         User user = userDao.findByUsername(username);
-        System.out.println("userToBeUpdated.getDob() = " + userToBeUpdated.getDob());
         userToBeUpdated.setId(user.getId());
         userToBeUpdated.setUsername(user.getUsername());
         userToBeUpdated.setEmail(user.getEmail());
