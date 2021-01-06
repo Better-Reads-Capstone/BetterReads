@@ -26,6 +26,10 @@
                                 <label for="last-name">Last Name</label>
                                 <input id="last-name" class="form-control" th:field="*{lastName}" />
                             </div>
+                            <div class="form-group">
+                                <label>Date of Birth</label>
+                                <input type="text" id="dob" class="form-control" th:field="*{dob}"/>
+                            </div>
 
                             <div class="form-group">
                                 <label for="website-url">Website</label>
@@ -72,11 +76,9 @@
             </div>
         </div>
     </main>
-
     <footer th:replace="partials/footer :: footer"></footer>
-  
     <script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js" defer></script>
     <script type="text/javascript" th:src="@{/js/filestack.js}" defer></script>
-
+    <script th:src="@{/js/utils/datepicker.js}" defer></script>
 </body>
 </html>
