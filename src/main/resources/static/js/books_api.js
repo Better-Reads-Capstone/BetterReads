@@ -37,12 +37,15 @@ const isbnQuery = (isbn, elementId, callback) => {
 }
 
 const isbnFetch = (isbn) => {
-    return fetch(baseUrl + '?' + new URLSearchParams({
-        q: 'isbn:' + isbn,
-        printType: 'books',
-        key: apiKey
-    }))
-        .then(response => response.json())
+    return new Promise((resolve) => {
+        fetch(baseUrl + '?' + new URLSearchParams({
+            q: 'isbn:' + isbn,
+            printType: 'books',
+            key: apiKey
+        }))
+            .then(response => response.json())
+            .then(data => {resolve(data)});
+    })
 }
 
 const titleAuthorFetch = (title, author) => {
@@ -52,6 +55,7 @@ const titleAuthorFetch = (title, author) => {
         key: apiKey
     }))
         .then(response => response.json())
+
 }
 
 const referenceQuery = (gbid, elementId, callback) => {

@@ -1,4 +1,4 @@
-$(document).ready(function() {
+
     const url = "https://api.nytimes.com/svc/books/v3/lists/overview.json?api-key=" + nytAPIKey;
     let booksList = [];
 
@@ -22,10 +22,9 @@ $(document).ready(function() {
                 hideLoadingIcon();
                 const bestSellerLists = books.results.lists;
                 // console.log(bestSellerLists);
-                for(let i = 0; i < bestSellerLists.length; i++) {
+                for(let i = 0; i < bestSellerLists.length  - 7; i++) {
                     // console.log(bestSellerLists[i]);
-                    for(let x = 0; x < bestSellerLists[i].books.length; x++) {
-                        console.log(bestSellerLists[i].books[x]);
+                    for(let x = 0; x < bestSellerLists[i].books.length ; x++) {
                         booksList.push({
                             listName: bestSellerLists[i].list_name,
                             isbn: bestSellerLists[i].books[x].primary_isbn13,
@@ -34,7 +33,6 @@ $(document).ready(function() {
                         })
                     }
                 }
-                console.log(booksList);
                 displayBestSellers(booksList);
             })
             .catch(err => {
@@ -132,12 +130,31 @@ $(document).ready(function() {
                                 <p>Description: ${book.description}</p>
                             </div>
                             <div class="card-footer">
-                                <a href="/booksearch?searchvalue=${book.title}">Search</a>
+                               <button class="view" data-id="${book.isbn}">View Book</button>
                             </div>
                         </div>
                     </div>`
         return finalHTML;
     }
+
+
+$(document).ready(function() {
+    $(document).on("click", ".view", function() {
+        let isbn = $(this).data("id");
+        console.log(isbn);
+
+        let data = isbnFetch(isbn);
+
+        data.then(result => {
+            console.log(result);
+            console.log(result.items[0].id);
+            let id = result.items[0].id
+            let url = "/book/" + id;
+
+            window.location = url;
+        })
+
+    })
 });
 
 
