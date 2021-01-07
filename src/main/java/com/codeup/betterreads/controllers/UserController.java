@@ -201,4 +201,10 @@ public class UserController {
         return "redirect:/profile/" + dbUser.getUsername();
     }
 
+    @PostMapping("/profile/{username}/delete")
+    @ResponseBody
+    public String deleteProfile(){
+        return "Profile has been deleted";
+    }
+
 }
