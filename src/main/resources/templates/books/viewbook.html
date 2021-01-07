@@ -141,7 +141,16 @@
     <form>
         <input type="text" id="isbnTerm" class="form-control">
         <p>Ref ID: <span id="api-testing"></span></p>
-        <button type="button" id="api-btn">Call API</button>
+        <button type="button" id="api-btn">Fetch ref ID from ISBN</button>
+    </form>
+    <br>
+    <form>
+        <label for="titleTerm">Title</label>
+        <input type="text" id="titleTerm" class="form-control">
+        <label for="authorTerm">Author</label>
+        <input type="text" id="authorTerm" class="form-control">
+        <p>Ref ID: <span id="api-testing2"></span></p>
+        <button type="button" id="api-btn2">Fetch ref ID from Title/Author</button>
     </form>
 </div>
 
@@ -155,6 +164,19 @@
         console.log('isbn: ' + isbn)
         isbnFetch(isbn).then(result => {
             refId.text(result.items[0].id);
+        })
+    });
+
+    $('#api-btn2').click((e) => {
+        e.preventDefault()
+        let title = $('#titleTerm').val();
+        let author = $('#authorTerm').val();
+        let refId2 = $('#api-testing2');
+        console.log('title: ' + title)
+        console.log('author: ' + author)
+        titleAuthorFetch(title, author).then(result => {
+            console.log(result)
+            refId2.text(result.items[0].id)
         })
     });
 </script>

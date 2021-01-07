@@ -45,6 +45,15 @@ const isbnFetch = (isbn) => {
         .then(response => response.json())
 }
 
+const titleAuthorFetch = (title, author) => {
+    return fetch(baseUrl + '?' + new URLSearchParams({
+        q: title + '+inauthor' + author,
+        printType: 'books',
+        key: apiKey
+    }))
+        .then(response => response.json())
+}
+
 
 const referenceQuery = (gbid, elementId, callback) => {
     document.getElementById(elementId).innerHTML = "";
