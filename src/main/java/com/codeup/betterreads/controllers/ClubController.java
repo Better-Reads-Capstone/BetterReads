@@ -83,7 +83,7 @@ public class ClubController {
             Model viewModel,
             @PathVariable long id,
             @ModelAttribute Club club) {
-        viewModel.addAttribute("user", SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        viewModel.addAttribute("user", usersSvc.loggedInUser());
         viewModel.addAttribute("club", clubDao.getOne(id));
         viewModel.addAttribute("members", clubMemberDao.findAllByClub(club));
         viewModel.addAttribute("posts", postDao.findAllByClub(club));

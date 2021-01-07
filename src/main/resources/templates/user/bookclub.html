@@ -20,16 +20,19 @@
                 </form>
             </div>
             <!--Join and Leave Buttons-->
-            <div th:if="${member == null}">
-                <form th:action="@{/bookclub/{id}/join (id = ${club.id})}" method="POST">
-                    <input class="btn btn-primary" type="submit" value="Join Club">
-                </form>
+            <div class="join-leave-container" th:if="${user != club.owner}">
+                <div th:if="${member == null}">
+                    <form th:action="@{/bookclub/{id}/join (id = ${club.id})}" method="POST">
+                        <input class="btn btn-primary" type="submit" value="Join Club">
+                    </form>
+                </div>
+                <div th:unless="${member == null}">
+                    <form th:action="@{/bookclub/{id}/leave (id = ${club.id})}" method="POST">
+                        <input class="btn btn-primary" type="submit" value="Leave Club">
+                    </form>
+                </div>
             </div>
-            <div th:unless="${member == null}">
-                <form th:action="@{/bookclub/{id}/leave (id = ${club.id})}" method="POST">
-                    <input class="btn btn-primary" type="submit" value="Leave Club">
-                </form>
-            </div>
+
             <div class="club-info">
                 <img th:src="${club.headerImageUrl}" alt="">
                 <p>Name of club: </p><h1 th:text="${club.name}"></h1>
