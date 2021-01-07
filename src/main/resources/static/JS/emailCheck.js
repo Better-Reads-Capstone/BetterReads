@@ -1,10 +1,11 @@
+var emailError = document.getElementById("error").getAttribute("value");
+console.log(emailError);
 
-function checkEmail(userEmail){
-    if (1 === 1){
-        alert(userEmail);
-        return false;
+function checkEmail(){
+    if (emailError === true){
+        alert("This email is already in use");
+        document.getElementById("error").setAttribute("value", "false");
     } else {
-        alert(userEmail);
-        return false;
+        return true;
     }
 }

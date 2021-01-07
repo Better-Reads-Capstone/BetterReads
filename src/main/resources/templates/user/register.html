@@ -13,6 +13,7 @@
             </div>
 
             <div class="form-group">
+                <p th:text="${redirect}"></p>
                 <label for="email">Email</label>
                 <input id="email" class="form-control" th:field="*{email}" />
                 <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
@@ -36,6 +37,7 @@
             <button type="submit" class="btn btn-primary">Sign me up!</button>
         </form>
     </main>
+    <input type="hidden" th:value="${error}" id="error">
 
     <footer th:replace="partials/footer :: footer"></footer>
     <script type="text/javascript" th:src="@{/js/emailCheck.js}" defer></script>

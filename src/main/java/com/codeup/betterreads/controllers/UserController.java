@@ -36,12 +36,22 @@ public class UserController {
     public String register(Model model) {
         User user = new User();
         model.addAttribute("user", user);
-        model.addAttribute("userDao", userDao.findByEmail(user.getEmail()));
         return "user/register";
     }
 
     @PostMapping("/sign-up")
     public String createUser(@ModelAttribute User user, Model viewModel) {
+        User checkUser = userDao.findByEmail(user.getEmail());
+        System.out.println(checkUser);
+        String errorMsg = "The email has been taken.";
+        viewModel.addAttribute("redirect", errorMsg);
+
+        if (checkUser != null){
+            viewModel.addAttribute("error", true);
+            return "user/register";
+//            return "redirect:/sign-up";
+        }
+
         String hash = passwordEncoder.encode(user.getPassword());
         user.setPassword(hash);
         Date currentDate = new Date();
