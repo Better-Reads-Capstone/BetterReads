@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="partials/head :: head(title = ${post.getTitle()})">
+</head>
+<body>
+    <nav th:replace="partials/navbar :: navbar"></nav>
+    <main>
+        <br>
+        <div class="container">
+            <div th:text="${post.title}"></div>
+            <br>
+            <div th:utext="${post.body}"></div>
+            <br>
+            <div th:if="${member != null && member.isAdmin == true}">
+                <form class="form-group" th:action="@{/bookclub/{id}/edit-post/{postId} (id = ${club.id}, postId = ${post.id})}">
+                    <input class="btn btn-secondary" type="submit" value="Edit"/>
+                </form>
+                <form class="form-group" th:action="@{/bookclub/{id}/delete-post/{postId} (id = ${club.id}, postId = ${post.id})}" method="POST">
+                    <input class="btn btn-danger" type="submit" value="Delete"/>
+                </form>
+            </div>
+<!--            <br>-->
+<!--            <ul class="nav nav-tabs" id="commentsTab" role="tablist">-->
+<!--                <li class="nav-item" role="presentation">-->
+<!--                    <a class="nav-link active" id="comments-tab" data-toggle="tab" href="#comments" role="tab" aria-controls="comments" aria-selected="true">Comments</a>-->
+<!--                </li>-->
+<!--                <li class="nav-item" role="presentation">-->
+<!--                    <a class="nav-link" id="add-comment-tab" data-toggle="tab" href="#add-comment" role="tab" aria-controls="add-a-comment" aria-selected="false">Add a Comment</a>-->
+<!--                </li>-->
+<!--            </ul>-->
+<!--            <div class="tab-content" id="myTabContent">-->
+<!--                <div class="tab-pane fade show active" id="comments" role="tabpanel" aria-labelledby="comments-tab">-->
+<!--                    <div>Comments Will show here</div>-->
+<!--                </div>-->
+<!--                <div class="tab-pane fade" id="add-comment" role="tabpanel" aria-labelledby="add-comment-tab">-->
+<!--                    <div class="comment-form-container">-->
+<!--                        <form class="form-group">-->
+<!--                            <label for="mytextarea">Leave a Comment!</label>-->
+<!--                            <textarea id="mytextarea" class="form-control" rows="5"></textarea>-->
+<!--                            <button class="btn btn-primary">Add</button>-->
+<!--                        </form>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+        </div>
+    </main>
+    <footer th:replace="partials/footer :: footer"></footer>
+    <script src="https://cdn.tiny.cloud/1/efcrf3bq6utw5n5oh2xm364jq4uin8v193dwmcx7twkg9l7w/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
+            selector: "#mytextarea",
+            plugins: "emoticons",
+            toolbar: "emoticons",
+            toolbar_location: "bottom",
+            menubar: false
+        });
+    </script>
+</body>
+</html>
