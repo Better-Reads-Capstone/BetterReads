@@ -6,6 +6,9 @@
 <nav th:replace="partials/navbar :: navbar"></nav>
 <div class="container" id="userProfile" th:data-userId="${user.id}" th:data-username="${user.username}">
     <main>
+        <div th:if="${clubErr}" class="alert alert-warning" role="alert">
+            <p><span th:text="${clubErr}"></span></p>
+        </div>
         <div>
             <form th:action="@{/edit-profile/{username} (username = ${user.username})}">
                 <button class="btn btn-primary" type="submit">

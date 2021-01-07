@@ -5,6 +5,7 @@ import com.codeup.betterreads.repositories.BookRepo;
 import com.codeup.betterreads.repositories.BookshelfRepo;
 import com.codeup.betterreads.repositories.ReviewRepo;
 import com.codeup.betterreads.repositories.UserRepo;
+import com.codeup.betterreads.repositories.ClubRepo;
 import com.codeup.betterreads.services.MailService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.*;
 
@@ -22,14 +24,16 @@ public class UserController {
     private BookshelfRepo bookshelfDao;
     private BookRepo bookDao;
     private ReviewRepo reviewDao;
+    private ClubRepo clubDao;
     private MailService mailService;
 
-    public UserController(UserRepo userDao, PasswordEncoder passwordEncoder, BookshelfRepo bookshelfDao, BookRepo bookDao, ReviewRepo reviewDao, MailService mailService) {
+    public UserController(UserRepo userDao, PasswordEncoder passwordEncoder, BookshelfRepo bookshelfDao, BookRepo bookDao, ReviewRepo reviewDao, ClubRepo clubDao, MailService mailService) {
         this.userDao = userDao;
         this.passwordEncoder = passwordEncoder;
         this.bookshelfDao = bookshelfDao;
         this.bookDao = bookDao;
         this.reviewDao = reviewDao;
+        this.clubDao = clubDao;
         this.mailService = mailService;
     }
 
@@ -99,14 +103,12 @@ public class UserController {
         ArrayList<Bookshelf> readingList = new ArrayList<>();
         ArrayList<Bookshelf> wishlist = new ArrayList<>();
 
-        for(Bookshelf book : dbBookshelf) {
-            if(book.getBookShelfStatus() == BookshelfStatus.READ) {
+        for (Bookshelf book : dbBookshelf) {
+            if (book.getBookShelfStatus() == BookshelfStatus.READ) {
                 readList.add(book);
-            }
-            else if(book.getBookShelfStatus() == BookshelfStatus.READING) {
+            } else if (book.getBookShelfStatus() == BookshelfStatus.READING) {
                 readingList.add(book);
-            }
-            else if(book.getBookShelfStatus() == BookshelfStatus.WISHLIST) {
+            } else if (book.getBookShelfStatus() == BookshelfStatus.WISHLIST) {
                 wishlist.add(book);
             }
         }
@@ -127,7 +129,7 @@ public class UserController {
 
     @PostMapping("/profile/{username}/{bookshelfId}")
     public String updateBookshelfStatus(
-            @RequestParam(value="bookshelfStatus") BookshelfStatus status,
+            @RequestParam(value = "bookshelfStatus") BookshelfStatus status,
             @PathVariable String username,
             @PathVariable long bookshelfId) {
         User dbUser = userDao.findByUsername(username);
@@ -143,7 +145,7 @@ public class UserController {
             @PathVariable String username,
             @PathVariable long bookId,
             @ModelAttribute Review dbReview
-    ){
+    ) {
         User dbUser = userDao.findByUsername(username);
         Book dbBook = bookDao.getOne(bookId);
         dbReview.setOwner(dbUser);
@@ -154,7 +156,8 @@ public class UserController {
     }
 
     @GetMapping("/review.json")
-    public @ResponseBody List<Review> getReview() {
+    public @ResponseBody
+    List<Review> getReview() {
         return reviewDao.findAll();
     }
 //
@@ -177,7 +180,7 @@ public class UserController {
             @PathVariable long bookId,
             @PathVariable long reviewId,
             @ModelAttribute Review reviewToBeEdited
-    ){
+    ) {
         User dbUser = userDao.findByUsername(username);
         Book dbBook = bookDao.getOne(bookId);
         Review extractedReview = reviewDao.getOne(reviewId);
@@ -195,7 +198,7 @@ public class UserController {
     public String deleteProfileReview(
             @PathVariable String username,
             @PathVariable long reviewId
-    ){
+    ) {
         User dbUser = userDao.findByUsername(username);
         reviewDao.deleteById(reviewId);
 
@@ -204,16 +207,23 @@ public class UserController {
 
     @PostMapping("/profile/{username}/delete")
     public String deleteProfile(
-            @PathVariable String username
-    ){
+            @PathVariable String username,
+            RedirectAttributes redirectAttributes
+    ) {
         User dbUser = userDao.findByUsername(username);
-        // TODO Deletion fails if user is book club owner (throw error)
+        String errorMsg = "You are a book club owner, please contact our Support team for assistance deleting your profile";
 
-        userDao.deleteById(dbUser.getId());
+        List<Club> clubOwnerList = clubDao.findAllByOwnerId(dbUser.getId());
 
-        // Invalidate the user session
-        SecurityContextHolder.clearContext();
-
-        return "redirect:/";
+        if (clubOwnerList.isEmpty()) {
+            System.out.println("Club owner list null, deleting");
+            userDao.deleteById(dbUser.getId());
+            SecurityContextHolder.clearContext();
+            return "redirect:/";
+        } else {
+            System.out.println("Club owner, sending error");
+            redirectAttributes.addFlashAttribute("clubErr", errorMsg);
+            return "redirect:/profile/" + dbUser.getUsername();
+        }
     }
 }
