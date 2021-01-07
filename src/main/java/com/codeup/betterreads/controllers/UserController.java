@@ -7,6 +7,7 @@ import com.codeup.betterreads.repositories.ReviewRepo;
 import com.codeup.betterreads.repositories.UserRepo;
 import com.codeup.betterreads.services.MailService;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -207,17 +208,12 @@ public class UserController {
     ){
         User dbUser = userDao.findByUsername(username);
         // TODO Deletion fails if user is book club owner (throw error)
-        // TODO Deletion fails if user has books in bookshelf (Possible cascade fix, talk to Caleb)
-
+        
         userDao.deleteById(dbUser.getId());
 
-        // TODO ensure the user session is invalidated
+        // Invalidate the user session
+        SecurityContextHolder.clearContext();
 
         return "redirect:/";
     }
-//    @ResponseBody
-//    public String deleteProfile(){
-//        return "Profile has been deleted";
-//    }
-
 }
