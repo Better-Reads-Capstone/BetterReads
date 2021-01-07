@@ -41,10 +41,7 @@
 <!--        </div>-->
 
         <select th:field="*{genre}">
-            <option th:value="1">Genre 1</option>
-            <option th:value="2">Genre 2</option>
-            <option th:value="3">Genre 3</option>
-            <option th:value="4">Genre 4</option>
+            <option th:each="genre : ${genres}" th:value="${genre.name}"><span th:text="${genre.name}"></span></option>
         </select>
 
         <button type="submit" class="btn btn-primary">Save</button>
