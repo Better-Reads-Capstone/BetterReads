@@ -137,8 +137,26 @@
             </div>
         </div>
 </div>
+<div class="container">
+    <form>
+        <input type="text" id="isbnTerm" class="form-control">
+        <p>Ref ID: <span id="api-testing"></span></p>
+        <button type="button" id="api-btn">Call API</button>
+    </form>
+</div>
 
 <footer th:replace="partials/footer :: footer"></footer>
 <script th:src="@{/js/bookPage.js}" defer></script>
+<script>
+    $('#api-btn').click((e) => {
+        e.preventDefault()
+        let isbn = $('#isbnTerm').val();
+        let refId = $('#api-testing');
+        console.log('isbn: ' + isbn)
+        isbnFetch(isbn).then(result => {
+            refId.text(result.items[0].id);
+        })
+    });
+</script>
 </body>
 </html>
