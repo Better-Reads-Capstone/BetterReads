@@ -34,7 +34,9 @@ public class UserController {
 
     @GetMapping("/sign-up")
     public String register(Model model) {
-        model.addAttribute("user", new User());
+        User user = new User();
+        model.addAttribute("user", user);
+        model.addAttribute("userDao", userDao.findByEmail(user.getEmail()));
         return "user/register";
     }
 

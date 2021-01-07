@@ -6,7 +6,7 @@
     <nav th:replace="partials/navbar :: navbar"></nav>
     <main>
         <h1>Register for an Account</h1>
-        <form th:action="@{/sign-up}" method="POST" th:object="${user}">
+        <form th:action="@{/sign-up}" method="POST" th:object="${user}" onsubmit="return checkEmail()">
             <div class="form-group">
                 <label for="username">Username</label>
                 <input id="username" class="form-control" th:field="*{username}" />
@@ -38,6 +38,7 @@
     </main>
 
     <footer th:replace="partials/footer :: footer"></footer>
+    <script type="text/javascript" th:src="@{/js/emailCheck.js}" defer></script>
 
 
 </body>
