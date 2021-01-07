@@ -68,13 +68,16 @@ public class User {
     @JsonBackReference
     private List<Review> userReviews;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Bookshelf> bookshelves;
+
     //default
     public User() {
     }
 
     //create
     public User(String email, String username, String password, String firstName, String middleName, String lastName, String aboutMe, String country, String websiteURL, String avatarURL, String pronouns, Date dob, Date createdDate, List<Post> posts, List<ClubMember> clubMembers
-    , List<Review> userReviews
+    , List<Review> userReviews, List<Bookshelf> bookshelves
     ) {
         this.email = email;
         this.username = username;
@@ -92,11 +95,12 @@ public class User {
         this.posts = posts;
         this.clubMembers = clubMembers;
         this.userReviews = userReviews;
+        this.bookshelves = bookshelves;
     }
 
     //read
     public User(long id, String email, String username, String password, String firstName, String middleName, String lastName, String aboutMe, String country, String websiteURL, String avatarURL, String pronouns, Date dob, Date createdDate, List<Post> posts, List<ClubMember> clubMembers
-            , List<Review> userReviews
+            , List<Review> userReviews, List<Bookshelf> bookshelves
     ) {
         this.id = id;
         this.email = email;
@@ -115,6 +119,7 @@ public class User {
         this.posts = posts;
         this.clubMembers = clubMembers;
         this.userReviews = userReviews;
+        this.bookshelves = bookshelves;
     }
 
     //copy
@@ -136,6 +141,7 @@ public class User {
         posts = copy.posts;
         clubMembers = copy.clubMembers;
         userReviews = copy.userReviews;
+        bookshelves = copy.bookshelves;
     }
 
     //getters
@@ -156,6 +162,7 @@ public class User {
     public List<Post> getPosts() {return posts;}
     public List<ClubMember> getClubMembers() {return clubMembers;}
     public List<Review> getUserReviews() {return userReviews;}
+    public List<Bookshelf> getBookshelves() {return bookshelves;}
 
     //setters
     public void setId(long id) {this.id = id;}
@@ -175,4 +182,5 @@ public class User {
     public void setPosts(List<Post> posts) {this.posts = posts;}
     public void setClubMembers(List<ClubMember> clubMembers) {this.clubMembers = clubMembers;}
     public void setUserReviews(List<Review> userReviews) {this.userReviews = userReviews;}
+    public void setBookshelves(List<Bookshelf> bookshelves) {this.bookshelves = bookshelves;}
 }
