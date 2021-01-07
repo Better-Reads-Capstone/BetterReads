@@ -36,6 +36,24 @@ const isbnQuery = (isbn, elementId, callback) => {
         })
 }
 
+const isbnFetch = (isbn) => {
+    return fetch(baseUrl + '?' + new URLSearchParams({
+        q: 'isbn:' + isbn,
+        printType: 'books',
+        key: apiKey
+    }))
+        .then(response => response.json())
+}
+
+const titleAuthorFetch = (title, author) => {
+    return fetch(baseUrl + '?' + new URLSearchParams({
+        q: title + '+inauthor' + author,
+        printType: 'books',
+        key: apiKey
+    }))
+        .then(response => response.json())
+}
+
 const referenceQuery = (gbid, elementId, callback) => {
     document.getElementById(elementId).innerHTML = "";
     fetch(baseUrl + '/' + gbid)
