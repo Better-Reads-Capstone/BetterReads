@@ -208,7 +208,7 @@ public class UserController {
     ){
         User dbUser = userDao.findByUsername(username);
         // TODO Deletion fails if user is book club owner (throw error)
-        
+
         userDao.deleteById(dbUser.getId());
 
         // Invalidate the user session
