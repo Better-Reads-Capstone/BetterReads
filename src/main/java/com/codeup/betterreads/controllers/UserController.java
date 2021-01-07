@@ -211,18 +211,14 @@ public class UserController {
             RedirectAttributes redirectAttributes
     ) {
         User dbUser = userDao.findByUsername(username);
-        String errorMsg = "You are a book club owner, please contact our Support team for assistance deleting your profile";
-
         List<Club> clubOwnerList = clubDao.findAllByOwnerId(dbUser.getId());
 
         if (clubOwnerList.isEmpty()) {
-            System.out.println("Club owner list null, deleting");
             userDao.deleteById(dbUser.getId());
             SecurityContextHolder.clearContext();
             return "redirect:/";
         } else {
-            System.out.println("Club owner, sending error");
-            redirectAttributes.addFlashAttribute("clubErr", errorMsg);
+            redirectAttributes.addFlashAttribute("clubErr", true);
             return "redirect:/profile/" + dbUser.getUsername();
         }
     }

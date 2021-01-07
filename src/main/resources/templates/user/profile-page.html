@@ -7,7 +7,7 @@
 <div class="container" id="userProfile" th:data-userId="${user.id}" th:data-username="${user.username}">
     <main>
         <div th:if="${clubErr}" class="alert alert-warning" role="alert">
-            <p><span th:text="${clubErr}"></span></p>
+            <p>You are a book club owner, please contact our <a href="mailto:help@betterreads.site">support team</a> for assistance with deleting your profile</p>
         </div>
         <div>
             <form th:action="@{/edit-profile/{username} (username = ${user.username})}">
