@@ -202,9 +202,22 @@ public class UserController {
     }
 
     @PostMapping("/profile/{username}/delete")
-    @ResponseBody
-    public String deleteProfile(){
-        return "Profile has been deleted";
+    public String deleteProfile(
+            @PathVariable String username
+    ){
+        User dbUser = userDao.findByUsername(username);
+        // TODO Deletion fails if user is book club owner (throw error)
+        // TODO Deletion fails if user has books in bookshelf (Possible cascade fix, talk to Caleb)
+
+        userDao.deleteById(dbUser.getId());
+
+        // TODO ensure the user session is invalidated
+
+        return "redirect:/";
     }
+//    @ResponseBody
+//    public String deleteProfile(){
+//        return "Profile has been deleted";
+//    }
 
 }
