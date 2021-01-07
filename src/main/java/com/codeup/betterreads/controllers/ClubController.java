@@ -116,7 +116,16 @@ public class ClubController {
     //Edit Club Page
     @GetMapping("/edit-bookclub/{id}")
     public String showEditBookClub (Model viewModel, @PathVariable long id) {
-        viewModel.addAttribute("club", clubDao.getOne(id));
+        User user = usersSvc.loggedInUser();
+        Club club = clubDao.getOne(id);
+        ClubMember clubMember = clubMemberDao.findClubMemberByUserAndClub(user, club);
+
+        viewModel.addAttribute("club", club);
+
+        if(!usersSvc.isAdmin(clubMember)){
+            return "redirect:/bookclub/" + id;
+        }
+
         return "user/edit-bookclub";
     }
 
