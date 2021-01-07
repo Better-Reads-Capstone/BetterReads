@@ -38,6 +38,7 @@
                 <p>Club Owner: </p><h3 th:text="${club.owner.username}"></h3>
             </div>
             <br>
+            <!--    Members Container        -->
             <div class="members-container">
                 <h3>Members</h3>
                 <div th:each="clubMember: ${members}" class="row">
@@ -60,6 +61,21 @@
                             </form>
                         </div>
                     </div>
+                </div>
+            </div>
+            <!--     Posts Container       -->
+            <div class="post-container">
+                <div class="blog-title">
+                    <h3><span th:text="${club.name}"></span>'s Posts</h3>
+                </div>
+                <!--        Displays all the posts created by the blog        -->
+                <div th:each="post: ${posts}">
+                    <div class="blog-card">
+                        <h4><a th:text="${post.title}" th:href="@{/bookclub/{id}/{postId} (id = ${club.id}, postId = ${post.id})}"></a></h4>
+                        <p th:utext="${post.body}"></p>
+                        <p>Author: <span th:text="${post.user.username}"></span></p>
+                    </div>
+                    <hr />
                 </div>
             </div>
         </div>

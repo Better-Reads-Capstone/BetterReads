@@ -86,9 +86,10 @@ public class ClubController {
         viewModel.addAttribute("user", SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         viewModel.addAttribute("club", clubDao.getOne(id));
         viewModel.addAttribute("members", clubMemberDao.findAllByClub(club));
+        viewModel.addAttribute("posts", postDao.findAllByClub(club));
 
         // For the conditional in the bookclub template; prevents users from joining a club multiple times!
-        User clubUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User clubUser = usersSvc.loggedInUser();
         ClubMember clubMember = clubMemberDao.findClubMemberByUserAndClub(clubUser, club);
         viewModel.addAttribute("member", clubMember);
 
