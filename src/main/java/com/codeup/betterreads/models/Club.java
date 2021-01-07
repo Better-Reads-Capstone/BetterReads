@@ -1,6 +1,8 @@
 package com.codeup.betterreads.models;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.List;
 
@@ -11,6 +13,8 @@ public class Club {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @NotBlank(message = "You must give your book club a name.")
+    @Size(min = 5, message = "The book club name must be at least 5 characters long!")
     @Column(nullable = false)
     private String name;
 
@@ -18,6 +22,8 @@ public class Club {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
 
+    @NotBlank(message = "Give your book club a quick description.")
+    @Size(min = 250, message = "Your description must be at least 250 characters long!")
     @Column(columnDefinition = "TEXT")
     private String about;
 
