@@ -151,107 +151,7 @@ public class ClubController {
         return "redirect:/bookclub/" + dbClub.getId();
     }
 
-    //Create Post
-    @GetMapping("/bookclub/{id}/create-post")
-    public String viewCreatePostForm(Model viewModel, @PathVariable long id) {
-        viewModel.addAttribute("post", new Post());
-        viewModel.addAttribute("club", clubDao.getOne(id));
-        return "user/create-post";
-    }
-
-    @PostMapping("/bookclub/{id}/create-post")
-    public String createPost(
-            @Valid Post post,
-            Errors validation,
-            @PathVariable long id,
-            @ModelAttribute Club club,
-            Model viewModel
-            ) {
-
-        if (validation.hasErrors()) {
-            viewModel.addAttribute("errors", validation);
-            viewModel.addAttribute("post", post);
-            return "user/create-post";
-        }
-
-        Date currentDate = new Date();
-        User user = usersSvc.loggedInUser();
-
-        post.setClub(club);
-        post.setUser(user);
-        post.setCreatedDate(currentDate);
-        post.setUpdatedDate(currentDate);
-
-        Post dbPost = postDao.save(post);
-
-        return "redirect:/bookclub/" + id + "/" + dbPost.getId();
-    }
-
-    @GetMapping("/bookclub/{id}/{postId}")
-    public String viewPost(
-            Model viewModel,
-            @PathVariable long id,
-            @PathVariable long postId) {
-
-        viewModel.addAttribute("post", postDao.getOne(postId));
-        viewModel.addAttribute("club", clubDao.getOne(id));
-        User user = usersSvc.loggedInUser();
-        ClubMember clubMember = clubMemberDao.findClubMemberByUserAndClub(user, clubDao.getOne(id));
-        viewModel.addAttribute("member", clubMember);
-
-        return "user/club-post";
-    }
-
-    @GetMapping("/bookclub/{id}/edit-post/{postId}")
-    public String viewEditPostForm(
-            Model viewModel,
-            @PathVariable long id,
-            @PathVariable long postId) {
-
-        Post post = postDao.getOne(postId);
-
-        if(!usersSvc.isOwner(post.getUser())){
-            return "redirect:/bookclub/" + id + "/" + postId;
-        }
-
-        viewModel.addAttribute("post", postDao.getOne(postId));
-        viewModel.addAttribute("club", clubDao.getOne(id));
-
-        return "user/create-post";
-    }
-
-    @PostMapping("/bookclub/{id}/edit-post/{postId}")
-    public String editPost(
-            @ModelAttribute Post post,
-            @ModelAttribute Club club,
-            @PathVariable long id,
-            @PathVariable long postId) {
-
-        Post postToBeUpdated = postDao.getOne(postId);
-        Date currentDate = new Date();
-
-        postToBeUpdated.setUpdatedDate(currentDate);
-        postToBeUpdated.setCreatedDate(post.getCreatedDate());
-        postToBeUpdated.setUser(post.getUser());
-        postToBeUpdated.setClub(post.getClub());
-
-        Post dbPost = postDao.save(postToBeUpdated);
-        return "redirect:/bookclub/" + id + "/" + dbPost.getId();
-    }
-
-    @RequestMapping(value = "/bookclub/{id}/delete-post/{postId}", method = { RequestMethod.GET, RequestMethod.POST })
-    public String deletePost(@PathVariable long id, @PathVariable long postId) {
-        Post post = postDao.getOne(postId);
-
-        if(!usersSvc.isOwner(post.getUser())){
-            return "redirect:/bookclub/" + id;
-        }
-
-        postDao.delete(post);
-
-        return "redirect:/bookclub/" + id;
-    }
-
+    //Assign Admin
     @PostMapping("/bookclub/{id}/admin/{userId}")
     public String makeAdmin(@PathVariable long id, @PathVariable long userId) {
         User user = userDao.getOne(userId);
@@ -264,6 +164,7 @@ public class ClubController {
         return "redirect:/bookclub/" + id;
     }
 
+    //Revoke Admin Status
     @PostMapping("/bookclub/{id}/member/{userId}")
     public String removeAdminStatus(@PathVariable long id, @PathVariable long userId) {
         User user = userDao.getOne(userId);
