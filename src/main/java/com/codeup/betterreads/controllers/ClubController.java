@@ -221,4 +221,28 @@ public class ClubController {
 
         return "redirect:/bookclub/" + id;
     }
+
+    @PostMapping("/bookclub/{id}/admin/{userId}")
+    public String makeAdmin(@PathVariable long id, @PathVariable long userId) {
+        User user = userDao.getOne(userId);
+        Club club = clubDao.getOne(id);
+        ClubMember clubMember = clubMemberDao.findClubMemberByUserAndClub(user, club);
+
+        clubMember.setIsAdmin(true);
+        clubMemberDao.save(clubMember);
+
+        return "redirect:/bookclub/" + id;
     }
+
+    @PostMapping("/bookclub/{id}/member/{userId}")
+    public String removeAdminStatus(@PathVariable long id, @PathVariable long userId) {
+        User user = userDao.getOne(userId);
+        Club club = clubDao.getOne(id);
+        ClubMember clubMember = clubMemberDao.findClubMemberByUserAndClub(user, club);
+
+        clubMember.setIsAdmin(false);
+        clubMemberDao.save(clubMember);
+
+        return "redirect:/bookclub/" + id;
+    }
+}

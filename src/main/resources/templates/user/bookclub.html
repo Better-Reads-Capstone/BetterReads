@@ -19,12 +19,12 @@
     </div>
     <!--Join and Leave Buttons-->
     <div th:if="${member == null}">
-        <form th:action="@{/bookclub/{id}/join (id = ${club.id})}" method="post">
+        <form th:action="@{/bookclub/{id}/join (id = ${club.id})}" method="POST">
             <input class="btn btn-primary" type="submit" value="Join Club">
         </form>
     </div>
     <div th:unless="${member == null}">
-        <form th:action="@{/bookclub/{id}/leave (id = ${club.id})}" method="post">
+        <form th:action="@{/bookclub/{id}/leave (id = ${club.id})}" method="POST">
             <input class="btn btn-primary" type="submit" value="Leave Club">
         </form>
     </div>
@@ -37,13 +37,21 @@
         <br>
         <h3>Members</h3>
         <div th:each="clubMember: ${members}">
-            <div>
+            <div class="member-card">
+                <img th:src="${clubMember.user.avatarURL}" alt="Profile Image" />
                 <p>
-                    <span th:text="${clubMember.user.getFirstName()}"></span>
-                    <span th:text="${clubMember.user.getLastName()}"></span>
+                    <span th:text="${clubMember.user.firstName}"></span>
+                    <span th:text="${clubMember.user.lastName}"></span>
                 </p>
                 <p th:if="${clubMember.isAdmin == true}">Admin</p>
                 <p th:unless="${clubMember.isAdmin == true}">Member</p>
+                <div th:if="${member != null && member.isAdmin == true}">
+                    <form th:if="${clubMember != null && clubMember.isAdmin == false}" th:action="@{/bookclub/{id}/admin/{userId} (id = ${club.id}, userId = ${clubMember.user.id})}" method="POST">
+                        <input class="btn btn-primary" type="submit" value="Make Admin">
+                    </form>
+                    <form th:unless="${clubMember != null && clubMember.isAdmin == false}" th:action="@{/bookclub/{id}/member/{userId} (id = ${club.id}, userId = ${clubMember.user.id})}" method="POST">
+                        <input class="btn btn-primary" type="submit" value="Delete Admin">
+                    </form>
             </div>
         </div>
     </main>
