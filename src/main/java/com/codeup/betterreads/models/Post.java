@@ -1,6 +1,8 @@
 package com.codeup.betterreads.models;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Entity
@@ -11,9 +13,12 @@ public class Post {
     private long id;
 
     @Column(nullable = false)
+    @NotBlank(message = "Posts must have a title")
+    @Size(min = 3, message = "A title must be at least 3 characters.")
     private String title;
 
     @Column(nullable = false, columnDefinition = "TEXT")
+    @NotBlank(message = "Posts must have a body")
     private String body;
 
     @Column(nullable = false)

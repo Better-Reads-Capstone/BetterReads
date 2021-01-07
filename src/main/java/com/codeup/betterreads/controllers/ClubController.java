@@ -11,9 +11,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.GeneratedValue;
+import javax.validation.Valid;
 import java.util.Date;
 
 @Controller
@@ -149,9 +151,18 @@ public class ClubController {
 
     @PostMapping("/bookclub/{id}/create-post")
     public String createPost(
+            @Valid Post post,
+            Errors validation,
             @PathVariable long id,
             @ModelAttribute Club club,
-            @ModelAttribute Post post) {
+            Model viewModel
+            ) {
+
+        if (validation.hasErrors()) {
+            viewModel.addAttribute("errors", validation);
+            viewModel.addAttribute("post", post);
+            return "user/create-post";
+        }
 
         Date currentDate = new Date();
         User user = usersSvc.loggedInUser();
