@@ -6,18 +6,17 @@ import com.codeup.betterreads.models.Genre;
 import com.codeup.betterreads.models.User;
 import com.codeup.betterreads.repositories.ClubMemberRepo;
 import com.codeup.betterreads.repositories.ClubRepo;
+import com.codeup.betterreads.repositories.GenreRepo;
 import com.codeup.betterreads.repositories.UserRepo;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.GeneratedValue;
 import java.util.Date;
+import java.util.List;
 
 @Controller
 public class ClubController {
@@ -25,11 +24,13 @@ public class ClubController {
     private UserRepo userDao;
     private ClubRepo clubDao;
     private ClubMemberRepo clubMemberDao;
+    private GenreRepo genreDao;
 
-    public ClubController(UserRepo userDao, ClubRepo clubDao, ClubMemberRepo clubMemberDao) {
+    public ClubController(UserRepo userDao, ClubRepo clubDao, ClubMemberRepo clubMemberDao, GenreRepo genreDao) {
         this.userDao = userDao;
         this.clubDao = clubDao;
         this.clubMemberDao = clubMemberDao;
+        this.genreDao = genreDao;
     }
 
     // Create Club
@@ -126,6 +127,27 @@ public class ClubController {
 
         Club dbClub = clubDao.save(clubToBeUpdated);
         return "redirect:/bookclub/" + dbClub.getId();
+    }
+
+    @GetMapping("/bookclubs")
+    public String showBookclubs(Model viewModel) {
+        List<Club> bookclubs = clubDao.findAll();
+        viewModel.addAttribute("bookclubs", bookclubs);
+        return "user/all-bookclubs";
+    }
+
+    @PostMapping("/bookclub/search")
+    public String bookclubSearch(){
+        //conditional that first takes the passed term and gets genre by name
+        //if query == Genre name then get genre id and pass into clubDao.findByNameOrGenreIsLike
+//        System.out.println(query);
+//        query = "%"+query+"%";
+
+//        Genre dbGenre = genreDao.findByNameIsLike(query);
+//        System.out.println(dbGenre.getName());
+//        List<Club> retrievedClubs = clubDao.findByNameOrGenreIsLike(query, query);
+//        viewModel.addAttribute("bookclubs", retrievedClubs);
+        return "redirect:/bookclubs";
     }
 
 }
