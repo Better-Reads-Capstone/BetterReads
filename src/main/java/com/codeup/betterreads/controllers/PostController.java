@@ -75,12 +75,16 @@ public class PostController {
             @PathVariable long id,
             @PathVariable long postId) {
 
+        User user = usersSvc.loggedInUser();
+        if(user == null) {
+            return "redirect:/login";
+        }
+
         Club club = clubDao.getOne(id);
         Post post = postDao.getOne(postId);
         viewModel.addAttribute("post", post);
         viewModel.addAttribute("club", club);
         viewModel.addAttribute("comments", commentDao.findAllByPost(post));
-        User user = usersSvc.loggedInUser();
         viewModel.addAttribute(user);
         ClubMember clubMember = clubMemberDao.findClubMemberByUserAndClub(user, clubDao.getOne(id));
         viewModel.addAttribute("member", clubMember);

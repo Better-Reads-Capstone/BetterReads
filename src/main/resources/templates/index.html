@@ -4,12 +4,56 @@
 </head>
 <body>
     <nav th:replace="partials/navbar :: navbar"></nav>
-    <div class="container">
-        <h1>Index Page</h1>
-
-        <p><span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias aliquid amet animi assumenda consequuntur doloribus ea eaque earum facilis, ipsam itaque iure minima numquam quia sint sunt, veniam voluptatum? Ullam.</span><span>A adipisci animi aut, autem et exercitationem expedita explicabo fugiat inventore iste iusto magnam maxime minus, mollitia obcaecati odio optio, pariatur porro provident reprehenderit suscipit tempora velit veniam veritatis voluptates.</span><span>Ab aliquam architecto aut autem delectus error esse id, ipsam itaque labore libero molestias necessitatibus possimus quaerat, quam, qui quis! Accusantium aliquid dignissimos eum facilis fuga inventore quaerat sed, voluptatibus.</span><span>Animi asperiores beatae consequuntur earum eius necessitatibus, nobis non numquam quam sequi ut, velit. Aperiam blanditiis delectus dignissimos excepturi ipsum necessitatibus obcaecati possimus, praesentium quidem repellendus reprehenderit repudiandae, rerum sapiente!</span><span>Aliquid dolor nemo nesciunt nisi! Alias amet animi cum cumque delectus eaque eius fuga impedit ipsam ipsum, maiores non officia placeat porro quam repellat rerum similique sit tempora vel velit!</span></p>
-
-    </div>
+    <main>
+        <div class="container">
+            <div class="jumbotron jumbotron-fluid">
+                <div class="container">
+                    <h1 class="display-4">Welcome to BetterReads</h1>
+                    <p class="lead">A place for book enthusiasts to connect.</p>
+                </div>
+            </div>
+<!--            <div class="container" id="search-container">-->
+<!--                <div class="card">-->
+<!--                    <div class="card-header">-->
+<!--                        <h5 class="card-title">Book Search</h5>-->
+<!--                    </div>-->
+<!--                    <img th:src="@{/img/logo.png}" class="card-img w-25" alt="...">-->
+<!--                    <div class="card-body">-->
+<!--                        <p class="card-text">Read a good book lately?  Awesome, use our book search functionality to find the book on our site and leave a review with your thoughts!</p>-->
+<!--&lt;!&ndash;                        <a th:href="@{/booksearch}">Book Search</a>&ndash;&gt;-->
+<!--                        <a href="#">Book Search</a>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+            <hr class="my-4">
+            <div class="container" id="club-container">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">Book Clubs</h5>
+                    </div>
+                    <img th:src="@{/img/logo.png}" class="card-img w-25" alt="...">
+                    <div class="card-body">
+                        <p class="card-text">Connect with other users via our Bookclubs!  Search for a club to suit your interests or start a new club to connect with readers sharing your interests.</p>
+<!--                        TODO update href with link-->
+                        <a th:href="@{/bookclubs}">Book Clubs</a>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="container" id="nyt-container">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">New York Times Best Sellers</h5>
+                    </div>
+                    <img th:src="@{/img/logo.png}" class="card-img w-25" alt="...">
+                    <div class="card-body">
+                        <p class="card-text">View the latest New York Times best sellers list and check out our user reviews available!</p>
+                        <a th:href="@{/best-sellers}">New York Times Best Sellers</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
     <footer th:replace="partials/footer :: footer"></footer>
 </body>
 </html>
