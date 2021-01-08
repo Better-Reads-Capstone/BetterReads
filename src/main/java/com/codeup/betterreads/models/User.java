@@ -87,6 +87,7 @@ public class User {
     private List<Bookshelf> bookshelves;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @JsonBackReference
     private List<Comment> comments;
 
     //default

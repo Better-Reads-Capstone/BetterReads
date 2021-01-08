@@ -1,4 +1,6 @@
 package com.codeup.betterreads.models;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -21,10 +23,12 @@ public class Comment {
     private Date updatedDate;
 
     @ManyToOne
+    @JsonManagedReference
     @JoinColumn (name = "user_id")
     private User user;
 
     @ManyToOne
+    @JsonManagedReference
     @JoinColumn (name = "post_id")
     private Post post;
 
