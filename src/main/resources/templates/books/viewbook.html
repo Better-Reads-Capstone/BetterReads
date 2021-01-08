@@ -7,18 +7,17 @@
 </head>
 <body>
 <nav th:replace="partials/navbar :: navbar"></nav>
-<div id="book" th:data-book="${book}" th:data-user="${user}">
+<div id="book" th:data-book="${book}" th:data-user="${user}" class="container">
     <h1>View Book</h1>
-    <div class="container">
+    <div>
         <input id="book-value" th:value="${book.gbreference}" hidden>
-
         <div class="col mb-4">
             <div class="card">
                 <div class="container" id="book-container"></div>
                 <div class="card-footer">
                     <form sec:authorize="isAnonymous()" th:action="@{/login}"
                           method="get">
-                        <button type="submit">Login to add this book</button>
+                        <button type="submit" class="btn btn-primary">Login to add this book</button>
                     </form>
                     <div sec:authorize="isAuthenticated()">
                         <form th:if="${bookshelf == 'null'}"
@@ -33,7 +32,7 @@
                         </form>
                         <form th:unless="${bookshelf == 'null'}"
                               th:action="@{/profile/{username}(username=${user.username})}">
-                            <button type="submit">Go to Profile</button>
+                            <button type="submit" class="btn btn-primary">Go to Profile</button>
                         </form>
                     </div>
                 </div>
@@ -44,7 +43,7 @@
     <!-- SUBMIT REVIEW FORM - PASS FROM CONTROLLER REVIEW OBJECT TO VIEW FROM METHOD THAT SHOWS BOOK IN BOOKCONTROLLER -->
     <div>
         <form sec:authorize="isAnonymous()" th:action="@{/login}" method="get">
-            <button type="submit">Log in to leave a review!</button>
+            <button type="submit" class="btn btn-primary">Log in to leave a review!</button>
         </form>
         <div sec:authorize="isAuthenticated()">
             <form th:action="@{/book/{gbreference}/createReview/(gbreference = ${book.gbreference})}"
