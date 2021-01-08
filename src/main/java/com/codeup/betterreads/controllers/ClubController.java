@@ -151,6 +151,21 @@ public class ClubController {
         return "redirect:/bookclub/" + dbClub.getId();
     }
 
+    //Delete club
+    @RequestMapping(value = "/bookclub/{id}/delete", method = { RequestMethod.GET, RequestMethod.POST })
+    public String deleteClub(@PathVariable long id) {
+        Club club = clubDao.getOne(id);
+        User user = usersSvc.loggedInUser();
+
+        if(user != club.getOwner()){
+            return "redirect:/bookclub/" + id;
+        }
+
+        clubDao.delete(club);
+
+        return "redirect:/profile/" + user.getUsername();
+    }
+
     //Assign Admin
     @PostMapping("/bookclub/{id}/admin/{userId}")
     public String makeAdmin(@PathVariable long id, @PathVariable long userId) {
