@@ -34,12 +34,15 @@
                         <p>User: <span th:text="${comment.user.username}"></span></p>
                         <p th:utext="${comment.body}"></p>
                         <p th:text="${comment.createdDate}"></p>
+                        <form th:if="${user == comment.user}" th:action="@{/bookclub/{id}/{postId}/delete-comment-{commentId} (id = ${club.id}, postId = ${post.id}, commentId = ${comment.id}) }" method="POST">
+                            <button class="btn btn-primary" type="submit">Delete Comment</button>
+                        </form>
                         <hr />
                     </div>
                 </div>
                 <div class="tab-pane fade" id="add-comment" role="tabpanel" aria-labelledby="add-comment-tab">
                     <div class="comment-form-container">
-                        <form class="form-group" th:action="@{/bookclub/{id}/{postId}/comment (id = ${club.id}, postId = ${post.id})}" method="POST" th:object="${comment}">
+                        <form class="form-group" th:action="@{/bookclub/{id}/{postId}/comment (id = ${club.id}, postId = ${post.id})}" method="POST" th:object="${comment}" >
                             <label for="mytextarea">Leave a Comment!</label>
                             <textarea id="mytextarea" class="form-control" rows="5" th:field="*{body}"></textarea>
                             <button class="btn btn-primary" type="submit">Add</button>

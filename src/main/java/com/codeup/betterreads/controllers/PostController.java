@@ -81,6 +81,7 @@ public class PostController {
         viewModel.addAttribute("club", club);
         viewModel.addAttribute("comments", commentDao.findAllByPost(post));
         User user = usersSvc.loggedInUser();
+        viewModel.addAttribute(user);
         ClubMember clubMember = clubMemberDao.findClubMemberByUserAndClub(user, clubDao.getOne(id));
         viewModel.addAttribute("member", clubMember);
         viewModel.addAttribute("comment", new Comment());
@@ -109,8 +110,23 @@ public class PostController {
         commentDao.save(dbComment);
 
         return "redirect:/bookclub/" + id + "/" + postId;
+    }
+
+    @PostMapping("/bookclub/{id}/{postId}/delete-comment-{commentId}")
+    public String deleteComment(
+            @PathVariable long id,
+            @PathVariable long postId,
+            @PathVariable long commentId){
+        Comment comment = commentDao.getOne(commentId);
+        User commentOwner = comment.getUser();
+
+        if(commentOwner != usersSvc.loggedInUser()) {
+            return "redirect:/bookclub/" + id + "/" + postId;
         }
 
+        commentDao.delete(comment);
+        return "redirect:/bookclub/" + id + "/" + postId;
+    }
 
     //Edit Post
     @GetMapping("/bookclub/{id}/edit-post/{postId}")
