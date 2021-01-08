@@ -1,9 +1,5 @@
-package com.codeup.betterreads.integration;
+package com.codeup.betterreads;
 
-import com.codeup.betterreads.BetterreadsApplication;
-import com.codeup.betterreads.models.ClubMember;
-import com.codeup.betterreads.models.Post;
-import com.codeup.betterreads.models.Review;
 import com.codeup.betterreads.models.User;
 import com.codeup.betterreads.repositories.PostRepo;
 import com.codeup.betterreads.repositories.UserRepo;
@@ -17,17 +13,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-
-
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.servlet.http.HttpSession;
-import java.net.URL;
 import java.util.Date;
-import java.util.List;
 
 import static org.junit.Assert.assertNotNull;
-import static org.springframework.data.jpa.domain.AbstractAuditable_.createdDate;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -40,10 +29,6 @@ public class UserIntegrationTest {
 
     //todo Question: Would it be advantageous to use the @Autowire annotation on these test properties?
     private User testUser;
-    private Date testDate = new Date(20200101);
-    private List<Post> testPosts;
-    private List<ClubMember> testClubMembers;
-    private List<Review> testUserReviews;
     private HttpSession httpSession;
 
     @Autowired
@@ -72,8 +57,7 @@ public class UserIntegrationTest {
             newUser.setEmail("TestEmail@Test.com");
             newUser.setUsername("TestUsername");
             newUser.setPassword("TestPassword");
-            String hash = passwordEncoder.encode(newUser.getPassword());
-            newUser.setPassword(hash);
+            newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
             newUser.setFirstName("TestFirstName");
             newUser.setMiddleName("TestMiddleName");
             newUser.setLastName("TestLastName");
@@ -82,11 +66,8 @@ public class UserIntegrationTest {
             newUser.setCountry("TestCountry");
             newUser.setWebsiteURL("TestWebsiteURL");
             newUser.setAvatarURL("TestAvatarURL");
-            newUser.setDob(testDate);
-            newUser.setCreatedDate(testDate);
-            newUser.setPosts(testPosts);
-            newUser.setClubMembers(testClubMembers);
-            newUser.setUserReviews(testUserReviews);
+            newUser.setDob(new Date());
+            newUser.setCreatedDate(new Date());
             testUser = userDao.save(newUser);
         }
 
