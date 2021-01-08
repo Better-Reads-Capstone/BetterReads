@@ -116,7 +116,12 @@
                 <!--        Displays all the posts created by the blog        -->
                 <div th:each="post: ${posts}">
                     <div class="blog-card">
-                        <h4><a th:text="${post.title}" th:href="@{/bookclub/{id}/{postId} (id = ${club.id}, postId = ${post.id})}"></a></h4>
+                        <div sec:authorize="isAnonymous()">
+                            <h4><a th:text="${post.title}" th:href="@{/login}"></a></h4>
+                        </div>
+                        <div sec:authorize="isAuthenticated()">
+                            <h4><a th:text="${post.title}" th:href="@{/bookclub/{id}/{postId} (id = ${club.id}, postId = ${post.id})}"></a></h4>
+                        </div>
                         <p th:utext="${post.body}"></p>
                         <p>Author: <span th:text="${post.user.username}"></span></p>
                     </div>
