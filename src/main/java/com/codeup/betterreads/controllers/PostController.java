@@ -95,16 +95,18 @@ public class PostController {
                 @PathVariable long postId,
                 @ModelAttribute Comment comment){
 
+        Comment dbComment = new Comment();
         Date currentDate = new Date();
         User user = usersSvc.loggedInUser();
         Post post = postDao.getOne(postId);
 
-        comment.setPost(post);
-        comment.setUser(user);
-        comment.setCreatedDate(currentDate);
-        comment.setUpdatedDate(currentDate);
+        dbComment.setBody(comment.getBody());
+        dbComment.setPost(post);
+        dbComment.setUser(user);
+        dbComment.setCreatedDate(currentDate);
+        dbComment.setUpdatedDate(currentDate);
 
-        commentDao.save(comment);
+        commentDao.save(dbComment);
 
         return "redirect:/bookclub/" + id + "/" + postId;
         }

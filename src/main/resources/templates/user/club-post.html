@@ -30,7 +30,12 @@
             </ul>
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="comments" role="tabpanel" aria-labelledby="comments-tab">
-                    <div>Comments Will show here</div>
+                    <div th:each="comment: ${comments}">
+                        <p>User: <span th:text="${comment.user.username}"></span></p>
+                        <p th:utext="${comment.body}"></p>
+                        <p th:text="${comment.createdDate}"></p>
+                        <hr />
+                    </div>
                 </div>
                 <div class="tab-pane fade" id="add-comment" role="tabpanel" aria-labelledby="add-comment-tab">
                     <div class="comment-form-container">
