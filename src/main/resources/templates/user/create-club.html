@@ -15,12 +15,13 @@
                     <div class="form-group">
                         <label for="name">Name your bookclub</label>
                         <input id="name" class="form-control" th:field="*{name}" />
+                        <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
                     </div>
                     <div class="form-group">
                         <label for="about">Tell us about your book-club</label>
                         <textarea class="form-control" id="about" rows="3" cols="50" th:field="*{about}"></textarea>
+                        <p th:if="${#fields.hasErrors('about')}" th:errors="*{about}"></p>
                     </div>
-
                     <!--filestack api-->
                     <div class="filestack">
                         <img id="avatarPreview" th:src="${club.headerImageUrl}" alt="">
@@ -28,21 +29,6 @@
                         <input type="hidden" id="avatar" name="product_image_url" th:field="*{headerImageUrl}" />
                         <button class="btn" id="addPicture">addPicture</button>
                     </div>
-
-                    <!--        todo privacy option for book clubs should be revisted at a later time-->
-                    <!--        <div class="form-check">-->
-                    <!--            <input class="form-check-input" type="radio" th:field="*{privacy}" id="privateFalse" th:value="false" checked>-->
-                    <!--            <label class="form-check-label" for="privateFalse">-->
-                    <!--                Public-->
-                    <!--            </label>-->
-                    <!--        </div>-->
-                    <!--        <div class="form-check">-->
-                    <!--            <input class="form-check-input" type="radio" th:field="*{privacy}" id="privateTrue" th:value="true">-->
-                    <!--            <label class="form-check-label" for="privateTrue">-->
-                    <!--                Private-->
-                    <!--            </label>-->
-                    <!--        </div>-->
-
                     <select th:field="*{genre}" class="form-control">
                         <option th:each="genre : ${genres}" th:value="${genre.id}"><span th:text="${genre.name}"></span></option>
                     </select>

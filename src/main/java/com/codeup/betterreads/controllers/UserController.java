@@ -160,19 +160,6 @@ public class UserController {
     List<Review> getReview() {
         return reviewDao.findAll();
     }
-//
-//    @GetMapping("/profile/{username}/editReview/{bookId}")
-//    public @ResponseBody Review getReviewToEdit(@PathVariable String username, @PathVariable long bookId) {
-//        Book dbBook = bookDao.getOne(bookId);
-//        User dbUser = userDao.findByUsername(username);
-//        Review dbReview = reviewDao.findByOwnerIdAndBookId(dbUser.getId(), dbBook.getId());
-//        if(dbReview.getId() < 1) {
-//            return new Review();
-//        }
-//        else {
-//            return dbReview;
-//        }
-//    }
 
     @PostMapping("/profile/{username}/{bookId}/editReview/{reviewId}")
     public String editBookReview(

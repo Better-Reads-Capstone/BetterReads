@@ -1,5 +1,6 @@
 package com.codeup.betterreads.services;
 
+import com.codeup.betterreads.models.ClubMember;
 import com.codeup.betterreads.models.User;
 import com.codeup.betterreads.repositories.UserRepo;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -45,5 +46,12 @@ public class UserService {
     // Edit controls are being showed up if the user is logged in and it's the same user viewing the file
     public boolean canEditProfile(User profileUser){
         return isLoggedIn() && (profileUser.getId() == loggedInUser().getId());
+    }
+
+    public boolean isAdmin(ClubMember clubAdmin) {
+        if(isLoggedIn()){
+            return (clubAdmin.getIsAdmin());
+        }
+        return false;
     }
 }

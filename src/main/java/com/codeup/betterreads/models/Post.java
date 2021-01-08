@@ -1,7 +1,10 @@
 package com.codeup.betterreads.models;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "posts")
@@ -11,9 +14,12 @@ public class Post {
     private long id;
 
     @Column(nullable = false)
+    @NotBlank(message = "Posts must have a title")
+    @Size(min = 3, message = "A title must be at least 3 characters.")
     private String title;
 
     @Column(nullable = false, columnDefinition = "TEXT")
+    @NotBlank(message = "Posts must have a body")
     private String body;
 
     @Column(nullable = false)
@@ -32,22 +38,26 @@ public class Post {
     @JoinColumn (name = "user_id")
     private User user;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "post")
+    private List<Comment> comments;
+
     //CONSTRUCTORS
     // default
     public Post() {}
 
     //create
-    public Post(String title, String body, Date createdDate, Date updatedDate, Club club, User user) {
+    public Post(String title, String body, Date createdDate, Date updatedDate, Club club, User user, List<Comment> comments) {
         this.title = title;
         this.body = body;
         this.createdDate = createdDate;
         this.updatedDate = updatedDate;
         this.club = club;
         this.user = user;
+        this.comments = comments;
     }
 
     //read
-    public Post(long id, String title, String body, Date createdDate, Date updatedDate, Club club, User user) {
+    public Post(long id, String title, String body, Date createdDate, Date updatedDate, Club club, User user, List<Comment> comments) {
         this.id = id;
         this.title = title;
         this.body = body;
@@ -55,6 +65,7 @@ public class Post {
         this.updatedDate = updatedDate;
         this.club = club;
         this.user = user;
+        this.comments = comments;
     }
 
     //GETTERS
@@ -65,6 +76,7 @@ public class Post {
     public Date getUpdatedDate() {return updatedDate;}
     public Club getClub() {return club;}
     public User getUser() {return user;}
+    public List<Comment> getComments() {return comments;}
 
     //SETTERS
     public void setId(long id) {this.id = id;}
@@ -74,4 +86,5 @@ public class Post {
     public void setUpdatedDate(Date updatedDate) {this.updatedDate = updatedDate;}
     public void setUser(User user) {this.user = user;}
     public void setClub(Club club) {this.club = club;}
+    public void setComments(List<Comment> comments) {this.comments = comments;}
 }

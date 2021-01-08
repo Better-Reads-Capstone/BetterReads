@@ -57,10 +57,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/profile/{username}",
                         "/edit-profile/{username}",
                             "/create-club/{username}",
-                            "/edit-bookclub/{id}",
-                            "/bookclub/{username}",
-                            "/bookclub/{id}",
-                            "/bookclub/{id}/{postId}"
+                            "/edit-bookclub/{id}"
                     )
 
                 .authenticated();

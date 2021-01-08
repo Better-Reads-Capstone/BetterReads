@@ -71,13 +71,16 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Bookshelf> bookshelves;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Comment> comments;
+
     //default
     public User() {
     }
 
     //create
     public User(String email, String username, String password, String firstName, String middleName, String lastName, String aboutMe, String country, String websiteURL, String avatarURL, String pronouns, Date dob, Date createdDate, List<Post> posts, List<ClubMember> clubMembers
-    , List<Review> userReviews, List<Bookshelf> bookshelves
+    , List<Review> userReviews, List<Bookshelf> bookshelves, List<Comment> comments
     ) {
         this.email = email;
         this.username = username;
@@ -96,11 +99,12 @@ public class User {
         this.clubMembers = clubMembers;
         this.userReviews = userReviews;
         this.bookshelves = bookshelves;
+        this.comments = comments;
     }
 
     //read
     public User(long id, String email, String username, String password, String firstName, String middleName, String lastName, String aboutMe, String country, String websiteURL, String avatarURL, String pronouns, Date dob, Date createdDate, List<Post> posts, List<ClubMember> clubMembers
-            , List<Review> userReviews, List<Bookshelf> bookshelves
+            , List<Review> userReviews, List<Bookshelf> bookshelves, List<Comment> comments
     ) {
         this.id = id;
         this.email = email;
@@ -120,6 +124,7 @@ public class User {
         this.clubMembers = clubMembers;
         this.userReviews = userReviews;
         this.bookshelves = bookshelves;
+        this.comments = comments;
     }
 
     //copy
@@ -142,6 +147,7 @@ public class User {
         clubMembers = copy.clubMembers;
         userReviews = copy.userReviews;
         bookshelves = copy.bookshelves;
+        comments = copy.comments;
     }
 
     //getters
@@ -163,6 +169,7 @@ public class User {
     public List<ClubMember> getClubMembers() {return clubMembers;}
     public List<Review> getUserReviews() {return userReviews;}
     public List<Bookshelf> getBookshelves() {return bookshelves;}
+    public List<Comment> getComments() {return comments;}
 
     //setters
     public void setId(long id) {this.id = id;}
@@ -183,4 +190,5 @@ public class User {
     public void setClubMembers(List<ClubMember> clubMembers) {this.clubMembers = clubMembers;}
     public void setUserReviews(List<Review> userReviews) {this.userReviews = userReviews;}
     public void setBookshelves(List<Bookshelf> bookshelves) {this.bookshelves = bookshelves;}
+    public void setComments(List<Comment> comments) {this.comments = comments;}
 }

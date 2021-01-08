@@ -3,18 +3,21 @@ package com.codeup.betterreads.controllers;
 import com.codeup.betterreads.models.*;
 import com.codeup.betterreads.repositories.ClubMemberRepo;
 import com.codeup.betterreads.repositories.ClubRepo;
+import com.codeup.betterreads.repositories.GenreRepo;
 import com.codeup.betterreads.repositories.PostRepo;
 import com.codeup.betterreads.repositories.UserRepo;
-import com.codeup.betterreads.repositories.GenreRepo;
 import com.codeup.betterreads.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.persistence.GeneratedValue;
+import javax.validation.Valid;
 import java.util.Date;
 import java.util.List;
 
@@ -42,24 +45,35 @@ public class ClubController {
     @GetMapping("/create-club/{username}")
     public String showCreateClub(Model viewModel, @PathVariable String username) {
         List<Genre> genreList = genreDao.findAll();
-
+        Club club = new Club();
         viewModel.addAttribute("user", userDao.findByUsername(username));
-        viewModel.addAttribute("club", new Club());
+        viewModel.addAttribute("club", club);
         viewModel.addAttribute("genres", genreList);
+
+        String defaultIMG = "/img/logo.png";
+        club.setHeaderImageUrl(defaultIMG);
         return "user/create-club";
     }
 
     @PostMapping("/create-club/{username}")
     public String createClub(@PathVariable String username,
+                             @Valid Club club,
+                             Errors validation,
                              @ModelAttribute User userToBeUpdated,
-                             @ModelAttribute Club club) {
+                             Model viewModel) {
+
         User user = userDao.findByUsername(username);
         Date currentDate = new Date();
 
+        if (validation.hasErrors()) {
+            viewModel.addAttribute("errors", validation);
+            viewModel.addAttribute("club", club);
+            return "user/create-club";
+        }
+
         club.setOwner(user);
         club.setCreatedDate(currentDate);
-        String defaultIMG = "/img/logo.png";
-        club.setHeaderImageUrl(defaultIMG);
+
 
         Club dbClub = clubDao.save(club);
 
@@ -79,14 +93,17 @@ public class ClubController {
             Model viewModel,
             @PathVariable long id,
             @ModelAttribute Club club) {
-        viewModel.addAttribute("user", SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        viewModel.addAttribute("user", usersSvc.loggedInUser());
         viewModel.addAttribute("club", clubDao.getOne(id));
         viewModel.addAttribute("members", clubMemberDao.findAllByClub(club));
+        viewModel.addAttribute("posts", postDao.findAllByClub(club));
 
         // For the conditional in the bookclub template; prevents users from joining a club multiple times!
-        User clubUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        User clubUser = usersSvc.loggedInUser();
         ClubMember clubMember = clubMemberDao.findClubMemberByUserAndClub(clubUser, club);
         viewModel.addAttribute("member", clubMember);
+
 
         return "user/bookclub";
     }
@@ -123,9 +140,21 @@ public class ClubController {
     //Edit Club Page
     @GetMapping("/edit-bookclub/{id}")
     public String showEditBookClub (Model viewModel, @PathVariable long id) {
+        User user = usersSvc.loggedInUser();
+        Club club = clubDao.getOne(id);
+        ClubMember clubMember = clubMemberDao.findClubMemberByUserAndClub(user, club);
+
+        viewModel.addAttribute("club", club);
+        viewModel.addAttribute("user", user);
+
+        if(!usersSvc.isAdmin(clubMember)){
+            return "redirect:/bookclub/" + id;
+        }
+
         viewModel.addAttribute("club", clubDao.getOne(id));
         List<Genre> genreList = genreDao.findAll();
         viewModel.addAttribute("genres", genreList);
+
         return "user/edit-bookclub";
     }
 
@@ -139,98 +168,23 @@ public class ClubController {
         return "redirect:/bookclub/" + dbClub.getId();
     }
 
-    //Create Post
-    @GetMapping("/bookclub/{id}/create-post")
-    public String viewCreatePostForm(Model viewModel, @PathVariable long id) {
-        viewModel.addAttribute("post", new Post());
-        viewModel.addAttribute("club", clubDao.getOne(id));
-        return "user/create-post";
-    }
 
-    @PostMapping("/bookclub/{id}/create-post")
-    public String createPost(
-            @PathVariable long id,
-            @ModelAttribute Club club,
-            @ModelAttribute Post post) {
-
-        Date currentDate = new Date();
+    //Delete club
+    @RequestMapping(value = "/bookclub/{id}/delete", method = { RequestMethod.GET, RequestMethod.POST })
+    public String deleteClub(@PathVariable long id) {
+        Club club = clubDao.getOne(id);
         User user = usersSvc.loggedInUser();
 
-        post.setClub(club);
-        post.setUser(user);
-        post.setCreatedDate(currentDate);
-        post.setUpdatedDate(currentDate);
-
-        Post dbPost = postDao.save(post);
-
-        return "redirect:/bookclub/" + id + "/" + dbPost.getId();
-    }
-
-    @GetMapping("/bookclub/{id}/{postId}")
-    public String viewPost(
-            Model viewModel,
-            @PathVariable long id,
-            @PathVariable long postId) {
-
-        viewModel.addAttribute("post", postDao.getOne(postId));
-        viewModel.addAttribute("club", clubDao.getOne(id));
-        User user = usersSvc.loggedInUser();
-        ClubMember clubMember = clubMemberDao.findClubMemberByUserAndClub(user, clubDao.getOne(id));
-        viewModel.addAttribute("member", clubMember);
-
-        return "user/club-post";
-    }
-
-    @GetMapping("/bookclub/{id}/edit-post/{postId}")
-    public String viewEditPostForm(
-            Model viewModel,
-            @PathVariable long id,
-            @PathVariable long postId) {
-
-        Post post = postDao.getOne(postId);
-
-        if(!usersSvc.isOwner(post.getUser())){
-            return "redirect:/bookclub/" + id + "/" + postId;
-        }
-
-        viewModel.addAttribute("post", postDao.getOne(postId));
-        viewModel.addAttribute("club", clubDao.getOne(id));
-
-        return "user/create-post";
-    }
-
-    @PostMapping("/bookclub/{id}/edit-post/{postId}")
-    public String editPost(
-            @ModelAttribute Post post,
-            @ModelAttribute Club club,
-            @PathVariable long id,
-            @PathVariable long postId) {
-
-        Post postToBeUpdated = postDao.getOne(postId);
-        Date currentDate = new Date();
-
-        postToBeUpdated.setUpdatedDate(currentDate);
-        postToBeUpdated.setCreatedDate(post.getCreatedDate());
-        postToBeUpdated.setUser(post.getUser());
-        postToBeUpdated.setClub(post.getClub());
-
-        Post dbPost = postDao.save(postToBeUpdated);
-        return "redirect:/bookclub/" + id + "/" + dbPost.getId();
-    }
-
-    @RequestMapping(value = "/bookclub/{id}/delete-post/{postId}", method = { RequestMethod.GET, RequestMethod.POST })
-    public String deletePost(@PathVariable long id, @PathVariable long postId) {
-        Post post = postDao.getOne(postId);
-
-        if(!usersSvc.isOwner(post.getUser())){
+        if(user != club.getOwner()){
             return "redirect:/bookclub/" + id;
         }
 
-        postDao.delete(post);
+        clubDao.delete(club);
 
-        return "redirect:/bookclub/" + id;
+        return "redirect:/profile/" + user.getUsername();
     }
 
+    //Assign Admin
     @PostMapping("/bookclub/{id}/admin/{userId}")
     public String makeAdmin(@PathVariable long id, @PathVariable long userId) {
         User user = userDao.getOne(userId);
@@ -243,15 +197,61 @@ public class ClubController {
         return "redirect:/bookclub/" + id;
     }
 
+    //Revoke Admin Status
     @PostMapping("/bookclub/{id}/member/{userId}")
     public String removeAdminStatus(@PathVariable long id, @PathVariable long userId) {
         User user = userDao.getOne(userId);
         Club club = clubDao.getOne(id);
         ClubMember clubMember = clubMemberDao.findClubMemberByUserAndClub(user, club);
 
+        if(clubMember.getUser() == club.getOwner()){
+            return "redirect:/bookclub/" + id;
+        }
+
         clubMember.setIsAdmin(false);
         clubMemberDao.save(clubMember);
 
         return "redirect:/bookclub/" + id;
+    }
+
+    //Go to bookclubs page
+    @GetMapping("/bookclubs")
+    public String showBookclubs(Model viewModel,
+                                @ModelAttribute Genre genre
+    ) {
+        List<Club> bookclubs = clubDao.findAll();
+        List<Genre> filterGenreList = genreDao.findAll();
+        viewModel.addAttribute("bookclubs", bookclubs);
+        viewModel.addAttribute("filterGenreList", filterGenreList);
+        return "user/all-bookclubs";
+    }
+
+    //handle bookclub search
+    @PostMapping("/bookclub/search")
+    public String bookclubSearch(@RequestParam(name = "query") String query,
+                                 @RequestParam(name = "genreSelect") long genreSelect,
+                                 Model viewModel,
+                                 RedirectAttributes redirectAttributes
+    ) {
+        List<Genre> filterGenreList = genreDao.findAll();
+        String queryMod = "%" + query + "%";
+
+        if (genreSelect == 0 && query.equals("")) {
+            redirectAttributes.addFlashAttribute("noQueryMsg", "You didn't search any values...");
+            return "redirect:/bookclubs";
+        } else if (genreSelect > 0) {
+            List<Club> retreivedClubs = clubDao.findByGenreIdAndNameIsLike(genreSelect, queryMod);
+            viewModel.addAttribute("filterGenre", genreSelect);
+            viewModel.addAttribute("bookclubs", retreivedClubs);
+            viewModel.addAttribute("filterGenreList", filterGenreList);
+            viewModel.addAttribute("currentGenre", genreSelect);
+            return "user/search-bookclub";
+        } else {
+            List<Club> retreivedClubs = clubDao.findByNameIsLike(queryMod);
+            viewModel.addAttribute("bookclubs", retreivedClubs);
+            viewModel.addAttribute("filterGenreList", filterGenreList);
+            viewModel.addAttribute("currentGenre", genreSelect);
+            return "user/search-bookclub";
+        }
     }
 }
