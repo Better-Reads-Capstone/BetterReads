@@ -45,10 +45,13 @@ public class ClubController {
     @GetMapping("/create-club/{username}")
     public String showCreateClub(Model viewModel, @PathVariable String username) {
         List<Genre> genreList = genreDao.findAll();
-
+        Club club = new Club();
         viewModel.addAttribute("user", userDao.findByUsername(username));
-        viewModel.addAttribute("club", new Club());
+        viewModel.addAttribute("club", club);
         viewModel.addAttribute("genres", genreList);
+
+        String defaultIMG = "/img/logo.png";
+        club.setHeaderImageUrl(defaultIMG);
         return "user/create-club";
     }
 
@@ -70,8 +73,7 @@ public class ClubController {
 
         club.setOwner(user);
         club.setCreatedDate(currentDate);
-        String defaultIMG = "/img/logo.png";
-        club.setHeaderImageUrl(defaultIMG);
+
 
         Club dbClub = clubDao.save(club);
 
