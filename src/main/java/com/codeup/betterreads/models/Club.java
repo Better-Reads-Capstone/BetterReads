@@ -23,7 +23,7 @@ public class Club {
     private Date createdDate;
 
     @NotBlank(message = "Give your book club a quick description.")
-    @Size(min = 250, message = "Your description must be at least 250 characters long!")
+    @Size(min = 50, message = "Your description must be at least 50 characters long!")
     @Column(columnDefinition = "TEXT")
     private String about;
 

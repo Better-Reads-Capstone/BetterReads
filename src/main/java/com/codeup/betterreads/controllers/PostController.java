@@ -1,13 +1,7 @@
 package com.codeup.betterreads.controllers;
 
-import com.codeup.betterreads.models.Club;
-import com.codeup.betterreads.models.ClubMember;
-import com.codeup.betterreads.models.Post;
-import com.codeup.betterreads.models.User;
-import com.codeup.betterreads.repositories.ClubMemberRepo;
-import com.codeup.betterreads.repositories.ClubRepo;
-import com.codeup.betterreads.repositories.PostRepo;
-import com.codeup.betterreads.repositories.UserRepo;
+import com.codeup.betterreads.models.*;
+import com.codeup.betterreads.repositories.*;
 import com.codeup.betterreads.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,15 +19,17 @@ public class PostController {
     private ClubRepo clubDao;
     private ClubMemberRepo clubMemberDao;
     private PostRepo postDao;
+    private CommentRepo commentDao;
 
     @Autowired
     UserService usersSvc;
 
-    public PostController(UserRepo userDao, ClubRepo clubDao, ClubMemberRepo clubMemberDao, PostRepo postDao) {
+    public PostController(UserRepo userDao, ClubRepo clubDao, ClubMemberRepo clubMemberDao, PostRepo postDao, CommentRepo commentDao) {
         this.userDao = userDao;
         this.clubDao = clubDao;
         this.clubMemberDao = clubMemberDao;
         this.postDao = postDao;
+        this.commentDao = commentDao;
     }
 
     //Create Post
@@ -79,14 +75,40 @@ public class PostController {
             @PathVariable long id,
             @PathVariable long postId) {
 
-        viewModel.addAttribute("post", postDao.getOne(postId));
-        viewModel.addAttribute("club", clubDao.getOne(id));
+        Club club = clubDao.getOne(id);
+        Post post = postDao.getOne(postId);
+        viewModel.addAttribute("post", post);
+        viewModel.addAttribute("club", club);
+        viewModel.addAttribute("comments", commentDao.findAllByPost(post));
         User user = usersSvc.loggedInUser();
         ClubMember clubMember = clubMemberDao.findClubMemberByUserAndClub(user, clubDao.getOne(id));
         viewModel.addAttribute("member", clubMember);
+        viewModel.addAttribute("comment", new Comment());
 
         return "user/club-post";
     }
+
+    //Comment on Post
+    @PostMapping("/bookclub/{id}/{postId}/comment")
+        public String leaveComment(
+                @PathVariable long id,
+                @PathVariable long postId,
+                @ModelAttribute Comment comment){
+
+        Date currentDate = new Date();
+        User user = usersSvc.loggedInUser();
+        Post post = postDao.getOne(postId);
+
+        comment.setPost(post);
+        comment.setUser(user);
+        comment.setCreatedDate(currentDate);
+        comment.setUpdatedDate(currentDate);
+
+        commentDao.save(comment);
+
+        return "redirect:/bookclub/" + id + "/" + postId;
+        }
+
 
     //Edit Post
     @GetMapping("/bookclub/{id}/edit-post/{postId}")
