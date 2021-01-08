@@ -198,6 +198,10 @@ public class ClubController {
         Club club = clubDao.getOne(id);
         ClubMember clubMember = clubMemberDao.findClubMemberByUserAndClub(user, club);
 
+        if(clubMember.getUser() == club.getOwner()){
+            return "redirect:/bookclub/" + id;
+        }
+
         clubMember.setIsAdmin(false);
         clubMemberDao.save(clubMember);
 

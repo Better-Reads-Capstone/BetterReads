@@ -85,12 +85,17 @@
                             <p class="card-body" th:unless="${clubMember.isAdmin == true}">Member</p>
                         </div>
                         <div th:if="${member != null && member.isAdmin == true}" class="card-footer">
-                            <form th:if="${clubMember != null && clubMember.isAdmin == false}" th:action="@{/bookclub/{id}/admin/{userId} (id = ${club.id}, userId = ${clubMember.user.id})}" method="POST">
-                                <input class="btn btn-primary" type="submit" value="Make Admin">
-                            </form>
-                            <form th:unless="${clubMember != null && clubMember.isAdmin == false}" th:action="@{/bookclub/{id}/member/{userId} (id = ${club.id}, userId = ${clubMember.user.id})}" method="POST">
-                                <input class="btn btn-primary" type="submit" value="Delete Admin">
-                            </form>
+                            <div th:if="${clubMember.user != club.owner}">
+                                <form th:if="${clubMember != null && clubMember.isAdmin == false}" th:action="@{/bookclub/{id}/admin/{userId} (id = ${club.id}, userId = ${clubMember.user.id})}" method="POST">
+                                    <input class="btn btn-primary" type="submit" value="Make Admin">
+                                </form>
+                                <form th:unless="${clubMember != null && clubMember.isAdmin == false}" th:action="@{/bookclub/{id}/member/{userId} (id = ${club.id}, userId = ${clubMember.user.id})}" method="POST">
+                                    <input class="btn btn-primary" type="submit" value="Delete Admin">
+                                </form>
+                            </div>
+                            <div th:unless="${clubMember.user != club.owner}">
+                                <p>Owner</p>
+                            </div>
                         </div>
                     </div>
                 </div>
