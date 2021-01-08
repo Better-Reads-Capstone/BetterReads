@@ -5,4 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface GenreRepo extends JpaRepository<Genre, Long> {
     Genre findByNameIsLike(String name);
+//    List<Genre> get
 }
