@@ -3,9 +3,9 @@ package com.codeup.betterreads.controllers;
 import com.codeup.betterreads.models.*;
 import com.codeup.betterreads.repositories.ClubMemberRepo;
 import com.codeup.betterreads.repositories.ClubRepo;
+import com.codeup.betterreads.repositories.GenreRepo;
 import com.codeup.betterreads.repositories.PostRepo;
 import com.codeup.betterreads.repositories.UserRepo;
-import com.codeup.betterreads.repositories.GenreRepo;
 import com.codeup.betterreads.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.persistence.GeneratedValue;
 import javax.validation.Valid;
@@ -96,9 +97,11 @@ public class ClubController {
         viewModel.addAttribute("posts", postDao.findAllByClub(club));
 
         // For the conditional in the bookclub template; prevents users from joining a club multiple times!
+
         User clubUser = usersSvc.loggedInUser();
         ClubMember clubMember = clubMemberDao.findClubMemberByUserAndClub(clubUser, club);
         viewModel.addAttribute("member", clubMember);
+
 
         return "user/bookclub";
     }
@@ -163,6 +166,7 @@ public class ClubController {
         return "redirect:/bookclub/" + dbClub.getId();
     }
 
+
     //Delete club
     @RequestMapping(value = "/bookclub/{id}/delete", method = { RequestMethod.GET, RequestMethod.POST })
     public String deleteClub(@PathVariable long id) {
@@ -206,5 +210,46 @@ public class ClubController {
         clubMemberDao.save(clubMember);
 
         return "redirect:/bookclub/" + id;
+    }
+
+    //Go to bookclubs page
+    @GetMapping("/bookclubs")
+    public String showBookclubs(Model viewModel,
+                                @ModelAttribute Genre genre
+    ) {
+        List<Club> bookclubs = clubDao.findAll();
+        List<Genre> filterGenreList = genreDao.findAll();
+        viewModel.addAttribute("bookclubs", bookclubs);
+        viewModel.addAttribute("filterGenreList", filterGenreList);
+        return "user/all-bookclubs";
+    }
+
+    //handle bookclub search
+    @PostMapping("/bookclub/search")
+    public String bookclubSearch(@RequestParam(name = "query") String query,
+                                 @RequestParam(name = "genreSelect") long genreSelect,
+                                 Model viewModel,
+                                 RedirectAttributes redirectAttributes
+    ) {
+        List<Genre> filterGenreList = genreDao.findAll();
+        String queryMod = "%" + query + "%";
+
+        if (genreSelect == 0 && query.equals("")) {
+            redirectAttributes.addFlashAttribute("noQueryMsg", "You didn't search any values...");
+            return "redirect:/bookclubs";
+        } else if (genreSelect > 0) {
+            List<Club> retreivedClubs = clubDao.findByGenreIdAndNameIsLike(genreSelect, queryMod);
+            viewModel.addAttribute("filterGenre", genreSelect);
+            viewModel.addAttribute("bookclubs", retreivedClubs);
+            viewModel.addAttribute("filterGenreList", filterGenreList);
+            viewModel.addAttribute("currentGenre", genreSelect);
+            return "user/search-bookclub";
+        } else {
+            List<Club> retreivedClubs = clubDao.findByNameIsLike(queryMod);
+            viewModel.addAttribute("bookclubs", retreivedClubs);
+            viewModel.addAttribute("filterGenreList", filterGenreList);
+            viewModel.addAttribute("currentGenre", genreSelect);
+            return "user/search-bookclub";
+        }
     }
 }

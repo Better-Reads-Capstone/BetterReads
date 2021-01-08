@@ -37,12 +37,15 @@ const isbnQuery = (isbn, elementId, callback) => {
 }
 
 const isbnFetch = (isbn) => {
-    return fetch(baseUrl + '?' + new URLSearchParams({
-        q: 'isbn:' + isbn,
-        printType: 'books',
-        key: apiKey
-    }))
-        .then(response => response.json())
+    return new Promise((resolve) => {
+        fetch(baseUrl + '?' + new URLSearchParams({
+            q: 'isbn:' + isbn,
+            printType: 'books',
+            key: apiKey
+        }))
+            .then(response => response.json())
+            .then(data => {resolve(data)});
+    })
 }
 
 const titleAuthorFetch = (title, author) => {
@@ -52,6 +55,7 @@ const titleAuthorFetch = (title, author) => {
         key: apiKey
     }))
         .then(response => response.json())
+
 }
 
 const referenceQuery = (gbid, elementId, callback) => {
@@ -74,10 +78,16 @@ const displayMultiBookCards = (data) => {
     for(let i = 0; i < data.items.length; i++) {
         let book = data.items[i];
         let thumbnail = 'https://via.placeholder.com/75';
+        let isbn = "Unable to search for book"
         try {
             thumbnail = book.volumeInfo.imageLinks.thumbnail;
         } catch (error) {
             console.error("No thumbnail exists for this book.")
+        }
+        try {
+            isbn = book.volumeInfo.industryIdentifiers[0].identifier
+        } catch (error) {
+            console.log("Unable to search for book")
         }
         finalHTML +=
             `<div class="col mb-4">
@@ -87,7 +97,7 @@ const displayMultiBookCards = (data) => {
                             </div>
                             <div class="card-body">
                                 <img src='${thumbnail}' class='card-img' alt='thumbnail-image' style='width: 70px'>
-                                <p>ISBN: ${book.volumeInfo.industryIdentifiers[0].identifier}</p>
+                                <p>ISBN: ${isbn}</p>
                             </div>
                             <div class="card-footer">
                                 <form class='form-inline my-2 my-lg-0' method="GET" action="/book/${book.id}"><button class='btn btn-success my-2 my-sm-0' type='submit' id='viewBookBtn'>View Book</button>
