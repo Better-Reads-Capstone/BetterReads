@@ -113,8 +113,7 @@ $(document).ready(function () {
                         $('#createBody').val(body);
                         $('#currentRating').html('Current Rating: ');
                         $(`#createRating option[value=${rating}]`).attr({
-                            selected: 'selected',
-                            disabled: 'disabled'
+                            selected: 'selected'
                         });
                         $('#reviewSubmit').html('Submit Changes');
                         $('#deleteReview').show().attr('action', `/profile/${username}/deleteReview/${reviewId}`);
