@@ -144,7 +144,7 @@ public class PostController {
         viewModel.addAttribute("post", postDao.getOne(postId));
         viewModel.addAttribute("club", clubDao.getOne(id));
 
-        return "user/create-post";
+        return "user/edit-post";
     }
 
     @PostMapping("/bookclub/{id}/edit-post/{postId}")

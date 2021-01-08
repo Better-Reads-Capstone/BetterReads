@@ -150,7 +150,7 @@ public class ClubController {
         List<Genre> genreList = genreDao.findAll();
         viewModel.addAttribute("genres", genreList);
 
-        return "user/create-club";
+        return "user/edit-bookclub";
     }
 
     @PostMapping("/edit-bookclub/{id}")
