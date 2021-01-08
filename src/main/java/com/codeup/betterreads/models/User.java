@@ -16,9 +16,11 @@ public class User {
     private long id;
 
     @Column(nullable = false, unique = true)
+    @JsonIgnore
     private String email;
 
     @Column(nullable = false, unique = true, length = 150)
+    @JsonIgnore
     private String username;
 
     @Column(nullable = false, unique = true)
@@ -26,42 +28,54 @@ public class User {
     private String password;
 
     @Column(nullable = false)
+    @JsonIgnore
     private String firstName;
 
     @Column(nullable = false)
+    @JsonIgnore
     private String lastName;
 
     @Column(length = 45)
+    @JsonIgnore
     private String middleName;
 
     @Column(columnDefinition = "TEXT")
+    @JsonIgnore
     private String aboutMe;
 
     @Column
+    @JsonIgnore
     private String country;
 
     @Column
+    @JsonIgnore
     private String websiteURL;
 
     @Column
+    @JsonIgnore
     private String avatarURL;
 
     @Column
+    @JsonIgnore
     private String pronouns;
 
     @Column
+    @JsonIgnore
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date dob;
 
     @Column(nullable = false)
+    @JsonIgnore
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @JsonBackReference
     private List<Post> posts;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @JsonBackReference
     private List<ClubMember> clubMembers;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
@@ -69,6 +83,7 @@ public class User {
     private List<Review> userReviews;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @JsonBackReference
     private List<Bookshelf> bookshelves;
 
     //default

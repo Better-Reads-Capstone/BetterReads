@@ -1,5 +1,7 @@
 package com.codeup.betterreads.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -14,9 +16,11 @@ public class Genre {
     private String name;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "genre")
+    @JsonBackReference
     private List<Club> clubs;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "genre")
+    @JsonBackReference
     private List<Book> books;
     //CONSTRUCTORS
     //default
