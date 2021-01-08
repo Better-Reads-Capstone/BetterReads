@@ -33,7 +33,7 @@ public class BookController {
 
     @GetMapping("/booksearch")
     public String searchResults(
-            @RequestParam(name = "searchvalue") String searchvalue,
+            @RequestParam(name = "searchvalue", required = false) String searchvalue,
             Model viewModel) {
 
         viewModel.addAttribute("searchvalue", searchvalue);
