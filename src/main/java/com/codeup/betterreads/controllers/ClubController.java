@@ -124,6 +124,8 @@ public class ClubController {
     @GetMapping("/edit-bookclub/{id}")
     public String showEditBookClub (Model viewModel, @PathVariable long id) {
         viewModel.addAttribute("club", clubDao.getOne(id));
+        List<Genre> genreList = genreDao.findAll();
+        viewModel.addAttribute("genres", genreList);
         return "user/edit-bookclub";
     }
 
