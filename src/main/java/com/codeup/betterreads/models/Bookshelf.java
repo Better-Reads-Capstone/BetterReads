@@ -1,5 +1,7 @@
 package com.codeup.betterreads.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -13,10 +15,12 @@ public class Bookshelf{
     private long id;
 
     @ManyToOne
+    @JsonManagedReference
     @JoinColumn(name = "owner_id")
     private User user;
 
     @ManyToOne
+    @JsonManagedReference
     @JoinColumn(name = "book_id")
     private Book book;
 

@@ -1,5 +1,7 @@
 package com.codeup.betterreads.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -31,10 +33,12 @@ public class Post {
     private Date updatedDate;
 
     @ManyToOne
+    @JsonManagedReference
     @JoinColumn (name = "club_id")
     private Club club;
 
     @ManyToOne
+    @JsonManagedReference
     @JoinColumn (name = "user_id")
     private User user;
 

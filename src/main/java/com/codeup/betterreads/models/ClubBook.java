@@ -1,5 +1,7 @@
 package com.codeup.betterreads.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -12,10 +14,12 @@ public class ClubBook {
     private long id;
 
     @ManyToOne
+    @JsonManagedReference
     @JoinColumn(name = "club_id")
     private Club club;
 
     @ManyToOne
+    @JsonManagedReference
     @JoinColumn(name = "book_id")
     private Book book;
 

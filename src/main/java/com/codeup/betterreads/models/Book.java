@@ -1,6 +1,7 @@
 package com.codeup.betterreads.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.util.List;
@@ -19,10 +20,12 @@ public class Book {
     private String isbn;
 
     @ManyToOne
+    @JsonManagedReference
     @JoinColumn(name = "genre_id")
     private Genre genre;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "book")
+    @JsonBackReference
     private List<ClubBook> clubBooks;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "book")

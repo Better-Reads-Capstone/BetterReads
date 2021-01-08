@@ -1,5 +1,7 @@
 package com.codeup.betterreads.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -14,18 +16,22 @@ public class Poll {
     private boolean active;
 
     @ManyToOne
+    @JsonManagedReference
     @JoinColumn(name = "club_id")
     private Club club;
 
     @ManyToOne
+    @JsonManagedReference
     @JoinColumn(name = "book1_id")
     private Book bookOne;
 
     @ManyToOne
+    @JsonManagedReference
     @JoinColumn(name = "book2_id")
     private Book bookTwo;
 
     @ManyToOne
+    @JsonManagedReference
     @JoinColumn(name = "user_id")
     private User user;
 

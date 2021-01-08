@@ -1,5 +1,8 @@
 package com.codeup.betterreads.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -34,20 +37,25 @@ public class Club {
     private boolean privacy;
 
     @ManyToOne
+    @JsonManagedReference
     @JoinColumn (name = "owner_id")
     private User owner;
 
     @ManyToOne
+    @JsonManagedReference
     @JoinColumn (name = "genre_id")
     private Genre genre;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "club")
+    @JsonBackReference
     private List<Post> posts;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "club")
+    @JsonBackReference
     private List<ClubBook> clubBooks;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "club")
+    @JsonBackReference
     private List<ClubMember> clubMembers;
 
     //default
