@@ -7,6 +7,9 @@
     <main>
         <br>
         <div class="container">
+            <form th:action="@{/bookclub/{id}#post-container (id = ${club.id})}">
+                <button type="submit">Back to <span th:text="${club.name}"></span></button>
+            </form>
             <div th:text="${post.title}"></div>
             <br>
             <div th:utext="${post.body}"></div>
