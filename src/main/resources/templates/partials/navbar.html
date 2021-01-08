@@ -45,27 +45,25 @@
                 <div class="nav-item">
                     <a class="nav-link" href="/sign-up">Register</a>
                 </div>
-                <form class="form-inline my-2 my-lg-0">
+                <form class="form-inline my-2 my-lg-0 search-form">
                     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="search-term">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="button" id="search-btn">Search</button>
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="search-btn">Search</button>
                 </form>
             </div>
             <div sec:authorize="isAuthenticated()" class="d-flex">
                 <div class="d-flex">
                     <div th:text="${#authentication.principal.username}"></div>
-
                     <a class="align-self-center" th:href="@{/profile/{username}(username=${#authentication.principal.username})}">Profile</a>
                 </div>
                 <form th:action="@{/logout}" th:method="post">
                     <button class="nav-link btn-link btn">Logout</button>
                 </form>
-                <form class="form-inline my-2 my-lg-0">
+                <form class="form-inline my-2 my-lg-0 search-form">
                     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="search-term">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="button" id="search-btn">Search</button>
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="search-btn">Search</button>
                 </form>
             </div>
         </div>
-
     </div>
 </nav>
 </body>
