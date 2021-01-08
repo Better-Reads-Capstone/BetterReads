@@ -5,6 +5,7 @@ import com.codeup.betterreads.repositories.ClubMemberRepo;
 import com.codeup.betterreads.repositories.ClubRepo;
 import com.codeup.betterreads.repositories.PostRepo;
 import com.codeup.betterreads.repositories.UserRepo;
+import com.codeup.betterreads.repositories.GenreRepo;
 import com.codeup.betterreads.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.GeneratedValue;
 import java.util.Date;
+import java.util.List;
 
 @Controller
 public class ClubController {
@@ -23,22 +25,27 @@ public class ClubController {
     private ClubRepo clubDao;
     private ClubMemberRepo clubMemberDao;
     private PostRepo postDao;
+    private GenreRepo genreDao;
 
     @Autowired
     UserService usersSvc;
 
-    public ClubController(UserRepo userDao, ClubRepo clubDao, ClubMemberRepo clubMemberDao, PostRepo postDao) {
+    public ClubController(UserRepo userDao, ClubRepo clubDao, ClubMemberRepo clubMemberDao, PostRepo postDao, GenreRepo genreDao) {
         this.userDao = userDao;
         this.clubDao = clubDao;
         this.clubMemberDao = clubMemberDao;
         this.postDao = postDao;
+        this.genreDao = genreDao;
     }
 
     // Create Club
     @GetMapping("/create-club/{username}")
     public String showCreateClub(Model viewModel, @PathVariable String username) {
+        List<Genre> genreList = genreDao.findAll();
+
         viewModel.addAttribute("user", userDao.findByUsername(username));
         viewModel.addAttribute("club", new Club());
+        viewModel.addAttribute("genres", genreList);
         return "user/create-club";
     }
 
@@ -117,6 +124,8 @@ public class ClubController {
     @GetMapping("/edit-bookclub/{id}")
     public String showEditBookClub (Model viewModel, @PathVariable long id) {
         viewModel.addAttribute("club", clubDao.getOne(id));
+        List<Genre> genreList = genreDao.findAll();
+        viewModel.addAttribute("genres", genreList);
         return "user/edit-bookclub";
     }
 
