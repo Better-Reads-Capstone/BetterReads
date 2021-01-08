@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="partials/head :: head(title = 'Bookclub Search')">
+</head>
+<body>
+<nav th:replace="partials/navbar :: navbar"></nav>
+
+<main>
+    <div>
+        <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/login}">Login to start a club</a>
+        <a class="nav-link" sec:authorize="isAuthenticated()"
+           th:href="@{/create-club/{username} (username = ${#authentication.principal.username})}">Start a Bookclub</a>
+    </div>
+
+    <div>
+        <form th:action="@{/bookclub/search}" method="post">
+            <label for="genreSelect">Filter By Genre:</label>
+            <select name="genreSelect" id="genreSelect" th:value="${currentGenre}">
+                <option id="defaultSelect" th:value="0" selected>Choose a genre...</option>
+                <div th:each="genre : ${filterGenreList}">
+                    <option class="genre" th:value="${genre.id}" th:text="${genre.name}"></option>
+                </div>
+            </select>
+            <input name="query" />
+            <button type="submit">Search</button>
+        </form>
+    </div>
+
+    <ul th:each="bookclub : ${bookclubs}">
+        <li>
+            <div class="d-flex">
+                <img th:src="${bookclub.headerImageUrl}" alt="bookclubImg">
+                <div>
+                    <a th:href="@{/bookclub/{id}(id=${bookclub.id})}" th:text="${bookclub.name}"></a>
+                    <p th:text="${bookclub.about}"></p>
+                </div>
+            </div>
+        </li>
+    </ul>
+</main>
+
+<footer th:replace="partials/footer :: footer"></footer>
+<script type="text/javascript" th:src="@{/js/searchBookclubs.js}" defer></script>
+</body>
+</html>
