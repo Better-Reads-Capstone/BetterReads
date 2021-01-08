@@ -4,14 +4,20 @@
 </head>
 <body>
 <nav th:replace="partials/navbar :: navbar"></nav>
-<div class="container" id="userProfile" th:data-username="${user.username}">
+<div class="container" id="userProfile" th:data-userId="${user.id}" th:data-username="${user.username}">
     <main>
+        <div th:if="${clubErr}" class="alert alert-warning" role="alert">
+            <p>You are a book club owner, please contact our <a href="mailto:help@betterreads.site">support team</a> for assistance with deleting your profile</p>
+        </div>
         <div>
             <form th:action="@{/edit-profile/{username} (username = ${user.username})}">
                 <button class="btn btn-primary" type="submit">
                     Edit Profile
                 </button>
             </form>
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">
+                Delete Profile
+            </button>
         </div>
         <div th:name="user-info">
             <img class="avatar-responsive" style="max-height:230px;max-width:230px;" th:src="${user.avatarURL}"/>
@@ -130,7 +136,7 @@
                                 <textarea name="createBody" id="createBody" cols="30"
                                           rows="10" th:field="*{body}"></textarea>
                             </div>
-                                <button class="btn btn-warning" type="submit" id="reviewSubmit">Submit</button>
+                                <button class="btn btn-warning" type="submit" id="reviewSubmit">Submit Review</button>
                         </form>
                         <form id="deleteReview" th:action="@{/deleteReview}" method="post">
                             <button class="btn btn-danger" type="submit">Delete Review</button>
@@ -138,6 +144,31 @@
                     </div>
                 </div>
                 <button type="button" class="modal-ft btn btn-dark" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+<!--        Delete modal-->
+        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteModalLabel">Delete Profile</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form th:action="@{/profile/{username}/delete(username=${user.username})}" method="post">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <h5>Are you sure you want to delete your profile?</h5>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-danger">Confirm Deletion</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </main>

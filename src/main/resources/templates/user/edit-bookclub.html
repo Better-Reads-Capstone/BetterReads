@@ -24,10 +24,7 @@
                     <div class="form-group">
                         <label for="genre">Genre</label>
                         <select name="genre" class="form-control" th:field="*{genre}" id="genre">
-                            <option th:value="1">Genre 1</option>
-                            <option th:value="2">Genre 2</option>
-                            <option th:value="3">Genre 3</option>
-                            <option th:value="4">Genre 4</option>
+                            <option th:each="genre : ${genres}" th:value="${genre.id}"><span th:text="${genre.name}"></span></option>
                         </select>
                     </div>
 
