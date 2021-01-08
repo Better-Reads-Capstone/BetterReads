@@ -1,23 +1,22 @@
 $(document).ready(function(){
     let searchvalue = null;
     try {
-        searchvalue = document.getElementById("result-term").getAttribute("value");
-    } catch (err) {
-    }
+        searchvalue = $("#result-term").attr("value");
+    } catch (err) {}
+
     if (searchvalue != null) {
         simpleQuery(searchvalue, "search-results", displayMultiBookCards);
+    } else {
+        // console.error("Search value is null.")
     }
 })
 
 const searchRequest = () => {
-    let searchTerm = document.getElementById("search-term").value
+    let searchTerm = $("#search-term").val();
     window.location.replace("/booksearch?searchvalue=" + searchTerm);
 }
 
-$('#search-btn').click((e) => {
+$('.search-form').submit((e) => {
     e.preventDefault();
     searchRequest();
-});
-
-
-
+})
