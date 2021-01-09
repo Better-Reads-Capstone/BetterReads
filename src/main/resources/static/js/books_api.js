@@ -153,7 +153,7 @@ const createBookObjects = (data) => {
     for (i = 0; i < data.items.length; i++){
         const bookAPIObj = {
             title: data.items[i].volumeInfo.title,
-            auth: data.items[i].volumeInfo.authors[0] ?? 'Data unavailable',
+            auth: data.items[i].volumeInfo.authors ?? 'Data unavailable',
             id: data.items[i].id,
             desc: data.items[i].volumeInfo.description ?? 'Unavailable',
             descSm: data.items[i].volumeInfo.description ?? 'Unavailable',
@@ -161,6 +161,10 @@ const createBookObjects = (data) => {
             publisher: data.items[i].volumeInfo.publisher,
             img: data.items[i].volumeInfo.imageLinks ?? '/img/logo.png',
             isbn: data.items[i].volumeInfo.industryIdentifiers ?? [{type: 'ISBN', value: 'Unavailable'}]
+        }
+
+        if (bookAPIObj.auth !== 'Data unavailable') {
+            bookAPIObj.auth = data.items[i].volumeInfo.authors[0];
         }
 
         if (bookAPIObj.img !== '/img/logo.png'){
