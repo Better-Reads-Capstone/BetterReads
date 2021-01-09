@@ -19,6 +19,21 @@ const simpleQuery = (searchTerm, elementId, callback) => {
         })
 }
 
+const fetchQuery = (searchTerm) => {
+    return new Promise((resolve) => {
+        fetch(baseUrl + '?' + new URLSearchParams({
+            q: searchTerm,
+            printType: 'books',
+            key: apiKey
+        }))
+            .then(response => response.json())
+            .then(data => {resolve(data)})
+            .catch(error => {
+                console.error(error);
+            })
+    })
+}
+
 const isbnQuery = (isbn, elementId, callback) => {
     document.getElementById(elementId).innerHTML = "";
     fetch(baseUrl + '?' + new URLSearchParams({
@@ -131,4 +146,61 @@ const displaySingleBookCard = (data) => {
              <p>Book ID: ${book.id}</p>
          </div>`
     return finalHTML;
+}
+
+const createBookObjects = (data) => {
+    let formattedBooks = [];
+    for (i = 0; i < data.items.length; i++){
+        console.log(data.items[i]);
+        let isbnLength = data.items[i].volumeInfo.industryIdentifiers.length;
+        let desc = data.items[i].volumeInfo.description || 'Description unavailable';
+        let descSm = desc.slice(0, 100) + '...';
+        let imgLg = data.items[i].volumeInfo.imageLinks.thumbnail;
+        let imgSm = data.items[i].volumeInfo.imageLinks.smallThumbnail;
+        let img = imgLg || imgSm || 'http://betterreads.site/img/logo.png';
+        let isbnArr = [];
+        for (x = 0; x < isbnLength; x++) {
+            let isbn = {
+                [data.items[i].volumeInfo.industryIdentifiers[x].type]: data.items[i].volumeInfo.industryIdentifiers[x].identifier
+            }
+            isbnArr.push(isbn);
+        }
+        let bookObj = {
+            title: data.items[i].volumeInfo.title,
+            auth: data.items[i].volumeInfo.authors[0],
+            id: data.items[i].id,
+            desc: desc,
+            descSm: descSm,
+            pubDate: data.items[i].volumeInfo.publishedDate,
+            publisher: data.items[i].volumeInfo.publisher,
+            img: img,
+            isbn: data.items[i].volumeInfo.industryIdentifiers
+        }
+        formattedBooks.push(bookObj);
+    }
+    return formattedBooks;
+}
+
+const buildSmallBookCard = (book) => {
+    let cardHTML = '';
+    cardHTML =
+        `<div class="col mb-4">
+                        <div class="card" style="width: 14rem;">
+                            <img src="${book.img}" class="card-img-top" alt="Book cover for ${book.title}">
+                            <div class="card-body">
+                                <h6>Title: ${book.title}</h6>
+                                <p>Author: ${book.auth}</p>
+                                <p>Id: ${book.id}</p>
+                                <p>${book.isbn[0].type}: ${book.isbn[0].identifier}</p>
+                                <p>Publisher: ${book.publisher}</p>
+                                <p>Date Published: ${book.pubDate}</p>
+                                <p>Description: ${book.descSm}</p>
+                            </div>
+                            <div class="card-footer">
+                               <form class='form-inline my-2 my-lg-0' method="GET" action="/book/${book.id}"><button class='btn btn-success my-2 my-sm-0' type='submit' id='viewBookBtn'>View Book</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>`
+    return cardHTML;
 }
