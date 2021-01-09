@@ -151,33 +151,33 @@ const displaySingleBookCard = (data) => {
 const createBookObjects = (data) => {
     let formattedBooks = [];
     for (i = 0; i < data.items.length; i++){
-        console.log(data.items[i]);
-        let isbnLength = data.items[i].volumeInfo.industryIdentifiers.length;
-        let desc = data.items[i].volumeInfo.description || 'Description unavailable';
-        let descSm = desc.slice(0, 100) + '...';
-        let imgLg = data.items[i].volumeInfo.imageLinks.thumbnail;
-        let imgSm = data.items[i].volumeInfo.imageLinks.smallThumbnail;
-        let img = imgLg || imgSm || 'http://betterreads.site/img/logo.png';
-        let isbnArr = [];
-        for (x = 0; x < isbnLength; x++) {
-            let isbn = {
-                [data.items[i].volumeInfo.industryIdentifiers[x].type]: data.items[i].volumeInfo.industryIdentifiers[x].identifier
-            }
-            isbnArr.push(isbn);
-        }
-        let bookObj = {
+        const bookAPIObj = {
             title: data.items[i].volumeInfo.title,
-            auth: data.items[i].volumeInfo.authors[0],
+            auth: data.items[i].volumeInfo.authors[0] ?? 'Data unavailable',
             id: data.items[i].id,
-            desc: desc,
-            descSm: descSm,
+            desc: data.items[i].volumeInfo.description ?? 'Unavailable',
+            descSm: data.items[i].volumeInfo.description ?? 'Unavailable',
             pubDate: data.items[i].volumeInfo.publishedDate,
             publisher: data.items[i].volumeInfo.publisher,
-            img: img,
-            isbn: data.items[i].volumeInfo.industryIdentifiers
+            img: data.items[i].volumeInfo.imageLinks ?? '/img/logo.png',
+            isbn: data.items[i].volumeInfo.industryIdentifiers ?? [{type: 'ISBN', value: 'Unavailable'}]
         }
-        formattedBooks.push(bookObj);
+
+        if (bookAPIObj.img !== '/img/logo.png'){
+            if (typeof data.items[i].volumeInfo.imageLinks.thumbnail !== 'undefined') {
+                bookAPIObj.img = data.items[i].volumeInfo.imageLinks.thumbnail;
+            } else if (typeof data.items[i].volumeInfo.imageLinks.smallThumbnail !== 'undefined') {
+                bookAPIObj.img = data.items[i].volumeInfo.imageLinks.smallThumbnail;
+            }
+        }
+
+        if(bookAPIObj.desc.length > 100) {
+            bookAPIObj.descSm = bookAPIObj.desc.slice(0, 100) + '...'
+        }
+
+        formattedBooks.push(bookAPIObj);
     }
+
     return formattedBooks;
 }
 
@@ -188,16 +188,15 @@ const buildSmallBookCard = (book) => {
                         <div class="card" style="width: 14rem;">
                             <img src="${book.img}" class="card-img-top" alt="Book cover for ${book.title}">
                             <div class="card-body">
-                                <h6>Title: ${book.title}</h6>
+                                <h5 class="text-center">${book.title}</h5>
                                 <p>Author: ${book.auth}</p>
-                                <p>Id: ${book.id}</p>
                                 <p>${book.isbn[0].type}: ${book.isbn[0].identifier}</p>
                                 <p>Publisher: ${book.publisher}</p>
                                 <p>Date Published: ${book.pubDate}</p>
                                 <p>Description: ${book.descSm}</p>
                             </div>
                             <div class="card-footer">
-                               <form class='form-inline my-2 my-lg-0' method="GET" action="/book/${book.id}"><button class='btn btn-success my-2 my-sm-0' type='submit' id='viewBookBtn'>View Book</button>
+                               <form class='form-inline my-2 my-lg-0' method="GET" action="/book/${book.id}"><button class='btn btn-lg btn-primary my-2 my-sm-0' type='submit' id='viewBookBtn'>View Book</button>
                                 </form>
                             </div>
                         </div>
