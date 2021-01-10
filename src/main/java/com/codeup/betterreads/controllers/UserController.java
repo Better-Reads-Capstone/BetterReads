@@ -1,11 +1,7 @@
 package com.codeup.betterreads.controllers;
 
 import com.codeup.betterreads.models.*;
-import com.codeup.betterreads.repositories.BookRepo;
-import com.codeup.betterreads.repositories.BookshelfRepo;
-import com.codeup.betterreads.repositories.ReviewRepo;
-import com.codeup.betterreads.repositories.UserRepo;
-import com.codeup.betterreads.repositories.ClubRepo;
+import com.codeup.betterreads.repositories.*;
 import com.codeup.betterreads.services.MailService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -25,15 +21,17 @@ public class UserController {
     private BookRepo bookDao;
     private ReviewRepo reviewDao;
     private ClubRepo clubDao;
+    private ClubMemberRepo clubMemberDao;
     private MailService mailService;
 
-    public UserController(UserRepo userDao, PasswordEncoder passwordEncoder, BookshelfRepo bookshelfDao, BookRepo bookDao, ReviewRepo reviewDao, ClubRepo clubDao, MailService mailService) {
+    public UserController(UserRepo userDao, PasswordEncoder passwordEncoder, BookshelfRepo bookshelfDao, BookRepo bookDao, ReviewRepo reviewDao, ClubRepo clubDao, ClubMemberRepo clubMemberDao, MailService mailService) {
         this.userDao = userDao;
         this.passwordEncoder = passwordEncoder;
         this.bookshelfDao = bookshelfDao;
         this.bookDao = bookDao;
         this.reviewDao = reviewDao;
         this.clubDao = clubDao;
+        this.clubMemberDao = clubMemberDao;
         this.mailService = mailService;
     }
 
@@ -99,6 +97,19 @@ public class UserController {
         User dbUser = userDao.findByUsername(username);
         List<Bookshelf> dbBookshelf = bookshelfDao.findAllByUserId(dbUser.getId());
 
+        //looping through all clubs and retrieving users who are members of
+        // clubs and placing them into an arraylist
+        List<Club> dbClubs = clubDao.findAll();
+        List<Club> clubsUserIsApartOf = new ArrayList<>();
+        for(Club club : dbClubs) {
+            if(clubMemberDao.findClubMemberByUserAndClub(dbUser, club) == null) {
+                continue;
+            }
+            else {
+                clubsUserIsApartOf.add(clubMemberDao.findClubMemberByUserAndClub(dbUser, club).getClub());
+            }
+        }
+
         ArrayList<Bookshelf> readList = new ArrayList<>();
         ArrayList<Bookshelf> readingList = new ArrayList<>();
         ArrayList<Bookshelf> wishlist = new ArrayList<>();
@@ -117,6 +128,7 @@ public class UserController {
         viewModel.addAttribute("reading", readingList);
         viewModel.addAttribute("wishlist", wishlist);
         viewModel.addAttribute("review", new Review());
+        viewModel.addAttribute("bookclubs", clubsUserIsApartOf);
         return "user/profile-page";
     }
 

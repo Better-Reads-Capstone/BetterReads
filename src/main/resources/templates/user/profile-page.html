@@ -7,7 +7,8 @@
 <div class="container" id="userProfile" th:data-userId="${user.id}" th:data-username="${user.username}">
     <main>
         <div th:if="${clubErr}" class="alert alert-warning" role="alert">
-            <p>You are a book club owner, please contact our <a href="mailto:help@betterreads.site">support team</a> for assistance with deleting your profile</p>
+            <p>You are a book club owner, please contact our <a href="mailto:help@betterreads.site">support team</a> for
+                assistance with deleting your profile</p>
         </div>
         <div>
             <form th:action="@{/edit-profile/{username} (username = ${user.username})}">
@@ -107,6 +108,31 @@
             </div>
         </div>
 
+        <!--    SHOW OWNED BOOKCLUBS    -->
+        <div class="book-club-block">
+            <h5>Bookclubs</h5>
+            <div th:each="bookclub : ${bookclubs}">
+                <div th:if="${bookclub.owner.id == user.id}" class="owner">
+                    <img th:src="${bookclub.headerImageUrl}" alt="bookclubImg">
+                    <a th:href="@{/bookclub/{id}(id=${bookclub.id})}" th:text="${bookclub.name}"></a>
+                    <p>Status: <span th:text="Owner"></span></p>
+                </div>
+                <div th:unless="${bookclub.owner.id == user.id}" class="member">
+                    <img th:src="${bookclub.headerImageUrl}" alt="bookclubImg">
+                    <a th:href="@{/bookclub/{id}(id=${bookclub.id})}" th:text="${bookclub.name}"></a>
+                    <p>Status: <span th:text="Member"></span></p>
+                </div>
+            </div>
+        </div>
+        <!--    SHOW JOINED BOOKCLUBS    -->
+        <!--        <div class="bookclubs">-->
+        <!--            <h5>Bookclubs You Are a Member Of</h5>-->
+        <!--            <div th:each="bookclub : ${joinedClubs}">-->
+        <!--                <img th:src="${bookclub.headerImageUrl}" alt="bookclubImg">-->
+        <!--                <a th:href="@{/bookclub/{id}(id=${bookclub.id})}" th:text="${bookclub.name}"></a>-->
+        <!--            </div>-->
+        <!--        </div>-->
+
         <!--    SHOW BOOK MODAL    -->
         <div class="modal" id="bookModal">
             <div class="modal-content">
@@ -136,7 +162,7 @@
                                 <textarea name="createBody" id="createBody" cols="30"
                                           rows="10" th:field="*{body}"></textarea>
                             </div>
-                                <button class="btn btn-warning" type="submit" id="reviewSubmit">Submit Review</button>
+                            <button class="btn btn-warning" type="submit" id="reviewSubmit">Submit Review</button>
                         </form>
                         <form id="deleteReview" th:action="@{/deleteReview}" method="post">
                             <button class="btn btn-danger" type="submit">Delete Review</button>
@@ -147,7 +173,7 @@
             </div>
         </div>
 
-<!--        Delete modal-->
+        <!--        Delete modal-->
         <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
