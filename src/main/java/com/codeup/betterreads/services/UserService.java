@@ -55,5 +55,7 @@ public class UserService {
         return false;
     }
 
-    public boolean isEmailAlreadyInUse(String email) { return email.equals("ally@email.com");}
+    public boolean isEmailAlreadyInUse(String email) { return email.equals((userDao.findByEmail(email)).getEmail());}
+
+    public boolean isUsernameAlreadyInUse(String username) { return username.equals((userDao.findByUsername(username)).getUsername());}
 }

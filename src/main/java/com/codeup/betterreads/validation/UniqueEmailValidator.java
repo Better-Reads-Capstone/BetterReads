@@ -1,8 +1,7 @@
-package com.codeup.betterreads;
+package com.codeup.betterreads.validation;
 
 import javax.validation.*;
 
-import com.codeup.betterreads.services.UserDetailsLoader;
 import com.codeup.betterreads.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 
