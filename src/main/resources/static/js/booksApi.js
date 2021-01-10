@@ -6,6 +6,7 @@ const queryFetch = (searchTerm) => {
         fetch(baseUrl + '?' + new URLSearchParams({
             q: searchTerm,
             printType: 'books',
+            maxResults: 15,
             key: apiKey
         }))
             .then(response => response.json())
@@ -37,13 +38,15 @@ const referenceFetch = (gbid) => {
 }
 
 const titleAuthorFetch = (title, author) => {
-    return fetch(baseUrl + '?' + new URLSearchParams({
-        q: title + '+inauthor' + author,
-        printType: 'books',
-        key: apiKey
-    }))
-        .then(response => response.json())
-
+    return new Promise((resolve) => {
+        fetch(baseUrl + '?' + new URLSearchParams({
+            q: title + '+inauthor' + author,
+            printType: 'books',
+            key: apiKey
+        }))
+            .then(response => response.json())
+            .then(data => {resolve(data)});
+    })
 }
 
 const createBookObjects = (data) => {
@@ -58,7 +61,8 @@ const createBookObjects = (data) => {
             pubDate: data.items[i].volumeInfo.publishedDate,
             publisher: data.items[i].volumeInfo.publisher,
             img: data.items[i].volumeInfo.imageLinks ?? '/img/logo.png',
-            isbn: data.items[i].volumeInfo.industryIdentifiers ?? [{type: 'ISBN', value: 'Unavailable'}]
+            isbn: data.items[i].volumeInfo.industryIdentifiers ?? [{type: 'ISBN', value: 'Unavailable'}],
+            result: i + 1
         }
 
         if (bookAPIObj.auth !== 'Data unavailable') {
@@ -72,11 +76,9 @@ const createBookObjects = (data) => {
                 bookAPIObj.img = data.items[i].volumeInfo.imageLinks.smallThumbnail;
             }
         }
-
         if(bookAPIObj.desc.length > 100) {
             bookAPIObj.descSm = bookAPIObj.desc.slice(0, 100) + '...'
         }
-
         formattedBooks.push(bookAPIObj);
     }
 
@@ -119,22 +121,23 @@ const buildSmallBookCard = (book) => {
     let cardHTML = '';
     cardHTML =
         `<div class="col mb-4">
-                        <div class="card" style="width: 14rem;">
-                            <img src="${book.img}" class="card-img-top" alt="Book cover for ${book.title}">
-                            <div class="card-body">
-                                <h5 class="text-center">${book.title}</h5>
-                                <p>Author: ${book.auth}</p>
-                                <p>ISBN: ${book.isbn[0].identifier}</p>
-                                <p>Publisher: ${book.publisher}</p>
-                                <p>Date Published: ${book.pubDate}</p>
-                                <p>Description: ${book.descSm}</p>
-                            </div>
-                            <div class="card-footer">
-                               <form class='form-inline my-2 my-lg-0' method="GET" action="/book/${book.id}"><button class='btn btn-lg btn-primary my-2 my-sm-0' type='submit' id='viewBookBtn'>View Book</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>`
+            <div class="card" style="width: 12rem;">
+                <img src="${book.img}" class="card-img-top" alt="Book cover for ${book.title}">
+                <div class="card-body">
+                    <h5 class="text-center">${book.title}</h5>
+                    <p>Author: ${book.auth}</p>
+                    <p>ISBN: ${book.isbn[0].identifier}</p>
+                    <p>Publisher: ${book.publisher}</p>
+                    <p>Date Published: ${book.pubDate}</p>
+                    <p>Description: ${book.descSm}</p>
+                </div>
+                <div class="card-footer">
+                    <form class='form-inline my-2 my-lg-0' method="GET" action="/book/${book.id}">
+                        <button class='btn btn-lg btn-primary my-2 my-sm-0' type='submit' id='viewBookBtn'>View Book</button>
+                    </form>
+                </div>
+            </div>
+        </div>`
     return cardHTML;
 }
 

@@ -9,11 +9,10 @@
     <div class="container p-3">
         <input type="hidden" th:value="${searchvalue}" id="result-term">
         <div class="container">
-            <h4 class="card-title text-center">
-                Search results for "<span th:text="${searchvalue}"></span>"
+            <h4 class="card-title">
+                Results for "<span th:text="${searchvalue}"></span>"
             </h4>
         </div>
-        <hr />
         <div class="loading-icon mx-auto"></div>
         <div class="row row-cols-1" id="search-results"></div>
     </div>

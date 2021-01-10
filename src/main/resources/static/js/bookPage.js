@@ -1,6 +1,5 @@
 $(document).ready(function() {
     let gbreferenceId = $('#book-value').val()
-    console.log('ID: ' + gbreferenceId);
     let bookCon = $('#book-container');
     let edit = $('#editReviewBtn');
     $('#editReviewBtn').click(function(event) {
