@@ -10,18 +10,13 @@ $(document).ready(function() {
         let username = edit.attr('data-username');
         let body = edit.attr('data-reviewBody');
         let rating = edit.attr('data-reviewRating');
-        console.log(reviewId)
-        console.log(username)
-        console.log(body)
-        console.log(rating)
 
         $('#editReview').attr('action', `/${username}/${gbreferenceId}/editReview/${reviewId}`);
         $('#editReviewBtn').attr('data-reviewId');
         $('#editBody').val(body);
         $('#currentRating').html('Current Rating: ');
         $(`#editRating option[value=${rating}]`).attr({
-            selected: 'selected',
-            disabled: 'disabled'
+            selected: 'selected'
         });
         $('#reviewSubmit').html('Submit Changes');
     })
