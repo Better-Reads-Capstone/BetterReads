@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="partials/head :: head('Search Results')">
+<head th:replace="partials/head :: head('Search')">
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
@@ -8,9 +8,32 @@
     <nav th:replace="partials/navbar :: navbar"></nav>
     <div class="container p-3">
         <input type="hidden" th:value="${searchvalue}" id="result-term">
-        <div class="container">
-            <h4 class="card-title">
-                Results for "<span th:text="${searchvalue}"></span>"
+        <div class="container mb-3" id="search-form-container">
+            <div class="mb-3">
+                <h3 class="text-right">Search</h3>
+            </div>
+            <form class="my-2 my-lg-0 search-form">
+                <div class="form-row align-items-center">
+                    <div class="col">
+                        <label class="sr-only" for="search-input">Search Bar</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text" id="search-icon">
+                                    <i class="bi bi-search"></i>
+                                </div>
+                            </div>
+                            <input class="form-control" type="search" placeholder="Search for books" aria-label="Search" id="search-input">
+                        </div>
+                    </div>
+<!--                    <div class="col-auto">-->
+<!--                        <button class="btn btn-primary my-sm-0" type="submit" id="search-btn">Search</button>-->
+<!--                    </div>-->
+                </div>
+            </form>
+        </div>
+        <div class="container " id="results-container">
+            <h4 class="card-title" id="results-title" style="display: none;">
+                Results for <span id="search-value" class="font-italic"></span>
             </h4>
         </div>
         <div class="loading-icon mx-auto"></div>
