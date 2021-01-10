@@ -54,4 +54,6 @@ public class UserService {
         }
         return false;
     }
+
+    public boolean isEmailAlreadyInUse(String email) { return email.equals("ally@email.com");}
 }

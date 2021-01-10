@@ -1,5 +1,6 @@
 package com.codeup.betterreads.models;
 
+import com.codeup.betterreads.UniqueEmail;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -15,6 +16,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @UniqueEmail
     @Column(nullable = false, unique = true)
     @JsonIgnore
     private String email;

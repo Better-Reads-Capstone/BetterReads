@@ -7,10 +7,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.util.*;
 
 @Controller
@@ -42,13 +44,21 @@ public class UserController {
     }
 
     @PostMapping("/sign-up")
-    public String createUser(@ModelAttribute User user, Model viewModel) {
+    public String createUser(@Valid User user, Errors val, Model viewModel) {
+
+        if(val.hasErrors()) {
+            viewModel.addAttribute("errors", val);
+            viewModel.addAttribute("user", user);
+            return "user/register";
+        }
         String hash = passwordEncoder.encode(user.getPassword());
-        user.setPassword(hash);
         Date currentDate = new Date();
-        user.setCreatedDate(currentDate);
         String defaultIMG = "/img/logo.png";
+
+        user.setPassword(hash);
+        user.setCreatedDate(currentDate);
         user.setAvatarURL(defaultIMG);
+
         User dbUser = userDao.save(user);
         viewModel.addAttribute("user", dbUser);
         return "redirect:/create-profile/" + dbUser.getUsername();
