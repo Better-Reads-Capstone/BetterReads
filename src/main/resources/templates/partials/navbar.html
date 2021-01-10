@@ -45,10 +45,9 @@
                 <div class="nav-item">
                     <a class="nav-link" href="/sign-up">Register</a>
                 </div>
-                <form class="form-inline my-2 my-lg-0 search-form">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="search-term">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="search-btn">Search</button>
-                </form>
+                <div class="nav-item">
+                    <a href="/booksearch" class="nav-link"><i class="bi bi-search"></i></a>
+                </div>
             </div>
             <div sec:authorize="isAuthenticated()" class="d-flex">
                 <div class="d-flex">
@@ -58,10 +57,9 @@
                 <form th:action="@{/logout}" th:method="post">
                     <button class="nav-link btn-link btn">Logout</button>
                 </form>
-                <form class="form-inline my-2 my-lg-0 search-form">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="search-term">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="search-btn">Search</button>
-                </form>
+                <div class="nav-item">
+                    <a href="/booksearch" class="nav-link"><i class="bi bi-search"></i></a>
+                </div>
             </div>
         </div>
     </div>
