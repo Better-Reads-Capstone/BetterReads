@@ -144,16 +144,15 @@ public class ClubController {
         Club club = clubDao.getOne(id);
         ClubMember clubMember = clubMemberDao.findClubMemberByUserAndClub(user, club);
 
-        viewModel.addAttribute("club", club);
-        viewModel.addAttribute("user", user);
-
         if(!usersSvc.isAdmin(clubMember)){
             return "redirect:/bookclub/" + id;
         }
 
-        viewModel.addAttribute("club", clubDao.getOne(id));
+        viewModel.addAttribute("club", club);
         List<Genre> genreList = genreDao.findAll();
         viewModel.addAttribute("genres", genreList);
+        System.out.println(club.getId());
+        System.out.println(club.getCreatedDate());
 
         return "user/edit-bookclub";
     }

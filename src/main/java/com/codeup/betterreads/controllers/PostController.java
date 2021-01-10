@@ -140,35 +140,44 @@ public class PostController {
             @PathVariable long postId) {
 
         Post post = postDao.getOne(postId);
+        Club club = clubDao.getOne(id);
 
         if(!usersSvc.isOwner(post.getUser())){
             return "redirect:/bookclub/" + id + "/" + postId;
         }
+        viewModel.addAttribute("post", post);
+        viewModel.addAttribute("club", club);
 
-        viewModel.addAttribute("post", postDao.getOne(postId));
-        viewModel.addAttribute("club", clubDao.getOne(id));
+        System.out.println(post);
 
         return "user/edit-post";
     }
 
     @PostMapping("/bookclub/{id}/edit-post/{postId}")
     public String editPost(
-            @ModelAttribute Post post,
+            @ModelAttribute Post postToBeUpdated,
             @ModelAttribute Club club,
             @PathVariable long id,
             @PathVariable long postId) {
 
-        Post postToBeUpdated = postDao.getOne(postId);
+        Post post = postDao.getOne(postId);
         Date currentDate = new Date();
 
+       System.out.println(post.getCreatedDate());
+        System.out.println(post);
+
+        postToBeUpdated.setId(post.getId());
+        postToBeUpdated.setComments(post.getComments());
         postToBeUpdated.setUpdatedDate(currentDate);
         postToBeUpdated.setCreatedDate(post.getCreatedDate());
         postToBeUpdated.setUser(post.getUser());
         postToBeUpdated.setClub(post.getClub());
 
         Post dbPost = postDao.save(postToBeUpdated);
-        return "redirect:/bookclub/" + id + "/" + dbPost.getId();
+        return "redirect:/bookclub/" + id + "/" + postId;
     }
+
+
 
     //Delete Post
     @RequestMapping(value = "/bookclub/{id}/delete-post/{postId}", method = { RequestMethod.GET, RequestMethod.POST })

@@ -6,14 +6,12 @@
 <nav th:replace="partials/navbar :: navbar"></nav>
 <main>
     <div class="container">
-        <div class="create-post-container">
-            <form class="form-group" th:action="@{/bookclub/{id}/create-post (id = ${club.id})}" th:object="${post}" method="post">
+        <div class="edit-post-container">
+            <form class="form-group" th:action="@{/bookclub/{id}/edit-post/{postId} (id = ${club.id}, postId = ${post.id})}" th:object="${post}" th:method="POST">
                 <label for="blog-title">Title</label>
                 <input id="blog-title" class="form-control" type="text" th:field="*{title}"/>
-                <p th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></p>
                 <label for="editor1">Body</label>
                 <textarea id="editor1" class="form-control" rows="5" cols="20" th:field="*{body}"></textarea>
-                <p th:if="${#fields.hasErrors('body')}" th:errors="*{body}"></p>
                 <input class="btn btn-secondary" type="submit" value="Submit" />
             </form>
         </div>
