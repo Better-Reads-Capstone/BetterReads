@@ -1,5 +1,6 @@
 $(document).ready(function() {
     let gbreferenceId = $('#book-value').val()
+    let bookCon = $('#book-container');
     let edit = $('#editReviewBtn');
     $('#editReviewBtn').click(function(event) {
         event.preventDefault();
@@ -20,6 +21,18 @@ $(document).ready(function() {
         });
         $('#reviewSubmit').html('Submit Changes');
     })
-    // Fetch the book data and populate the "book-container" HTML element with the book card
-    referenceQuery(gbreferenceId, "book-container", displaySingleBookCard);
+
+    showLoadingIcon();
+    bookCon.empty();
+    referenceFetch(gbreferenceId)
+        .then(data => {
+            console.log(data);
+            let bookObj = createSingleBookObj(data);
+            let bookHTML = buildLargeSingleCard(bookObj);
+            bookCon.append(bookHTML)
+            hideLoadingIcon()
+        }).catch(err => {
+        console.log(err)
+    })
+
 })

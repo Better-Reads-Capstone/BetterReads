@@ -1,19 +1,30 @@
 $(document).ready(function(){
-    let searchvalue = null;
-    try {
-        searchvalue = $("#result-term").attr("value");
-    } catch (err) {}
+    let searchvalue = $("#result-term").attr("value") ?? null;
 
     if (searchvalue != null) {
-        simpleQuery(searchvalue, "search-results", displayMultiBookCards);
-    } else {
-        // console.error("Search value is null.")
+        showLoadingIcon();
+        let results = $('#search-results');
+        results.empty();
+        queryFetch(searchvalue)
+            .then(data => {
+                let booksArr = (createBookObjects(data));
+                let finalHTML = '';
+                for (const book of booksArr) {
+                    finalHTML += buildSmallBookCard(book);
+                }
+                results.append(finalHTML);
+                hideLoadingIcon();
+        })
+            .catch(err => {
+                console.log(err)
+            })
     }
 })
 
 const searchRequest = () => {
     let searchTerm = $("#search-term").val();
-    window.location.replace("/booksearch?searchvalue=" + searchTerm);
+    let url = "/booksearch?searchvalue=";
+    window.location.replace(url + searchTerm);
 }
 
 $('.search-form').submit((e) => {

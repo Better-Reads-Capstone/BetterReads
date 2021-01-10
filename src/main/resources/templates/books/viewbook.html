@@ -8,11 +8,11 @@
 <body>
 <nav th:replace="partials/navbar :: navbar"></nav>
 <div id="book" th:data-book="${book}" th:data-user="${user}" class="container">
-    <h1>View Book</h1>
     <div>
         <input id="book-value" th:value="${book.gbreference}" hidden>
         <div class="col mb-4">
             <div class="card">
+                <div class="loading-icon mx-auto"></div>
                 <div class="container" id="book-container"></div>
                 <div class="card-footer">
                     <form sec:authorize="isAnonymous()" th:action="@{/login}"
