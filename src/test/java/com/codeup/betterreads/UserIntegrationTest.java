@@ -112,9 +112,10 @@ public class UserIntegrationTest {
 
 //    TODO: Post Tests
 //    TODO: Comment Tests
-//    TODO:
 
-    // CLUB TESTS
+
+// CLUB TESTING
+
     //Create Club
     @Test
     public void testCreateClub() throws Exception {
@@ -195,6 +196,8 @@ public class UserIntegrationTest {
 
     }
 
+// CLUB MEMBERS TESTING
+
     // Join Club
     // What I found: User can join a club multiple times, fixed the issue in the Club Controller.
     @Test
@@ -218,5 +221,9 @@ public class UserIntegrationTest {
                         .session((MockHttpSession) httpSession))
                 .andExpect(status().is3xxRedirection());
     }
+
+    //Assign Admin Status
+
+    //Revoke Admin Status
 }
 
