@@ -65,11 +65,12 @@ public class UserService {
     //TODO: CHECK if UsernameNotFoundException has issues...
     public void updateResetPasswordToken(String token, String email) throws UsernameNotFoundException {
         User dbUser = userDao.findUserByEmail(email);
-        if (dbUser.getUsername() != null) {
+
+        if (dbUser == null) {
+            throw new UsernameNotFoundException("");
+        } else {
             dbUser.setResetPasswordToken(token);
             userDao.save(dbUser);
-        } else {
-            throw new UsernameNotFoundException("Could not find any customer with the email " + dbUser.getEmail());
         }
     }
 

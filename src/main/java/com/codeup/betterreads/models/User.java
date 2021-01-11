@@ -148,7 +148,7 @@ public class User {
         this.resetPasswordToken = resetPasswordToken;
     }
 
-    //copy - may need to pass in resetPasswordToken...
+    //copy
     public User(User copy) {
         id = copy.id;
         email = copy.email;

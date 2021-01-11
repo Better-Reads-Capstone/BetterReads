@@ -1,32 +1,24 @@
 $(document).ready(() => {
-    //refactor to apply to reset-password form
     $('#showPassword').on('click', () => {
-        const hideShowNewPassword = () => {
-            let password = $('#password');
-            if(password.attr('type') === "password") password.attr('type', 'text');
-            else password.attr('type', 'password');
-        }
-        hideShowNewPassword();
+        let input = $('#showPassword').prev();
+        if(input.attr('type') === "password") input.attr('type', 'text');
+        else input.attr('type', 'password');
     })
+
     $('#showConfirmPassword').on('click', () => {
-        const hideShowOldPassword = () => {
-            let confirmPassword = $('#confirmPassword');
-            if(confirmPassword.attr('type') === "password") confirmPassword.attr('type', 'text');
-            else confirmPassword.attr('type', 'password');
-        }
-        hideShowOldPassword();
+        let input = $('#showConfirmPassword').prev();
+        if(input.attr('type') === "password") input.attr('type', 'text');
+        else input.attr('type', 'password');
     })
 
 
-    const checkPasswordMatch = fieldConfirmPassword => {
-        if (fieldConfirmPassword.value != $("#password").val()) {
-            fieldConfirmPassword.setCustomValidity("Passwords do not match!");
+    $('#passwordConfirm').on('keyup', () => {
+        if ($('#password').val() == $('#passwordConfirm').val()) {
+            $('#message').html('Passwords Match').css('color', 'green');
+            $('#changePassword').prop('disabled', false);
         } else {
-            fieldConfirmPassword.setCustomValidity("");
+            $('#message').html('Passwords Do Not Match').css('color', 'red');
+            $('#changePassword').prop('disabled', true);
         }
-    }
-
-    $('#checkPassword').on('input', () => {
-        checkPasswordMatch();
     });
 })
