@@ -25,11 +25,14 @@
                 for(let i = 0; i < bestSellerLists.length  - 7; i++) {
                     // console.log(bestSellerLists[i]);
                     for(let x = 0; x < bestSellerLists[i].books.length ; x++) {
+                        let baseFetch = bestSellerLists[i].books[x];
                         booksList.push({
                             listName: bestSellerLists[i].list_name,
-                            isbn: bestSellerLists[i].books[x].primary_isbn13,
-                            image: bestSellerLists[i].books[x].book_image,
-                            title: bestSellerLists[i].books[x].title
+                            isbn: baseFetch.primary_isbn13,
+                            image: baseFetch.book_image,
+                            title: baseFetch.title,
+                            author: baseFetch.author,
+                            rank: baseFetch.rank
                         })
                     }
                 }
@@ -118,28 +121,25 @@
     function displayBookCard(book) {
         let finalHTML;
         finalHTML =
-            `<div class="col mb-4">
-                        <div class="card" style="width: 12rem;">
-                            <img src="${book.image}" class="card-img-top" alt="Book cover for ${book.title}">
-                            <div class="card-body">
-                                <p>Author: ${book.author}</p>
-                                <p>Rank: ${book.rank}</p>
-                                <p>Rank last week: ${book.lastWeekRank}</p>
-                                <p>ISBN: ${book.isbn}</p>
-                                <p>Publisher: ${book.publisher}</p>
-                                <p>Description: ${book.description}</p>
-                            </div>
-                            <div class="card-footer">
-                               <button class="view" data-id="${book.isbn}">View Book</button>
-                            </div>
-                        </div>
-                    </div>`
+            `<div class="book-cover">
+                <div class="book-card">
+                    <img src="${book.image}" class="book-cover book-img" alt="Book cover for ${book.title}" data-id="${book.isbn}" />
+                </div>
+                <div class="book-card book-info">
+                    <h4 class="book-title">${book.title}</h4>
+                    <p>${book.author}</p>
+                    <p>Rating</p>
+                </div>
+                <div class="rank ${book.rank}">
+                    <h1>${book.rank}</h1>
+                </div>
+            </div>`
         return finalHTML;
     }
 
 
 $(document).ready(function() {
-    $(document).on("click", ".view", function() {
+    $(document).on("click", ".book-cover", function() {
         let isbn = $(this).data("id");
         console.log(isbn);
 

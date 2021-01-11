@@ -1,22 +1,77 @@
-.loading-icon{
-    width: 80px;
-    height: 80px;
 
-    border: 2px solid #f3f3f3;
-    border-top:3px solid #54dec3;
-    border-radius: 100%;
+/*.background-block{*/
+/*    height: 100VH;*/
+/*    width: 75VW;*/
+/*    position: fixed;*/
+/*    left: 12.5%;*/
+/*    z-index: -1;*/
+/*}*/
 
-    animation: spin 1s infinite linear;
+.book {
+    position: relative;
 }
 
-@keyframes spin {
-    from {
-        transform: rotate(0deg);
-    } to {
-          transform: rotate(360deg);
-      }
+.book-row {
+    display: flex;
+    overflow: auto;
 }
 
-.loading-icon.show {
-    display: block;
+.book-img {
+    width: 12rem;
+    box-shadow: 0 8px 8px rgba(0, 0, 0, 0.4)
+}
+
+.book-cover {
+    display: flex;
+    margin: 16px;
+    background-color: #abe9cd;
+    background-image: linear-gradient(315deg, #abe9cd 0%, #3eadcf 74%);
+    border-radius: 32px;
+    flex: 1;
+    position: relative;
+
+}
+
+.book-info {
+    display: flex;
+    flex-direction: column;
+    /*justify-content: space-evenly;*/
+    width: 200px;
+    overflow-wrap: break-word
+}
+
+.book-title{
+    margin-top: 40px;
+    padding-top: 20px;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+
+    /* Adds a hyphen where the word breaks, if supported (No Blink) */
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+}
+
+.book-img:hover{
+    cursor: pointer;
+    transform: translateY(-3px);
+    box-shadow: 0 12px 12px rgba(0, 0, 0, 0.4);
+}
+
+.rank {
+    position: absolute;
+    right: 20px;
+    bottom: 0;
+}
+
+.rank h1 {
+    font-size: 6em;
+    color: #A3C9A8;
+}
+
+@media (min-width: 768px) {
+
+
 }
