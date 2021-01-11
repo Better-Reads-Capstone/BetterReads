@@ -9,10 +9,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.util.*;
 
 @Controller
@@ -54,15 +56,38 @@ public class UserController {
     }
 
     @PostMapping("/sign-up")
-    public String createUser(@ModelAttribute User user, Model viewModel) {
-        User checkUser = userDao.findByEmail(user.getEmail());
-        System.out.println(checkUser);
-        String errorMsg = "The email has been taken.";
+    public String createUser(
+            @Valid User user,
+            Errors val,
+            Model viewModel) {
 
+        //Checks for existing email
+        User checkUserEmail = userDao.findByEmail(user.getEmail());
+        System.out.println(checkUserEmail);
+        String errorMsgEmail = "The email has been taken.";
+        if (checkUserEmail != null){
+            val.rejectValue(
+                    "email",
+                    "user.email",
+                    errorMsgEmail
+            );
+        }
 
-        if (checkUser != null){
-            viewModel.addAttribute("error", true);
-            viewModel.addAttribute("errorMsg", errorMsg);
+        //Checks for existing username
+        User checkUsername = userDao.findByUsername(user.getUsername());
+        System.out.println(checkUsername);
+        String errorMsgUsername = "The username has been taken.";
+        if (checkUsername != null){
+            val.rejectValue(
+                    "username",
+                    "user.username",
+                    errorMsgUsername
+            );
+        }
+
+        if (val.hasErrors()) {
+            viewModel.addAttribute("errors", val);
+            viewModel.addAttribute("user", user);
             return "user/register";
         }
 
