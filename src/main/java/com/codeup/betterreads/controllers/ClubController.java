@@ -57,19 +57,12 @@ public class ClubController {
 
     @PostMapping("/create-club/{username}")
     public String createClub(@PathVariable String username,
-                             @Valid Club club,
-                             Errors validation,
+                            @ModelAttribute Club club,
                              @ModelAttribute User userToBeUpdated,
                              Model viewModel) {
 
         User user = userDao.findByUsername(username);
         Date currentDate = new Date();
-
-        if (validation.hasErrors()) {
-            viewModel.addAttribute("errors", validation);
-            viewModel.addAttribute("club", club);
-            return "user/create-club";
-        }
 
         club.setOwner(user);
         club.setCreatedDate(currentDate);

@@ -3,6 +3,8 @@ package com.codeup.betterreads.controllers;
 import com.codeup.betterreads.models.*;
 import com.codeup.betterreads.repositories.*;
 import com.codeup.betterreads.services.MailService;
+import com.codeup.betterreads.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -26,6 +28,9 @@ public class UserController {
     private ClubMemberRepo clubMemberDao;
     private MailService mailService;
 
+    @Autowired
+    UserService usersSvc;
+
     public UserController(UserRepo userDao, PasswordEncoder passwordEncoder, BookshelfRepo bookshelfDao, BookRepo bookDao, ReviewRepo reviewDao, ClubRepo clubDao, ClubMemberRepo clubMemberDao, MailService mailService) {
         this.userDao = userDao;
         this.passwordEncoder = passwordEncoder;
@@ -35,6 +40,11 @@ public class UserController {
         this.clubDao = clubDao;
         this.clubMemberDao = clubMemberDao;
         this.mailService = mailService;
+    }
+
+    // Edit controls are being showed up if the user is logged in and it's the same user viewing the file
+    public Boolean checkEditAuth(User user){
+        return usersSvc.isLoggedIn() && (user.getId() == usersSvc.loggedInUser().getId());
     }
 
     @GetMapping("/sign-up")
@@ -84,13 +94,19 @@ public class UserController {
 
     @GetMapping("/edit-profile/{username}")
     public String showEditProfile(Model viewModel, @PathVariable String username) {
+        User user = userDao.findByUsername(username);
+        if(!usersSvc.canEditProfile(user)) {
+            return "redirect:/profile/" + username;
+        }
         viewModel.addAttribute("user", userDao.findByUsername(username));
         return "user/create-profile";
     }
 
     @PostMapping("/edit-profile/{username}")
     public String editProfile(@PathVariable String username, @ModelAttribute User userToBeUpdated) {
+
         User user = userDao.findByUsername(username);
+
         userToBeUpdated.setId(user.getId());
         userToBeUpdated.setUsername(user.getUsername());
         userToBeUpdated.setEmail(user.getEmail());
@@ -105,6 +121,7 @@ public class UserController {
         viewModel.addAttribute("user", userDao.findByUsername(username));
 
         User dbUser = userDao.findByUsername(username);
+        viewModel.addAttribute("showEditControls", usersSvc.canEditProfile(dbUser));
         List<Bookshelf> dbBookshelf = bookshelfDao.findAllByUserId(dbUser.getId());
 
         //looping through all clubs and retrieving users who are members of

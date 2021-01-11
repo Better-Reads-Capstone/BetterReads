@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
 import java.util.List;
 
@@ -18,23 +19,28 @@ public class User {
     private long id;
 
     @UniqueEmail
+    @NotBlank(message = "You cannot leave this blank!")
     @Column(nullable = false, unique = true)
     @JsonIgnore
     private String email;
 
     @UniqueUsername
+    @NotBlank(message = "You cannot leave this blank!")
     @Column(nullable = false, unique = true, length = 150)
     @JsonIgnore
     private String username;
 
+    @NotBlank(message = "You cannot leave this blank!")
     @Column(nullable = false, unique = true)
     @JsonIgnore
     private String password;
 
+    @NotBlank(message = "You cannot leave this blank!")
     @Column(nullable = false)
     @JsonIgnore
     private String firstName;
 
+    @NotBlank(message = "You cannot leave this blank!")
     @Column(nullable = false)
     @JsonIgnore
     private String lastName;
