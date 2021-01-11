@@ -62,9 +62,8 @@ public class UserService {
     }
 
     //testing password reset...
-    //TODO: CHECK if UsernameNotFoundException has issues...
     public void updateResetPasswordToken(String token, String email) throws UsernameNotFoundException {
-        User dbUser = userDao.findUserByEmail(email);
+        User dbUser = userDao.findByEmail(email);
 
         if (dbUser == null) {
             throw new UsernameNotFoundException("");
