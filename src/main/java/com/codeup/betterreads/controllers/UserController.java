@@ -55,6 +55,15 @@ public class UserController {
         String defaultIMG = "/img/logo.png";
         user.setAvatarURL(defaultIMG);
         User dbUser = userDao.save(user);
+
+        // Send registration email
+        try {
+            JsonNode response = mgService.sendRegisterMessage(dbUser, true);
+            System.out.println("response.toPrettyString() = " + response.toPrettyString());
+        } catch (UnirestException e) {
+            e.printStackTrace();
+        }
+
         viewModel.addAttribute("user", dbUser);
         return "redirect:/create-profile/" + dbUser.getUsername();
     }
@@ -135,13 +144,6 @@ public class UserController {
         viewModel.addAttribute("review", new Review());
         viewModel.addAttribute("bookclubs", clubsUserIsApartOf);
 
-        try {
-            System.out.println("Sending email");
-            JsonNode response = mgService.sendPasswordResetMessage(userDao.getOne(2L), "http://betterreads.site");
-            System.out.println("response.toPrettyString() = " + response.toPrettyString());
-        } catch (UnirestException e) {
-            e.printStackTrace();
-        }
         return "user/profile-page";
     }
 

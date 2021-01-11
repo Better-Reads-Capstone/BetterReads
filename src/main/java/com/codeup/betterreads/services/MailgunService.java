@@ -8,8 +8,6 @@ import kong.unirest.UnirestException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-
-
 @Service("mailgunService")
 public class MailgunService {
 
@@ -34,7 +32,7 @@ public class MailgunService {
     return request.getBody();
     }
 
-    public JsonNode sendRegisterMessage(User user) throws UnirestException {
+    public JsonNode sendRegisterMessage(User user, boolean testMode) throws UnirestException {
         final String subject = "Better Reads | Thanks for Registering!";
 
         HttpResponse<JsonNode> request = Unirest.post("https://api.mailgun.net/v3/" + mgDomain + "/messages")
@@ -44,12 +42,13 @@ public class MailgunService {
                 .field("subject", subject)
                 .field("template", "register-template")
                 .field("h:X-Mailgun-Variables", "{\"test\": \"test\"}")
+                .field("o:testmode", String.format("%s", testMode))
                 .asJson();
 
         return request.getBody();
     }
 
-    public JsonNode sendPasswordResetMessage(User user, String resetUrl) throws UnirestException {
+    public JsonNode sendPasswordResetMessage(User user, String resetUrl, boolean testMode) throws UnirestException {
         final String subject = "Better Reads | Password Reset";
         final String resetVars = String.format(
                 "{\"username\": \"%s\", \"reset_url\": \"%s\"}", user.getUsername(), resetUrl
@@ -64,6 +63,7 @@ public class MailgunService {
                 .field("subject", subject)
                 .field("template", "pw_reset")
                 .field("h:X-Mailgun-Variables", resetVars)
+                .field("o:testmode", String.format("%s", testMode))
                 .asJson();
 
         return request.getBody();
