@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
 import java.util.List;
 
@@ -15,22 +16,27 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @NotBlank(message = "You must enter an email")
     @Column(nullable = false, unique = true)
     @JsonIgnore
     private String email;
 
+    @NotBlank(message = "You must enter a username")
     @Column(nullable = false, unique = true, length = 150)
     @JsonIgnore
     private String username;
 
+    @NotBlank(message = "You must enter a password")
     @Column(nullable = false, unique = true)
     @JsonIgnore
     private String password;
 
+    @NotBlank(message = "You must enter a first name")
     @Column(nullable = false)
     @JsonIgnore
     private String firstName;
 
+    @NotBlank(message = "You must enter a last name")
     @Column(nullable = false)
     @JsonIgnore
     private String lastName;
