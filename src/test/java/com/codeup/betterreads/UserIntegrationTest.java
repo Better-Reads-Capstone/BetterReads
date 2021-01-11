@@ -110,7 +110,11 @@ public class UserIntegrationTest {
                 .andExpect(status().isOk());
     }
 
-    //CLUB TESTS
+//    TODO: Post Tests
+//    TODO: Comment Tests
+//    TODO:
+
+    // CLUB TESTS
     //Create Club
     @Test
     public void testCreateClub() throws Exception {
@@ -171,6 +175,7 @@ public class UserIntegrationTest {
     }
 
 //    Delete Club
+// What I found: Owner was being assigned by username instead of user that is logged in, solved this issue.
     @Test
     public void testDeleteClub() throws Exception {
         this.mvc.perform(
@@ -190,5 +195,28 @@ public class UserIntegrationTest {
 
     }
 
+    // Join Club
+    // What I found: User can join a club multiple times, fixed the issue in the Club Controller.
+    @Test
+    public void testJoinClub() throws Exception {
+        Club existingClub = clubDao.findAll().get(0);
+
+        this.mvc.perform(
+                post("/bookclub/" + existingClub.getId() + "/join").with(csrf())
+                    .session((MockHttpSession) httpSession))
+                .andExpect(status().is3xxRedirection());
+    }
+
+    //Leave Club
+    //What I found: Throws an error because a user cannot "leave" a club they are not already a part of, solved issue by adding a conditional to check if the user is a member of the club first, and then deletes them from the club.
+    @Test
+    public void testLeaveClub() throws Exception {
+        Club existingClub = clubDao.findAll().get(0);
+
+        this.mvc.perform(
+                post("/bookclub/" + existingClub.getId() + "/leave").with(csrf())
+                        .session((MockHttpSession) httpSession))
+                .andExpect(status().is3xxRedirection());
+    }
 }
 
