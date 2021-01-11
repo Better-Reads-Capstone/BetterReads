@@ -48,20 +48,35 @@ public class UserController {
 
     @GetMapping("/sign-up")
     public String register(Model model) {
-        model.addAttribute("user", new User());
+        User user = new User();
+        model.addAttribute("user", user);
         return "user/register";
     }
 
     @PostMapping("/sign-up")
     public String createUser(@ModelAttribute User user, Model viewModel) {
+        User checkUser = userDao.findByEmail(user.getEmail());
+        System.out.println(checkUser);
+        String errorMsg = "The email has been taken.";
+
+
+        if (checkUser != null){
+            viewModel.addAttribute("error", true);
+            viewModel.addAttribute("errorMsg", errorMsg);
+            return "user/register";
+        }
+
         String hash = passwordEncoder.encode(user.getPassword());
-        user.setPassword(hash);
         Date currentDate = new Date();
-        user.setCreatedDate(currentDate);
         String defaultIMG = "/img/logo.png";
+
+        user.setPassword(hash);
+        user.setCreatedDate(currentDate);
         user.setAvatarURL(defaultIMG);
+
         User dbUser = userDao.save(user);
         viewModel.addAttribute("user", dbUser);
+
         return "redirect:/create-profile/" + dbUser.getUsername();
     }
 
@@ -108,10 +123,9 @@ public class UserController {
 
     @GetMapping("/profile/{username}")
     public String showUserProfile(Model viewModel, @PathVariable String username) {
-        User user = userDao.findByUsername(username);
-        viewModel.addAttribute("user", userDao.findByUsername(username));
-
         User dbUser = userDao.findByUsername(username);
+        viewModel.addAttribute("user", dbUser);
+
         viewModel.addAttribute("showEditControls", usersSvc.canEditProfile(dbUser));
         List<Bookshelf> dbBookshelf = bookshelfDao.findAllByUserId(dbUser.getId());
 
