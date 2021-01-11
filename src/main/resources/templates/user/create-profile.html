@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="partials/head :: head(title = 'Create a profile')">
 </head>
 <body>          
@@ -11,69 +12,96 @@
             <div class="card">
                 <div class="card-header">
                     <h1>Profile Information</h1>
+<!--                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#passwordChangeModal">-->
+<!--                        Change Password-->
+<!--                    </button>-->
                 </div>
-                    <form th:action="@{/create-profile/{username} (username = ${user.getUsername()})}" method="POST" th:object="${user}">
-                        <div class="card-body">
-                            <div class="form-group">
-                                <label for="first-name">First Name</label>
-                                <input id="first-name" class="form-control" th:field="*{firstName}" />
-                            </div>
-                            <div class="form-group">
-                                <label for="middle-name">Middle Name</label>
-                                <input id="middle-name" class="form-control" th:field="*{middleName}" />
-                            </div>
-                            <div class="form-group">
-                                <label for="last-name">Last Name</label>
-                                <input id="last-name" class="form-control" th:field="*{lastName}" />
-                            </div>
+                <form th:action="@{/create-profile/{username} (username = ${user.getUsername()})}" method="POST" th:object="${user}">
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="first-name">First Name</label>
+                            <input id="first-name" class="form-control" th:field="*{firstName}" />
+                        </div>
+                        <div class="form-group">
+                            <label for="middle-name">Middle Name</label>
+                            <input id="middle-name" class="form-control" th:field="*{middleName}" />
+                        </div>
+                        <div class="form-group">
+                            <label for="last-name">Last Name</label>
+                            <input id="last-name" class="form-control" th:field="*{lastName}" />
+                        </div>
 
-                            <div class="form-group">
-                                <label for="dob">Date of Birth</label>
-                                <input id="dob" class="form-control" th:field="*{dob}" placeholder="yyyy-mm-dd"/>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="website-url">Website</label>
-                                <input id="website-url" class="form-control" th:field="*{websiteURL}" />
-                            </div>
-
-                            <div class="form-group">
-                                <label for="country">Country</label>
-                                <select name="country" class="form-control" th:field="*{country}" id="country">
-                                    <option th:value="'United States'">United States</option>
-                                    <option th:value="'United Kingdom'">United Kingdom</option>
-                                    <option th:value="'Canada'">Canada</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="pronouns">Preferred Pronouns</label>
-                                <select name="pronouns" class="form-control" th:field="*{pronouns}" id="pronouns">
-                                    <option th:value="''" selected>Prefer to Not Disclose</option>
-                                    <option th:value="'he'" selected>He/Him</option>
-                                    <option th:value="'she'" selected>She/Her</option>
-                                    <option th:value="'nonbinary'" selected>Non-Binary</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="about-me">About Me</label>
-                                <textarea class="form-control" id="about-me" rows="3" cols="50" th:field="*{aboutMe}"></textarea>
-                            </div>
+                        <div class="form-group">
+                            <label for="dob">Date of Birth</label>
+                            <input id="dob" class="form-control" th:field="*{dob}" placeholder="yyyy-mm-dd"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="website-url">Website</label>
+                            <input id="website-url" class="form-control" th:field="*{websiteURL}" />
+                        </div>
+                        <div class="form-group">
+                            <label for="country">Country</label>
+                            <select name="country" class="form-control" th:field="*{country}" id="country">
+                                <option th:value="'United States'">United States</option>
+                                <option th:value="'United Kingdom'">United Kingdom</option>
+                                <option th:value="'Canada'">Canada</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="pronouns">Preferred Pronouns</label>
+                            <select name="pronouns" class="form-control" th:field="*{pronouns}" id="pronouns">
+                                <option th:value="''" selected>Prefer to Not Disclose</option>
+                                <option th:value="'he'" selected>He/Him</option>
+                                <option th:value="'she'" selected>She/Her</option>
+                                <option th:value="'nonbinary'" selected>Non-Binary</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="about-me">About Me</label>
+                            <textarea class="form-control" id="about-me" rows="3" cols="50" th:field="*{aboutMe}"></textarea>
+                        </div>
+                        <br />
+                        <!--filestack api-->
+                        <div class="filestack">
+                            <img id="avatarPreview" th:src="${user.avatarURL}" alt="">
                             <br />
-
-                            <!--filestack api-->
-                            <div class="filestack">
-                                <img id="avatarPreview" th:src="${user.avatarURL}" alt="">
-                                <br />
-                                <input type="hidden" id="avatar" name="product_image_url" th:field="*{avatarURL}" />
-                                <button class="btn" id="addPicture">addPicture</button>
-                            </div>
+                            <input type="hidden" id="avatar" name="product_image_url" th:field="*{avatarURL}" />
+                            <button class="btn" id="addPicture">addPicture</button>
                         </div>
-                        <div class="card-footer">
-                            <button id="submit-btn" type="submit" class="btn btn-primary">Save</button>
-                        </div>
-                    </form>
+                    </div>
+                    <div class="card-footer">
+                        <button id="submit-btn" type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="modal fade" id="passwordChangeModal" tabindex="-1" aria-labelledby="passwordChangeModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="passwordChangeModalLabel">Change Your Password</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+<!--                    <form sec:authorize="hasAuthority('CHANGE_PASSWORD_PRIVILEGE')" th:action="@{/changePassword}" method="POST">-->
+<!--                        <div class="modal-body">-->
+<!--                            <div class="form-group">-->
+<!--                                <label for="oldPassword">Please Enter Your Old Password</label>-->
+<!--                                <input id="oldPassword" name="oldPassword" class="form-control" type="password"/>-->
+<!--                                <input type="checkbox" id="showOldPassword">Show Password-->
+<!--                            </div>-->
+<!--                            <div class="form-group">-->
+<!--                                <label for="newPassword">Please Enter Your New Password</label>-->
+<!--                                <input id="newPassword" name="newPassword" class="form-control" type="password"/>-->
+<!--                                <input type="checkbox" id="showNewPassword">Show Password-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="modal-footer">-->
+<!--                            <button type="submit" class="btn btn-danger">Confirm Password Change</button>-->
+<!--                        </div>-->
+<!--                    </form>-->
+                </div>
             </div>
         </div>
     </main>
@@ -81,5 +109,6 @@
     <script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js" defer></script>
     <script type="text/javascript" th:src="@{/js/filestack.js}" defer></script>
     <script th:src="@{/js/utils/datepicker.js}" defer></script>
+    <script th:src="@{/js/editPassword.js}" defer></script>
 </body>
 </html>

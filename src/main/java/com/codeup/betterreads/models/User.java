@@ -70,6 +70,9 @@ public class User {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
 
+    @Column(name = "reset_password_token")
+    private String resetPasswordToken;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     @JsonBackReference
     private List<Post> posts;
@@ -96,7 +99,7 @@ public class User {
 
     //create
     public User(String email, String username, String password, String firstName, String middleName, String lastName, String aboutMe, String country, String websiteURL, String avatarURL, String pronouns, Date dob, Date createdDate, List<Post> posts, List<ClubMember> clubMembers
-    , List<Review> userReviews, List<Bookshelf> bookshelves, List<Comment> comments
+    , List<Review> userReviews, List<Bookshelf> bookshelves, List<Comment> comments, String resetPasswordToken
     ) {
         this.email = email;
         this.username = username;
@@ -116,11 +119,12 @@ public class User {
         this.userReviews = userReviews;
         this.bookshelves = bookshelves;
         this.comments = comments;
+        this.resetPasswordToken = resetPasswordToken;
     }
 
     //read
     public User(long id, String email, String username, String password, String firstName, String middleName, String lastName, String aboutMe, String country, String websiteURL, String avatarURL, String pronouns, Date dob, Date createdDate, List<Post> posts, List<ClubMember> clubMembers
-            , List<Review> userReviews, List<Bookshelf> bookshelves, List<Comment> comments
+            , List<Review> userReviews, List<Bookshelf> bookshelves, List<Comment> comments, String resetPasswordToken
     ) {
         this.id = id;
         this.email = email;
@@ -141,9 +145,10 @@ public class User {
         this.userReviews = userReviews;
         this.bookshelves = bookshelves;
         this.comments = comments;
+        this.resetPasswordToken = resetPasswordToken;
     }
 
-    //copy
+    //copy - may need to pass in resetPasswordToken...
     public User(User copy) {
         id = copy.id;
         email = copy.email;
@@ -186,6 +191,7 @@ public class User {
     public List<Review> getUserReviews() {return userReviews;}
     public List<Bookshelf> getBookshelves() {return bookshelves;}
     public List<Comment> getComments() {return comments;}
+    public String getResetPasswordToken() {return resetPasswordToken;}
 
     //setters
     public void setId(long id) {this.id = id;}
@@ -207,4 +213,5 @@ public class User {
     public void setUserReviews(List<Review> userReviews) {this.userReviews = userReviews;}
     public void setBookshelves(List<Bookshelf> bookshelves) {this.bookshelves = bookshelves;}
     public void setComments(List<Comment> comments) {this.comments = comments;}
+    public void setResetPasswordToken(String resetPasswordToken) {this.resetPasswordToken = resetPasswordToken;}
 }

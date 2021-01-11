@@ -5,6 +5,7 @@ import com.codeup.betterreads.repositories.*;
 import com.codeup.betterreads.services.MailService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -79,7 +80,9 @@ public class UserController {
     }
 
     @PostMapping("/edit-profile/{username}")
-    public String editProfile(@PathVariable String username, @ModelAttribute User userToBeUpdated) {
+    public String editProfile(@PathVariable String username,
+                              @ModelAttribute User userToBeUpdated
+    ){
         User user = userDao.findByUsername(username);
         userToBeUpdated.setId(user.getId());
         userToBeUpdated.setUsername(user.getUsername());
@@ -89,6 +92,22 @@ public class UserController {
         User dbUser = userDao.save(userToBeUpdated);
         return "redirect:/profile/" + dbUser.getUsername();
     }
+
+//    @PostMapping("/changePassword")
+//    public String changePassword(@RequestParam(name="oldPassword") String oldPassword,
+//                                 @RequestParam(name="newPassword") String newPassword
+//    ){
+//        User dbUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        String dbPassword = dbUser.getPassword();
+//
+//        if(passwordEncoder.matches(oldPassword, dbPassword)) {
+//            dbUser.setPassword(passwordEncoder.encode(newPassword));
+//            userDao.save(dbUser);
+//        }
+//        else System.out.println("I don't match");
+//
+//        return "redirect:/profile/" + dbUser.getUsername();
+//    }
 
     @GetMapping("/profile/{username}")
     public String showUserProfile(Model viewModel, @PathVariable String username) {

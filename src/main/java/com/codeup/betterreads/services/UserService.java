@@ -3,11 +3,17 @@ package com.codeup.betterreads.services;
 import com.codeup.betterreads.models.ClubMember;
 import com.codeup.betterreads.models.User;
 import com.codeup.betterreads.repositories.UserRepo;
+import jdk.jshell.spi.ExecutionControl;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service("usersSvc")
+@Transactional
 public class UserService {
     UserRepo userDao;
 
@@ -53,5 +59,30 @@ public class UserService {
             return (clubAdmin.getIsAdmin());
         }
         return false;
+    }
+
+    //testing password reset...
+    //TODO: CHECK if UsernameNotFoundException has issues...
+    public void updateResetPasswordToken(String token, String email) throws UsernameNotFoundException {
+        User dbUser = userDao.findUserByEmail(email);
+        if (dbUser.getUsername() != null) {
+            dbUser.setResetPasswordToken(token);
+            userDao.save(dbUser);
+        } else {
+            throw new UsernameNotFoundException("Could not find any customer with the email " + dbUser.getEmail());
+        }
+    }
+
+    public User getByResetPasswordToken(String token) {
+        return userDao.findByResetPasswordToken(token);
+    }
+
+    public void updatePassword(User user, String newPassword) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encodedPassword = passwordEncoder.encode(newPassword);
+        user.setPassword(encodedPassword);
+
+        user.setResetPasswordToken(null);
+        userDao.save(user);
     }
 }
