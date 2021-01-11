@@ -13,4 +13,13 @@ public class HomeController {
     public String showBestSellers() {
         return "books/featured";
     }
+
+    @GetMapping("/faq")
+    public String showFAQ() { return "general/faq"; }
+
+    @GetMapping("/about-us")
+    public String showAboutUs() { return "general/about-us"; }
+
+    @GetMapping("/meet-the-devs")
+    public String showMeetDevs() { return "general/meet-devs"; }
 }
