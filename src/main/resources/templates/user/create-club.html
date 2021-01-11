@@ -10,7 +10,7 @@
             <div class="card-header">
                 <h1>Start a Bookclub</h1>
             </div>
-            <form th:action="@{/create-club/{username} (username = ${user.username})}" method="POST" th:object="${club}">
+            <form th:action="@{/create-club}" method="POST" th:object="${club}">
                 <div class="card-body">
                     <div class="form-group">
                         <label for="name">Name your bookclub</label>

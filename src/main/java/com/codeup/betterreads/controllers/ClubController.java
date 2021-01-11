@@ -55,14 +55,13 @@ public class ClubController {
         return "user/create-club";
     }
 
-    @PostMapping("/create-club/{username}")
-    public String createClub(@PathVariable String username,
-                             @Valid Club club,
+    @PostMapping("/create-club")
+    public String createClub(@Valid Club club,
                              Errors validation,
                              @ModelAttribute User userToBeUpdated,
                              Model viewModel) {
 
-        User user = userDao.findByUsername(username);
+        User user = usersSvc.loggedInUser();
         Date currentDate = new Date();
 
         if (validation.hasErrors()) {
@@ -169,7 +168,7 @@ public class ClubController {
 
 
     //Delete club
-    @RequestMapping(value = "/bookclub/{id}/delete", method = { RequestMethod.GET, RequestMethod.POST })
+    @RequestMapping(value = "/bookclub/{id}/delete", method = { RequestMethod.POST })
     public String deleteClub(@PathVariable long id) {
         Club club = clubDao.getOne(id);
         User user = usersSvc.loggedInUser();
