@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="partials/head :: head(title = 'FAQ')">
+</head>
+<body>
+<nav th:replace="partials/navbar :: navbar"></nav>
+<main>
+    <div class="container">
+        <div class="my-3" id="faq-title-div">
+            <h1>Frequently Asked Questions</h1>
+        </div>
+        <div class="mb-5" id="faq-content-div">
+            <ul>
+                <h5>What technologies power the site?</h5>
+                <li>Java spring boot, MySQL, JavaScript, jQuery, and the Bootstrap framework cover the main technology stack.  There are various helper libraries in use for additional feature functionality.  Check out the GitHub link in the footer for full details on the code.</li>
+            </ul>
+            <ul>
+                <h5>What was the inspiration for the site?</h5>
+                <li>The Goodreads site was a major influencer of our project.  The functionality of that site is massive, but we felt the user experience could use a more modern approach so our aim at BetterReads was to implement similar functionality while giving the user experience an overhaul.</li>
+            </ul>
+            <ul>
+                <h5>Cats or Dogs?</h5>
+                <li>Yes!</li>
+            </ul>
+        </div>
+    </div>
+</main>
+<footer th:replace="partials/footer :: footer"></footer>
+</body>
+</html>

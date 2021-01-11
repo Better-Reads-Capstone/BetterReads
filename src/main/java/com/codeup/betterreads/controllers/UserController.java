@@ -3,6 +3,9 @@ package com.codeup.betterreads.controllers;
 import com.codeup.betterreads.models.*;
 import com.codeup.betterreads.repositories.*;
 import com.codeup.betterreads.services.MailService;
+import com.codeup.betterreads.services.MailgunService;
+import kong.unirest.JsonNode;
+import kong.unirest.UnirestException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -24,8 +27,9 @@ public class UserController {
     private ClubRepo clubDao;
     private ClubMemberRepo clubMemberDao;
     private MailService mailService;
+    private MailgunService mgService;
 
-    public UserController(UserRepo userDao, PasswordEncoder passwordEncoder, BookshelfRepo bookshelfDao, BookRepo bookDao, ReviewRepo reviewDao, ClubRepo clubDao, ClubMemberRepo clubMemberDao, MailService mailService) {
+    public UserController(UserRepo userDao, PasswordEncoder passwordEncoder, BookshelfRepo bookshelfDao, BookRepo bookDao, ReviewRepo reviewDao, ClubRepo clubDao, ClubMemberRepo clubMemberDao, MailService mailService, MailgunService mgService) {
         this.userDao = userDao;
         this.passwordEncoder = passwordEncoder;
         this.bookshelfDao = bookshelfDao;
@@ -34,6 +38,7 @@ public class UserController {
         this.clubDao = clubDao;
         this.clubMemberDao = clubMemberDao;
         this.mailService = mailService;
+        this.mgService = mgService;
     }
 
     @GetMapping("/sign-up")
@@ -51,6 +56,15 @@ public class UserController {
         String defaultIMG = "/img/logo.png";
         user.setAvatarURL(defaultIMG);
         User dbUser = userDao.save(user);
+
+        // Send registration email
+        try {
+            JsonNode response = mgService.sendRegisterMessage(dbUser, true);
+            System.out.println("response.toPrettyString() = " + response.toPrettyString());
+        } catch (UnirestException e) {
+            e.printStackTrace();
+        }
+
         viewModel.addAttribute("user", dbUser);
         return "redirect:/create-profile/" + dbUser.getUsername();
     }
@@ -148,6 +162,7 @@ public class UserController {
         viewModel.addAttribute("wishlist", wishlist);
         viewModel.addAttribute("review", new Review());
         viewModel.addAttribute("bookclubs", clubsUserIsApartOf);
+
         return "user/profile-page";
     }
 
