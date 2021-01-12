@@ -1,33 +1,36 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="partials/head :: head('We\'re Sorry')">
+<head th:replace="partials/head :: head('Here there be dragons and 400 errors')">
 </head>
 <body>
 <nav th:replace="partials/navbar :: navbar"></nav>
-<br><br><br>
-<div style="text-align: center;">
+<div class="container">
     <th:block th:switch="${error}">
-        <div th:case="'Not Found'">
-            <h1>Hmm... it seems we can't find the page you're looking for.</h1>
-            <h4>Try going back to our <a href="/">homepage,</a></h4>
-
-            <br><br><br>
-
-            <h4>Or, use this <button type="button" onclick="javascript:history.back()">Back</button> button to go back one page.
-            </h4>
+        <div th:case="'Not Found'" class="my-3">
+            <h1 class="text-center my-3">404 <span th:text="${error}"></span></h1>
+            <h3 class="text-center my-3">We've got lots of pages on this site, except this particular one you're looking for...</h3>
+            <p class="text-center my-3">Not to fret though, you've got some options below:</p>
+            <div class="container my-5" id="btn-container">
+                <div class="d-flex justify-content-around">
+                    <button class="btn btn-primary btn-back" type="button">Head <i class="bi bi-arrow-left-square"></i></button>
+                    <a href="/" class="btn btn-primary">Head <i class="bi bi-house"></i></a>
+                </div>
+            </div>
         </div>
-        <div th:case="'Forbidden'">
-            <h1>Sorry...<br>You don't have permission to go here yet.</h1>
-            <h4>Try going back to our <a href="/">homepage</a></h4>
-
-            <br><br><br>
-
-            <h4>Or, use this <button type="button" onclick="javascript:history.back()">Back</button> button to go back one page.
-            </h4>
+        <div th:case="'Forbidden'" class="my-3">
+            <h1 class="text-center my-3">403 <span th:text="${error}"></span></h1>
+            <h3 class="text-center my-3">As Gandalf famously shouted "You...shall not...PASS!"</h3>
+            <p class="text-center my-3">Harsh, we know.  Fear not, you've got some options below:</p>
+            <div class="container my-5" id="btn-container">
+                <div class="d-flex justify-content-around">
+                    <button class="btn btn-primary btn-back" type="button">Head <i class="bi bi-arrow-left-square"></i></button>
+                    <a href="/" class="btn btn-primary">Head <i class="bi bi-house"></i></a>
+                </div>
+            </div>
         </div>
     </th:block>
 </div>
-<br><br><br>
 <footer th:replace="partials/footer :: footer"></footer>
+<script th:src="@{/js/utils/error.js}" defer></script>
 </body>
 </html>
