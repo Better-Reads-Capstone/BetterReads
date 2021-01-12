@@ -375,6 +375,7 @@ public class UserIntegrationTest {
                 .andExpect(status().is3xxRedirection());
     }
 
+    //Create Bookshelf Test
     @Test
     public void testAddBookToBookshelf() throws Exception {
         this.mvc.perform(
@@ -385,7 +386,6 @@ public class UserIntegrationTest {
                         .param("bookshelfStatus", "READ"))
                 .andExpect(status().is3xxRedirection());
     }
-
 
 
     // BOOKSEARCH TESTING
