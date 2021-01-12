@@ -40,6 +40,7 @@ public class UserIntegrationTest {
     private User testUser;
     private Review testReview;
     private Book testBook;
+    private Book testBook2;
     private HttpSession httpSession;
 
     @Autowired
@@ -69,6 +70,7 @@ public class UserIntegrationTest {
 
         testUser = userDao.findByUsername("TestUsername");
         testBook = bookDao.getOne(8L);
+        testBook2 = bookDao.getOne(9L);
 
         //CREATE
 
@@ -96,6 +98,12 @@ public class UserIntegrationTest {
             Book newBook = new Book();
             newBook.setGbreference("testGbreference");
             testBook = bookDao.save(newBook);
+        }
+
+        if (testBook2 == null) {
+            Book newBook = new Book();
+            newBook.setGbreference("testGbreference2");
+            testBook2 = bookDao.save(newBook);
         }
 
 
@@ -309,7 +317,7 @@ public class UserIntegrationTest {
 
     //REVIEW TESTING
 
-    //Create Review On Profile Page
+    //Create Review From Profile Page
     @Test
     public void testCreateReview() throws Exception {
 
@@ -322,17 +330,17 @@ public class UserIntegrationTest {
 
     }
 
-    //Read Review On Profile Page
+    //Read Review From /review.json Called on Profile Page
     @Test
     public void testShowReview() throws Exception {
 
         this.mvc.perform(get("/review.json"))
                 .andExpect(status().isOk())
-                .andExpect(content().string(containsString("[{\"id\":13,\"rating\":5,\"body\":\"Testing Body\",\"createdDate\":\"2021-01-12T17:19:00.619+0000\",\"updatedDate\":\"2021-01-12T17:19:00.619+0000\",\"owner\":{\"id\":3,\"resetPasswordToken\":null},\"book\":{\"id\":8,\"gbreference\":\"testGbreference\",\"isbn\":null,\"genre\":null}}]"))
-                );
+                .andExpect(content().string(containsString("id\":13,\"rating\":5,\"body\":\"Testing Body")));
+
     }
 
-    //Update Review On Profile Page
+    //Update Review From Profile Page
     @Test
     public void testUpdateReview() throws Exception {
         Review existingReview = reviewDao.findByOwnerIdAndBookId(testUser.getId(), testBook.getId());
@@ -343,8 +351,31 @@ public class UserIntegrationTest {
                         .param("rating", "3")
                         .param("body", "Testing Update"))
                 .andExpect(status().is3xxRedirection());
+
+        this.mvc.perform(get("/review.json"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString(("id\":13,\"rating\":3,\"body\":\"Testing Update"))));
+
     }
 
+    //Delete Review From Profile Page
+    @Test
+    public void testDeleteReview() throws Exception {
+        this.mvc.perform(
+                post("/profile/" + testUser.getUsername() + "/review/" + testBook2.getId()).with(csrf())
+                        .session((MockHttpSession) httpSession)
+                        .param("rating", "1")
+                        .param("body", "Testing Delete"))
+                .andExpect(status().is3xxRedirection());
+
+        Review existingReview = reviewDao.findByOwnerIdAndBookId(testUser.getId(), testBook2.getId());
+
+        this.mvc.perform(
+                post("/profile/" + testUser.getUsername() + "/deleteReview/" + existingReview.getId()).with(csrf())
+                        .session((MockHttpSession) httpSession)
+                        .param("id", String.valueOf(existingReview.getId())))
+                .andExpect(status().is3xxRedirection());
+    }
 
     // BOOKSEARCH TESTING
     // Public get
