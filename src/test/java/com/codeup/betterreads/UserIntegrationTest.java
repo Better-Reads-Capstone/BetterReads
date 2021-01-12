@@ -93,12 +93,12 @@ public class UserIntegrationTest {
             testUser = userDao.save(newUser);
         }
 
-        if(testBook == null) {
+        if (testBook == null) {
             Book newBook = new Book();
             newBook.setGbreference("TestGbreference");
             testBook = bookDao.save(newBook);
         }
-        if(testBook2 == null) {
+        if (testBook2 == null) {
             Book newBook = new Book();
             newBook.setGbreference("TestGbreference2");
             testBook2 = bookDao.save(newBook);
@@ -374,6 +374,19 @@ public class UserIntegrationTest {
                         .param("id", String.valueOf(existingReview.getId())))
                 .andExpect(status().is3xxRedirection());
     }
+
+    @Test
+    public void testAddBookToBookshelf() throws Exception {
+        this.mvc.perform(
+                post("/book/" + testBook.getGbreference()).with(csrf())
+                        .session((MockHttpSession) httpSession)
+                        .param("ownerId", String.format("%s", testUser.getId()))
+                        .param("bookId", String.format("%s", testBook.getId()))
+                        .param("bookshelfStatus", "READ"))
+                .andExpect(status().is3xxRedirection());
+    }
+
+
 
     // BOOKSEARCH TESTING
     // Public get
