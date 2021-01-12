@@ -68,6 +68,7 @@ public class UserIntegrationTest {
     public void setup() throws Exception {
 
         testUser = userDao.findByUsername("TestUsername");
+        testBook = bookDao.getOne(8L);
 
         //CREATE
 
@@ -89,7 +90,9 @@ public class UserIntegrationTest {
             newUser.setDob(new Date());
             newUser.setCreatedDate(new Date());
             testUser = userDao.save(newUser);
-        } else if (testBook == null) {
+        }
+
+        if (testBook == null) {
             Book newBook = new Book();
             newBook.setGbreference("testGbreference");
             testBook = bookDao.save(newBook);
@@ -326,8 +329,22 @@ public class UserIntegrationTest {
         this.mvc.perform(get("/review.json"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("[{\"id\":13,\"rating\":5,\"body\":\"Testing Body\",\"createdDate\":\"2021-01-12T17:19:00.619+0000\",\"updatedDate\":\"2021-01-12T17:19:00.619+0000\",\"owner\":{\"id\":3,\"resetPasswordToken\":null},\"book\":{\"id\":8,\"gbreference\":\"testGbreference\",\"isbn\":null,\"genre\":null}}]"))
-        );
+                );
     }
+
+    //Update Review On Profile Page
+    @Test
+    public void testUpdateReview() throws Exception {
+        Review existingReview = reviewDao.findByOwnerIdAndBookId(testUser.getId(), testBook.getId());
+
+        this.mvc.perform(
+                post("/profile/" + testUser.getUsername() + "/" + testBook.getId() + "/editReview/" + existingReview.getId()).with(csrf())
+                        .session((MockHttpSession) httpSession)
+                        .param("rating", "3")
+                        .param("body", "Testing Update"))
+                .andExpect(status().is3xxRedirection());
+    }
+
 
     // BOOKSEARCH TESTING
     // Public get
