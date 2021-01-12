@@ -319,7 +319,15 @@ public class UserIntegrationTest {
 
     }
 
+    //Read Review On Profile Page
+    @Test
+    public void testShowReview() throws Exception {
 
+        this.mvc.perform(get("/review.json"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("[{\"id\":13,\"rating\":5,\"body\":\"Testing Body\",\"createdDate\":\"2021-01-12T17:19:00.619+0000\",\"updatedDate\":\"2021-01-12T17:19:00.619+0000\",\"owner\":{\"id\":3,\"resetPasswordToken\":null},\"book\":{\"id\":8,\"gbreference\":\"testGbreference\",\"isbn\":null,\"genre\":null}}]"))
+        );
+    }
 
     // BOOKSEARCH TESTING
     // Public get
