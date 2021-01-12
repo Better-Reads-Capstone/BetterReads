@@ -1,6 +1,10 @@
 package com.codeup.betterreads;
 
-import com.codeup.betterreads.models.*;
+import com.codeup.betterreads.models.Book;
+import com.codeup.betterreads.models.Club;
+import com.codeup.betterreads.models.Post;
+import com.codeup.betterreads.models.User;
+import com.codeup.betterreads.repositories.BookRepo;
 import com.codeup.betterreads.repositories.ClubRepo;
 import com.codeup.betterreads.repositories.PostRepo;
 import com.codeup.betterreads.repositories.ReviewRepo;
@@ -51,6 +55,9 @@ public class UserIntegrationTest {
     ClubRepo clubDao;
 
     @Autowired
+    BookRepo bookDao;
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Autowired
@@ -84,7 +91,7 @@ public class UserIntegrationTest {
             testUser = userDao.save(newUser);
         }
 
-        // Throws a Post request to /login and expect a redirection to the Ads index page after being logged in
+        // Throws a Post request to /login and expect a redirection to the home page after being logged in
         httpSession = this.mvc.perform(post("/login").with(csrf())
                 .param("username", "TestUsername")
                 .param("password", "TestPassword"))
@@ -275,9 +282,21 @@ public class UserIntegrationTest {
 //                .andExpect(content().string(containsString("edited body")));
 //    }
 
+
     //REVIEW TESTING
 
     //Create Review On Profile Page
+    @Test
+    public void testAuthGetProfile() throws Exception {
+        this.mvc.perform(
+                get("/profile/" + testUser.getUsername()).with(csrf())
+                .session((MockHttpSession) httpSession))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString(testUser.getUsername()))
+        );
+
+    }
+
     @Test
     public void testCreateReview() throws Exception {
         //replace with the Book Levi creates
@@ -306,5 +325,103 @@ public class UserIntegrationTest {
 //                .andExpect(content().string(containsString(existingReview.get))
 //        )
 //    }
+
+    // BOOKSEARCH TESTING
+    // Public get
+    @Test
+    public void testAnonGetBooksearch() throws Exception {
+        this.mvc.perform(
+                get("/booksearch"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("Search")));
+    }
+
+    // Authenticated get
+    @Test
+    public void testAuthGetBooksearch() throws Exception {
+        this.mvc.perform(
+                get("/booksearch").with(csrf())
+                .session((MockHttpSession) httpSession))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("Search")));
+    }
+
+    // Query string public get
+    @Test
+    public void testAnonQueryStringBooksearch() throws Exception {
+        String query = "The%20Hobbit";
+
+        this.mvc.perform(
+                get("/booksearch?searchvalue=" + query))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("The%20Hobbit")));
+    }
+
+    // Query string auth get
+    @Test
+    public void testAuthQueryStringBooksearch() throws Exception {
+        String query = "The%20Hobbit";
+
+        this.mvc.perform(
+                get("/booksearch?searchvalue=" + query).with(csrf())
+                    .session((MockHttpSession) httpSession))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("The%20Hobbit")));
+    }
+
+    // VIEWBOOK TESTING
+    // Public get
+    @Test
+    public void testAnonGetBook() throws Exception {
+        String bookRef = "rH9mA0MpLM4C";
+        Book testbook = bookDao.findBookByGbreferenceEquals(bookRef);
+        Long bookId = testbook.getId();
+
+        this.mvc.perform(
+                get("/book/" + bookRef))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString(String.format("data-book-id=\"%d\"", bookId))))
+                .andExpect(content().string(containsString("Login to add this book")))
+                .andExpect(content().string(containsString("Login to leave a review")));
+    }
+
+    // Authenticated get
+    @Test
+    public void testAuthGetBook() throws Exception {
+        String bookRef = "rH9mA0MpLM4C";
+        Book testbook = bookDao.findBookByGbreferenceEquals(bookRef);
+        Long bookId = testbook.getId();
+
+        this.mvc.perform(
+                get("/book/" + bookRef).with(csrf())
+                    .session((MockHttpSession) httpSession))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString(String.format("data-book-id=\"%d\"", bookId))))
+                .andExpect(content().string(containsString("Choose a Status")));
+    }
+
+    // ERROR PAGE TESTS
+    @Test
+    public void testAnon404Error() throws Exception {
+        this.mvc.perform(
+                get("/this-page-not-found"))
+                .andExpect(status().is4xxClientError());
+    }
+
+    @Test
+    public void testAuth404Error() throws Exception {
+        this.mvc.perform(
+                get("/this-page-not-found")
+                        .with(csrf())
+                        .session((MockHttpSession) httpSession))
+                .andExpect(status().is4xxClientError());
+    }
+
+
+    // TODO FOOTER TESTS
+    // TODO SIGN-UP TESTS
+    // TODO HOME PAGE TESTS
+
+
 }
 
