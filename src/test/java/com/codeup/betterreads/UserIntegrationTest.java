@@ -1,8 +1,12 @@
 package com.codeup.betterreads;
 
+import com.codeup.betterreads.models.Club;
+import com.codeup.betterreads.models.Post;
 import com.codeup.betterreads.models.User;
+import com.codeup.betterreads.repositories.ClubRepo;
 import com.codeup.betterreads.repositories.PostRepo;
 import com.codeup.betterreads.repositories.UserRepo;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,24 +14,28 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
+import org.springframework.mock.web.MockHttpSession;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.mock.web.MockHttpServletRequest;
+
 import javax.servlet.http.HttpSession;
+
 import java.util.Date;
 
+import static org.hamcrest.core.StringContains.containsString;
 import static org.junit.Assert.assertNotNull;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = BetterreadsApplication.class)
 @AutoConfigureMockMvc
 public class UserIntegrationTest {
 
-    //todo Question: Would it be advantageous to use the @Autowire annotation on these test properties?
     private User testUser;
     private HttpSession httpSession;
 
@@ -39,6 +47,9 @@ public class UserIntegrationTest {
 
     @Autowired
     PostRepo postDao;
+
+    @Autowired
+    ClubRepo clubDao;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -94,8 +105,172 @@ public class UserIntegrationTest {
         assertNotNull(httpSession);
     }
 
+    @Test
+    public void testShowRegistration() throws Exception {
+        this.mvc.perform(get("/sign-up"))
+                .andExpect(status().isOk());
+    }
+
+//    TODO: Post Tests
+//    TODO: Comment Tests
 
 
+// CLUB TESTING
 
+    //Create Club
+    @Test
+    public void testCreateClub() throws Exception {
+        this.mvc.perform(
+                post("/create-club").with(csrf())
+                        .session((MockHttpSession) httpSession)
+                        // Add all the required parameters to your request like this
+                        .param("name", "test")
+                        .param("about", "book club about")
+                        .param("genre", "1")
+                        .param("headerImageUrl", "/img/logo.png"))
+                .andExpect(status().is3xxRedirection());
+    }
+
+    //Read club
+    @Test
+    public void testShowClub() throws Exception {
+
+        Club existingClub = clubDao.findAll().get(0);
+
+        this.mvc.perform(get("/bookclub/" + existingClub.getId()))
+                .andExpect(status().isOk())
+                // Test the dynamic content of the page
+                .andExpect(content().string(containsString(existingClub.getName())));
+    }
+
+    //Read all clubs
+    @Test
+    public void testAdsIndex() throws Exception {
+        Club existingClub = clubDao.findAll().get(0);
+
+        this.mvc.perform(get("/bookclubs"))
+                .andExpect(status().isOk())
+                // Test the static content of the page
+                .andExpect(content().string(containsString("<label for=\"genreSelect\">Filter By Genre:</label>")))
+                // Test the dynamic content of the page
+                .andExpect(content().string(containsString(existingClub.getName())));
+    }
+
+    //Edit Club
+    @Test
+    public void testEditClub() throws Exception {
+        Club existingClub = clubDao.findAll().get(0);
+
+        this.mvc.perform(
+                post("/edit-bookclub/" + existingClub.getId()).with(csrf())
+                        .session((MockHttpSession) httpSession)
+                        .param("name", "edited name")
+                        .param("about", "edited about")
+                        .param("genre", "1"))
+                .andExpect(status().is3xxRedirection());
+
+        this.mvc.perform(get("/bookclub/" + existingClub.getId()))
+                .andExpect(status().isOk())
+                // Test the dynamic content of the page
+                .andExpect(content().string(containsString("edited name")))
+                .andExpect(content().string(containsString("edited about")));
+    }
+
+//    Delete Club
+// What I found: Owner was being assigned by username instead of user that is logged in, solved this issue.
+    @Test
+    public void testDeleteClub() throws Exception {
+        this.mvc.perform(
+                post("/create-club").with(csrf())
+                        .session((MockHttpSession) httpSession)
+                        .param("name", "club yay")
+                        .param("about", "won't last long"))
+                .andExpect(status().is3xxRedirection());
+
+        Club existingClub = clubDao.findByName("club yay");
+        System.out.println(existingClub.getId());
+
+        this.mvc.perform(
+                post("/bookclub/" + existingClub.getId() + "/delete").with(csrf())
+                        .session((MockHttpSession) httpSession))
+                .andExpect(status().is3xxRedirection());
+
+    }
+
+// CLUB MEMBERS TESTING
+
+    // Join Club
+    // What I found: User can join a club multiple times, fixed the issue in the Club Controller.
+    @Test
+    public void testJoinClub() throws Exception {
+        Club existingClub = clubDao.findAll().get(0);
+
+        this.mvc.perform(
+                post("/bookclub/" + existingClub.getId() + "/join").with(csrf())
+                    .session((MockHttpSession) httpSession))
+                .andExpect(status().is3xxRedirection());
+    }
+
+    //Leave Club
+    //What I found: Throws an error because a user cannot "leave" a club they are not already a part of, solved issue by adding a conditional to check if the user is a member of the club first, and then deletes them from the club.
+    @Test
+    public void testLeaveClub() throws Exception {
+        Club existingClub = clubDao.findAll().get(0);
+
+        this.mvc.perform(
+                post("/bookclub/" + existingClub.getId() + "/leave").with(csrf())
+                        .session((MockHttpSession) httpSession))
+                .andExpect(status().is3xxRedirection());
+    }
+
+//CLUB BLOG TESTING
+
+    //Create Post
+    @Test
+    public void testCreatePost() throws Exception {
+        Club existingClub = clubDao.findAllByOwner(testUser).get(0);
+
+        this.mvc.perform(
+                post("/bookclub/" + existingClub.getId() + "/create-post").with(csrf())
+                        .session((MockHttpSession) httpSession)
+                        // Add all the required parameters to your request like this
+                        .param("body", "test body")
+                        .param("title", "test title"))
+                .andExpect(status().is3xxRedirection());
+    }
+
+//    //View Post
+//    @Test
+//    public void testViewPost() throws Exception {
+//        Club existingClub = clubDao.findAllByOwner(testUser).get(0);
+//        Post existingPost = postDao.findAllByClub(existingClub).get(0);
+//        System.out.println(existingClub.getId());
+//        System.out.println(existingPost.getId());
+//
+//        this.mvc.perform(get("/bookclub/post/" + existingPost.getId()).with(csrf()))
+//                .andExpect(status().isOk())
+//                // Test the dynamic content of the page
+//                .andExpect(content().string(containsString(existingClub.getName())));
+//    }
+//
+//    //Edit Post
+//    @Test
+//    public void testEditPost() throws Exception {
+//        Club existingClub = clubDao.findAllByOwner(testUser).get(0);
+//        Post existingPost = postDao.findAllByClub(existingClub).get(0);
+//
+//        this.mvc.perform(
+//                post("/bookclub/" + existingClub.getId() + "/edit-post/" + existingPost.getId()).with(csrf())
+//                        .session((MockHttpSession) httpSession)
+//                        .param("title", "edited title")
+//                        .param("body", "edited body"))
+//                .andExpect(status().is3xxRedirection());
+//
+//        this.mvc.perform(get("/bookclub/" + existingClub.getId() + "/" + existingPost.getId()).with(csrf()))
+//                .andExpect(status().isOk())
+//                // Test the dynamic content of the page
+//                .andExpect(content().string(containsString("edited title")))
+//                .andExpect(content().string(containsString("edited body")));
+//    }
 }
 

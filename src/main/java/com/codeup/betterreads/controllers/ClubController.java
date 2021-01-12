@@ -55,12 +55,11 @@ public class ClubController {
         return "user/create-club";
     }
 
-    @PostMapping("/create-club/{username}")
-    public String createClub(@PathVariable String username,
-                             @ModelAttribute Club club,
-                             @ModelAttribute User userToBeUpdated) {
 
-        User user = userDao.findByUsername(username);
+    @PostMapping("/create-club")
+    public String createClub(@ModelAttribute Club club) {
+
+        User user = usersSvc.loggedInUser();
         Date currentDate = new Date();
 
         club.setOwner(user);
@@ -104,16 +103,21 @@ public class ClubController {
     @PostMapping("/bookclub/{id}/join")
     public String joinBookClub(@PathVariable long id) {
         User clubUser = usersSvc.loggedInUser();
-        ClubMember clubMember = new ClubMember();
+        Club club = clubDao.getOne(id);
+        ClubMember existingClubMember = clubMemberDao.findClubMemberByUserAndClub(clubUser, club);
 
-        clubMember.setClub(clubDao.getOne(id));
-        clubMember.setUser(clubUser);
-        clubMember.setIsAdmin(false);
+        //Checks to see if a user is already a member
+        if (existingClubMember == null) {
+            ClubMember clubMember = new ClubMember();
+            clubMember.setClub(clubDao.getOne(id));
+            clubMember.setUser(clubUser);
+            clubMember.setIsAdmin(false);
 
-        clubMemberDao.save(clubMember);
-        System.out.println(clubUser.getId());
-        System.out.println(clubMember.getId());
+            clubMemberDao.save(clubMember);
+            System.out.println(clubUser.getId());
+            System.out.println(clubMember.getId());
 
+        }
         return "redirect:/bookclub/" + id;
     }
 
@@ -122,9 +126,12 @@ public class ClubController {
     public String leaveBookClub(@PathVariable long id) {
         User clubUser = usersSvc.loggedInUser();
         Club club = clubDao.getOne(id);
-        ClubMember clubMember = clubMemberDao.findClubMemberByUserAndClub(clubUser, club);
+        ClubMember existingClubMember = clubMemberDao.findClubMemberByUserAndClub(clubUser, club);
 
-        clubMemberDao.deleteById(clubMember.getId());
+        if(existingClubMember != null) {
+            clubMemberDao.deleteById(existingClubMember.getId());
+            return "redirect:/bookclub/" + id;
+        }
 
         return "redirect:/bookclub/" + id;
     }
@@ -161,7 +168,7 @@ public class ClubController {
 
 
     //Delete club
-    @RequestMapping(value = "/bookclub/{id}/delete", method = { RequestMethod.GET, RequestMethod.POST })
+    @RequestMapping(value = "/bookclub/{id}/delete", method = { RequestMethod.POST })
     public String deleteClub(@PathVariable long id) {
         Club club = clubDao.getOne(id);
         User user = usersSvc.loggedInUser();
