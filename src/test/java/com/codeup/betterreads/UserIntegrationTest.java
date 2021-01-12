@@ -38,7 +38,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class UserIntegrationTest {
 
     private User testUser;
-    private Review testReview;
     private Book testBook;
     private Book testBook2;
     private HttpSession httpSession;
@@ -69,8 +68,8 @@ public class UserIntegrationTest {
     public void setup() throws Exception {
 
         testUser = userDao.findByUsername("TestUsername");
-        testBook = bookDao.getOne(8L);
-        testBook2 = bookDao.getOne(9L);
+        testBook = bookDao.findBookById(1);
+        testBook2 = bookDao.findBookById(2);
 
         //CREATE
 
@@ -94,15 +93,14 @@ public class UserIntegrationTest {
             testUser = userDao.save(newUser);
         }
 
-        if (testBook == null) {
+        if(testBook == null) {
             Book newBook = new Book();
-            newBook.setGbreference("testGbreference");
+            newBook.setGbreference("TestGbreference");
             testBook = bookDao.save(newBook);
         }
-
-        if (testBook2 == null) {
+        if(testBook2 == null) {
             Book newBook = new Book();
-            newBook.setGbreference("testGbreference2");
+            newBook.setGbreference("TestGbreference2");
             testBook2 = bookDao.save(newBook);
         }
 
@@ -336,7 +334,7 @@ public class UserIntegrationTest {
 
         this.mvc.perform(get("/review.json"))
                 .andExpect(status().isOk())
-                .andExpect(content().string(containsString("id\":13,\"rating\":5,\"body\":\"Testing Body")));
+                .andExpect(content().string(containsString("id\":1,\"rating\":5,\"body\":\"Testing Body")));
 
     }
 
@@ -354,7 +352,7 @@ public class UserIntegrationTest {
 
         this.mvc.perform(get("/review.json"))
                 .andExpect(status().isOk())
-                .andExpect(content().string(containsString(("id\":13,\"rating\":3,\"body\":\"Testing Update"))));
+                .andExpect(content().string(containsString(("id\":1,\"rating\":3,\"body\":\"Testing Update"))));
 
     }
 
