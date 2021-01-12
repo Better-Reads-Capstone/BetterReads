@@ -45,7 +45,7 @@ public class ForgotPasswordController {
             userService.updateResetPasswordToken(token, email);
             String resetPasswordLink = Utility.getSiteURL(request) + "/reset-password?token=" + token;
 
-            JsonNode response = mailSender.sendPasswordResetMessage(userDao.findByEmail(email), resetPasswordLink, false);
+            JsonNode response = mailSender.sendPasswordResetMessage(userDao.findByEmail(email), resetPasswordLink);
             System.out.println("response.toPrettyString() = " + response.toPrettyString());
             model.addAttribute("message", "We have sent a reset password link to your email. Please check.");
 

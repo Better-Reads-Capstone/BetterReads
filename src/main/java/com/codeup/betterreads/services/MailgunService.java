@@ -23,7 +23,7 @@ public class MailgunService {
     @Value("${app.env}")
     public String env;
 
-    private boolean testMode = env.equals("development");
+//    public boolean testMode = env.equals("development");
 
     public JsonNode sendSimpleMessage(User user, String subject, String body) throws UnirestException {
     HttpResponse<JsonNode> request = Unirest.post("https://api.mailgun.net/v3/" + mgDomain + "/messages")
@@ -39,6 +39,7 @@ public class MailgunService {
 
     public JsonNode sendRegisterMessage(User user) throws UnirestException {
         final String subject = "Better Reads | Thanks for Registering!";
+        final boolean testMode = env.equals("development");
 
         HttpResponse<JsonNode> request = Unirest.post("https://api.mailgun.net/v3/" + mgDomain + "/messages")
                 .basicAuth("api", mgAPIKey)
@@ -71,6 +72,7 @@ public class MailgunService {
 
     public JsonNode sendPasswordResetMessage(User user, String resetUrl) throws UnirestException {
         final String subject = "Better Reads | Password Reset";
+        final boolean testMode = env.equals("development");
         final String resetVars = String.format(
                 "{\"username\": \"%s\", \"reset_url\": \"%s\"}", user.getUsername(), resetUrl
         );
