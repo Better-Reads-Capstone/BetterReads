@@ -108,7 +108,7 @@ public class UserController {
 
         // Send registration email
         try {
-            JsonNode response = mgService.sendRegisterMessage(dbUser, true);
+            JsonNode response = mgService.sendRegisterMessage(dbUser, false);
             System.out.println("response.toPrettyString() = " + response.toPrettyString());
         } catch (UnirestException e) {
             e.printStackTrace();
