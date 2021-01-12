@@ -1,9 +1,6 @@
 package com.codeup.betterreads;
 
-import com.codeup.betterreads.models.Book;
-import com.codeup.betterreads.models.Club;
-import com.codeup.betterreads.models.Post;
-import com.codeup.betterreads.models.User;
+import com.codeup.betterreads.models.*;
 import com.codeup.betterreads.repositories.BookRepo;
 import com.codeup.betterreads.repositories.ClubRepo;
 import com.codeup.betterreads.repositories.PostRepo;
@@ -26,6 +23,7 @@ import org.springframework.mock.web.MockHttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import java.util.Date;
+import java.util.List;
 
 import static org.hamcrest.core.StringContains.containsString;
 import static org.junit.Assert.assertNotNull;
@@ -40,6 +38,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class UserIntegrationTest {
 
     private User testUser;
+    private Review testReview;
+    private Book testBook;
     private HttpSession httpSession;
 
     @Autowired
@@ -72,7 +72,7 @@ public class UserIntegrationTest {
         //CREATE
 
         // Creates the test user if not exists
-        if(testUser == null){
+        if (testUser == null) {
             User newUser = new User();
             newUser.setEmail("TestEmail@Test.com");
             newUser.setUsername("TestUsername");
@@ -89,7 +89,12 @@ public class UserIntegrationTest {
             newUser.setDob(new Date());
             newUser.setCreatedDate(new Date());
             testUser = userDao.save(newUser);
+        } else if (testBook == null) {
+            Book newBook = new Book();
+            newBook.setGbreference("testGbreference");
+            testBook = bookDao.save(newBook);
         }
+
 
         // Throws a Post request to /login and expect a redirection to the home page after being logged in
         httpSession = this.mvc.perform(post("/login").with(csrf())
@@ -108,6 +113,7 @@ public class UserIntegrationTest {
         // Sanity Test, just to make sure the MVC bean is working
         assertNotNull(mvc);
     }
+
     @Test
     public void testIfUserSessionIsActive() throws Exception {
         // It makes sure the returned session is not null
@@ -185,7 +191,7 @@ public class UserIntegrationTest {
                 .andExpect(content().string(containsString("edited about")));
     }
 
-//    Delete Club
+    //    Delete Club
 // What I found: Owner was being assigned by username instead of user that is logged in, solved this issue.
     @Test
     public void testDeleteClub() throws Exception {
@@ -216,7 +222,7 @@ public class UserIntegrationTest {
 
         this.mvc.perform(
                 post("/bookclub/" + existingClub.getId() + "/join").with(csrf())
-                    .session((MockHttpSession) httpSession))
+                        .session((MockHttpSession) httpSession))
                 .andExpect(status().is3xxRedirection());
     }
 
@@ -283,48 +289,37 @@ public class UserIntegrationTest {
 //    }
 
 
-    //REVIEW TESTING
+    //PROFILE TESTING
 
-    //Create Review On Profile Page
+    //Get to profile page
     @Test
     public void testAuthGetProfile() throws Exception {
         this.mvc.perform(
                 get("/profile/" + testUser.getUsername()).with(csrf())
-                .session((MockHttpSession) httpSession))
+                        .session((MockHttpSession) httpSession))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString(testUser.getUsername()))
-        );
+                );
 
     }
 
+
+    //REVIEW TESTING
+
+    //Create Review On Profile Page
     @Test
     public void testCreateReview() throws Exception {
-        //replace with the Book Levi creates
-        Book testBook = new Book();
-        testBook.setId(1);
 
         this.mvc.perform(
-                post("/profile/"+ testUser.getUsername() +"/review/"+ testBook.getId()).with(csrf())
-                .session((MockHttpSession) httpSession)
-                .param("rating", "1")
-                .param("created_date", "2021-01-12 00:24:46.584000"))
-            .andExpect(status().is3xxRedirection());
+                post("/profile/" + testUser.getUsername() + "/review/" + testBook.getId()).with(csrf())
+                        .session((MockHttpSession) httpSession)
+                        .param("rating", "5")
+                        .param("body", "Testing Body"))
+                .andExpect(status().is3xxRedirection());
 
     }
 
-//    @Test
-//    public void testShowReview() throws Exception {
-//        //replace with the Book Levi creates
-//        Book testBook = new Book();
-//        testBook.setId(1);
-//        Review existingReview = reviewDao.findAll().get(0);
-//
-//        this.mvc.perform(get("/profile/" + testUser.getUsername() + "/review/" + testBook.getId()))
-//                .andExpect(status().isOk())
-//
-//                .andExpect(content().string(containsString(existingReview.get))
-//        )
-//    }
+
 
     // BOOKSEARCH TESTING
     // Public get
@@ -341,7 +336,7 @@ public class UserIntegrationTest {
     public void testAuthGetBooksearch() throws Exception {
         this.mvc.perform(
                 get("/booksearch").with(csrf())
-                .session((MockHttpSession) httpSession))
+                        .session((MockHttpSession) httpSession))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("Search")));
     }
@@ -364,7 +359,7 @@ public class UserIntegrationTest {
 
         this.mvc.perform(
                 get("/booksearch?searchvalue=" + query).with(csrf())
-                    .session((MockHttpSession) httpSession))
+                        .session((MockHttpSession) httpSession))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("The%20Hobbit")));
     }
@@ -394,7 +389,7 @@ public class UserIntegrationTest {
 
         this.mvc.perform(
                 get("/book/" + bookRef).with(csrf())
-                    .session((MockHttpSession) httpSession))
+                        .session((MockHttpSession) httpSession))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString(String.format("data-book-id=\"%d\"", bookId))))
                 .andExpect(content().string(containsString("Choose a Status")));
