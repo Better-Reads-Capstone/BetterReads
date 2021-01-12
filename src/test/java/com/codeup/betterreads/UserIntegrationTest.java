@@ -1,6 +1,7 @@
 package com.codeup.betterreads;
 
 import com.codeup.betterreads.models.Club;
+import com.codeup.betterreads.models.Post;
 import com.codeup.betterreads.models.User;
 import com.codeup.betterreads.repositories.ClubRepo;
 import com.codeup.betterreads.repositories.PostRepo;
@@ -222,8 +223,54 @@ public class UserIntegrationTest {
                 .andExpect(status().is3xxRedirection());
     }
 
-    //Assign Admin Status
+//CLUB BLOG TESTING
 
-    //Revoke Admin Status
+    //Create Post
+    @Test
+    public void testCreatePost() throws Exception {
+        Club existingClub = clubDao.findAllByOwner(testUser).get(0);
+
+        this.mvc.perform(
+                post("/bookclub/" + existingClub.getId() + "/create-post").with(csrf())
+                        .session((MockHttpSession) httpSession)
+                        // Add all the required parameters to your request like this
+                        .param("body", "test body")
+                        .param("title", "test title"))
+                .andExpect(status().is3xxRedirection());
+    }
+
+//    //View Post
+//    @Test
+//    public void testViewPost() throws Exception {
+//        Club existingClub = clubDao.findAllByOwner(testUser).get(0);
+//        Post existingPost = postDao.findAllByClub(existingClub).get(0);
+//        System.out.println(existingClub.getId());
+//        System.out.println(existingPost.getId());
+//
+//        this.mvc.perform(get("/bookclub/post/" + existingPost.getId()).with(csrf()))
+//                .andExpect(status().isOk())
+//                // Test the dynamic content of the page
+//                .andExpect(content().string(containsString(existingClub.getName())));
+//    }
+//
+//    //Edit Post
+//    @Test
+//    public void testEditPost() throws Exception {
+//        Club existingClub = clubDao.findAllByOwner(testUser).get(0);
+//        Post existingPost = postDao.findAllByClub(existingClub).get(0);
+//
+//        this.mvc.perform(
+//                post("/bookclub/" + existingClub.getId() + "/edit-post/" + existingPost.getId()).with(csrf())
+//                        .session((MockHttpSession) httpSession)
+//                        .param("title", "edited title")
+//                        .param("body", "edited body"))
+//                .andExpect(status().is3xxRedirection());
+//
+//        this.mvc.perform(get("/bookclub/" + existingClub.getId() + "/" + existingPost.getId()).with(csrf()))
+//                .andExpect(status().isOk())
+//                // Test the dynamic content of the page
+//                .andExpect(content().string(containsString("edited title")))
+//                .andExpect(content().string(containsString("edited body")));
+//    }
 }
 

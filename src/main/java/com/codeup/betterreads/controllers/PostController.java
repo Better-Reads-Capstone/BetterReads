@@ -65,14 +65,13 @@ public class PostController {
 
         Post dbPost = postDao.save(post);
 
-        return "redirect:/bookclub/" + id + "/" + dbPost.getId();
+        return "redirect:/bookclub/post/" + dbPost.getId();
     }
 
     //View Post
-    @GetMapping("/bookclub/{id}/{postId}")
+    @GetMapping("/bookclub/post/{postId}")
     public String viewPost(
             Model viewModel,
-            @PathVariable long id,
             @PathVariable long postId) {
 
         User user = usersSvc.loggedInUser();
@@ -80,13 +79,13 @@ public class PostController {
             return "redirect:/login";
         }
 
-        Club club = clubDao.getOne(id);
         Post post = postDao.getOne(postId);
+        Club club = post.getClub();
         viewModel.addAttribute("post", post);
         viewModel.addAttribute("club", club);
         viewModel.addAttribute("comments", commentDao.findAllByPost(post));
         viewModel.addAttribute(user);
-        ClubMember clubMember = clubMemberDao.findClubMemberByUserAndClub(user, clubDao.getOne(id));
+        ClubMember clubMember = clubMemberDao.findClubMemberByUserAndClub(user, club);
         viewModel.addAttribute("member", clubMember);
         viewModel.addAttribute("comment", new Comment());
 
@@ -113,7 +112,7 @@ public class PostController {
 
         commentDao.save(dbComment);
 
-        return "redirect:/bookclub/" + id + "/" + postId;
+        return "redirect:/bookclub/post/" + postId;
     }
 
     @PostMapping("/bookclub/{id}/{postId}/delete-comment-{commentId}")
@@ -125,11 +124,11 @@ public class PostController {
         User commentOwner = comment.getUser();
 
         if(commentOwner != usersSvc.loggedInUser()) {
-            return "redirect:/bookclub/" + id + "/" + postId;
+            return "redirect:/bookclub/post/" + postId;
         }
 
         commentDao.delete(comment);
-        return "redirect:/bookclub/" + id + "/" + postId;
+        return "redirect:/bookclub/post/" + postId;
     }
 
     //Edit Post
@@ -143,7 +142,7 @@ public class PostController {
         Club club = clubDao.getOne(id);
 
         if(!usersSvc.isOwner(post.getUser())){
-            return "redirect:/bookclub/" + id + "/" + postId;
+            return "redirect:/bookclub/post/" + postId;
         }
         viewModel.addAttribute("post", post);
         viewModel.addAttribute("club", club);
@@ -174,7 +173,7 @@ public class PostController {
         postToBeUpdated.setClub(post.getClub());
 
         Post dbPost = postDao.save(postToBeUpdated);
-        return "redirect:/bookclub/" + id + "/" + postId;
+        return "redirect:/bookclub/post/" + postId;
     }
 
 
