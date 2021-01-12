@@ -162,22 +162,6 @@ public class UserController {
         return "redirect:/profile/" + dbUser.getUsername();
     }
 
-//    @PostMapping("/changePassword")
-//    public String changePassword(@RequestParam(name="oldPassword") String oldPassword,
-//                                 @RequestParam(name="newPassword") String newPassword
-//    ){
-//        User dbUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        String dbPassword = dbUser.getPassword();
-//
-//        if(passwordEncoder.matches(oldPassword, dbPassword)) {
-//            dbUser.setPassword(passwordEncoder.encode(newPassword));
-//            userDao.save(dbUser);
-//        }
-//        else System.out.println("I don't match");
-//
-//        return "redirect:/profile/" + dbUser.getUsername();
-//    }
-
     @GetMapping("/profile/{username}")
     public String showUserProfile(Model viewModel, @PathVariable String username) {
         User dbUser = userDao.findByUsername(username);
