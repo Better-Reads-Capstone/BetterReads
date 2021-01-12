@@ -3,14 +3,22 @@ package com.codeup.betterreads.controllers;
 import com.codeup.betterreads.models.*;
 import com.codeup.betterreads.repositories.*;
 import com.codeup.betterreads.services.MailService;
+import com.codeup.betterreads.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import com.codeup.betterreads.services.MailgunService;
+import kong.unirest.JsonNode;
+import kong.unirest.UnirestException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.util.*;
 
 @Controller
@@ -23,8 +31,12 @@ public class UserController {
     private ClubRepo clubDao;
     private ClubMemberRepo clubMemberDao;
     private MailService mailService;
+    private MailgunService mgService;
 
-    public UserController(UserRepo userDao, PasswordEncoder passwordEncoder, BookshelfRepo bookshelfDao, BookRepo bookDao, ReviewRepo reviewDao, ClubRepo clubDao, ClubMemberRepo clubMemberDao, MailService mailService) {
+    @Autowired
+    UserService usersSvc;
+
+    public UserController(UserRepo userDao, PasswordEncoder passwordEncoder, BookshelfRepo bookshelfDao, BookRepo bookDao, ReviewRepo reviewDao, ClubRepo clubDao, ClubMemberRepo clubMemberDao, MailService mailService, MailgunService mgService) {
         this.userDao = userDao;
         this.passwordEncoder = passwordEncoder;
         this.bookshelfDao = bookshelfDao;
@@ -33,24 +45,77 @@ public class UserController {
         this.clubDao = clubDao;
         this.clubMemberDao = clubMemberDao;
         this.mailService = mailService;
+        this.mgService = mgService;
+    }
+
+    // Edit controls are being showed up if the user is logged in and it's the same user viewing the file
+    public Boolean checkEditAuth(User user){
+        return usersSvc.isLoggedIn() && (user.getId() == usersSvc.loggedInUser().getId());
     }
 
     @GetMapping("/sign-up")
     public String register(Model model) {
-        model.addAttribute("user", new User());
+        User user = new User();
+        model.addAttribute("user", user);
         return "user/register";
     }
 
     @PostMapping("/sign-up")
-    public String createUser(@ModelAttribute User user, Model viewModel) {
+    public String createUser(
+            @Valid User user,
+            Errors val,
+            Model viewModel) {
+
+        //Checks for existing email
+        User checkUserEmail = userDao.findByEmail(user.getEmail());
+        System.out.println(checkUserEmail);
+        String errorMsgEmail = "The email has been taken.";
+        if (checkUserEmail != null){
+            val.rejectValue(
+                    "email",
+                    "user.email",
+                    errorMsgEmail
+            );
+        }
+
+        //Checks for existing username
+        User checkUsername = userDao.findByUsername(user.getUsername());
+        System.out.println(checkUsername);
+        String errorMsgUsername = "The username has been taken.";
+        if (checkUsername != null){
+            val.rejectValue(
+                    "username",
+                    "user.username",
+                    errorMsgUsername
+            );
+        }
+
+        if (val.hasErrors()) {
+            viewModel.addAttribute("errors", val);
+            viewModel.addAttribute("user", user);
+            return "user/register";
+        }
+
         String hash = passwordEncoder.encode(user.getPassword());
-        user.setPassword(hash);
         Date currentDate = new Date();
-        user.setCreatedDate(currentDate);
         String defaultIMG = "/img/logo.png";
+
+        user.setPassword(hash);
+        user.setCreatedDate(currentDate);
         user.setAvatarURL(defaultIMG);
+
         User dbUser = userDao.save(user);
+
+        // Send registration email
+        try {
+            JsonNode response = mgService.sendRegisterMessage(dbUser, true);
+            System.out.println("response.toPrettyString() = " + response.toPrettyString());
+        } catch (UnirestException e) {
+            e.printStackTrace();
+        }
+
         viewModel.addAttribute("user", dbUser);
+
         return "redirect:/create-profile/" + dbUser.getUsername();
     }
 
@@ -79,22 +144,46 @@ public class UserController {
     }
 
     @PostMapping("/edit-profile/{username}")
-    public String editProfile(@PathVariable String username, @ModelAttribute User userToBeUpdated) {
+    public String editProfile(@PathVariable String username,
+                              @ModelAttribute User userToBeUpdated
+    ){
         User user = userDao.findByUsername(username);
+        if(!usersSvc.canEditProfile(user)) {
+            return "redirect:/profile/" + username;
+        }
+
         userToBeUpdated.setId(user.getId());
         userToBeUpdated.setUsername(user.getUsername());
         userToBeUpdated.setEmail(user.getEmail());
         userToBeUpdated.setPassword(user.getPassword());
         userToBeUpdated.setCreatedDate(user.getCreatedDate());
+
         User dbUser = userDao.save(userToBeUpdated);
         return "redirect:/profile/" + dbUser.getUsername();
     }
 
+//    @PostMapping("/changePassword")
+//    public String changePassword(@RequestParam(name="oldPassword") String oldPassword,
+//                                 @RequestParam(name="newPassword") String newPassword
+//    ){
+//        User dbUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        String dbPassword = dbUser.getPassword();
+//
+//        if(passwordEncoder.matches(oldPassword, dbPassword)) {
+//            dbUser.setPassword(passwordEncoder.encode(newPassword));
+//            userDao.save(dbUser);
+//        }
+//        else System.out.println("I don't match");
+//
+//        return "redirect:/profile/" + dbUser.getUsername();
+//    }
+
     @GetMapping("/profile/{username}")
     public String showUserProfile(Model viewModel, @PathVariable String username) {
-        viewModel.addAttribute("user", userDao.findByUsername(username));
-
         User dbUser = userDao.findByUsername(username);
+        viewModel.addAttribute("user", dbUser);
+
+        viewModel.addAttribute("showEditControls", usersSvc.canEditProfile(dbUser));
         List<Bookshelf> dbBookshelf = bookshelfDao.findAllByUserId(dbUser.getId());
 
         //looping through all clubs and retrieving users who are members of
@@ -129,6 +218,7 @@ public class UserController {
         viewModel.addAttribute("wishlist", wishlist);
         viewModel.addAttribute("review", new Review());
         viewModel.addAttribute("bookclubs", clubsUserIsApartOf);
+
         return "user/profile-page";
     }
 

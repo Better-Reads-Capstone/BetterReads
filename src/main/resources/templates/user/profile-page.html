@@ -10,7 +10,7 @@
             <p>You are a book club owner, please contact our <a href="mailto:help@betterreads.site">support team</a> for
                 assistance with deleting your profile</p>
         </div>
-        <div>
+        <div th:if="${showEditControls}">
             <form th:action="@{/edit-profile/{username} (username = ${user.username})}">
                 <button class="btn btn-primary" type="submit">
                     Edit Profile
@@ -108,7 +108,7 @@
             </div>
         </div>
 
-        <!--    SHOW OWNED BOOKCLUBS    -->
+        <!--    SHOW BOOKCLUBS    -->
         <div class="book-club-block">
             <h5>Bookclubs</h5>
             <div th:each="bookclub : ${bookclubs}">
@@ -124,14 +124,6 @@
                 </div>
             </div>
         </div>
-        <!--    SHOW JOINED BOOKCLUBS    -->
-        <!--        <div class="bookclubs">-->
-        <!--            <h5>Bookclubs You Are a Member Of</h5>-->
-        <!--            <div th:each="bookclub : ${joinedClubs}">-->
-        <!--                <img th:src="${bookclub.headerImageUrl}" alt="bookclubImg">-->
-        <!--                <a th:href="@{/bookclub/{id}(id=${bookclub.id})}" th:text="${bookclub.name}"></a>-->
-        <!--            </div>-->
-        <!--        </div>-->
 
         <!--    SHOW BOOK MODAL    -->
         <div class="modal" id="bookModal">

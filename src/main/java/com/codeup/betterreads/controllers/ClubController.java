@@ -55,6 +55,7 @@ public class ClubController {
         return "user/create-club";
     }
 
+
     @PostMapping("/create-club")
     public String createClub(@ModelAttribute Club club) {
 
