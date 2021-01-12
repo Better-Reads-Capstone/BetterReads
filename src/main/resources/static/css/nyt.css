@@ -1,22 +1,179 @@
-.loading-icon{
-    width: 80px;
-    height: 80px;
+/*.background-block {*/
+/*    width: 60vw;*/
+/*    height: 100vh;*/
+/*    position: fixed;*/
+/*    left: 20%;*/
+/*    z-index: -1;*/
+/*    */
+/*}*/
 
-    border: 2px solid #f3f3f3;
-    border-top:3px solid #54dec3;
-    border-radius: 100%;
-
-    animation: spin 1s infinite linear;
+body {
+    background-color: #fff;
 }
 
-@keyframes spin {
-    from {
-        transform: rotate(0deg);
-    } to {
-          transform: rotate(360deg);
-      }
+.header-block {
+    margin-top: 25px;
+    height: 500px;
+    position: relative;
+    background-color: #F3E7DD;
+    border-radius: 32px;
 }
 
-.loading-icon.show {
-    display: block;
+.header-text {
+    position: absolute;
+    top: 15%;
+    left: 10%;
+    z-index: 1;
+}
+
+.nyt-text {
+    font-size: 2rem;
+}
+
+.best-sellers-text {
+    font-size: 6em;
+    letter-spacing: 5px;
+}
+
+.header-img {
+    display: none;
+}
+
+.best-sellers-menu {
+    position: absolute;
+    display: flex;
+    list-style: none;
+    left: -29px;
+    bottom: -80px;
+}
+
+.best-sellers-menu li a {
+    padding: 10px;
+    font-size: 1.3rem;
+    color: #5E19EB;
+}
+
+.best-sellers-links:hover {
+    color: #54dec3;
+}
+
+.best-sellers-links:visited {
+    color: #5E19EB;
+}
+
+.book {
+    position: relative;
+}
+
+.book-row {
+    display: flex;
+    overflow: auto;
+}
+
+.book-img {
+    width: 12rem;
+    -webkit-box-shadow: 4px 4px 0px 0px rgba(255, 132, 126, 1);
+    -moz-box-shadow:    4px 4px 0px 0px rgba(255, 132, 126, 1);
+    box-shadow:         4px 4px 0px 0px rgba(255, 132, 126, 1);
+}
+
+.book-cover {
+    display: flex;
+    margin: 16px;
+    background-color: #F3E7DD;
+    border-radius: 32px;
+    flex: 1;
+    position: relative;
+
+}
+
+.book-info {
+    display: flex;
+    flex-direction: column;
+    /*justify-content: space-evenly;*/
+    width: 200px;
+    overflow-wrap: break-word;
+    color: #000;
+}
+
+.book-title{
+    margin-top: 40px;
+    padding-top: 20px;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+
+    /* Adds a hyphen where the word breaks, if supported (No Blink) */
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+}
+
+.book-img:hover{
+    cursor: pointer;
+    transform: translateY(-3px);
+    -webkit-box-shadow: 8px 8px 0px 0px rgba(255, 132, 126, 1);
+    -moz-box-shadow:    8px 8px 0px 0px rgba(255, 132, 126, 1);
+    box-shadow:         8px 8px 0px 0px rgba(255, 132, 126, 1);
+}
+
+.rank {
+    position: absolute;
+    right: 20px;
+    bottom: 5px;
+}
+
+.rank-shadow {
+    position: absolute;
+    right: 24px;
+    bottom: 9px;
+}
+
+.rank-shadow h1 {
+    font-size: 6em;
+    color: #5E19EB;
+}
+
+.rank h1 {
+    font-size: 6em;
+    color: #ff897e;
+}
+
+@media (min-width: 768px) {
+    .nyt-text {
+        font-size: 3rem;
+    }
+
+    .best-sellers-text {
+        font-size: 7em;
+        letter-spacing: 5px;
+    }
+
+    .header-img {
+        display: block;
+        float: right;
+        width: 300px;
+        height: 300px;
+        position: absolute;
+        bottom: 0;
+        right: 10px;
+    }
+
+
+
+}
+
+
+@media (min-width: 992px) {
+
+    .header-img {
+        height: 500px;
+        width: 500px;
+    }
+
+    .best-sellers-menu li a {
+        padding: 40px;
+        font-size: 1.3rem;
+    }
 }

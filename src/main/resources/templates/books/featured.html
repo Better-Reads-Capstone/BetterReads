@@ -1,102 +1,153 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="partials/head :: head(title = 'Bestsellers')">
-</head>
-<body>
-    <nav th:replace="partials/navbar :: navbar"></nav>
-    <br />
-    <div class="container">
-        <div class="print-ebook-fiction">
-            <h2>Combined Print & E-Book Fiction</h2>
+    <head th:replace="partials/head :: head(title = 'Bestsellers')">
+    </head>
+    <body>
+        <nav th:replace="partials/navbar :: navbar"></nav>
+        <div class="background-block"></div>
+        <div class="container">
+            <header>
+                <div class="header-block">
+                    <div class="header-text">
+                        <h3 class="nyt-text">New York Times</h3>
+                        <h1 class="best-sellers-text">Best Sellers</h1>
+                        <ul class="best-sellers-menu">
+                            <li><a class="best-sellers-links" href="#fiction">Fiction</a></li>
+                            <li><a class="best-sellers-links" href="#nonfiction">Nonfiction</a></li>
+                            <li><a class="best-sellers-links" href="#children">Children</a></li>
+                            <li><a class="best-sellers-links" href="#young-adult">YA</a></li>
+                        </ul>
+                    </div>
+                    <img class="header-img" th:src="@{/img/bestsellers-logo.svg}" alt="girl drinking coffee" />
+                </div>
+            </header>
             <br />
-            <div class="loading-icon mx-auto"></div>
-            <div class="print-ebook-fiction-list row row-cols-1">
-                <!--Best Sellers load here-->
-            </div>
+            <main>
+                <section>
+                    <div class="book print-ebook-fiction">
+                        <h2>Combined Print & E-Book Fiction</h2>
+                        <br />
+                        <div class="loading-icon mx-auto"></div>
+                        <div class="print-ebook-fiction-list book-row">
+                            <!--Best Sellers load here-->
+                        </div>
+                    </div>
+                </section>
+                <br />
+                <section>
+                    <div id="fiction" class="book hardcover-fiction">
+                        <h2>Hardcover Fiction</h2>
+                        <br />
+                        <div class="loading-icon mx-auto"></div>
+                        <div class="hardcover-fiction-list book-row">
+                            <!--Best Sellers load here-->
+                        </div>
+                    </div>
+                </section>
+                <br />
+                <section>
+                    <div class="book trade-fiction-paperback">
+                        <h2>Paperback Trade Fiction</h2>
+                        <br />
+                        <div class="loading-icon mx-auto"></div>
+                        <div class="trade-fiction-paperback-list book-row">
+                            <!--Best Sellers load here-->
+                        </div>
+                    </div>
+                </section>
+                <br />
+                <section>
+                    <div id="nonfiction" class="book print-ebook-nonfiction">
+                        <h2>Combined Print & E-Book Nonfiction</h2>
+                        <br />
+                        <div class="loading-icon mx-auto"></div>
+                        <div class="print-ebook-nonfiction-list book-row">
+                            <!--Best Sellers load here-->
+                        </div>
+                    </div>
+                </section>
+                <br />
+                <section>
+                    <div class="book hardcover-nonfiction">
+                        <h2>Hardcover Nonfiction</h2>
+                        <br />
+                        <div class="loading-icon mx-auto"></div>
+                        <div class="hardcover-nonfiction-list book-row">
+                            <!--Best Sellers load here-->
+                        </div>
+                    </div>
+                </section>
+                <br />
+                <section>
+                    <div class="book paperback-nonfiction">
+                        <h2>Paperback Trade Nonfiction</h2>
+                        <br />
+                        <div class="loading-icon mx-auto"></div>
+                        <div class="paperback-nonfiction-list book-row">
+                            <!--Best Sellers load here-->
+                        </div>
+                    </div>
+                </section>
+                <br />
+                <section>
+                    <div class="book advice-how-to">
+                        <h2>Advice, How-To & Miscellaneous</h2>
+                        <br />
+                        <div class="loading-icon mx-auto"></div>
+                        <div class="advice-how-to-list book-row">
+                            <!--Best Sellers load here-->
+                        </div>
+                    </div>
+                </section>
+                <br />
+                <section>
+                    <div id="children" class="book middle-grade">
+                        <h2>Children's Middle Grade Hardcover</h2>
+                        <br />
+                        <div class="loading-icon mx-auto"></div>
+                        <div class="middle-grade-list book-row">
+                            <!--Best Sellers load here-->
+                        </div>
+                    </div>
+                </section>
+                <br />
+                <section>
+                    <div class="book picture-books">
+                        <h2>Picture Books</h2>
+                        <br />
+                        <div class="loading-icon mx-auto"></div>
+                        <div class="picture-books-list book-row">
+                            <!--Best Sellers load here-->
+                        </div>
+                    </div>
+                </section>
+                <br />
+                <section>
+                    <div class="book series-books">
+                        <h2>Series Books</h2>
+                        <br />
+                        <div class="loading-icon mx-auto"></div>
+                        <div class="series-books-list book-row">
+                            <!--Best Sellers load here-->
+                        </div>
+                    </div>
+                </section>
+                <br />
+                <section>
+                    <div id="young-adult" class="book ya-hardcover">
+                        <h2>Young Adult Hardcover</h2>
+                        <br />
+                        <div class="loading-icon mx-auto"></div>
+                        <div class="ya-hardcover-list book-row">
+                            <!--Best Sellers load here-->
+                        </div>
+                    </div>
+                </section>
+                <br />
+            </main>
         </div>
-        <div class="hardcover-fiction">
-            <h2>Hardcover Fiction</h2>
-            <br />
-            <div class="loading-icon mx-auto"></div>
-            <div class="hardcover-fiction-list row row-cols-1">
-                <!--Best Sellers load here-->
-            </div>
-        </div>
-        <div class="trade-fiction-paperback">
-            <h2>Paperback Trade Fiction</h2>
-            <br />
-            <div class="loading-icon mx-auto"></div>
-            <div class="trade-fiction-paperback-list row row-cols-1">
-                <!--Best Sellers load here-->
-            </div>
-        </div>
-        <div class="print-ebook-nonfiction">
-            <h2>Combined Print & E-Book Nonfiction</h2>
-            <br />
-            <div class="loading-icon mx-auto"></div>
-            <div class="print-ebook-nonfiction-list row row-cols-1">
-                <!--Best Sellers load here-->
-            </div>
-        </div>
-        <div class="hardcover-nonfiction">
-            <h2>Hardcover Nonfiction</h2>
-            <br />
-            <div class="loading-icon mx-auto"></div>
-            <div class="hardcover-nonfiction-list row row-cols-1">
-                <!--Best Sellers load here-->
-            </div>
-        </div>
-        <div class="paperback-nonfiction">
-            <h2>Paperback Trade Nonfiction</h2>
-            <br />
-            <div class="loading-icon mx-auto"></div>
-            <div class="paperback-nonfiction-list row row-cols-1">
-                <!--Best Sellers load here-->
-            </div>
-        </div>
-        <div class="advice-how-to">
-            <h2>Advice, How-To & Miscellaneous</h2>
-            <br />
-            <div class="loading-icon mx-auto"></div>
-            <div class="advice-how-to-list row row-cols-1">
-                <!--Best Sellers load here-->
-            </div>
-        </div>
-        <div class="middle-grade">
-            <h2>Children's Middle Grade Hardcover</h2>
-            <br />
-            <div class="loading-icon mx-auto"></div>
-            <div class="middle-grade-list row row-cols-1">
-                <!--Best Sellers load here-->
-            </div>
-        </div>
-        <div class="picture-books">
-            <h2>Picture Books</h2>
-            <br />
-            <div class="loading-icon mx-auto"></div>
-            <div class="picture-books-list row row-cols-1">
-                <!--Best Sellers load here-->
-            </div>
-        </div>
-        <div class="series-books">
-            <h2>Series Books</h2>
-            <br />
-            <div class="loading-icon mx-auto"></div>
-            <div class="series-books-list row row-cols-1">
-                <!--Best Sellers load here-->
-            </div>
-        </div>
-        <div class="ya-hardcover">
-            <h2>Young Adult Hardcover</h2>
-            <br />
-            <div class="loading-icon mx-auto"></div>
-            <div class="ya-hardcover-list row row-cols-1">
-                <!--Best Sellers load here-->
-            </div>
-        </div>
-    </div>
-    <br />
-    <footer th:replace="partials/footer :: footer"></footer>
-    <script type="text/javascript" th:src="@{/js/nyt.js}" defer></script>
-</body>
+        <br />
+        <footer th:replace="partials/footer :: footer"></footer>
+        <script type="text/javascript" th:src="@{/js/nyt.js}" defer></script>
+    </body>
 </html>
