@@ -1,10 +1,9 @@
 package com.codeup.betterreads;
 
-import com.codeup.betterreads.models.Club;
-import com.codeup.betterreads.models.Post;
-import com.codeup.betterreads.models.User;
+import com.codeup.betterreads.models.*;
 import com.codeup.betterreads.repositories.ClubRepo;
 import com.codeup.betterreads.repositories.PostRepo;
+import com.codeup.betterreads.repositories.ReviewRepo;
 import com.codeup.betterreads.repositories.UserRepo;
 import org.junit.After;
 import org.junit.Before;
@@ -53,6 +52,9 @@ public class UserIntegrationTest {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private ReviewRepo reviewDao;
 
 
     @Before
@@ -271,6 +273,38 @@ public class UserIntegrationTest {
 //                // Test the dynamic content of the page
 //                .andExpect(content().string(containsString("edited title")))
 //                .andExpect(content().string(containsString("edited body")));
+//    }
+
+    //REVIEW TESTING
+
+    //Create Review On Profile Page
+    @Test
+    public void testCreateReview() throws Exception {
+        //replace with the Book Levi creates
+        Book testBook = new Book();
+        testBook.setId(1);
+
+        this.mvc.perform(
+                post("/profile/"+ testUser.getUsername() +"/review/"+ testBook.getId()).with(csrf())
+                .session((MockHttpSession) httpSession)
+                .param("rating", "1")
+                .param("created_date", "2021-01-12 00:24:46.584000"))
+            .andExpect(status().is3xxRedirection());
+
+    }
+
+//    @Test
+//    public void testShowReview() throws Exception {
+//        //replace with the Book Levi creates
+//        Book testBook = new Book();
+//        testBook.setId(1);
+//        Review existingReview = reviewDao.findAll().get(0);
+//
+//        this.mvc.perform(get("/profile/" + testUser.getUsername() + "/review/" + testBook.getId()))
+//                .andExpect(status().isOk())
+//
+//                .andExpect(content().string(containsString(existingReview.get))
+//        )
 //    }
 }
 
