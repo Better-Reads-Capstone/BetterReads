@@ -4,27 +4,28 @@
     </head>
     <body>
         <nav th:replace="partials/navbar :: navbar"></nav>
-        <div class="background-block"></div>
-        <div class="container">
-            <header>
-                <div class="header-block">
-                    <div class="header-text">
-                        <h3 class="nyt-text">New York Times</h3>
-                        <h1 class="best-sellers-text">Best Sellers</h1>
-                        <ul class="best-sellers-menu">
-                            <li><a class="best-sellers-links" href="#fiction">Fiction</a></li>
-                            <li><a class="best-sellers-links" href="#nonfiction">Nonfiction</a></li>
-                            <li><a class="best-sellers-links" href="#children">Children</a></li>
-                            <li><a class="best-sellers-links" href="#young-adult">YA</a></li>
-                        </ul>
-                    </div>
-                    <img class="header-img" th:src="@{/img/bestsellers-logo.svg}" alt="girl drinking coffee" />
+        <header>
+            <div class="header-block-left">
+                <div class="header-text">
+                    <p class="nyt-text">New York Times</p>
+                    <p class="best-sellers-text">Best Sellers</p>
+                    <ul class="best-sellers-menu">
+                        <li class="best-sellers-li"><a class="best-sellers-links" href="#fiction">Fiction</a></li>
+                        <li class="best-sellers-li"><a class="best-sellers-links" href="#nonfiction">Nonfiction</a></li>
+                        <li class="best-sellers-li"><a class="best-sellers-links" href="#children">Children</a></li>
+                        <li class="best-sellers-li"><a class="best-sellers-links" href="#young-adult">YA</a></li>
+                    </ul>
                 </div>
-            </header>
+            </div>
+            <div class="header-block-right">
+                <img class="header-img" th:src="@{/img/best-seller-header.svg}">
+            </div>
+        </header>
+        <div class="site-margin">
             <br />
             <main>
                 <section>
-                    <div class="book print-ebook-fiction">
+                    <div data-aos="fade-up" class="book print-ebook-fiction">
                         <h2>Combined Print & E-Book Fiction</h2>
                         <br />
                         <div class="loading-icon mx-auto"></div>
@@ -35,7 +36,7 @@
                 </section>
                 <br />
                 <section>
-                    <div id="fiction" class="book hardcover-fiction">
+                    <div data-aos="fade-up" id="fiction" class="book hardcover-fiction">
                         <h2>Hardcover Fiction</h2>
                         <br />
                         <div class="loading-icon mx-auto"></div>
@@ -46,7 +47,7 @@
                 </section>
                 <br />
                 <section>
-                    <div class="book trade-fiction-paperback">
+                    <div data-aos="fade-up" class="book trade-fiction-paperback">
                         <h2>Paperback Trade Fiction</h2>
                         <br />
                         <div class="loading-icon mx-auto"></div>
@@ -57,7 +58,7 @@
                 </section>
                 <br />
                 <section>
-                    <div id="nonfiction" class="book print-ebook-nonfiction">
+                    <div data-aos="fade-up" id="nonfiction" class="book print-ebook-nonfiction">
                         <h2>Combined Print & E-Book Nonfiction</h2>
                         <br />
                         <div class="loading-icon mx-auto"></div>
@@ -68,7 +69,7 @@
                 </section>
                 <br />
                 <section>
-                    <div class="book hardcover-nonfiction">
+                    <div data-aos="fade-up" class="book hardcover-nonfiction">
                         <h2>Hardcover Nonfiction</h2>
                         <br />
                         <div class="loading-icon mx-auto"></div>
@@ -79,7 +80,7 @@
                 </section>
                 <br />
                 <section>
-                    <div class="book paperback-nonfiction">
+                    <div data-aos="fade-up" class="book paperback-nonfiction">
                         <h2>Paperback Trade Nonfiction</h2>
                         <br />
                         <div class="loading-icon mx-auto"></div>
@@ -90,7 +91,7 @@
                 </section>
                 <br />
                 <section>
-                    <div class="book advice-how-to">
+                    <div data-aos="fade-up" class="book advice-how-to">
                         <h2>Advice, How-To & Miscellaneous</h2>
                         <br />
                         <div class="loading-icon mx-auto"></div>
@@ -101,7 +102,7 @@
                 </section>
                 <br />
                 <section>
-                    <div id="children" class="book middle-grade">
+                    <div data-aos="fade-up" id="children" class="book middle-grade">
                         <h2>Children's Middle Grade Hardcover</h2>
                         <br />
                         <div class="loading-icon mx-auto"></div>
@@ -112,7 +113,7 @@
                 </section>
                 <br />
                 <section>
-                    <div class="book picture-books">
+                    <div data-aos="fade-up" class="book picture-books">
                         <h2>Picture Books</h2>
                         <br />
                         <div class="loading-icon mx-auto"></div>
@@ -123,7 +124,7 @@
                 </section>
                 <br />
                 <section>
-                    <div class="book series-books">
+                    <div data-aos="fade-up" class="book series-books">
                         <h2>Series Books</h2>
                         <br />
                         <div class="loading-icon mx-auto"></div>
@@ -134,7 +135,7 @@
                 </section>
                 <br />
                 <section>
-                    <div id="young-adult" class="book ya-hardcover">
+                    <div data-aos="fade-up" id="young-adult" class="book ya-hardcover">
                         <h2>Young Adult Hardcover</h2>
                         <br />
                         <div class="loading-icon mx-auto"></div>
@@ -149,5 +150,8 @@
         <br />
         <footer th:replace="partials/footer :: footer"></footer>
         <script type="text/javascript" th:src="@{/js/nyt.js}" defer></script>
+        <script>
+            AOS.init();
+        </script>
     </body>
 </html>

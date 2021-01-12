@@ -1,6 +1,18 @@
-* {
-    /*border: black solid 3px;*/
-    /*background-color: grey;*/
+:root {
+    /*  Colors  */
+    --makeup-tan: #DDAF94;
+    --blush: #E8CEBF;
+    --forest-green: #266150;
+    --dark-grey: #4F4846;
+    --dark-brown: #2A1510;
+    --off-white:  #FDF8F5;
+
+    /*  Fonts  */
+    --raleway: 'Raleway', sans-serif;
+    --montserrat: 'Montserrat', sans-serif;
+
+    /*  Border Radius  */
+    --border-radius: 32px;
 }
 
 .loading-icon{

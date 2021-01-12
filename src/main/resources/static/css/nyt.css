@@ -1,38 +1,45 @@
-/*.background-block {*/
-/*    width: 60vw;*/
-/*    height: 100vh;*/
-/*    position: fixed;*/
-/*    left: 20%;*/
-/*    z-index: -1;*/
-/*    */
-/*}*/
-
-body {
-    background-color: #fff;
+.site-margin {
+    margin: 50px 20px;
 }
 
-.header-block {
-    margin-top: 25px;
-    height: 500px;
+header {
+    display: flex;
+}
+
+.header-block-left {
+    height: 550px;
+    width: 60vw;
     position: relative;
-    background-color: #F3E7DD;
-    border-radius: 32px;
+    background-color: var(--blush);
+}
+
+.header-block-right {
+    height: 550px;
+    width: 40vw;
+    background-color: var(--makeup-tan);
 }
 
 .header-text {
     position: absolute;
-    top: 15%;
+    top: 21%;
     left: 10%;
     z-index: 1;
 }
 
 .nyt-text {
     font-size: 2rem;
+    font-family: var(--raleway);
+    color: var(--dark-brown);
+    text-transform: uppercase;
 }
 
 .best-sellers-text {
-    font-size: 6em;
-    letter-spacing: 5px;
+    font-size: 5em;
+    font-family: var(--montserrat);
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--off-white);
+    text-shadow: 3px 3px 2px rgb(150, 150, 150);
 }
 
 .header-img {
@@ -43,22 +50,22 @@ body {
     position: absolute;
     display: flex;
     list-style: none;
-    left: -29px;
-    bottom: -80px;
+    left: -41px;
+    bottom: -60px;
 }
 
-.best-sellers-menu li a {
-    padding: 10px;
+.best-sellers-links, .best-sellers-links:hover, .best-sellers-links:visited{
+    padding: 10px 15px;
+    margin: 10px;
     font-size: 1.3rem;
-    color: #5E19EB;
+    font-weight: 200;
+    color: var(--off-white);
+    background-color: var(--forest-green);
+    text-decoration: none;
 }
 
-.best-sellers-links:hover {
-    color: #54dec3;
-}
-
-.best-sellers-links:visited {
-    color: #5E19EB;
+.best-sellers-li:hover {
+    transform: translateY(-3px);
 }
 
 .book {
@@ -68,20 +75,19 @@ body {
 .book-row {
     display: flex;
     overflow: auto;
+    margin: 50px 0;
 }
 
 .book-img {
     width: 12rem;
     -webkit-box-shadow: 4px 4px 0px 0px rgba(255, 132, 126, 1);
-    -moz-box-shadow:    4px 4px 0px 0px rgba(255, 132, 126, 1);
+    -moz-box-shadow:    4px 4px 0px 0px rgb(255, 132, 126);
     box-shadow:         4px 4px 0px 0px rgba(255, 132, 126, 1);
 }
 
 .book-cover {
     display: flex;
     margin: 16px;
-    background-color: #F3E7DD;
-    border-radius: 32px;
     flex: 1;
     position: relative;
 
@@ -132,22 +138,19 @@ body {
 
 .rank-shadow h1 {
     font-size: 6em;
-    color: #5E19EB;
 }
 
 .rank h1 {
     font-size: 6em;
-    color: #ff897e;
 }
 
 @media (min-width: 768px) {
     .nyt-text {
-        font-size: 3rem;
+        font-size: 2rem;
     }
 
     .best-sellers-text {
-        font-size: 7em;
-        letter-spacing: 5px;
+        font-size: 5em;
     }
 
     .header-img {
@@ -156,24 +159,16 @@ body {
         width: 300px;
         height: 300px;
         position: absolute;
-        bottom: 0;
-        right: 10px;
+        right: 30px;
+        top: 200px;
     }
-
-
-
 }
 
-
 @media (min-width: 992px) {
-
     .header-img {
         height: 500px;
         width: 500px;
-    }
-
-    .best-sellers-menu li a {
-        padding: 40px;
-        font-size: 1.3rem;
+        right: 30px;
+        bottom: 15px;
     }
 }
