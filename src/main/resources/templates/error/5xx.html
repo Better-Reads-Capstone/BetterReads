@@ -1,22 +1,23 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="partials/head :: head('We\'re Sorry')">
+<head th:replace="partials/head :: head('Chaos monkeys and 500 errors')">
 </head>
 <body>
 <nav th:replace="partials/navbar :: navbar"></nav>
-<br><br><br>
-<div style="text-align: center;">
-        <th:block>
-        <h1>Hmm... it looks like something went wrong.</h1>
-        <h4>Try going back to our <a href="/">homepage,</a></h4>
-
-        <br><br><br>
-
-        <h4>Or, use this <button type="button" onclick="javascript:history.back()">Back</button> button to go back one page.
-        </h4>
-</th:block>
-</div>
-<br><br><br>
+        <div class="container">
+                <div class="my-3">
+                        <h1 class="text-center my-3">500 <span th:text="${error}"></span></h1>
+                        <h3 class="text-center my-3">Frankenstein's monster has run amok on our servers, a developer may have to be sacrificed.</h3>
+                        <p class="text-center my-3">Somewhat horrifying, yet you've got some options below:</p>
+                        <div class="container my-5" id="btn-container">
+                                <div class="d-flex justify-content-around">
+                                        <button class="btn btn-primary btn-back" type="button">Head <i class="bi bi-arrow-left-square"></i></button>
+                                        <a href="/" class="btn btn-primary">Head <i class="bi bi-house"></i></a>
+                                </div>
+                        </div>
+                </div>
+        </div>
 <footer th:replace="partials/footer :: footer"></footer>
+<script th:src="@{/js/utils/error.js}" defer></script>
 </body>
 </html>
