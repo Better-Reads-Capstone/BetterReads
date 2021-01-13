@@ -23,6 +23,11 @@
     --header-large-width: 60vw;
 }
 
+.site-margin {
+    margin: 50px 30px;
+    overflow: hidden;
+}
+
 .loading-icon{
     width: 80px;
     height: 80px;
@@ -88,7 +93,6 @@ header {
 }
 
 .book-cover {
-    display: flex;
     margin: 16px;
     flex: 1;
     position: relative;
@@ -105,11 +109,12 @@ header {
     width: 200px;
     overflow-wrap: break-word;
     color: #000;
+    margin-left: 10px;
+    margin-bottom: 90px;
 }
 
 .book-title{
-    margin-top: 40px;
-    padding-top: 20px;
+    margin: 15px 0 10px 25px;
     overflow-wrap: break-word;
     word-wrap: break-word;
     word-break: break-word;
@@ -121,16 +126,41 @@ header {
     hyphens: auto;
     font-family: var(--raleway);
     font-weight: 700;
-    font-size: 1.5em;
+    font-size: 1.2em;
 }
 
 .book-author {
     font-family: var(--montserrat);
     color: var(--forest-green);
-    font-size: 1.2em;
+    font-size: 1em;
+    margin-left: 24px;
 }
 
 .book-img:hover{
     cursor: pointer;
     transform: translateY(-3px);
+}
+
+@media (min-width: 768px) {
+
+    .book-cover {
+        display: flex;
+    }
+
+    .book-title {
+        margin-left: 0;
+        margin-top: 40px;
+        padding-top: 20px;
+        font-weight: 700;
+        font-size: 1.5em;
+    }
+
+    .book-author {
+        margin: 0;
+        font-size: 1.5em;
+    }
+
+    .book-info {
+        margin: 0;
+    }
 }
