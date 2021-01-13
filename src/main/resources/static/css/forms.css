@@ -11,22 +11,28 @@
 
 }
 
-@media (min-width: 768px) {
-    #login-container {
+.login-container {
+    display: flex;
+}
+
+    /**/
+    #form-container {
         border: solid black 1px;
         width: 30rem;
         height: 50rem;
-        border-radius: 25px;
-
+        border-radius: 10px;
+        margin: auto;
+        padding: 0 30px;
     }
 
     .welcome-spacing {
          margin-top: 125px;
-         margin-bottom: 180px;
+         margin-bottom: 200px;
      }
 
     .message {
         height: 24px;
+        margin: 20px 0;
     }
 
     .input-spacing {
@@ -38,7 +44,6 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 30px;
     }
 
     .login-submit {
@@ -49,6 +54,11 @@
         width: 75px;
         height: 75px;
         background-color: darkgreen;
+        transition: transform .2s;
+    }
+
+    .login-submit:hover {
+        transform: scale(1.05);
     }
 
     .bi-arrow-right {
@@ -59,16 +69,38 @@
     .links-container {
         display: flex;
         justify-content: space-between;
-        margin-top: 20px;
+        margin-top: 60px;
     }
-}
+
+    .desktop-image {
+        display: none;
+    }
+
 
 @media (min-width: 992px) {
-    #login-container {
-        border: solid black 1px;
+    #form-container {
         width: 40rem;
         height: 40rem;
-        border-radius: 25px;
+        border-top: solid black 1px;
+        border-bottom: solid black 1px;
+        border-left: solid black 1px;
+        border-right: none;
+        border-radius: 10px 0 0 10px;
+        margin: auto 0 auto auto;
+        padding: 0 40px;
+    }
 
+    .welcome-spacing {
+        margin-top: 60px;
+        margin-bottom: 120px;
+    }
+
+    .desktop-image {
+        display: flex;
+        background-color: darkgreen;
+        width: 30rem;
+        height: 40rem;
+        border-radius: 0 10px 10px 0;
+        margin-right: auto;
     }
 }
