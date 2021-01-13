@@ -8,16 +8,31 @@
     <main>
         <br />
         <div class="site-margin">
-            <header>
-                <div class="header-block">
-                    <div>
-                        <h1 th:text="${club.name}"></h1>
+            <!--About The Club-->
+            <section class="club-intro-section">
+                <div class="avatar-name-genre">
+                    <div class="club-name-container">
+                        <h3 th:text="${club.name}"></h3>
                     </div>
                     <div class="club-avatar">
-                        <img th:src="${club.headerImageUrl}" alt="">
+                        <img th:src="${club.headerImageUrl}" alt="book club avatar">
+                    </div>
+                    <div class="genre-container">
+                        <p>Club genre: </p><h3 th:text="${club.genre.name}"></h3>
                     </div>
                 </div>
-            </header>
+                <div class="club-buttons"></div>
+
+            </section>
+
+
+
+            <div class="about-club-container">
+                <p>About: </p><span th:text="${club.name}"></span>
+                <p th:text="${club.about}"></p>
+            </div>
+
+
             <!--Admin Control-->
             <div class="admin-controls" th:if="${member != null && member.isAdmin == true}">
                 <!-- Create Blog Post Button for owner/admin -->
@@ -79,15 +94,6 @@
                     </form>
                 </div>
             </div>
-            <br />
-            <div class="club-info">
-
-                <p>Name of club: </p><h1 th:text="${club.name}"></h1>
-                <p>About: </p><h3 th:text="${club.about}"></h3>
-                <p>Club genre: </p><h3 th:text="${club.genre.name}"></h3>
-                <p>Club Owner: </p><h3 th:text="${club.owner.username}"></h3>
-            </div>
-            <br />
             <!--    Members Container        -->
             <div class="members-container">
                 <h3>Members</h3>
