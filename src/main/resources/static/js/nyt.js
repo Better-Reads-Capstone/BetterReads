@@ -122,12 +122,14 @@ function displayBookCard(book) {
     finalHTML =
         `<div class="book-cover">
                 <div class="book-card">
-                    <img src="${book.image}" class="book-cover book-img" alt="Book cover for ${book.title}" data-id="${book.isbn}" />
+                    <img src="${book.image}" class="book-img" alt="Book cover for ${book.title}" data-id="${book.isbn}" />
+                </div>
+                <div class="book-info-background">
+                    
                 </div>
                 <div class="book-card book-info">
-                    <h4 class="book-title">${book.title}</h4>
-                    <p>${book.author}</p>
-                    <p>Rating</p>
+                    <p class="book-title">${book.title}</p>
+                    <p class="book-author">${book.author}</p>
                 </div>
                 <div class="rank ${book.rank}">
                     <h1>${book.rank}</h1>
@@ -141,7 +143,7 @@ function displayBookCard(book) {
 
 
 $(document).ready(function() {
-    $(document).on("click", ".book-cover", function() {
+    $(document).on("click", ".book-img", function() {
         let isbn = $(this).data("id");
         console.log(isbn);
 

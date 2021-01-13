@@ -2,23 +2,6 @@
     margin: 50px 20px;
 }
 
-header {
-    display: flex;
-}
-
-.header-block-left {
-    height: 550px;
-    width: 60vw;
-    position: relative;
-    background-color: var(--blush);
-}
-
-.header-block-right {
-    height: 550px;
-    width: 40vw;
-    background-color: var(--makeup-tan);
-}
-
 .header-text {
     position: absolute;
     top: 21%;
@@ -62,66 +45,31 @@ header {
     color: var(--off-white);
     background-color: var(--forest-green);
     text-decoration: none;
+    border-radius: var(--border-radius);
 }
 
 .best-sellers-li:hover {
     transform: translateY(-3px);
 }
 
-.book {
-    position: relative;
+.heading-background-one, .heading-background-two {
+    position: absolute;
+    z-index: -1;
+    top: -153px;
 }
 
-.book-row {
-    display: flex;
-    overflow: auto;
-    margin: 50px 0;
+.heading-background-one {
+    left: -61px;
 }
 
-.book-img {
-    width: 12rem;
-    -webkit-box-shadow: 4px 4px 0px 0px rgba(255, 132, 126, 1);
-    -moz-box-shadow:    4px 4px 0px 0px rgb(255, 132, 126);
-    box-shadow:         4px 4px 0px 0px rgba(255, 132, 126, 1);
+.heading-background-two {
+    right: -61px;
 }
 
-.book-cover {
-    display: flex;
-    margin: 16px;
-    flex: 1;
-    position: relative;
-
-}
-
-.book-info {
-    display: flex;
-    flex-direction: column;
-    /*justify-content: space-evenly;*/
-    width: 200px;
-    overflow-wrap: break-word;
-    color: #000;
-}
-
-.book-title{
-    margin-top: 40px;
-    padding-top: 20px;
-    overflow-wrap: break-word;
-    word-wrap: break-word;
-    word-break: break-word;
-
-    /* Adds a hyphen where the word breaks, if supported (No Blink) */
-    -ms-hyphens: auto;
-    -moz-hyphens: auto;
-    -webkit-hyphens: auto;
-    hyphens: auto;
-}
-
-.book-img:hover{
-    cursor: pointer;
-    transform: translateY(-3px);
-    -webkit-box-shadow: 8px 8px 0px 0px rgba(255, 132, 126, 1);
-    -moz-box-shadow:    8px 8px 0px 0px rgba(255, 132, 126, 1);
-    box-shadow:         8px 8px 0px 0px rgba(255, 132, 126, 1);
+.list-title-one, .list-title-two {
+    font-size: 3em;
+    font-family: var(--alegreya);
+    text-align: center;
 }
 
 .rank {
@@ -138,10 +86,12 @@ header {
 
 .rank-shadow h1 {
     font-size: 6em;
+    color: var(--green);
 }
 
 .rank h1 {
     font-size: 6em;
+    color: var(--forest-green);
 }
 
 @media (min-width: 768px) {
@@ -161,6 +111,14 @@ header {
         position: absolute;
         right: 30px;
         top: 200px;
+    }
+
+    .list-title-one {
+        text-align: left;
+    }
+
+    .list-title-two {
+        text-align: right;
     }
 }
 
