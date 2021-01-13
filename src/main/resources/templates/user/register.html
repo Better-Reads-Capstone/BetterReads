@@ -3,47 +3,66 @@
 <head th:replace="partials/head :: head(title = 'Register')">
 </head>
 <body>
-    <nav th:replace="partials/navbar :: navbar"></nav>
-    <main>
-        <div class="container">
-            <h1>Register for an Account</h1>
+<nav th:replace="partials/navbar :: navbar"></nav>
+<main>
+    <div class="main-container">
+        <div class="form-container">
+            <div class="register-msg-space">
+                <h3>Register For</h3>
+                <h3>An Account</h3>
+            </div>
             <form th:action="@{/sign-up}" method="POST" th:object="${user}">
-                <div class="form-group">
-                    <label for="username">Username</label>
-                    <input id="username" class="form-control" th:field="*{username}" />
-                    <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></p>
+                <div>
+                    <input id="username" class="form-control" th:field="*{username}" placeholder="Username"/>
+                    <div class="err-msg">
+                        <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input id="email" class="form-control" th:field="*{email}" />
-                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-                    <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+                <div>
+                    <input id="email" class="form-control" th:field="*{email}" placeholder="Email"/>
+                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
+                        else.</small>
+                    <div class="err-msg">
+                        <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="first-name">First Name</label>
-                    <input id="first-name" class="form-control" th:field="*{firstName}" />
-                    <p th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></p>
+                <div>
+                    <input id="first-name" class="form-control" th:field="*{firstName}" placeholder="First Name"/>
+                    <div class="err-msg">
+                        <div th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></div>
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="last-name">Last Name</label>
-                    <input id="last-name" class="form-control" th:field="*{lastName}" />
-                    <p th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></p>
+                <div>
+                    <input id="last-name" class="form-control" th:field="*{lastName}" placeholder="Last Name"/>
+                    <div class="err-msg">
+                        <div th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></div>
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input id="password" class="form-control" type="password" th:field="*{password}" />
-                    <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
+                <div>
+                    <input id="password" class="form-control" type="password" th:field="*{password}"
+                           placeholder="Password"/>
+                    <div class="err-msg">
+                        <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+                    </div>
                 </div>
-
-                <button type="submit" class="btn btn-primary">Sign me up!</button>
+                <div class="submit-position">
+                    <h4 class="font-weight-bold">Sign Me Up!</h4>
+                    <button id="login-submit" type="submit"
+                            class="form-submit"><i
+                            class="bi bi-arrow-right"></i></button>
+                </div>
             </form>
         </div>
-    </main>
+        <div class="desktop-image">
+            <p>Testing size</p>
+        </div>
+    </div>
+</main>
 
-    <footer th:replace="partials/footer :: footer"></footer>
+<footer th:replace="partials/footer :: footer"></footer>
 </body>
 </html>
