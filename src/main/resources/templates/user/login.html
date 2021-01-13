@@ -6,13 +6,13 @@
 <body>
 <nav th:replace="partials/navbar :: navbar"></nav>
 <main>
-    <div class="login-container">
-        <div id="form-container">
-            <div class="welcome-spacing">
+    <div class="main-container">
+        <div class="form-container">
+            <div class="msg-space">
                 <h3 class="font-weight-bold">Welcome</h3>
                 <h3 class="font-weight-bold">Back</h3>
             </div>
-            <div class="message">
+            <div class="if-message">
                 <div class="" th:if="${param.error}">
                     Invalid Username and/or Password.
                 </div>
@@ -21,16 +21,16 @@
                 </div>
             </div>
             <form th:action="@{/login}" method="POST">
-                <div>
+                <div class="form-group">
                     <input id="username" name="username" class="form-control input-spacing" type="text" placeholder="Username"/>
                 </div>
-                <div>
+                <div class="form-group">
                     <input id="password" name="password" class="form-control input-spacing" type="password" placeholder="Password"/>
                 </div>
-                <div class="sign-in">
+                <div class="submit-position">
                     <h4 class="font-weight-bold">Sign In</h4>
                     <button id="login-submit" type="submit"
-                            class="login-submit"><i
+                            class="form-submit"><i
                             class="bi bi-arrow-right"></i></button>
                 </div>
             </form>

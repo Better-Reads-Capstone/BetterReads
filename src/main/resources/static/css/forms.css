@@ -11,12 +11,12 @@
 
 }
 
-.login-container {
+.main-container {
     display: flex;
 }
 
     /**/
-    #form-container {
+    .form-container {
         border: solid black 1px;
         width: 30rem;
         height: 50rem;
@@ -25,28 +25,37 @@
         padding: 0 30px;
     }
 
-    .welcome-spacing {
+    .msg-space {
          margin-top: 125px;
          margin-bottom: 200px;
      }
 
-    .message {
+    .register-msg-space {
+        margin-top: 75px;
+        margin-bottom: 150px;
+    }
+
+    .if-message {
         height: 24px;
         margin: 20px 0;
     }
 
     .input-spacing {
-        height: 30px;
         margin-bottom: 40px;
     }
 
-    .sign-in {
+    .err-msg {
+        height: 24px;
+        margin: 5px 0;
+    }
+
+    .submit-position {
         display: flex;
         justify-content: space-between;
         align-items: center;
     }
 
-    .login-submit {
+    .form-submit {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -78,7 +87,7 @@
 
 
 @media (min-width: 992px) {
-    #form-container {
+    .form-container {
         width: 40rem;
         height: 40rem;
         border-top: solid black 1px;
@@ -90,9 +99,14 @@
         padding: 0 40px;
     }
 
-    .welcome-spacing {
+    .msg-space {
         margin-top: 60px;
         margin-bottom: 120px;
+    }
+
+    .register-msg-space {
+        margin-top: 30px;
+        margin-bottom: 50px;
     }
 
     .desktop-image {
