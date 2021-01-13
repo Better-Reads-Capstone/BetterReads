@@ -1,7 +1,3 @@
-.site-margin {
-    margin: 50px 20px;
-}
-
 .header-text {
     position: absolute;
     top: 21%;
@@ -17,7 +13,7 @@
 }
 
 .best-sellers-text {
-    font-size: 5em;
+    font-size: 3em;
     font-family: var(--montserrat);
     font-weight: 600;
     text-transform: uppercase;
@@ -38,9 +34,9 @@
 }
 
 .best-sellers-links, .best-sellers-links:hover, .best-sellers-links:visited{
-    padding: 10px 15px;
-    margin: 10px;
-    font-size: 1.3rem;
+    padding: 7px 10px;
+    margin: 3px;
+    font-size: .9rem;
     font-weight: 200;
     color: var(--off-white);
     background-color: var(--forest-green);
@@ -56,6 +52,7 @@
     position: absolute;
     z-index: -1;
     top: -153px;
+    overflow: hidden;
 }
 
 .heading-background-one {
@@ -67,7 +64,7 @@
 }
 
 .list-title-one, .list-title-two {
-    font-size: 3em;
+    font-size: 2em;
     font-family: var(--alegreya);
     text-align: center;
 }
@@ -109,8 +106,18 @@
         width: 300px;
         height: 300px;
         position: absolute;
-        right: 30px;
-        top: 200px;
+        right: 10px;
+        top: 117px;
+    }
+
+    .best-sellers-links, .best-sellers-links:hover, .best-sellers-links:visited {
+        padding: 10px 15px;
+        margin: 10px;
+        font-size: 1.3rem;
+    }
+
+    .list-title-one, .list-title-two {
+        font-size: 2.5em;
     }
 
     .list-title-one {
@@ -128,5 +135,9 @@
         width: 500px;
         right: 30px;
         bottom: 15px;
+    }
+
+    .list-title-one, .list-title-two {
+        font-size: 3em;
     }
 }

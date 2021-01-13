@@ -23,6 +23,11 @@
     --header-large-width: 60vw;
 }
 
+.site-margin {
+    margin: 50px 30px;
+    overflow: hidden;
+}
+
 .loading-icon{
     width: 80px;
     height: 80px;
