@@ -5,11 +5,11 @@
 <body>
 <nav th:replace="partials/navbar :: navbar"></nav>
 <main>
-    <div class="main-container">
+    <div class="d-flex site-margin">
         <div class="form-container">
             <div class="register-msg-space">
-                <h3>Register For</h3>
-                <h3>An Account</h3>
+                <h3 class="font-weight-bold">Register For</h3>
+                <h3 class="font-weight-bold">An Account</h3>
             </div>
             <form th:action="@{/sign-up}" method="POST" th:object="${user}">
                 <div>
