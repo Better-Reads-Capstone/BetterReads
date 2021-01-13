@@ -1,4 +1,166 @@
-* {
-    /*border: black solid 3px;*/
-    /*background-color: grey;*/
+/*  MAIN STYLING FOR BETTER READS*/
+:root {
+    /*  Colors  */
+    --makeup-tan: #DDAF94;
+    --blush: #E8CEBF;
+    --forest-green: #266150;
+    --green: #83A473;
+    --dark-grey: #4F4846;
+    --dark-brown: #2A1510;
+    --off-white:  #FDF8F5;
+
+    /*  Fonts  */
+    --raleway: 'Raleway', sans-serif;
+    --montserrat: 'Montserrat', sans-serif;
+    --alegreya: 'Alegreya', serif;
+
+    /*  Border Radius  */
+    --border-radius: 32px;
+
+    /*  Header  */
+    --header-height: 550px;
+    --header-small-width: 40vw;
+    --header-large-width: 60vw;
+}
+
+.site-margin {
+    margin: 50px 30px;
+    overflow: hidden;
+}
+
+.loading-icon{
+    width: 80px;
+    height: 80px;
+
+    border: 2px solid #f3f3f3;
+    border-top:3px solid #54dec3;
+    border-radius: 100%;
+
+    animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    } to {
+          transform: rotate(360deg);
+      }
+}
+
+.loading-icon.show {
+    display: block;
+}
+
+/*If you want to use the header that's in the best seller's page.*/
+
+header {
+    display: flex;
+}
+
+.header-block-left {
+    height: var(--header-height);
+    width: var(--header-large-width);
+    position: relative;
+    background-color: var(--blush);
+}
+
+.header-block-right {
+    height: var(--header-height);
+    width: var(--header-small-width);
+    position: relative;
+    background-color: var(--makeup-tan);
+}
+
+/*  For the horizontal book scroll and book cards  */
+
+.book {
+    position: relative;
+}
+
+.book-row {
+    display: flex;
+    overflow: auto;
+    margin: 50px 0;
+}
+
+/*  Just Book Cards Starts Here  */
+
+.book-img {
+    width: 12rem;
+    margin: 16px;
+    border: 4px solid var(--off-white);
+    border-radius: var(--border-radius);
+}
+
+.book-cover {
+    margin: 16px;
+    flex: 1;
+    position: relative;
+    background-color: var(--blush);
+    border-radius: var(--border-radius);
+    -webkit-box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0);
+    box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0);
+}
+
+.book-info {
+    display: flex;
+    flex-direction: column;
+    /*justify-content: space-evenly;*/
+    width: 200px;
+    overflow-wrap: break-word;
+    color: #000;
+    margin-left: 10px;
+    margin-bottom: 90px;
+}
+
+.book-title{
+    margin: 15px 0 10px 25px;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+
+    /* Adds a hyphen where the word breaks, if supported (No Blink) */
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+    font-family: var(--raleway);
+    font-weight: 700;
+    font-size: 1.2em;
+}
+
+.book-author {
+    font-family: var(--montserrat);
+    color: var(--forest-green);
+    font-size: 1em;
+    margin-left: 24px;
+}
+
+.book-img:hover{
+    cursor: pointer;
+    transform: translateY(-3px);
+}
+
+@media (min-width: 768px) {
+
+    .book-cover {
+        display: flex;
+    }
+
+    .book-title {
+        margin-left: 0;
+        margin-top: 40px;
+        padding-top: 20px;
+        font-weight: 700;
+        font-size: 1.5em;
+    }
+
+    .book-author {
+        margin: 0;
+        font-size: 1.5em;
+    }
+
+    .book-info {
+        margin: 0;
+    }
 }

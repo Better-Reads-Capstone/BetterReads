@@ -20,6 +20,6 @@ public class HomeController {
     @GetMapping("/about-us")
     public String showAboutUs() { return "general/about-us"; }
 
-    @GetMapping("/meet-the-devs")
-    public String showMeetDevs() { return "general/meet-devs"; }
+//    @GetMapping("/meet-the-devs")
+//    public String showMeetDevs() { return "general/meet-devs"; }
 }
