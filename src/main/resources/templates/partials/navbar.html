@@ -33,13 +33,18 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <div class="d-flex">
-            <div class="d-flex">
+        <div class="d-flex navbar-nav">
+            <div class="nav-item">
                 <a class="nav-link" th:href="@{/best-sellers}">Bestsellers</a>
+            </div>
+            <div class="nav-item">
                 <a class="nav-link" th:href="@{/bookclubs}">Bookclub List</a>
             </div>
+            <div class="nav-item">
+                <a th:href="@{/about-us}" class="nav-link">About Us</a>
+            </div>
             <div sec:authorize="isAnonymous()" class="d-flex navbar-nav">
-                <div class="nav-item active">
+                <div class="nav-item">
                     <a class="nav-link" href="/login">Login<span class="sr-only">(current)</span></a>
                 </div>
                 <div class="nav-item">
@@ -49,14 +54,16 @@
                     <a href="/booksearch" class="nav-link"><i class="bi bi-search"></i></a>
                 </div>
             </div>
-            <div sec:authorize="isAuthenticated()" class="d-flex">
-                <div class="d-flex">
-                    <div th:text="${#authentication.principal.username}"></div>
-                    <a class="align-self-center" th:href="@{/profile/{username}(username=${#authentication.principal.username})}">Profile</a>
+            <div sec:authorize="isAuthenticated()" class="d-flex navbar-nav">
+                <div class="nav-item">
+                    <a class="nav-link" th:href="@{/profile/{username}(username=${#authentication.principal.username})}"><i class="bi bi-person-circle"></i></a>
                 </div>
-                <form th:action="@{/logout}" th:method="post">
-                    <button class="nav-link btn-link btn">Logout</button>
-                </form>
+                <div class="nav-item">
+                    <a th:href="@{/logout}" class="nav-link">Logout</a>
+                </div>
+<!--                <form th:action="@{/logout}" th:method="post">-->
+<!--                    <button class="nav-link btn-link btn">Logout</button>-->
+<!--                </form>-->
                 <div class="nav-item">
                     <a href="/booksearch" class="nav-link"><i class="bi bi-search"></i></a>
                 </div>
