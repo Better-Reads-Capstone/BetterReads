@@ -152,12 +152,12 @@ header {
         margin-top: 40px;
         padding-top: 20px;
         font-weight: 700;
-        font-size: 1.5em;
+        font-size: 1.3em;
     }
 
     .book-author {
         margin: 0;
-        font-size: 1.5em;
+        font-size: 1em;
     }
 
     .book-info {

@@ -67,6 +67,7 @@
     font-size: 2em;
     font-family: var(--alegreya);
     text-align: center;
+    padding: 20px;
 }
 
 .rank {
