@@ -1,0 +1,8 @@
+.club-container {
+    display: flex;
+}
+
+.club-img{
+    width: 100px;
+    height: 200px;
+}
