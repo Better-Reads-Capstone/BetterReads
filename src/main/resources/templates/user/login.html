@@ -6,17 +6,17 @@
 <body>
 <nav th:replace="partials/navbar :: navbar"></nav>
 <main>
-    <div class="main-container">
+    <div class="d-flex site-margin">
         <div class="form-container">
             <div class="msg-space">
                 <h3 class="font-weight-bold">Welcome</h3>
                 <h3 class="font-weight-bold">Back</h3>
             </div>
             <div class="if-message">
-                <div class="" th:if="${param.error}">
+                <div th:if="${param.error}">
                     Invalid Username and/or Password.
                 </div>
-                <div class="" th:if="${param.logout}">
+                <div th:if="${param.logout}">
                     You have been logged out.
                 </div>
             </div>
@@ -34,7 +34,7 @@
                             class="bi bi-arrow-right"></i></button>
                 </div>
             </form>
-            <div class="links-container" id="reg-link-container">
+            <div class="links-container">
                 <h4><a class="underline" th:href="@{/sign-up}">Sign up</a></h4>
                 <h4><a class="underline" th:href="@{/forgot-password}">Forgot Password</a></h4>
             </div>

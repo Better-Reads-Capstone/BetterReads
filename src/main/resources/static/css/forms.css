@@ -11,15 +11,10 @@
 
 }
 
-.main-container {
-    display: flex;
-}
-
     /**/
     .form-container {
         border: solid black 1px;
         width: 30rem;
-        height: 50rem;
         border-radius: 10px;
         margin: auto;
         padding: 0 30px;
@@ -53,6 +48,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+        margin-bottom: 20px;
     }
 
     .form-submit {
@@ -79,6 +75,18 @@
         display: flex;
         justify-content: space-between;
         margin-top: 60px;
+        margin-bottom: 15px;
+    }
+
+    .forgot-pass-redirect {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 60px;
+    }
+
+    .forgot-pass-redirect h6 {
+        margin-bottom: 20px;
     }
 
     .desktop-image {
@@ -89,7 +97,6 @@
 @media (min-width: 992px) {
     .form-container {
         width: 40rem;
-        height: 40rem;
         border-top: solid black 1px;
         border-bottom: solid black 1px;
         border-left: solid black 1px;
@@ -113,7 +120,6 @@
         display: flex;
         background-color: darkgreen;
         width: 30rem;
-        height: 40rem;
         border-radius: 0 10px 10px 0;
         margin-right: auto;
     }
