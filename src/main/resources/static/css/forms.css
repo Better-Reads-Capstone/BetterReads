@@ -1,9 +1,4 @@
 
-.links-container {
-    justify-content: space-between;
-    margin-top: 20px;
-}
-
 .underline {
     display: flex;
     text-decoration: underline;
@@ -47,6 +42,9 @@
     }
 
     .login-submit {
+        display: flex;
+        justify-content: center;
+        align-items: center;
         border-radius: 50%;
         width: 75px;
         height: 75px;
@@ -56,6 +54,12 @@
     .bi-arrow-right {
         font-size: 35px;
         color: white;
+    }
+
+    .links-container {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
     }
 }
 
