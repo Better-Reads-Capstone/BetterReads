@@ -7,7 +7,17 @@
     <nav th:replace="partials/navbar :: navbar"></nav>
     <main>
         <br />
-        <div class="container">
+        <div class="site-margin">
+            <header>
+                <div class="header-block">
+                    <div>
+                        <h1 th:text="${club.name}"></h1>
+                    </div>
+                    <div class="club-avatar">
+                        <img th:src="${club.headerImageUrl}" alt="">
+                    </div>
+                </div>
+            </header>
             <!--Admin Control-->
             <div class="admin-controls" th:if="${member != null && member.isAdmin == true}">
                 <!-- Create Blog Post Button for owner/admin -->
@@ -71,7 +81,7 @@
             </div>
             <br />
             <div class="club-info">
-                <img th:src="${club.headerImageUrl}" alt="">
+
                 <p>Name of club: </p><h1 th:text="${club.name}"></h1>
                 <p>About: </p><h3 th:text="${club.about}"></h3>
                 <p>Club genre: </p><h3 th:text="${club.genre.name}"></h3>
