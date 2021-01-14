@@ -93,7 +93,7 @@
                         <!--     About Club and Members Section       -->
                         <section class="club-members-about-club">
                             <!--        Members        -->
-                            <h3 class="members">Members</h3>
+                            <h3 class="club-heading">Members</h3>
                             <div class="members-container">
                                 <div th:each="clubMember: ${members}">
                                     <div class="member-card">
@@ -128,17 +128,17 @@
                                 </div>
                             </div>
                             <!--       About the club         -->
+                            <div class="about-heading">
+                                <h3 class="club-heading">About</h3>
+                            </div>
                             <div class="about-club-container">
-                                <div class="about-heading">
-                                    <p>About: </p><span th:text="${club.name}"></span>
-                                </div>
                                 <div class="about-body">
                                     <p th:text="${club.about}"></p>
                                 </div>
                             </div>
                         </section>
                     </div>
-                    <!--   About The Club Section   -->
+
                     <!--     Posts Section       -->
                     <section class="club-blog">
                         <div id="post-container" class="post-container">

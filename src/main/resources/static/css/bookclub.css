@@ -1,3 +1,9 @@
+main {
+    background-image: url("../img/club-background.svg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+}
 .club-container {
     color: var(--dark-brown)
 }
@@ -5,6 +11,11 @@
 .club-intro-section, .club-blog, .club-members-about-club {
     background-color: var(--blush);
     border: 2px solid var(--makeup-tan);
+}
+
+.club-intro-section {
+    border-top-left-radius: var(--border-radius);
+    border-top-right-radius: var(--border-radius);
 }
 
 .club-avatar {
@@ -56,11 +67,11 @@
     width: 100%;
 }
 
-.members-container {
+.members-container, .about-club-container {
     margin: 10px 20px;
 }
 
-.members {
+.club-heading {
     margin: 20px 0 10px 0;
     text-align: center;
     font-family: var(--alegreya);
@@ -98,10 +109,15 @@
     justify-content: center;
     margin-bottom: 20px;
 }
-/*.club-blog {*/
-/*    margin-left: 40px;*/
-/*    border-radius: var(--border-radius);*/
-/*}*/
+
+.about-body {
+    font-family: var(--raleway);
+}
+
+.club-blog {
+    border-bottom-left-radius: var(--border-radius);
+    border-bottom-right-radius: var(--border-radius);
+}
 
 @media (min-width: 425px) {
 
@@ -128,6 +144,7 @@
         height: 350px;
         border-radius: 200px;
     }
+
 }
 
 
@@ -135,11 +152,18 @@
 
     .intro-members-sections {
         display: flex;
+        margin-bottom: 20px;
     }
 
     .club-intro-section {
+        border-top-right-radius: 0;
         border-top-left-radius: var(--border-radius);
         border-bottom-left-radius: var(--border-radius);
+    }
+
+    .club-members-about-club {
+        border-top-right-radius: var(--border-radius);
+        border-bottom-right-radius: var(--border-radius);
     }
 
     .club-avatar {
@@ -152,10 +176,15 @@
         height: 250px;
     }
 
-    .members {
+    .club-blog {
+        border-radius: var(--border-radius);
+    }
+
+    .club-heading {
         text-align: left;
         margin-left: 20px;
     }
+
 }
 
 @media (min-width: 1310px) {
@@ -167,11 +196,10 @@
 
     .intro-members-sections {
         width: 60%;
+        margin-bottom: 0;
     }
 
     .club-blog {
-        margin-left: 40px;
-        border-radius: var(--border-radius);
         width: 30%;
     }
 }
