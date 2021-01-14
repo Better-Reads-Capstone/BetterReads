@@ -130,6 +130,13 @@
     border-bottom-right-radius: var(--border-radius);
 }
 
+.post-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
 .blog-card {
     background-color: var(--green);
     border-radius: var(--border-radius);
