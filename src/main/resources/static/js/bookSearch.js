@@ -40,6 +40,24 @@ const searchRequest = () => {
         .catch(err => {
             console.log(err)
         })
+
+    $(document).on("click", ".book-img", function() {
+        let refId = $(this).data("ref");
+        console.log(refId);
+        window.location = "/book/" + refId;
+
+        // let data = isbnFetch(isbn);
+        //
+        // data.then(result => {
+        //     console.log(result);
+        //     console.log(result.items[0].id);
+        //     let id = result.items[0].id
+        //     let url = "/book/" + id;
+        //
+        //     window.location = url;
+        // })
+
+    })
 }
 
 $('.search-form').submit((e) => {

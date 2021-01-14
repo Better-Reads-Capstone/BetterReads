@@ -4,36 +4,47 @@
 </head>
 
 <body>
-    <nav th:replace="partials/navbar :: navbar"></nav>
-    <main>
-        <div class="container">
-            <div class="container p-3" id="login-container">
-                <h3>Account Login</h3>
+<nav th:replace="partials/navbar :: navbar"></nav>
+<main>
+    <div class="d-flex site-margin">
+        <div class="form-container">
+            <div class="msg-space">
+                <h3 class="font-weight-bold">Welcome</h3>
+                <h3 class="font-weight-bold">Back</h3>
+            </div>
+            <div class="if-message">
                 <div th:if="${param.error}">
                     Invalid Username and/or Password.
                 </div>
                 <div th:if="${param.logout}">
                     You have been logged out.
                 </div>
-                <form th:action="@{/login}" method="POST" class="p-3">
-                    <div class="p-1">
-                        <label for="username">Username</label>
-                        <input id="username" name="username" class="form-control" type="text" />
-                    </div>
-                    <div class="p-1">
-                        <label for="password">Password</label>
-                        <input id="password" name="password" class="form-control" type="password" />
-                    </div>
-                    <button type="submit" class="btn btn-primary">Login</button>
-                </form>
             </div>
-            <div class="container" id="reg-link-container">
-                <p class="text-center">No account, no worries!  <a th:href="@{/sign-up}">Create one</a></p>
-                <p class="text-center">Forget your password? Click <a th:href="@{/forgot-password}">here</a> to reset it!</p>
+            <form th:action="@{/login}" method="POST">
+                <div class="form-group">
+                    <input id="username" name="username" class="form-control input-spacing" type="text" placeholder="Username"/>
+                </div>
+                <div class="form-group">
+                    <input id="password" name="password" class="form-control input-spacing" type="password" placeholder="Password"/>
+                </div>
+                <div class="submit-position">
+                    <h4 class="font-weight-bold">Sign In</h4>
+                    <button id="login-submit" type="submit"
+                            class="form-submit"><i
+                            class="bi bi-arrow-right"></i></button>
+                </div>
+            </form>
+            <div class="links-container">
+                <h4><a class="underline" th:href="@{/sign-up}">Sign up</a></h4>
+                <h4><a class="underline" th:href="@{/forgot-password}">Forgot Password</a></h4>
             </div>
         </div>
-    </main>
-    <footer th:replace="partials/footer :: footer"></footer>
-    <script th:replace="partials/scripts :: scripts"></script>
+        <div class="desktop-image">
+            <p>Testing size</p>
+        </div>
+    </div>
+</main>
+<footer th:replace="partials/footer :: footer"></footer>
+<script th:replace="partials/scripts :: scripts"></script>
 </body>
 </html>
