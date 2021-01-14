@@ -73,9 +73,9 @@
             <div class="card-header d-flex">
                 <p th:text="'written by: '+ ${review.owner.username}"></p>
                 <p th:if="${review.createdDate == review.updatedDate}"
-                   th:text="'written on: '+${review.createdDate}"></p>
+                   th:text="'written on: '+ ${#dates.format((review.createdDate), 'MMM d, yyyy')}"></p>
                 <p th:if="${review.createdDate != review.updatedDate}"
-                   th:text="'edited on: '+${review.updatedDate}"></p>
+                   th:text="'edited on: '+ ${#dates.format((review.updatedDate), 'MMM d, yyyy')}"></p>
                 <!-- EDIT & DELETE BUTTONS -->
                 <div class="d-flex"
                      sec:authorize="isAuthenticated()"
