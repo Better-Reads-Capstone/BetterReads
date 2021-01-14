@@ -3,12 +3,10 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <head th:replace="partials/head :: head(title = ${club.name})">
     </head>
-    <body>
+    <body class="book-club-bg">
         <nav th:replace="partials/navbar :: navbar"></nav>
         <main>
-            <br />
             <div class="site-margin">
-
                 <div class="club-container">
                     <div class="intro-members-sections">
                         <section class="club-intro-section">
@@ -100,8 +98,10 @@
                                         <img class="member-image" th:src="${clubMember.user.avatarURL}" alt="Profile Image"/>
                                         <div class="member-info">
                                             <h5 class="member-name">
-                                                <span th:text="${clubMember.user.firstName}"></span>
-                                                <span th:text="${clubMember.user.lastName}"></span>
+                                                <a class="member-name-link" th:href="@{/profile/{username} (username = ${clubMember.user.username})}" >
+                                                    <span th:text="${clubMember.user.firstName}"></span>
+                                                    <span th:text="${clubMember.user.lastName}"></span>
+                                                </a>
                                             </h5>
                                             <p class="member-status" th:if="${clubMember.isAdmin == true}">Admin</p>
                                             <p class="member-status" th:unless="${clubMember.isAdmin == true}">Member</p>
@@ -143,21 +143,33 @@
                     <section class="club-blog">
                         <div id="post-container" class="post-container">
                             <div class="blog-title">
-                                <h3><span th:text="${club.name}"></span>'s Posts</h3>
+                                <h3 class="club-heading">Club Blog</h3>
                             </div>
                             <!--        Displays all the posts created by the blog        -->
                             <div th:each="post: ${posts}">
                                 <div class="blog-card">
                                     <div sec:authorize="isAnonymous()">
-                                        <h4><a th:text="${post.title}" th:href="@{/login}"></a></h4>
+                                        <h4><a class="post-title" th:text="${post.title}" th:href="@{/login}"></a></h4>
                                     </div>
                                     <div sec:authorize="isAuthenticated()">
-                                        <h4><a th:text="${post.title}" th:href="@{/bookclub/post/{postId} (postId = ${post.id})}"></a></h4>
+                                        <h4><a class="post-title" th:text="${post.title}" th:href="@{/bookclub/post/{postId} (postId = ${post.id})}"></a></h4>
                                     </div>
-                                    <p th:utext="${post.body}"></p>
-                                    <p>Author: <span th:text="${post.user.username}"></span></p>
+                                    <div class="blog-card-footer">
+                                        <div class="post-author">
+                                            <a class="author-link" th:href="@{/profile/{username} (username = ${post.user.username})}" >
+                                                <span th:text="${post.user.firstName}"></span>
+                                                <span th:text="${post.user.lastName}"></span>
+                                            </a>
+                                        </div>
+                                        <div class="created-date">
+                                            <p th:text="${post.createdDate}"></p>
+                                        </div>
+                                    </div>
                                 </div>
-                                <hr />
+                            </div>
+                    <!--      SVG GRAPHIC        -->
+                            <div class="post-container-footer">
+                                <img class="club-page-shapes" th:src="@{../img/club-page-shapes.svg}">
                             </div>
                         </div>
                     </section>

@@ -1,4 +1,4 @@
-main {
+.book-club-bg {
     background-image: url("../img/club-background.svg");
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -99,6 +99,17 @@ main {
     margin-left: 0;
 }
 
+.member-name-link, .member-name-link:visited, .post-author, .author-link:visited {
+    text-decoration: none;
+    color: #eac9c2;
+}
+
+.member-name-link:hover, .author-link:hover {
+    color: var(--makeup-tan);
+    transform: translateY(-3px);
+    text-decoration: none;
+}
+
 .owner {
     text-align: center;
     color: var(--off-white);
@@ -117,6 +128,38 @@ main {
 .club-blog {
     border-bottom-left-radius: var(--border-radius);
     border-bottom-right-radius: var(--border-radius);
+}
+
+.blog-card {
+    background-color: var(--green);
+    border-radius: var(--border-radius);
+    border: 2px solid var(--off-white);
+    padding: 10px;
+    margin: 20px;
+}
+
+.blog-card-footer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.post-author, .created-date {
+    font-family: var(--raleway);
+    font-size: 1rem;
+}
+
+.created-date, .post-title, .post-title:visited {
+    color: var(--off-white);
+    text-decoration: none;
+}
+
+.post-container-footer {
+    width: 100%;
+    overflow: hidden;
+}
+
+.club-page-shapes {
+    width: 100%;
 }
 
 @media (min-width: 425px) {
