@@ -1,0 +1,126 @@
+
+.underline {
+    display: flex;
+    text-decoration: underline;
+    transition: transform .2s;
+}
+
+.underline:hover {
+    text-decoration: none;
+    transform: scale(1.05);
+
+}
+
+    /**/
+    .form-container {
+        border: solid black 1px;
+        width: 30rem;
+        border-radius: 10px;
+        margin: auto;
+        padding: 0 30px;
+    }
+
+    .msg-space {
+         margin-top: 125px;
+         margin-bottom: 200px;
+     }
+
+    .register-msg-space {
+        margin-top: 75px;
+        margin-bottom: 150px;
+    }
+
+    .if-message {
+        height: 24px;
+        margin: 20px 0;
+    }
+
+    .input-spacing {
+        margin-bottom: 40px;
+    }
+
+    .err-msg {
+        height: 24px;
+        margin: 5px 0;
+    }
+
+    .submit-position {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .form-submit {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        width: 75px;
+        height: 75px;
+        background-color: darkgreen;
+        transition: transform .2s;
+    }
+
+    .login-submit:hover {
+        transform: scale(1.05);
+    }
+
+    .bi-arrow-right {
+        font-size: 35px;
+        color: white;
+    }
+
+    .links-container {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 60px;
+        margin-bottom: 15px;
+    }
+
+    .forgot-pass-redirect {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 60px;
+    }
+
+    .forgot-pass-redirect h6 {
+        margin-bottom: 20px;
+    }
+
+    .desktop-image {
+        display: none;
+    }
+
+
+@media (min-width: 992px) {
+    .form-container {
+        width: 40rem;
+        border-top: solid black 1px;
+        border-bottom: solid black 1px;
+        border-left: solid black 1px;
+        border-right: none;
+        border-radius: 10px 0 0 10px;
+        margin: auto 0 auto auto;
+        padding: 0 40px;
+    }
+
+    .msg-space {
+        margin-top: 60px;
+        margin-bottom: 120px;
+    }
+
+    .register-msg-space {
+        margin-top: 30px;
+        margin-bottom: 50px;
+    }
+
+    .desktop-image {
+        display: flex;
+        background-color: darkgreen;
+        width: 30rem;
+        border-radius: 0 10px 10px 0;
+        margin-right: auto;
+    }
+}
