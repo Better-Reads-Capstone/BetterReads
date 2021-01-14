@@ -5,13 +5,25 @@
 <body>
 <nav th:replace="partials/navbar :: navbar"></nav>
 <main>
-    <div class="container">
-        <div class="my-3" id="about-title-div">
-            <h1>Reset Your Password</h1>
+    <div class="d-flex site-margin">
+        <div class="form-container">
+            <div class="msg-space">
+                <h3 class="font-weight-bold">Reset Your Password</h3>
+            </div>
+            <div class="">
+                <h6>You have successfully reset your password!</h6>
+            </div>
+            <div class="submit-position">
+                <h4 class="font-weight-bold">Let's Login</h4>
+                <form th:action="@{/login}" method="get">
+                <button type="submit"
+                        class="form-submit"><i
+                        class="bi bi-arrow-right"></i></button>
+                </form>
+            </div>
         </div>
-        <div class="mb-5" id="about-content-div">
-            <p>You have successfully reset your password!</p>
-            <p>Click <a th:href="@{/login}">here</a> to go back to the login page.</p>
+        <div class="desktop-image">
+            <p>Testing size</p>
         </div>
     </div>
 </main>

@@ -75,7 +75,7 @@
         display: flex;
         justify-content: space-between;
         margin-top: 60px;
-        margin-bottom: 15px;
+        margin-bottom: 30px;
     }
 
     .forgot-pass-redirect {
@@ -83,10 +83,21 @@
         flex-direction: column;
         align-items: center;
         margin-top: 60px;
+        margin-bottom: 30px;
     }
 
     .forgot-pass-redirect h6 {
         margin-bottom: 20px;
+    }
+
+    .showPassSpacing {
+        display: flex;
+        margin-top: 8px;
+    }
+
+    .showPassSpacing input {
+        margin-left: 8px;
+        margin-right: 8px;
     }
 
     .desktop-image {
@@ -114,6 +125,11 @@
     .register-msg-space {
         margin-top: 30px;
         margin-bottom: 50px;
+    }
+
+    .forgot-pass-redirect {
+        flex-direction: row;
+        justify-content: space-around;
     }
 
     .desktop-image {
