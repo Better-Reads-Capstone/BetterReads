@@ -1,0 +1,248 @@
+.book-club-bg {
+    background-image: url("../img/club-background.svg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+}
+.club-container {
+    color: var(--dark-brown)
+}
+
+.club-intro-section, .club-blog, .club-members-about-club {
+    background-color: var(--blush);
+    border: 2px solid var(--makeup-tan);
+}
+
+.club-intro-section {
+    border-top-left-radius: var(--border-radius);
+    border-top-right-radius: var(--border-radius);
+}
+
+.club-avatar {
+    height: 200px;
+    width: 200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    border-right: 0;
+}
+
+.club-img {
+    margin-top: 20px;
+    width: 150px;
+    height: 150px;
+    border: 4px solid var(--dark-grey);
+}
+
+.club-name-container, .genre-container {
+    text-align: center;
+}
+
+.club-name-container {
+    padding: 10px 20px 20px 20px;
+}
+
+.club-name {
+    font-family: var(--alegreya);
+    font-size: 2em;
+    color: var(--forest-green);
+}
+
+.genre-container {
+    padding: 0 20px 20px 20px;
+}
+
+.genre {
+    font-family: var(--raleway);
+}
+
+.club-buttons, .admin-controls {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    margin-bottom: 20px;
+}
+
+.club-members-about-club {
+    width: 100%;
+}
+
+.members-container, .about-club-container {
+    margin: 10px 20px;
+}
+
+.club-heading {
+    margin: 20px 0 10px 0;
+    text-align: center;
+    font-family: var(--alegreya);
+    font-size: 2rem;
+    color: var(--dark-grey);
+}
+
+.member-card {
+    margin: 10px;
+    flex: 1;
+    background-color: var(--green);
+    border: 2px solid var(--off-white);
+    border-radius: var(--border-radius);
+}
+
+.member-image {
+    width: 10em;
+    border-radius: var(--img-border-radius);
+    border: 4px solid var(--dark-grey);
+}
+
+.member-status, .member-name {
+    color: var(--off-white);
+    text-align: center;
+    margin-left: 0;
+}
+
+.member-name-link, .member-name-link:visited, .post-author, .author-link:visited {
+    text-decoration: none;
+    color: #eac9c2;
+}
+
+.member-name-link:hover, .author-link:hover {
+    color: var(--makeup-tan);
+    transform: translateY(-3px);
+    text-decoration: none;
+}
+
+.owner {
+    text-align: center;
+    color: var(--off-white);
+}
+
+.admin-status-btn {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.about-body {
+    font-family: var(--raleway);
+}
+
+.club-blog {
+    border-bottom-left-radius: var(--border-radius);
+    border-bottom-right-radius: var(--border-radius);
+}
+
+.blog-card {
+    background-color: var(--green);
+    border-radius: var(--border-radius);
+    border: 2px solid var(--off-white);
+    padding: 10px;
+    margin: 20px;
+}
+
+.blog-card-footer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.post-author, .created-date {
+    font-family: var(--raleway);
+    font-size: 1rem;
+}
+
+.created-date, .post-title, .post-title:visited {
+    color: var(--off-white);
+    text-decoration: none;
+}
+
+.post-container-footer {
+    width: 100%;
+    overflow: hidden;
+}
+
+.club-page-shapes {
+    width: 100%;
+}
+
+@media (min-width: 425px) {
+
+    .club-avatar {
+        height: 300px;
+        width: 300px;
+    }
+
+    .club-img {
+        width: 250px;
+        height: 250px;
+    }
+}
+
+@media (min-width: 768px) {
+
+    .club-avatar {
+        height: 400px;
+        width: 400px;
+    }
+
+    .club-img {
+        width: 350px;
+        height: 350px;
+        border-radius: 200px;
+    }
+
+}
+
+
+@media (min-width: 992px) {
+
+    .intro-members-sections {
+        display: flex;
+        margin-bottom: 20px;
+    }
+
+    .club-intro-section {
+        border-top-right-radius: 0;
+        border-top-left-radius: var(--border-radius);
+        border-bottom-left-radius: var(--border-radius);
+    }
+
+    .club-members-about-club {
+        border-top-right-radius: var(--border-radius);
+        border-bottom-right-radius: var(--border-radius);
+    }
+
+    .club-avatar {
+        height: 300px;
+        width: 300px;
+    }
+
+    .club-img {
+        width: 250px;
+        height: 250px;
+    }
+
+    .club-blog {
+        border-radius: var(--border-radius);
+    }
+
+    .club-heading {
+        text-align: left;
+        margin-left: 20px;
+    }
+
+}
+
+@media (min-width: 1310px) {
+
+    .club-container {
+        display: flex;
+        justify-content: space-evenly;
+    }
+
+    .intro-members-sections {
+        width: 60%;
+        margin-bottom: 0;
+    }
+
+    .club-blog {
+        width: 30%;
+    }
+}

@@ -67,6 +67,7 @@
     font-size: 2em;
     font-family: var(--alegreya);
     text-align: center;
+    padding: 20px;
 }
 
 .rank {
@@ -82,11 +83,13 @@
 }
 
 .rank-shadow h1 {
+    font-family: var(--montserrat);
     font-size: 6em;
     color: var(--green);
 }
 
 .rank h1 {
+    font-family: var(--montserrat);
     font-size: 6em;
     color: var(--forest-green);
 }
@@ -139,5 +142,21 @@
 
     .list-title-one, .list-title-two {
         font-size: 3em;
+    }
+}
+
+@media (min-width: 2500px) {
+    .best-sellers-text {
+        font-size: 7em;
+    }
+
+    .nyt-text {
+        font-size: 3em;
+    }
+    .header-img {
+        height: 700px;
+        width: 700px;
+        right: 151px;
+        top: 39px;
     }
 }

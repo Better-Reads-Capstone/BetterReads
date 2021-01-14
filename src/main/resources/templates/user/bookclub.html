@@ -1,136 +1,182 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head th:replace="partials/head :: head(title = ${club.name})">
-</head>
-<body>
-    <nav th:replace="partials/navbar :: navbar"></nav>
-    <main>
-        <br />
-        <div class="container">
-            <!--Admin Control-->
-            <div class="admin-controls" th:if="${member != null && member.isAdmin == true}">
-                <!-- Create Blog Post Button for owner/admin -->
-                <form th:action="@{/bookclub/{id}/create-post (id = ${club.id})}">
-                    <input class="btn btn-primary" type="submit" value="Create Post">
-                </form>
-                <!-- Edit Blog Button for owner/admin -->
-                <form th:action="@{/edit-bookclub/{id} (id = ${club.id})}">
-                    <button class = "btn btn-primary" type="submit">
-                        Edit Club
-                    </button>
-                </form>
-            </div>
-            <!--Owner Control-->
-            <div class="owner-controls" th:if="${user == club.owner}">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deleteClubModal">
-                    Delete Club
-                </button>
-            <!-- Delete Modal -->
-                <div class="modal fade" id="deleteClubModal" tabindex="-1" aria-labelledby="#deleteClubModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="deleteClubModalLabel">Delete Club</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
+    <head th:replace="partials/head :: head(title = ${club.name})">
+    </head>
+    <body class="book-club-bg">
+        <nav th:replace="partials/navbar :: navbar"></nav>
+        <main>
+            <div class="site-margin">
+                <div class="club-container">
+                    <div class="intro-members-sections">
+                        <section class="club-intro-section">
+                            <div class="avatar-name-genre">
+                                <div class="club-avatar">
+                                    <img class="club-img" th:src="${club.headerImageUrl}" alt="book club avatar">
+                                </div>
+                                <div class="club-name-container">
+                                    <h3 class="club-name" th:text="${club.name}"></h3>
+                                </div>
+                                <div class="genre-container">
+                                    <p class="genre">Genre: <span th:text="${club.genre.name}"></span></p>
+                                </div>
                             </div>
-                            <div class="modal-body">
-                                <p>Are you sure you want to delete the club?</p>
-                                <p><strong>You cannot undo this action.</strong></p>
+                            <div class="club-buttons">
+                                <!--  Admin Control  -->
+                                <div class="admin-controls" th:if="${member != null && member.isAdmin == true}">
+                                    <!-- Create Blog Post Button for owner/admin -->
+                                    <form th:action="@{/bookclub/{id}/create-post (id = ${club.id})}">
+                                        <input class="button" type="submit" value="Create Post">
+                                    </form>
+                                    <!--  Edit Club Button for owner/admin  -->
+                                    <form th:action="@{/edit-bookclub/{id} (id = ${club.id})}">
+                                        <button class = "button" type="submit">
+                                            Edit Club
+                                        </button>
+                                    </form>
+                                    <!--Owner Control-->
+                                    <div class="owner-controls" th:if="${user == club.owner}">
+                                        <button type="button" class="button" data-toggle="modal" data-target="#deleteClubModal">
+                                            Delete
+                                        </button>
+                                        <!-- Delete Modal -->
+                                        <div class="modal fade" id="deleteClubModal" tabindex="-1" aria-labelledby="#deleteClubModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="deleteClubModalLabel">Delete Club</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p>Are you sure you want to delete the club?</p>
+                                                        <p><strong>You cannot undo this action.</strong></p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Never mind</button>
+                                                        <form th:action="@{/bookclub/{id}/delete (id = ${club.id})}" method="post">
+                                                            <button type="submit" class="button">Delete</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--  Join and Leave Buttons  -->
+                                <div class="join-leave-buttons">
+                                    <div class="login-btn" sec:authorize="isAnonymous()">
+                                        <form th:action="@{/login}">
+                                            <input class="button" type="submit" value="Login to Join">
+                                        </form>
+                                        <br />
+                                    </div>
+                                    <div sec:authorize="isAuthenticated()" class="join-leave-container" th:if="${user != club.owner}">
+                                        <div th:if="${member == null}">
+                                            <form th:action="@{/bookclub/{id}/join (id = ${club.id})}" method="POST">
+                                                <input class="button" type="submit" value="Join Club">
+                                            </form>
+                                        </div>
+                                        <div th:unless="${member == null}">
+                                            <form th:action="@{/bookclub/{id}/leave (id = ${club.id})}" method="POST">
+                                                <input class="button" type="submit" value="Leave">
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Never mind</button>
-                                <form th:action="@{/bookclub/{id}/delete (id = ${club.id})}" method="post">
-                                    <button type="submit" class="btn btn-danger">Delete</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--Join and Leave Buttons-->
-            <div sec:authorize="isAnonymous()">
-                <form th:action="@{/login}">
-                    <input class="btn btn-primary" type="submit" value="Login to Join">
-                </form>
-                <br />
-            </div>
-            <div sec:authorize="isAuthenticated()" class="join-leave-container" th:if="${user != club.owner}">
-                <div th:if="${member == null}">
-                    <form th:action="@{/bookclub/{id}/join (id = ${club.id})}" method="POST">
-                        <input class="btn btn-primary" type="submit" value="Join Club">
-                    </form>
-                </div>
-                <div th:unless="${member == null}">
-                    <form th:action="@{/bookclub/{id}/leave (id = ${club.id})}" method="POST">
-                        <input class="btn btn-primary" type="submit" value="Leave Club">
-                    </form>
-                </div>
-            </div>
-            <br />
-            <div class="club-info">
-                <img th:src="${club.headerImageUrl}" alt="">
-                <p>Name of club: </p><h1 th:text="${club.name}"></h1>
-                <p>About: </p><h3 th:text="${club.about}"></h3>
-                <p>Club genre: </p><h3 th:text="${club.genre.name}"></h3>
-                <p>Club Owner: </p><h3 th:text="${club.owner.username}"></h3>
-            </div>
-            <br />
-            <!--    Members Container        -->
-            <div class="members-container">
-                <h3>Members</h3>
-                <div th:each="clubMember: ${members}" class="row">
-                    <div class="member-card card col-3">
-                        <img class="card-img-top" th:src="${clubMember.user.avatarURL}" alt="Profile Image"/>
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                <span th:text="${clubMember.user.firstName}"></span>
-                                <span th:text="${clubMember.user.lastName}"></span>
-                            </h5>
-                            <p class="card-body" th:if="${clubMember.isAdmin == true}">Admin</p>
-                            <p class="card-body" th:unless="${clubMember.isAdmin == true}">Member</p>
-                        </div>
-                        <div th:if="${member != null && member.isAdmin == true}" class="card-footer">
-                            <div th:if="${clubMember.user != club.owner}">
-                                <form th:if="${clubMember != null && clubMember.isAdmin == false}" th:action="@{/bookclub/{id}/admin/{userId} (id = ${club.id}, userId = ${clubMember.user.id})}" method="POST">
-                                    <input class="btn btn-primary" type="submit" value="Make Admin">
-                                </form>
-                                <form th:unless="${clubMember != null && clubMember.isAdmin == false}" th:action="@{/bookclub/{id}/member/{userId} (id = ${club.id}, userId = ${clubMember.user.id})}" method="POST">
-                                    <input class="btn btn-primary" type="submit" value="Delete Admin">
-                                </form>
-                            </div>
-                            <div th:unless="${clubMember.user != club.owner}">
-                                <p>Owner</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--     Posts Container       -->
-            <div id="post-container" class="post-container">
-                <div class="blog-title">
-                    <h3><span th:text="${club.name}"></span>'s Posts</h3>
-                </div>
-                <!--        Displays all the posts created by the blog        -->
-                <div th:each="post: ${posts}">
-                    <div class="blog-card">
-                        <div sec:authorize="isAnonymous()">
-                            <h4><a th:text="${post.title}" th:href="@{/login}"></a></h4>
-                        </div>
-                        <div sec:authorize="isAuthenticated()">
-                            <h4><a th:text="${post.title}" th:href="@{/bookclub/post/{postId} (postId = ${post.id})}"></a></h4>
-                        </div>
-                        <p th:utext="${post.body}"></p>
-                        <p>Author: <span th:text="${post.user.username}"></span></p>
-                    </div>
-                    <hr />
-                </div>
-            </div>
-        </div>
+                        </section>
 
-    </main>
-    <footer th:replace="partials/footer :: footer"></footer>
-</body>
+                        <!--     About Club and Members Section       -->
+                        <section class="club-members-about-club">
+                            <!--        Members        -->
+                            <h3 class="club-heading">Members</h3>
+                            <div class="members-container">
+                                <div th:each="clubMember: ${members}">
+                                    <div class="member-card">
+                                        <img class="member-image" th:src="${clubMember.user.avatarURL}" alt="Profile Image"/>
+                                        <div class="member-info">
+                                            <h5 class="member-name">
+                                                <a class="member-name-link" th:href="@{/profile/{username} (username = ${clubMember.user.username})}" >
+                                                    <span th:text="${clubMember.user.firstName}"></span>
+                                                    <span th:text="${clubMember.user.lastName}"></span>
+                                                </a>
+                                            </h5>
+                                            <p class="member-status" th:if="${clubMember.isAdmin == true}">Admin</p>
+                                            <p class="member-status" th:unless="${clubMember.isAdmin == true}">Member</p>
+                                        </div>
+                                        <div th:if="${member != null && member.isAdmin == true}" class="admin-btn">
+                                            <div th:if="${clubMember.user != club.owner}">
+                                                <div class="admin-status-btn">
+                                                    <form th:if="${clubMember != null && clubMember.isAdmin == false}" th:action="@{/bookclub/{id}/admin/{userId} (id = ${club.id}, userId = ${clubMember.user.id})}" method="POST">
+                                                        <input class="make-admin-btn button" type="submit" value="Make Admin">
+                                                    </form>
+                                                </div>
+                                                <div class="admin-status-btn">
+                                                    <form th:unless="${clubMember != null && clubMember.isAdmin == false}" th:action="@{/bookclub/{id}/member/{userId} (id = ${club.id}, userId = ${clubMember.user.id})}" method="POST">
+                                                        <input class="delete-admin-btn button" type="submit" value="Delete Admin">
+                                                    </form>
+                                                </div>
+                                            </div>
+                                            <div th:unless="${clubMember.user != club.owner}">
+                                            <!--                   Replace with Icon!                             -->
+                                                <p class="owner">Owner</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--       About the club         -->
+                            <div class="about-heading">
+                                <h3 class="club-heading">About</h3>
+                            </div>
+                            <div class="about-club-container">
+                                <div class="about-body">
+                                    <p th:text="${club.about}"></p>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+
+                    <!--     Posts Section       -->
+                    <section class="club-blog">
+                        <div id="post-container" class="post-container">
+                            <div class="blog-title">
+                                <h3 class="club-heading">Club Blog</h3>
+                            </div>
+                            <!--        Displays all the posts created by the blog        -->
+                            <div th:each="post: ${posts}">
+                                <div class="blog-card">
+                                    <div sec:authorize="isAnonymous()">
+                                        <h4><a class="post-title" th:text="${post.title}" th:href="@{/login}"></a></h4>
+                                    </div>
+                                    <div sec:authorize="isAuthenticated()">
+                                        <h4><a class="post-title" th:text="${post.title}" th:href="@{/bookclub/post/{postId} (postId = ${post.id})}"></a></h4>
+                                    </div>
+                                    <div class="blog-card-footer">
+                                        <div class="post-author">
+                                            <a class="author-link" th:href="@{/profile/{username} (username = ${post.user.username})}" >
+                                                <span th:text="${post.user.firstName}"></span>
+                                                <span th:text="${post.user.lastName}"></span>
+                                            </a>
+                                        </div>
+                                        <div class="created-date">
+                                            <p th:text="${post.createdDate}"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    <!--      SVG GRAPHIC        -->
+                            <div class="post-container-footer">
+                                <img class="club-page-shapes" th:src="@{../img/club-page-shapes.svg}">
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+            </div>
+        </main>
+        <footer th:replace="partials/footer :: footer"></footer>
+    </body>
 </html>
