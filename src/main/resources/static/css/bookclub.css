@@ -80,11 +80,17 @@
 }
 
 .member-card {
+    width: 12em;
     margin: 10px;
     flex: 1;
     background-color: var(--green);
     border: 2px solid var(--off-white);
     border-radius: var(--border-radius);
+}
+
+.member-img-container {
+    display: flex;
+    justify-content: center;
 }
 
 .member-image {
@@ -102,7 +108,7 @@
 
 .member-name-link, .member-name-link:visited, .post-author, .author-link:visited {
     text-decoration: none;
-    color: #eac9c2;
+    color: var(--link-pink);
 }
 
 .member-name-link:hover, .author-link:hover {

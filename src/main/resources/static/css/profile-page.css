@@ -14,7 +14,7 @@
     margin-right: 5px;
 }
 
-.user-detail {
+.user-detail, .member-info {
     overflow-wrap: break-word;
     word-wrap: break-word;
     word-break: break-word;
@@ -24,4 +24,9 @@
     -moz-hyphens: auto;
     -webkit-hyphens: auto;
     hyphens: auto;
+}
+
+.profile-club-info {
+    text-align: center;
+    margin-bottom: 20px;
 }

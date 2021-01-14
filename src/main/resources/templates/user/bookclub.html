@@ -95,7 +95,9 @@
                             <div class="members-container">
                                 <div th:each="clubMember: ${members}">
                                     <div class="member-card">
-                                        <img class="member-image" th:src="${clubMember.user.avatarURL}" alt="Profile Image"/>
+                                        <div class="member-img-container">
+                                            <img class="member-image" th:src="${clubMember.user.avatarURL}" alt="Profile Image"/>
+                                        </div>
                                         <div class="member-info">
                                             <h5 class="member-name">
                                                 <a class="member-name-link" th:href="@{/profile/{username} (username = ${clubMember.user.username})}" >

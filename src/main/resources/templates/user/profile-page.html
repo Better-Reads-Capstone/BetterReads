@@ -66,13 +66,19 @@
                             <!--    SHOW BOOKCLUBS    -->
                             <div th:each="bookclub : ${bookclubs}">
                                 <div th:if="${bookclub.owner.id == user.id}" class="owner member-card">
-                                    <img class="member-image" th:src="${bookclub.headerImageUrl}" alt="book club image">
-                                    <a th:href="@{/bookclub/{id}(id=${bookclub.id})}" th:text="${bookclub.name}"></a>
-                                    <p>crown</p>
+                                    <div class="member-img-container">
+                                        <img class="member-image" th:src="${bookclub.headerImageUrl}" alt="book club image">
+                                    </div>
+                                    <div class="member-info">
+                                        <a class="member-name-link" th:href="@{/bookclub/{id}(id=${bookclub.id})}" th:text="${bookclub.name}"></a>
+                                        <p>crown</p>
+                                    </div>
                                 </div>
                                 <div th:unless="${bookclub.owner.id == user.id}" class="member member-card">
                                     <img class="member-image" th:src="${bookclub.headerImageUrl}" alt="book club image">
-                                    <a class="member-name-link" th:href="@{/bookclub/{id}(id=${bookclub.id})}" th:text="${bookclub.name}"></a>
+                                    <div class="member-info profile-club-info">
+                                        <a class="member-name-link" th:href="@{/bookclub/{id}(id=${bookclub.id})}" th:text="${bookclub.name}"></a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
