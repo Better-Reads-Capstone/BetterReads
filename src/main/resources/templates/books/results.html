@@ -6,38 +6,46 @@
 </head>
 <body>
     <nav th:replace="partials/navbar :: navbar"></nav>
-    <div class="container p-3">
-        <input type="hidden" th:value="${searchvalue}" id="result-term">
-        <div class="container mb-3" id="search-form-container">
-            <div class="mb-3">
-                <h3 class="text-right">Search</h3>
+    <header>
+        <div class="header-block-left">
+            <div class="header-text">
+                <p class="booksearch-text">Find a book</p>
             </div>
-            <form class="my-2 my-lg-0 search-form">
-                <div class="form-row align-items-center">
-                    <div class="col">
-                        <label class="sr-only" for="search-input">Search Bar</label>
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text" id="search-icon">
-                                    <i class="bi bi-search"></i>
+        </div>
+        <div class="header-block-right">
+            <img class="booksearch-header-img" th:src="@{/img/books.svg}">
+        </div>
+    </header>
+    <div class="site-margin">
+        <main>
+            <section>
+                <div class="my-3">
+                    <input type="hidden" th:value="${searchvalue}" id="result-term">
+                    <form class="my-3 my-lg-3 search-form">
+                        <div class="form-row align-items-center">
+                            <div class="col">
+                                <label class="sr-only" for="search-input">Search Bar</label>
+                                <div class="input-group">
+                                    <input class="form-control" type="search" placeholder="Search for books" aria-label="Search" id="search-input">
                                 </div>
                             </div>
-                            <input class="form-control" type="search" placeholder="Search for books" aria-label="Search" id="search-input">
+                                                <div class="col-auto">
+                                                    <button class="btn btn-search my-sm-2" type="submit" id="search-btn"><i class="bi bi-search"></i></button>
+                                                </div>
                         </div>
-                    </div>
-<!--                    <div class="col-auto">-->
-<!--                        <button class="btn btn-primary my-sm-0" type="submit" id="search-btn">Search</button>-->
-<!--                    </div>-->
+                    </form>
                 </div>
-            </form>
-        </div>
-        <div class="container " id="results-container">
-            <h4 class="card-title" id="results-title" style="display: none;">
-                Results for <span id="search-value" class="font-italic"></span>
-            </h4>
-        </div>
-        <div class="loading-icon mx-auto"></div>
-        <div class="row row-cols-1" id="search-results"></div>
+            </section>
+            <section>
+                <div class="" id="results-container">
+                    <h4 class="card-title" id="results-title" style="display: none;">
+                        Results for <span id="search-value" class="font-italic"></span>
+                    </h4>
+                </div>
+                <div class="loading-icon mx-auto"></div>
+                <div class="book-grid" id="search-results"></div>
+            </section>
+        </main>
     </div>
     <footer th:replace="partials/footer :: footer"></footer>
 </body>
