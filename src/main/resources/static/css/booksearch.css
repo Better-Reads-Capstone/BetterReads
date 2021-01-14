@@ -89,9 +89,12 @@
 
 @media (min-width: 992px) {
     .booksearch-header-img {
-        height: 500px;
+        display: block;
+        float: right;
         width: 500px;
+        height: 500px;
+        position: absolute;
         right: 30px;
-        bottom: 15px;
+        top: 5px;
     }
 }
