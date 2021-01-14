@@ -37,7 +37,8 @@
                         <div th:each="comment: ${comments}">
                             <p>User: <span th:text="${comment.user.username}"></span></p>
                             <p th:utext="${comment.body}"></p>
-                            <p th:text="${comment.createdDate}"></p>
+<!--                            <p th:text="${comment.createdDate}"></p>-->
+                            <p th:text="${#dates.format((comment.createdDate), 'MMM d, yyyy')}"></p>
                             <form th:if="${user == comment.user}" th:action="@{/bookclub/{id}/{postId}/delete-comment-{commentId} (id = ${club.id}, postId = ${post.id}, commentId = ${comment.id}) }" method="POST">
                                 <button class="btn btn-primary" type="submit">Delete Comment</button>
                             </form>

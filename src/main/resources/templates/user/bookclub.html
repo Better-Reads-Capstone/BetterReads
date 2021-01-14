@@ -163,7 +163,7 @@
                                                 </a>
                                             </div>
                                             <div class="created-date">
-                                                <p th:text="${post.createdDate}"></p>
+                                                <p th:text="${#dates.format((post.createdDate), 'MMM d, yyyy')}"></p>
                                             </div>
                                         </div>
                                     </div>
