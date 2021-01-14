@@ -120,24 +120,18 @@ const createSingleBookObj = (data) => {
 const buildSmallBookCard = (book) => {
     let cardHTML = '';
     cardHTML =
-        `<div class="col mb-4">
-            <div class="card" style="width: 12rem;">
-                <img src="${book.img}" class="card-img-top" alt="Book cover for ${book.title}">
-                <div class="card-body">
-                    <h5 class="text-center">${book.title}</h5>
-                    <p>Author: ${book.auth}</p>
-                    <p>ISBN: ${book.isbn[0].identifier}</p>
-                    <p>Publisher: ${book.publisher}</p>
-                    <p>Date Published: ${book.pubDate}</p>
-                    <p>Description: ${book.descSm}</p>
+        `<div class="book-cover">
+                <div class="book-card">
+                    <img src="${book.img}" class="book-img" alt="Book cover for ${book.title}" data-ref="${book.id}"/>
                 </div>
-                <div class="card-footer">
-                    <form class='form-inline my-2 my-lg-0' method="GET" action="/book/${book.id}">
-                        <button class='btn btn-lg btn-primary my-2 my-sm-0' type='submit' id='viewBookBtn'>View Book</button>
-                    </form>
+                <div class="book-info-background">
+                    
                 </div>
-            </div>
-        </div>`
+                <div class="book-card book-search-info">
+                    <p class="book-title">${book.title}</p>
+                    <p class="book-author">${book.auth}</p>
+                </div>
+            </div>`
     return cardHTML;
 }
 
