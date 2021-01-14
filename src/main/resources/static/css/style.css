@@ -16,6 +16,7 @@
 
     /*  Border Radius  */
     --border-radius: 10px;
+    --img-border-radius: 150px;
 
     /*  Header  */
     --header-height: 550px;
@@ -24,10 +25,29 @@
 }
 
 .site-margin {
-    margin: 50px 30px;
+    margin: 30px 50px;
     overflow: hidden;
 }
 
+/*Buttons for the website*/
+.button {
+    padding: 10px 10px;
+    font-family: var(--raleway);
+    font-size: .9rem;
+    font-weight: 200;
+    color: var(--off-white);
+    background-color: var(--forest-green);
+    border-radius: var(--border-radius);
+    border: none;
+    outline:none;
+}
+
+.button:hover {
+    transform: translateY(-3px);
+    cursor: pointer;
+}
+
+/*Loading Icon*/
 .loading-icon{
     width: 80px;
     height: 80px;
@@ -149,7 +169,7 @@ header {
 
     .book-title {
         margin-left: 0;
-        margin-top: 40px;
+        margin-top: 10px;
         padding-top: 20px;
         font-weight: 700;
         font-size: 1.3em;

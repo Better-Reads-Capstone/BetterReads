@@ -13,76 +13,78 @@
                     <!--   About The Club Section   -->
                     <section class="club-intro-section">
                         <div class="avatar-name-genre">
-                            <div class="club-name-container">
-                                <h3 th:text="${club.name}"></h3>
-                            </div>
                             <div class="club-avatar">
                                 <img class="club-img" th:src="${club.headerImageUrl}" alt="book club avatar">
                             </div>
+                            <div class="club-name-container">
+                                <h3 class="club-name" th:text="${club.name}"></h3>
+                            </div>
                             <div class="genre-container">
-                                <p>Club genre: </p><h3 th:text="${club.genre.name}"></h3>
+                                <p class="genre">Genre: <span th:text="${club.genre.name}"></span></p>
                             </div>
                         </div>
                         <div class="club-buttons">
-                            <!--Admin Control-->
+                            <!--  Admin Control  -->
                             <div class="admin-controls" th:if="${member != null && member.isAdmin == true}">
                                 <!-- Create Blog Post Button for owner/admin -->
                                 <form th:action="@{/bookclub/{id}/create-post (id = ${club.id})}">
-                                    <input class="btn btn-primary" type="submit" value="Create Post">
+                                    <input class="button" type="submit" value="Create Post">
                                 </form>
-                                <!-- Edit Club Button for owner/admin -->
+                                <!--  Edit Club Button for owner/admin  -->
                                 <form th:action="@{/edit-bookclub/{id} (id = ${club.id})}">
-                                    <button class = "btn btn-primary" type="submit">
+                                    <button class = "button" type="submit">
                                         Edit Club
                                     </button>
                                 </form>
-                            </div>
-                            <!--Owner Control-->
-                            <div class="owner-controls" th:if="${user == club.owner}">
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deleteClubModal">
-                                    Delete Club
-                                </button>
-                                <!-- Delete Modal -->
-                                <div class="modal fade" id="deleteClubModal" tabindex="-1" aria-labelledby="#deleteClubModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="deleteClubModalLabel">Delete Club</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <p>Are you sure you want to delete the club?</p>
-                                                <p><strong>You cannot undo this action.</strong></p>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Never mind</button>
-                                                <form th:action="@{/bookclub/{id}/delete (id = ${club.id})}" method="post">
-                                                    <button type="submit" class="btn btn-danger">Delete</button>
-                                                </form>
+                                <!--Owner Control-->
+                                <div class="owner-controls" th:if="${user == club.owner}">
+                                    <button type="button" class="button" data-toggle="modal" data-target="#deleteClubModal">
+                                        Delete
+                                    </button>
+                                    <!-- Delete Modal -->
+                                    <div class="modal fade" id="deleteClubModal" tabindex="-1" aria-labelledby="#deleteClubModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="deleteClubModalLabel">Delete Club</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p>Are you sure you want to delete the club?</p>
+                                                    <p><strong>You cannot undo this action.</strong></p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Never mind</button>
+                                                    <form th:action="@{/bookclub/{id}/delete (id = ${club.id})}" method="post">
+                                                        <button type="submit" class="button">Delete</button>
+                                                    </form>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <!--Join and Leave Buttons-->
-                            <div sec:authorize="isAnonymous()">
-                                <form th:action="@{/login}">
-                                    <input class="btn btn-primary" type="submit" value="Login to Join">
-                                </form>
-                                <br />
-                            </div>
-                            <div sec:authorize="isAuthenticated()" class="join-leave-container" th:if="${user != club.owner}">
-                                <div th:if="${member == null}">
-                                    <form th:action="@{/bookclub/{id}/join (id = ${club.id})}" method="POST">
-                                        <input class="btn btn-primary" type="submit" value="Join Club">
+                            <!--  Join and Leave Buttons  -->
+                            <div class="join-leave-buttons">
+                                <div class="login-btn" sec:authorize="isAnonymous()">
+                                    <form th:action="@{/login}">
+                                        <input class="button" type="submit" value="Login to Join">
                                     </form>
+                                    <br />
                                 </div>
-                                <div th:unless="${member == null}">
-                                    <form th:action="@{/bookclub/{id}/leave (id = ${club.id})}" method="POST">
-                                        <input class="btn btn-primary" type="submit" value="Leave Club">
-                                    </form>
+                                <div sec:authorize="isAuthenticated()" class="join-leave-container" th:if="${user != club.owner}">
+                                    <div th:if="${member == null}">
+                                        <form th:action="@{/bookclub/{id}/join (id = ${club.id})}" method="POST">
+                                            <input class="button" type="submit" value="Join Club">
+                                        </form>
+                                    </div>
+                                    <div th:unless="${member == null}">
+                                        <form th:action="@{/bookclub/{id}/leave (id = ${club.id})}" method="POST">
+                                            <input class="button" type="submit" value="Leave">
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
