@@ -142,27 +142,29 @@
                     <!--     Posts Section       -->
                     <section class="club-blog">
                         <div id="post-container" class="post-container">
-                            <div class="blog-title">
-                                <h3 class="club-heading">Club Blog</h3>
-                            </div>
-                            <!--        Displays all the posts created by the blog        -->
-                            <div th:each="post: ${posts}">
-                                <div class="blog-card">
-                                    <div sec:authorize="isAnonymous()">
-                                        <h4><a class="post-title" th:text="${post.title}" th:href="@{/login}"></a></h4>
-                                    </div>
-                                    <div sec:authorize="isAuthenticated()">
-                                        <h4><a class="post-title" th:text="${post.title}" th:href="@{/bookclub/post/{postId} (postId = ${post.id})}"></a></h4>
-                                    </div>
-                                    <div class="blog-card-footer">
-                                        <div class="post-author">
-                                            <a class="author-link" th:href="@{/profile/{username} (username = ${post.user.username})}" >
-                                                <span th:text="${post.user.firstName}"></span>
-                                                <span th:text="${post.user.lastName}"></span>
-                                            </a>
+                            <div class="posts">
+                                <div class="blog-title">
+                                    <h3 class="club-heading">Club Blog</h3>
+                                </div>
+                                <!--        Displays all the posts created by the blog        -->
+                                <div th:each="post: ${posts}">
+                                    <div class="blog-card">
+                                        <div sec:authorize="isAnonymous()">
+                                            <h4><a class="post-title" th:text="${post.title}" th:href="@{/login}"></a></h4>
                                         </div>
-                                        <div class="created-date">
-                                            <p th:text="${post.createdDate}"></p>
+                                        <div sec:authorize="isAuthenticated()">
+                                            <h4><a class="post-title" th:text="${post.title}" th:href="@{/bookclub/post/{postId} (postId = ${post.id})}"></a></h4>
+                                        </div>
+                                        <div class="blog-card-footer">
+                                            <div class="post-author">
+                                                <a class="author-link" th:href="@{/profile/{username} (username = ${post.user.username})}" >
+                                                    <span th:text="${post.user.firstName}"></span>
+                                                    <span th:text="${post.user.lastName}"></span>
+                                                </a>
+                                            </div>
+                                            <div class="created-date">
+                                                <p th:text="${post.createdDate}"></p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
