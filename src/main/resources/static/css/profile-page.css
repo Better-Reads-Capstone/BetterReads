@@ -1,0 +1,27 @@
+.user-info {
+    border-top: 4px solid var(--makeup-tan);
+    padding: 20px;
+}
+
+.user-info-flex {
+    display: flex;
+}
+
+.user-info-title {
+    font-family: var(--montserrat);
+    color: var(--forest-green);
+    text-decoration: underline;
+    margin-right: 5px;
+}
+
+.user-detail {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+
+    /* Adds a hyphen where the word breaks, if supported (No Blink) */
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+}
