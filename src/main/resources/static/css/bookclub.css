@@ -1,5 +1,4 @@
 .club-container {
-    border-radius: var(--border-radius);
     color: var(--dark-brown)
 }
 
@@ -9,8 +8,8 @@
 }
 
 .club-avatar {
-    height: 300px;
-    width: 300px;
+    height: 200px;
+    width: 200px;
     margin: 0 auto;
     display: flex;
     justify-content: center;
@@ -19,10 +18,9 @@
 
 .club-img {
     margin-top: 20px;
-    width: 250px;
-    height: 250px;
-    border-radius: var(--img-border-radius);
-    border: 4px solid var(--makeup-tan);
+    width: 150px;
+    height: 150px;
+    border: 4px solid var(--dark-grey);
 }
 
 .club-name-container, .genre-container {
@@ -55,20 +53,88 @@
 }
 
 .club-members-about-club {
-    border-top-right-radius: var(--border-radius);
-    border-bottom-right-radius: var(--border-radius);
+    width: 100%;
 }
-.club-blog {
-    margin-left: 40px;
+
+.members-container {
+    margin: 10px 20px;
+}
+
+.members {
+    margin: 20px 0 10px 0;
+    text-align: center;
+    font-family: var(--alegreya);
+    font-size: 2rem;
+    color: var(--dark-grey);
+}
+
+.member-card {
+    margin: 10px;
+    flex: 1;
+    background-color: var(--green);
+    border: 2px solid var(--off-white);
     border-radius: var(--border-radius);
 }
 
+.member-image {
+    width: 10em;
+    border-radius: var(--img-border-radius);
+    border: 4px solid var(--dark-grey);
+}
+
+.member-status, .member-name {
+    color: var(--off-white);
+    text-align: center;
+    margin-left: 0;
+}
+
+.owner {
+    text-align: center;
+    color: var(--off-white);
+}
+
+.admin-status-btn {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+/*.club-blog {*/
+/*    margin-left: 40px;*/
+/*    border-radius: var(--border-radius);*/
+/*}*/
+
+@media (min-width: 425px) {
+
+    .club-avatar {
+        height: 300px;
+        width: 300px;
+    }
+
+    .club-img {
+        width: 250px;
+        height: 250px;
+    }
+}
 
 @media (min-width: 768px) {
-    .club-container {
-        margin-left: 20px;
-        display: grid;
-        grid-template-columns: 300px 600px 400px;
+
+    .club-avatar {
+        height: 400px;
+        width: 400px;
+    }
+
+    .club-img {
+        width: 350px;
+        height: 350px;
+        border-radius: 200px;
+    }
+}
+
+
+@media (min-width: 992px) {
+
+    .intro-members-sections {
+        display: flex;
     }
 
     .club-intro-section {
@@ -76,6 +142,36 @@
         border-bottom-left-radius: var(--border-radius);
     }
 
+    .club-avatar {
+        height: 300px;
+        width: 300px;
+    }
 
+    .club-img {
+        width: 250px;
+        height: 250px;
+    }
 
+    .members {
+        text-align: left;
+        margin-left: 20px;
+    }
+}
+
+@media (min-width: 1310px) {
+
+    .club-container {
+        display: flex;
+        justify-content: space-evenly;
+    }
+
+    .intro-members-sections {
+        width: 60%;
+    }
+
+    .club-blog {
+        margin-left: 40px;
+        border-radius: var(--border-radius);
+        width: 30%;
+    }
 }
