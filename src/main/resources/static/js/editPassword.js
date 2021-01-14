@@ -1,12 +1,12 @@
 $(document).ready(() => {
     $('#showPassword').on('click', () => {
-        let input = $('#showPassword').prev();
+        let input = $('#password');
         if(input.attr('type') === "password") input.attr('type', 'text');
         else input.attr('type', 'password');
     })
 
     $('#showConfirmPassword').on('click', () => {
-        let input = $('#showConfirmPassword').prev();
+        let input = $('#passwordConfirm');
         if(input.attr('type') === "password") input.attr('type', 'text');
         else input.attr('type', 'password');
     })
