@@ -6,7 +6,7 @@ const queryFetch = (searchTerm) => {
         fetch(baseUrl + '?' + new URLSearchParams({
             q: searchTerm,
             printType: 'books',
-            maxResults: 15,
+            maxResults: 40,
             key: apiKey
         }))
             .then(response => response.json())

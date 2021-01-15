@@ -122,8 +122,8 @@
                                                     <form th:action="@{/profile/{username}/{bookshelfId}(username=${user.username}, bookshelfId=${extract.id})}"
                                                           method="post">
                                                         <select class="bookshelf-select" name="bookshelfStatus" onchange="this.form.submit()">
-                                                            <option th:value="'READ'">READ</option>
-                                                            <option th:value="'READING'" selected disabled>READING</option>
+                                                            <option th:value="'READ'" selected disabled>READ</option>
+                                                            <option th:value="'READING'">READING</option>
                                                             <option th:value="'WISHLIST'">WISHLIST</option>
                                                         </select>
                                                     </form>
@@ -187,8 +187,8 @@
                                                           method="post">
                                                         <select class="bookshelf-select" name="bookshelfStatus" onchange="this.form.submit()">
                                                             <option th:value="'READ'">READ</option>
-                                                            <option th:value="'READING'" selected disabled>READING</option>
-                                                            <option th:value="'WISHLIST'">WISHLIST</option>
+                                                            <option th:value="'READING'">READING</option>
+                                                            <option th:value="'WISHLIST'" selected disabled>WISHLIST</option>
                                                         </select>
                                                     </form>
                                                 </div>
