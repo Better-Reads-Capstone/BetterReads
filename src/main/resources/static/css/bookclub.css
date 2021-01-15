@@ -214,11 +214,12 @@
 
 .blog-post {
     border-radius: var(--border-radius);
-    border: 4px solid var(--off-white);
+    border: 4px solid var(--green);
     padding: 20px;
     height: 50vh;
     overflow-y: scroll;
     margin-bottom: 20px;
+    background-color: var(--off-white);
 }
 
 .back-btn {
@@ -249,27 +250,51 @@
     padding: 20px
 }
 
-.comments-container {
-    border-radius: var(--border-radius);
+.nav {
+    border-top-left-radius: var(--border-radius);
+    border-top-right-radius: var(--border-radius);
 }
 
 .nav-tabs{
-    background-color: var(--green);
+    background-color: var(--makeup-tan);
 }
 .tab-content{
-    background-color: var(--green);
     padding:5px;
+    border-bottom-left-radius: var(--border-radius);
+    border-bottom-right-radius: var(--border-radius);
+    height: 30%;
+    overflow-y: scroll;
 }
+
 .nav-tabs > li > a{
     color: var(--off-white);
     border: medium none;
 }
+
 .nav-tabs > li > a:hover{
-    background-color: var(--makeup-tan) !important;
+    background-color: var(--off-white) !important;
     border: medium none;
     border-radius: 0;
     color: var(--forest-green);
     text-decoration: none;
+}
+
+.comments-tab {
+    height: 400px;
+    overflow-y: scroll;
+}
+
+.comment-body {
+    padding: 10px;
+    background-color: var(--off-white);
+    font-family: var(--montserrat);
+    border-radius: var(--border-radius);
+}
+
+.comment-form-container {
+    margin-left: 0;
+    margin-right: 0;
+    padding: 20px 10px;
 }
 
 .add-comment {
@@ -278,6 +303,11 @@
 
 .comment-btn {
     margin-top: 20px;
+}
+
+.delete-comment {
+    display: flex;
+    justify-content: flex-end;
 }
 
 
