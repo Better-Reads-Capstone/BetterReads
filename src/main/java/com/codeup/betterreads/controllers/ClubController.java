@@ -176,23 +176,19 @@ public class ClubController {
                               Model viewModel,
                               Errors validation) {
         Club club = clubDao.getOne(id);
-        List<Genre> genreList = genreDao.findAll();
 
-        System.out.println("This won't be logged on edit validation failure");
-
-        if (result.hasErrors()) {
-//            viewModel.addAttribute("errors", validation);
-//            viewModel.addAttribute("club", club);
-//            viewModel.addAttribute("genres", genreList);
-            System.err.println("===== EDIT Club Validation errors FOUND, redirecting back =====");
-            redirectAttributes.addFlashAttribute("errors", validation);
-//            redirectAttributes.addFlashAttribute("club", club);
-//            redirectAttributes.addFlashAttribute("genres", genreList);
-//            return  "user/edit-bookclub";
-            return  "redirect:/edit-bookclub/" + id;
-        }
-
-        System.err.println("===== NO VALIDATION ISSUES =====");
+//        if (result.hasErrors()) {
+//              List<Genre> genreList = genreDao.findAll();
+////            viewModel.addAttribute("errors", validation);
+////            viewModel.addAttribute("club", club);
+////            viewModel.addAttribute("genres", genreList);
+//            System.err.println("===== EDIT Club Validation errors FOUND, redirecting back =====");
+//            redirectAttributes.addFlashAttribute("errors", validation);
+////            redirectAttributes.addFlashAttribute("club", club);
+////            redirectAttributes.addFlashAttribute("genres", genreList);
+////            return  "user/edit-bookclub";
+//            return  "redirect:/edit-bookclub/" + id;
+//        }
 
         clubToBeUpdated.setOwner(club.getOwner());
         clubToBeUpdated.setCreatedDate(club.getCreatedDate());
