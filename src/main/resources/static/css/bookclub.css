@@ -235,6 +235,7 @@
     .club-members-about-club {
         border-top-right-radius: var(--border-radius);
         border-bottom-right-radius: var(--border-radius);
+        width: 60%;
     }
 
     .club-avatar {
