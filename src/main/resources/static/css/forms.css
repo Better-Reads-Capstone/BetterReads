@@ -13,22 +13,42 @@
 
 }
 
-    .form-container {
+    .form-layout {
         border: solid black 1px;
         width: 30rem;
         border-radius: 10px;
+        margin: 0 auto;
+    }
+
+    .img-width {
+        position: relative;
+        z-index: -1;
+        width: 100%;
+        border-radius: 10px;
+        margin-bottom: -175px;
+    }
+
+    .img-flip {
+        position: relative;
+        z-index: -1;
+        transform: rotate(180deg);
+        width: 100%;
+        border-radius: 10px;
+        margin-bottom: -150px;
+    }
+
+    .form-container {
         margin: auto;
         padding: 0 30px;
     }
 
     .msg-space {
-         margin-top: 125px;
-         margin-bottom: 200px;
+         margin-top: 35px;
+         margin-bottom: 50px;
      }
 
     .register-msg-space {
-        margin-top: 75px;
-        margin-bottom: 150px;
+        margin-top: 50px;
     }
 
     .if-message {
@@ -113,25 +133,40 @@
 
 
 @media (min-width: 992px) {
-    .form-container {
-        width: 40rem;
+
+    .form-layout {
         border-top: solid black 1px;
         border-bottom: solid black 1px;
         border-left: solid black 1px;
         border-right: none;
+        width: 40rem;
         border-radius: 10px 0 0 10px;
         margin: auto 0 auto auto;
+    }
+
+    .img-width {
+        width: 100%;
+        border-radius: 10px 0;
+        margin-bottom: -250px;
+    }
+
+    .img-flip {
+        transform: rotate(180deg);
+        border-radius: 10px 0;
+    }
+
+    .form-container {
         padding: 0 40px;
     }
 
     .msg-space {
-        margin-top: 60px;
-        margin-bottom: 120px;
+        margin-top: 0;
+        margin-bottom: 0;
     }
 
     .register-msg-space {
-        margin-top: 30px;
-        margin-bottom: 50px;
+        margin-top: 0;
+        margin-bottom: 0;
     }
 
     .forgot-pass-redirect {
@@ -139,11 +174,27 @@
         justify-content: space-around;
     }
 
+    .input-spacing {
+        margin-bottom: 20px;
+    }
+
+    .links-container {
+        margin-top: 30px;
+    }
+
     .desktop-image {
         display: flex;
-        background-color: #266150;
         width: 30rem;
+        border-top: solid black 1px;
+        border-right: solid black 1px;
+        border-bottom: solid black 1px;
+        border-left: none;
         border-radius: 0 10px 10px 0;
         margin-right: auto;
     }
+
+    .login-dsktp-clr {background-color: #83A473;}
+    .register-dsktp-clr {background-color: #E8CEBF;}
+    .forgot-pass-dsktp-clr {background-color: #266150;}
+    .reset-dsktp-clr {background-color: #266150;}
 }

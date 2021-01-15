@@ -2,14 +2,16 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="partials/head :: head(title = 'Successful Reset')">
 </head>
-<body class="outer-container">
+<body>
 <nav th:replace="partials/navbar :: navbar"></nav>
 <main class="content-space">
-    <div class="right-container">
-        <h1>You've Successfully Reset Your Password!</h1>
-        <div class="d-flex">
-            <h3 class="font-weight-bold">Go Back To The Login Page</h3>
-            <button class="button btn-login ml-2" type="submit">Login</button>
+    <div class="outer-container">
+        <div class="right-container">
+            <h1>You've Successfully Reset Your Password!</h1>
+            <div class="d-flex">
+                <h3 class="font-weight-bold">Go Back To The Login Page</h3>
+                <button class="button btn-login ml-2" type="submit">Login</button>
+            </div>
         </div>
     </div>
 </main>

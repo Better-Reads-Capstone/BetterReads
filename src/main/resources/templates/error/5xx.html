@@ -2,17 +2,19 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="partials/head :: head('Chaos monkeys and 500 errors')">
 </head>
-<body class="outer-container">
+<body>
 <nav th:replace="partials/navbar :: navbar"></nav>
 <main class="content-space">
-    <div class="right-container">
-        <h1>500 <span th:text="${error}"></span></h1>
-        <h3>Frankenstein's monster has run amok on our servers, a developer may have to be sacrificed.</h3>
-        <p>Somewhat horrifying, yet you've got some options below:</p>
-        <div class="err-redirect-btns">
-            <button class="button btn-back" type="button"><i
-                    class="bi bi-arrow-left-square"> Go Back</i></button>
-            <button class="button btn-home"><i class="bi bi-house"> Go To The Homepage</i></button>
+    <div class="outer-container">
+        <div class="right-container">
+            <h1>500 <span th:text="${error}"></span></h1>
+            <h3>Frankenstein's monster has run amok on our servers, a developer may have to be sacrificed.</h3>
+            <p>Somewhat horrifying, yet you've got some options below:</p>
+            <div class="err-redirect-btns">
+                <button class="button btn-back" type="button"><i
+                        class="bi bi-arrow-left-square"> Go Back</i></button>
+                <button class="button btn-home"><i class="bi bi-house"> Go To The Homepage</i></button>
+            </div>
         </div>
     </div>
 </main>
