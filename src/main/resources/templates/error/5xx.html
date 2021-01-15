@@ -2,22 +2,21 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="partials/head :: head('Chaos monkeys and 500 errors')">
 </head>
-<body>
+<body class="outer-container">
 <nav th:replace="partials/navbar :: navbar"></nav>
-        <div class="container">
-                <div class="my-3">
-                        <h1 class="text-center my-3">500 <span th:text="${error}"></span></h1>
-                        <h3 class="text-center my-3">Frankenstein's monster has run amok on our servers, a developer may have to be sacrificed.</h3>
-                        <p class="text-center my-3">Somewhat horrifying, yet you've got some options below:</p>
-                        <div class="container my-5" id="btn-container">
-                                <div class="d-flex justify-content-around">
-                                        <button class="btn btn-primary btn-back" type="button">Head <i class="bi bi-arrow-left-square"></i></button>
-                                        <a href="/" class="btn btn-primary">Head <i class="bi bi-house"></i></a>
-                                </div>
-                        </div>
-                </div>
+<main class="content-space">
+    <div class="right-container">
+        <h1>500 <span th:text="${error}"></span></h1>
+        <h3>Frankenstein's monster has run amok on our servers, a developer may have to be sacrificed.</h3>
+        <p>Somewhat horrifying, yet you've got some options below:</p>
+        <div class="err-redirect-btns">
+            <button class="button btn-back" type="button"><i
+                    class="bi bi-arrow-left-square"> Go Back</i></button>
+            <button class="button btn-home"><i class="bi bi-house"> Go To The Homepage</i></button>
         </div>
+    </div>
+</main>
 <footer th:replace="partials/footer :: footer"></footer>
-<script th:src="@{/js/utils/error.js}" defer></script>
+<script th:src="@{/js/utils/error-success.js}" defer></script>
 </body>
 </html>

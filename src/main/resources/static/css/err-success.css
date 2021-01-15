@@ -29,6 +29,10 @@
     height: 80%;
 }
 
+.err-redirect-btns {
+    display: flex;
+    justify-content: space-between;
+}
 
 @media (min-width: 992px) {
     .outer-container {
@@ -47,7 +51,11 @@
     }
 
     .right-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
         border: none;
+        height: 100%;
         width: 50%;
         margin: 0 0 0 auto;
         padding: 0 40px;
