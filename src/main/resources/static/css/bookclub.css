@@ -258,7 +258,7 @@
 .nav-tabs{
     background-color: var(--makeup-tan);
 }
-.tab-content{
+.comment-content{
     padding:5px;
     border-bottom-left-radius: var(--border-radius);
     border-bottom-right-radius: var(--border-radius);

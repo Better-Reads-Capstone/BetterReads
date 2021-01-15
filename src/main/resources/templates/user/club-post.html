@@ -5,7 +5,6 @@
 <body class="book-club-bg">
     <nav th:replace="partials/navbar :: navbar"></nav>
     <main>
-        <br>
         <div class="site-margin">
             <div class="club-container">
                 <!--       blog         -->
@@ -32,8 +31,8 @@
                 </section>
                 <!--       comments         -->
                 <section class="comment-section">
+                    <p class="blog-heading">Comments</p>
                     <div th:if="${member != null}" class="comments-container">
-                        <p class="blog-heading">Comments</p>
                         <ul class="nav nav-tabs" id="commentsTab" role="tablist">
                             <li class="nav-item comment-tab" role="presentation">
                                 <a class="nav-link comment-link active" id="comments-tab" data-toggle="tab" href="#comments" role="tab" aria-controls="comments" aria-selected="true">Comments</a>
@@ -42,7 +41,7 @@
                                 <a class="nav-link comment-link" id="add-comment-tab" data-toggle="tab" href="#add-comment" role="tab" aria-controls="add-a-comment" aria-selected="false">Add a Comment</a>
                             </li>
                         </ul>
-                        <div class="tab-content" id="myTabContent">
+                        <div class="tab-content comment-content" id="myTabContent">
                             <div class="comments-tab tab-pane fade show active" id="comments" role="tabpanel" aria-labelledby="comments-tab">
                                 <div>
                                     <div th:each="comment: ${comments}">

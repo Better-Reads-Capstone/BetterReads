@@ -6,138 +6,193 @@
     <title>Title</title>
 </head>
 <body>
-<nav th:replace="partials/navbar :: navbar"></nav>
-<div id="book" th:data-book-id="${book.id}" th:data-user="${user}" class="container">
-    <div>
-        <input id="book-value" th:value="${book.gbreference}" hidden>
-        <div class="col mb-4">
-            <div class="card">
-                <div class="loading-icon mx-auto"></div>
-                <div class="container" id="book-container"></div>
-                <div class="card-footer">
-                    <form sec:authorize="isAnonymous()" th:action="@{/login}"
-                          method="get">
-                        <button type="submit" class="btn btn-primary">Login to add this book</button>
-                    </form>
-                    <div sec:authorize="isAuthenticated()">
-                        <form th:if="${bookshelf == 'null'}"
-                              th:action="@{/book/{gbreference}(gbreference = ${book.gbreference})}" method="post">
-                            <label for="bookshelfStatus">Choose a Status:</label>
-                            <select id="bookshelfStatus" name="bookshelfStatus">
-                                <option th:value="'READ'">READ</option>
-                                <option th:value="'READING'">READING</option>
-                                <option th:value="'WISHLIST'" selected>WISHLIST</option>
-                            </select>
-                            <button type="submit">Add Book</button>
-                        </form>
-                        <form th:unless="${bookshelf == 'null'}"
-                              th:action="@{/profile/{username}(username=${user.username})}">
-                            <button type="submit" class="btn btn-primary">Go to Profile</button>
-                        </form>
+    <nav th:replace="partials/navbar :: navbar"></nav>
+    <main>
+        <div class="site-margin" id="book" th:data-book-id="${book.id}" th:data-user="${user}" >
+            <div class="club-container">
+                <input id="book-value" th:value="${book.gbreference}" hidden>
+                <section class="blog-post-container">
+                    <p class="blog-heading">Book Information</p>
+                    <div class="loading-icon mx-auto"></div>
+                    <div class="book-container" id="book-container">
+                        <!--            Book rendered here                -->
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- SUBMIT REVIEW FORM - PASS FROM CONTROLLER REVIEW OBJECT TO VIEW FROM METHOD THAT SHOWS BOOK IN BOOKCONTROLLER -->
-    <div>
-        <form sec:authorize="isAnonymous()" th:action="@{/login}" method="get">
-            <button type="submit" class="btn btn-primary">Login to leave a review!</button>
-        </form>
-        <div sec:authorize="isAuthenticated()">
-            <form th:action="@{/book/{gbreference}/createReview/(gbreference = ${book.gbreference})}"
-                  method="post" th:object="${review}" th:if="${review != 'null'}">
-                <div th:text="${review.owner}"></div>
-                <label for="createRating">Rate Me: </label>
-                <select name="createRating" id="createRating" th:field="*{rating}">
-                    <option th:value="1">1</option>
-                    <option th:value="2">2</option>
-                    <option th:value="3">3</option>
-                    <option th:value="4">4</option>
-                    <option th:value="5">5</option>
-                </select>
-                <div>
-                    <textarea name="createBody" id="createBody" cols="30" rows="10" th:field="*{body}"></textarea>
-                </div>
-                <button type="submit">Submit</button>
-            </form>
-            <div class="remove" th:unless="${review != 'null'}"></div>
-        </div>
-    </div>
-
-    <!-- REVIEWS CONTAINER - PASS FROM CONTROLLER A LIST OF REVIEWS -->
-    <div th:each="review : ${reviews}">
-        <div class="card">
-            <!-- REVIEW CREDS -->
-            <div class="card-header d-flex">
-                <p th:text="'written by: '+ ${review.owner.username}"></p>
-                <p th:if="${review.createdDate == review.updatedDate}"
-                   th:text="'written on: '+ ${#dates.format((review.createdDate), 'MMM d, yyyy')}"></p>
-                <p th:if="${review.createdDate != review.updatedDate}"
-                   th:text="'edited on: '+ ${#dates.format((review.updatedDate), 'MMM d, yyyy')}"></p>
-                <!-- EDIT & DELETE BUTTONS -->
-                <div class="d-flex"
-                     sec:authorize="isAuthenticated()"
-                     th:if="${#authentication.principal.id == review.owner.id}">
-                    <!-- EDIT MODEL ACTIVATION -->
-                    <button id="editReviewBtn" class="btn btn-warning mr-2 editReview"
-                            th:data-reviewId="${review.id}"
-                            th:data-username="${review.owner.username}"
-                            th:data-reviewBody="${review.body}"
-                            th:data-reviewRating="${review.rating}"
-                            data-toggle="modal" data-target="#reviewModal">Edit
-                    </button>
-                    <!-- DELETE REVIEW BUTTON -->
-                    <form th:action="@{/book/{gbreference}/delete/id={reviewId}(gbreference=${book.gbreference},reviewId=${review.id})}"
-                          method="post">
-                        <button class="btn btn-danger mr-2" type="submit">Delete</button>
-                    </form>
-                </div>
-            </div>
-            <!-- RATING AND BODY -->
-            <div class="card-body">
-                <p th:text="${review.rating}"></p>
-                <p th:text="${review.body}"></p>
-            </div>
-        </div>
-    </div>
-
-    <!-- EDIT REVIEW MODAL BODY -->
-        <div sec:authorize="${isAuthenticated()}" class="modal" id="reviewModal">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Edit Review</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <!-- EDIT REVIEW FORM -->
-                    <form th:id="editReview" th:action="@{/editReview}"
-                          th:object="${editReview}"
-                          th:if="${editReview != 'null'}"
-                          method="post">
-                        <input id="reviewId" type="hidden">
-                        <label for="editRating" id="currentRating"></label>
-                        <select name="editRating" id="editRating" th:field="*{rating}">
-                            <option th:value="1">1</option>
-                            <option th:value="2">2</option>
-                            <option th:value="3">3</option>
-                            <option th:value="4">4</option>
-                            <option th:value="5">5</option>
-                        </select>
-                        <div>
-                            <textarea name="editBody" id="editBody" cols="30" rows="10" th:field="*{body}"></textarea>
+                    <div class="blog-controls">
+                        <div sec:authorize="isAnonymous()" class="">
+                            <form class="form-group" th:action="@{/login}"
+                                  method="get">
+                                <button type="submit" class="button">Login to add this book</button>
+                            </form>
                         </div>
-                        <button class="btn btn-warning" type="submit" id="reviewSubmit">Submit</button>
-                    </form>
-                    <div th:unless="${review != 'null'}"></div>
-                </div>
-                <button type="button" class="modal-ft btn btn-dark" data-dismiss="modal">Close</button>
+                        <div sec:authorize="isAuthenticated()">
+                            <div th:if="${bookshelf == 'null'}" class="bookshelf-select-container">
+                                <form th:action="@{/book/{gbreference}(gbreference = ${book.gbreference})}" method="post">
+                                    <label for="bookshelfStatus">Choose a Status:</label>
+                                    <select class="bookshelf-select" id="bookshelfStatus" name="bookshelfStatus">
+                                        <option th:value="'READ'">READ</option>
+                                        <option th:value="'READING'">READING</option>
+                                        <option th:value="'WISHLIST'" selected>WISHLIST</option>
+                                    </select>
+                                    <button class="button" type="submit">Add Book</button>
+                                </form>
+                            </div>
+                            <div th:unless="${bookshelf == 'null'}" class="">
+                                <form th:action="@{/profile/{username}(username=${user.username})}">
+                                    <button type="submit" class="button">Go to Profile</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="comment-section">
+                    <p class="blog-heading">Comments</p>
+                    <ul class="nav nav-tabs" id="commentsTab" role="tablist">
+                        <li class="nav-item comment-tab" role="presentation">
+                            <a class="nav-link comment-link active" id="reviews-tab" data-toggle="tab" href="#reviews" role="tab" aria-controls="reviews" aria-selected="true">Reviews</a>
+                        </li>
+                        <li class="nav-item comment-tab" role="presentation">
+                            <a class="nav-link comment-link" id="add-review-tab" data-toggle="tab" href="#add-review" role="tab" aria-controls="add-a-review" aria-selected="false">Add a Review</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content review-content" id="myTabContent">
+                        <!-- REVIEWS CONTAINER - PASS FROM CONTROLLER A LIST OF REVIEWS -->
+                        <div class="comments-tab tab-pane fade show active" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
+                            <div>
+                                <div th:each="review : ${reviews}">
+                                    <div class="blog-card">
+                                        <!-- RATING AND BODY -->
+                                        <div class="book-rating-container">
+                                            <div class="book-rating">
+                                                <div class="star-img">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                                        <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                                                    </svg>
+                                                </div>
+                                                <div class="review-rating">
+                                                    <p><span th:text="${review.rating}"></span> Stars</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="comment-body">
+                                            <p th:text="${review.body}"></p>
+                                        </div>
+                                        <!-- REVIEW CREDS -->
+                                        <div class="review-footer mt-3">
+                                            <div class="blog-card-footer">
+                                                <div class="post-author">
+                                                    <a class="author-link">
+                                                        <span th:text="${review.owner.firstName}"></span>
+                                                        <span th:text="${review.owner.lastName}"></span>
+                                                    </a>
+                                                </div>
+                                                <div class="created-date">
+                                                    <p th:if="${review.createdDate == review.updatedDate}"
+                                                       th:text="${#dates.format((review.createdDate), 'MMM d, yyyy')}"></p>
+                                                    <p th:if="${review.createdDate != review.updatedDate}"
+                                                       th:text="'Edit: ' + ${#dates.format((review.updatedDate), 'MMM d, yyyy')}"></p>
+                                                </div>
+                                            </div>
+                                            <!-- EDIT & DELETE BUTTONS -->
+                                            <div class="blog-card-footer"
+                                                 sec:authorize="isAuthenticated()"
+                                                 th:if="${#authentication.principal.id == review.owner.id}">
+                                                <!-- EDIT MODEL ACTIVATION -->
+                                                <button id="editReviewBtn" class="button editReview"
+                                                        th:data-reviewId="${review.id}"
+                                                        th:data-username="${review.owner.username}"
+                                                        th:data-reviewBody="${review.body}"
+                                                        th:data-reviewRating="${review.rating}"
+                                                        data-toggle="modal" data-target="#reviewModal">Edit
+                                                </button>
+                                                <!-- DELETE REVIEW BUTTON -->
+                                                <form th:action="@{/book/{gbreference}/delete/id={reviewId}(gbreference=${book.gbreference},reviewId=${review.id})}"
+                                                      method="post">
+                                                    <button class="button danger-button" type="submit">Delete</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- SUBMIT REVIEW FORM - PASS FROM CONTROLLER REVIEW OBJECT TO VIEW FROM METHOD THAT SHOWS BOOK IN BOOKCONTROLLER -->
+                        <div class="tab-pane fade add-comment" id="add-review" role="tabpanel" aria-labelledby="add-review-tab">
+                            <div class="comment-form-container blog-card">
+                                <div class="login-to-use" sec:authorize="isAnonymous()">
+                                    <p class="review-warning">Login to leave a review!</p>
+                                    <form class="form-group" th:action="@{/login}" method="get">
+                                        <button type="submit" class="button">Login</button>
+                                    </form>
+                                    <img class="review-character" th:src="@{../img/book-reader-4.svg}">
+                                </div>
+                                <div class="comment-form-container" sec:authorize="isAuthenticated()">
+                                    <form th:action="@{/book/{gbreference}/createReview/(gbreference = ${book.gbreference})}"
+                                          method="post" th:object="${review}" th:if="${review != 'null'}">
+                                        <div th:text="${review.owner}"></div>
+                                        <label class="comment-heading" for="createRating">Rate Me: </label>
+                                        <select name="createRating" id="createRating" th:field="*{rating}">
+                                            <option th:value="1">1</option>
+                                            <option th:value="2">2</option>
+                                            <option th:value="3">3</option>
+                                            <option th:value="4">4</option>
+                                            <option th:value="5">5</option>
+                                        </select>
+                                        <div>
+                                            <label class="comment-heading" for="createBody">Leave a Comment!</label>
+                                            <textarea name="createBody" id="createBody" rows="4" th:field="*{body}"></textarea>
+                                        </div>
+                                        <button class="button comment-btn" type="submit">Submit</button>
+                                    </form>
+                                    <div class="remove" th:unless="${review != 'null'}">
+                                        <div class="login-to-use">
+                                            <p class="review-warning">Oops, you've already left a review!</p>
+                                            <img class="review-character" th:src="@{../img/book-reader-4.svg}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- EDIT REVIEW MODAL BODY -->
+                    <div sec:authorize="${isAuthenticated()}" class="modal" id="reviewModal">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Edit Review</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                <!-- EDIT REVIEW FORM -->
+                                <form th:id="editReview" th:action="@{/editReview}"
+                                      th:object="${editReview}"
+                                      th:if="${editReview != 'null'}"
+                                      method="post">
+                                    <input id="reviewId" type="hidden">
+                                    <label for="editRating" id="currentRating"></label>
+                                    <select name="editRating" id="editRating" th:field="*{rating}">
+                                        <option th:value="1">1</option>
+                                        <option th:value="2">2</option>
+                                        <option th:value="3">3</option>
+                                        <option th:value="4">4</option>
+                                        <option th:value="5">5</option>
+                                    </select>
+                                    <div>
+                                        <textarea name="editBody" id="editBody" cols="30" rows="10" th:field="*{body}"></textarea>
+                                    </div>
+                                    <button class="btn btn-warning" type="submit" id="reviewSubmit">Submit</button>
+                                </form>
+                                <div th:unless="${review != 'null'}"></div>
+                            </div>
+                            <button type="button" class="modal-ft btn btn-dark" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </section>
             </div>
         </div>
-</div>
+    </main>
 
-<footer th:replace="partials/footer :: footer"></footer>
-<script th:src="@{/js/bookPage.js}" defer></script>
+    <footer th:replace="partials/footer :: footer"></footer>
+    <script th:src="@{/js/bookPage.js}" defer></script>
 </body>
 </html>
