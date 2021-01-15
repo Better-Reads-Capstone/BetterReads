@@ -4,11 +4,12 @@
     background-attachment: fixed;
     background-position: center;
 }
+
 .club-container {
     color: var(--dark-brown)
 }
 
-.club-intro-section, .club-blog, .club-members-about-club {
+.club-intro-section, .club-blog, .club-members-about-club, .comment-section, .blog-post-container{
     background-color: var(--blush);
     border: 2px solid var(--makeup-tan);
 }
@@ -158,6 +159,11 @@
     justify-content: space-between;
 }
 
+.posts {
+    height: 50%;
+    overflow-y: scroll;
+}
+
 .blog-card {
     background-color: var(--green);
     border-radius: var(--border-radius);
@@ -184,11 +190,126 @@
 .post-container-footer {
     width: 100%;
     overflow: hidden;
+    margin-top: -50px;
+    border-radius: var(--border-radius);
 }
 
 .club-page-shapes {
+    margin-top: -50px;
     width: 100%;
 }
+
+
+/* VIEW POST STYLING STARTS HERE*/
+.blog-post-container {
+    width: 100%;
+    border-radius: var(--border-radius);
+    padding: 20px;
+    font-family: var(--montserrat);
+}
+
+.blog-header {
+    display: flex;
+}
+
+.blog-post {
+    border-radius: var(--border-radius);
+    border: 4px solid var(--green);
+    padding: 20px;
+    height: 50vh;
+    overflow-y: scroll;
+    margin-bottom: 20px;
+    background-color: var(--off-white);
+}
+
+.back-btn {
+    margin: 20px;
+}
+
+.blog-heading {
+    margin-left: 20px;
+    font-size: 3rem;
+    font-family: var(--alegreya);
+    color: var(--dark-grey);
+}
+
+.comment-heading {
+    font-size: 2em;
+    font-family: var(--alegreya);
+    color: var(--off-white);
+}
+
+.blog-controls {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.comment-section {
+    width: 100%;
+    border-radius: var(--border-radius);
+    padding: 20px
+}
+
+.nav {
+    border-top-left-radius: var(--border-radius);
+    border-top-right-radius: var(--border-radius);
+}
+
+.nav-tabs{
+    background-color: var(--makeup-tan);
+}
+.tab-content{
+    padding:5px;
+    border-bottom-left-radius: var(--border-radius);
+    border-bottom-right-radius: var(--border-radius);
+    height: 30%;
+    overflow-y: scroll;
+}
+
+.nav-tabs > li > a{
+    color: var(--off-white);
+    border: medium none;
+}
+
+.nav-tabs > li > a:hover{
+    background-color: var(--off-white) !important;
+    border: medium none;
+    border-radius: 0;
+    color: var(--forest-green);
+    text-decoration: none;
+}
+
+.comments-tab {
+    height: 400px;
+    overflow-y: scroll;
+}
+
+.comment-body {
+    padding: 10px;
+    background-color: var(--off-white);
+    font-family: var(--montserrat);
+    border-radius: var(--border-radius);
+}
+
+.comment-form-container {
+    margin-left: 0;
+    margin-right: 0;
+    padding: 20px 10px;
+}
+
+.add-comment {
+    padding: 20px;
+}
+
+.comment-btn {
+    margin-top: 20px;
+}
+
+.delete-comment {
+    display: flex;
+    justify-content: flex-end;
+}
+
 
 @media (min-width: 425px) {
 
@@ -255,6 +376,14 @@
     .club-heading {
         text-align: left;
         margin-left: 20px;
+    }
+
+    .blog-post-container {
+        width: 50%;
+    }
+
+    .comment-section {
+        width: 30%;
     }
 
 }

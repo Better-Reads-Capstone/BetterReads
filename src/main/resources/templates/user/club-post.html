@@ -2,59 +2,93 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="partials/head :: head(title = ${post.getTitle()})">
 </head>
-<body>
+<body class="book-club-bg">
     <nav th:replace="partials/navbar :: navbar"></nav>
     <main>
         <br>
-        <div class="container">
-            <form th:action="@{/bookclub/{id}#post-container (id = ${club.id})}">
-                <button type="submit">Back to <span th:text="${club.name}"></span></button>
-            </form>
-            <div th:text="${post.title}"></div>
-            <br>
-            <div th:utext="${post.body}"></div>
-            <br>
-            <div th:if="${member != null && member.isAdmin == true}">
-                <form class="form-group" th:action="@{/bookclub/{id}/edit-post/{postId} (id = ${club.id}, postId = ${post.id})}">
-                    <input class="btn btn-secondary" type="submit" value="Edit"/>
-                </form>
-                <form class="form-group" th:action="@{/bookclub/{id}/delete-post/{postId} (id = ${club.id}, postId = ${post.id})}" method="POST">
-                    <input class="btn btn-danger" type="submit" value="Delete"/>
-                </form>
-            </div>
-            <br>
-            <div th:if="${member != null}" class="comments-container">
-                <ul class="nav nav-tabs" id="commentsTab" role="tablist">
-                    <li class="nav-item" role="presentation">
-                        <a class="nav-link active" id="comments-tab" data-toggle="tab" href="#comments" role="tab" aria-controls="comments" aria-selected="true">Comments</a>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <a class="nav-link" id="add-comment-tab" data-toggle="tab" href="#add-comment" role="tab" aria-controls="add-a-comment" aria-selected="false">Add a Comment</a>
-                    </li>
-                </ul>
-                <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade show active" id="comments" role="tabpanel" aria-labelledby="comments-tab">
-                        <div th:each="comment: ${comments}">
-                            <p>User: <span th:text="${comment.user.username}"></span></p>
-                            <p th:utext="${comment.body}"></p>
-<!--                            <p th:text="${comment.createdDate}"></p>-->
-                            <p th:text="${#dates.format((comment.createdDate), 'MMM d, yyyy')}"></p>
-                            <form th:if="${user == comment.user}" th:action="@{/bookclub/{id}/{postId}/delete-comment-{commentId} (id = ${club.id}, postId = ${post.id}, commentId = ${comment.id}) }" method="POST">
-                                <button class="btn btn-primary" type="submit">Delete Comment</button>
-                            </form>
-                            <hr />
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="add-comment" role="tabpanel" aria-labelledby="add-comment-tab">
-                        <div class="comment-form-container">
-                            <form class="form-group" th:action="@{/bookclub/{id}/{postId}/comment (id = ${club.id}, postId = ${post.id})}" method="POST" th:object="${comment}" >
-                                <label for="mytextarea">Leave a Comment!</label>
-                                <textarea id="mytextarea" class="form-control" rows="5" th:field="*{body}"></textarea>
-                                <button class="btn btn-primary" type="submit">Add</button>
+        <div class="site-margin">
+            <div class="club-container">
+                <!--       blog         -->
+                <section class="blog-post-container">
+                    <div class="blog-header">
+                        <div class="back-btn">
+                            <form th:action="@{/bookclub/{id}#post-container (id = ${club.id})}">
+                                <button type="submit" class="button">&#x2B05;</button>
                             </form>
                         </div>
+                        <div class="blog-heading" th:text="${post.title}"></div>
                     </div>
-                </div>
+                    <div class="blog-post">
+                        <div th:utext="${post.body}"></div>
+                    </div>
+                    <div class="blog-controls" th:if="${member != null && member.isAdmin == true}">
+                        <form class="form-group" th:action="@{/bookclub/{id}/edit-post/{postId} (id = ${club.id}, postId = ${post.id})}">
+                            <input class="button club-btn" type="submit" value="Edit"/>
+                        </form>
+                        <form class="form-group" th:action="@{/bookclub/{id}/delete-post/{postId} (id = ${club.id}, postId = ${post.id})}" method="POST">
+                            <input class="button club-btn danger-button" type="submit" value="Delete"/>
+                        </form>
+                    </div>
+                </section>
+                <!--       comments         -->
+                <section class="comment-section">
+                    <div th:if="${member != null}" class="comments-container">
+                        <p class="blog-heading">Comments</p>
+                        <ul class="nav nav-tabs" id="commentsTab" role="tablist">
+                            <li class="nav-item comment-tab" role="presentation">
+                                <a class="nav-link comment-link active" id="comments-tab" data-toggle="tab" href="#comments" role="tab" aria-controls="comments" aria-selected="true">Comments</a>
+                            </li>
+                            <li class="nav-item comment-tab" role="presentation">
+                                <a class="nav-link comment-link" id="add-comment-tab" data-toggle="tab" href="#add-comment" role="tab" aria-controls="add-a-comment" aria-selected="false">Add a Comment</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="myTabContent">
+                            <div class="comments-tab tab-pane fade show active" id="comments" role="tabpanel" aria-labelledby="comments-tab">
+                                <div>
+                                    <div th:each="comment: ${comments}">
+                                        <div class="blog-card">
+                                            <div class="comment-body">
+                                                <p th:utext="${comment.body}"></p>
+                                            </div>
+                                            <!--                            <p th:text="${comment.createdDate}"></p>-->
+                                            <div class="blog-card-footer">
+                                                <div class="post-author">
+                                                    <p>
+                                                        <span th:text="${comment.user.firstName}"></span>
+                                                        <span th:text="${comment.user.lastName}"></span>
+                                                    </p>
+                                                </div>
+                                                <div class="created-date">
+                                                    <p class="created-date" th:text="${#dates.format((comment.createdDate), 'MMM d, yyyy')}"></p>
+                                                </div>
+                                            </div>
+                                            <div class="delete-comment">
+                                                <form th:if="${user == comment.user}" th:action="@{/bookclub/{id}/{postId}/delete-comment-{commentId} (id = ${club.id}, postId = ${post.id}, commentId = ${comment.id}) }" method="POST">
+                                                    <button class="button danger-button" type="submit">Delete</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade add-comment" id="add-comment" role="tabpanel" aria-labelledby="add-comment-tab">
+                                <div class="comment-form-container blog-card">
+                                    <form class="form-group" th:action="@{/bookclub/{id}/{postId}/comment (id = ${club.id}, postId = ${post.id})}" method="POST" th:object="${comment}" >
+                                        <label class="comment-heading" for="mytextarea">Leave a Comment!</label>
+                                        <textarea id="mytextarea" class="form-control" rows="5" th:field="*{body}"></textarea>
+                                        <button class="button comment-btn" type="submit">Add Comment</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div th:unless="${member != null}" class="comments-container">
+                        <form th:action="@{/bookclub/{id}#post-container (id = ${club.id})}">
+                            <button type="submit" class="button">Join the Club to Leave a Comment</button>
+                        </form>
+                        <img th:src="@{../img/book-reader-3.svg}" alt="An illustration of a person reading."/>
+                    </div>
+                </section>
             </div>
         </div>
     </main>
