@@ -28,6 +28,17 @@
                 <button class="button btn-home"><i class="bi bi-house"> Go To The Homepage</i></button>
             </div>
         </div>
+        <div th:case="'Bad Request'" class="right-container">
+            <h1>400 <span th:text="${error}"></span></h1>
+            <h3>Oh no, it looks like a request didn't go through!</h3>
+            <p>Don't worry, we will look into solving this issue. For now try these links:</p>
+            <div class="err-redirect-btns">
+                <button class="button btn-back" type="button"><i
+                        class="bi bi-arrow-left-square"> Go Back</i></button>
+
+                <button class="button btn-home"><i class="bi bi-house"> Go To The Homepage</i></button>
+            </div>
+        </div>
 </main>
 </th:block>
 <footer th:replace="partials/footer :: footer"></footer>

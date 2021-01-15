@@ -1,13 +1,15 @@
 
 .underline {
     display: flex;
-    text-decoration: underline;
+    text-decoration: none;
+    color: #266150;
     transition: transform .2s;
 }
 
 .underline:hover {
-    text-decoration: none;
-    transform: scale(1.05);
+    text-decoration: underline;
+    color: #266150;
+    transform: scale(1.1);
 
 }
 
@@ -55,14 +57,15 @@
         justify-content: center;
         align-items: center;
         border-radius: 50%;
+        border-style: none;
         width: 75px;
         height: 75px;
-        background-color: darkgreen;
+        background-color: #266150;
         transition: transform .2s;
     }
 
-    .login-submit:hover {
-        transform: scale(1.05);
+    .form-submit:hover {
+        transform: scale(1.1);
     }
 
     .bi-arrow-right {
@@ -138,7 +141,7 @@
 
     .desktop-image {
         display: flex;
-        background-color: darkgreen;
+        background-color: #266150;
         width: 30rem;
         border-radius: 0 10px 10px 0;
         margin-right: auto;
