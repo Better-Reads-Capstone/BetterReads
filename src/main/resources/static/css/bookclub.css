@@ -202,7 +202,7 @@
 
 /* VIEW POST STYLING STARTS HERE*/
 .blog-post-container {
-    width: 50%;
+    width: 100%;
     border-radius: var(--border-radius);
     padding: 20px;
     font-family: var(--montserrat);
@@ -232,14 +232,52 @@
     color: var(--dark-grey);
 }
 
+.comment-heading {
+    font-size: 2em;
+    font-family: var(--alegreya);
+    color: var(--off-white);
+}
+
 .blog-controls {
-    float: right;
+    display: flex;
+    justify-content: flex-end;
 }
 
 .comment-section {
-    width: 30%;
+    width: 100%;
     border-radius: var(--border-radius);
     padding: 20px
+}
+
+.comments-container {
+    border-radius: var(--border-radius);
+}
+
+.nav-tabs{
+    background-color: var(--green);
+}
+.tab-content{
+    background-color: var(--green);
+    padding:5px;
+}
+.nav-tabs > li > a{
+    color: var(--off-white);
+    border: medium none;
+}
+.nav-tabs > li > a:hover{
+    background-color: var(--makeup-tan) !important;
+    border: medium none;
+    border-radius: 0;
+    color: var(--forest-green);
+    text-decoration: none;
+}
+
+.add-comment {
+    padding: 20px;
+}
+
+.comment-btn {
+    margin-top: 20px;
 }
 
 
@@ -308,6 +346,14 @@
     .club-heading {
         text-align: left;
         margin-left: 20px;
+    }
+
+    .blog-post-container {
+        width: 50%;
+    }
+
+    .comment-section {
+        width: 30%;
     }
 
 }
