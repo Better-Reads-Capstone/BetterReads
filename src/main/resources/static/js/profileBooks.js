@@ -127,4 +127,16 @@ document.onreadystatechange = function () {
         getBook(activeBooks)
         getBook(wishlistBooks)
     }
+
+    $(".collapse-button-read").click(function () {
+        $("#read").slideToggle("slow");
+    })
+
+    $(".collapse-button-reading").click(function () {
+        $("#reading").slideToggle("slow");
+    })
+
+    $(".collapse-button-wishlist").click(function () {
+        $("#wishlist").slideToggle("slow");
+    })
 };

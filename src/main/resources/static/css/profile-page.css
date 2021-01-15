@@ -26,6 +26,16 @@
     hyphens: auto;
 }
 
+.owner-card {
+    position: relative;
+}
+
+.owner-icon {
+    position: absolute;
+    top: 2px;
+    right: 18px;
+}
+
 .profile-club-info {
     text-align: center;
     margin-bottom: 20px;
@@ -47,10 +57,6 @@
     border-radius: var(--border-radius);
     border: 2px solid var(--off-white);
     position: relative;
-}
-
-.read-shelf {
-    border-bottom: 4px solid var(--makeup-tan);
 }
 
 .bookshelf-delete {
@@ -87,5 +93,15 @@
     border: none;
     font-family: var(--raleway);
     background-color: var(--off-white);
+    color: var(--forest-green);
+}
+
+#read, #reading, #wishlist {
+    display: none;
+    border-bottom: 4px solid var(--makeup-tan);
+}
+
+#read:hover, #reading:hover, #wishlist:hover {
+    cursor: pointer;
     color: var(--forest-green);
 }

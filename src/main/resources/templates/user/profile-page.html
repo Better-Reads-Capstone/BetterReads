@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-    <head th:replace="partials/head :: head(title = 'Start a Bookclub')">
+    <head th:replace="partials/head :: head(title = ${user.username})">
     </head>
     <body class="book-club-bg">
         <nav th:replace="partials/navbar :: navbar"></nav>
@@ -26,7 +26,7 @@
                                             Edit Profile
                                         </button>
                                     </form>
-                                    <button type="button" class="button" data-toggle="modal" data-target="#deleteModal">
+                                    <button type="button" class="button danger-button" data-toggle="modal" data-target="#deleteModal">
                                         Delete Profile
                                     </button>
                                 </div>
@@ -72,7 +72,9 @@
                                         </div>
                                         <div class="member-info profile-club-info">
                                             <a class="member-name-link" th:href="@{/bookclub/{id}(id=${bookclub.id})}" th:text="${bookclub.name}"></a>
-                                            <p class="owner">crown</p>
+                                        </div>
+                                        <div class="owner-icon">
+                                            <img th:src="@{../img/owner-icon.svg}" alt="star doodle"/>
                                         </div>
                                     </div>
                                     <div th:unless="${bookclub.owner.id == user.id}" class="member-card member-card">
@@ -96,105 +98,112 @@
 
                     <!--        Book Shelf Section        -->
                     <section class="club-blog">
-                        <div id="post-container" class="post-container">
+                        <div class="post-container">
                             <!--   READ BOOKS     -->
-                            <h4 class="club-heading bookshelf-title">Bookshelf</h4>
-                            <h5 class="club-heading">Read</h5>
-                            <div class="book-shelf read-shelf book-row">
-                                <div th:each="extract : ${read}">
-                                    <div class="bookshelf-cover">
-                                        <div class="readBook" th:id="${extract.book.gbreference}"
-                                                th:data-bookId="${extract.book.id}" data-toggle="modal"
-                                                data-target="#bookModal">
-                                            <!--       Books are rendered here        -->
+                            <div class="shelves">
+                                <h4 class="club-heading bookshelf-title">Bookshelf</h4>
+                                <h5 class="club-heading collapse-button-read">Read</h5>
+                                <div id="read">
+                                    <div class="book-shelf book-row">
+                                        <div th:each="extract : ${read}">
+                                            <div class="bookshelf-cover">
+                                                <div class="book readBook" th:id="${extract.book.gbreference}"
+                                                     th:data-bookId="${extract.book.id}" data-toggle="modal"
+                                                     data-target="#bookModal">
+                                                    <!--       Books are rendered here        -->
+                                                </div>
+                                                <div class="bookshelf-delete">
+                                                    <form th:action="@{/profile/{username}/delete/{id}(username=${user.username}, id=${extract.id})}"
+                                                          method="post">
+                                                        <button class="bookshelf-delete-button" type="submit">X</button>
+                                                    </form>
+                                                </div>
+                                                <div class="bookshelf-select-container">
+                                                    <form th:action="@{/profile/{username}/{bookshelfId}(username=${user.username}, bookshelfId=${extract.id})}"
+                                                          method="post">
+                                                        <select class="bookshelf-select" name="bookshelfStatus" onchange="this.form.submit()">
+                                                            <option th:value="'READ'">READ</option>
+                                                            <option th:value="'READING'" selected disabled>READING</option>
+                                                            <option th:value="'WISHLIST'">WISHLIST</option>
+                                                        </select>
+                                                    </form>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="bookshelf-delete">
-                                            <form th:action="@{/profile/{username}/delete/{id}(username=${user.username}, id=${extract.id})}"
-                                                  method="post">
-                                                <button class="bookshelf-delete-button" type="submit">X</button>
-                                            </form>
+                                    </div>
+                                </div>
+
+                                <!--   READING BOOKS     -->
+                                <h5 class="club-heading collapse-button-reading">Reading</h5>
+                                <div id="reading">
+                                    <div class="book-shelf book-row">
+                                        <div th:each="extract : ${reading}">
+                                            <div class="bookshelf-cover">
+                                                <div class="book activeBook" th:id="${extract.book.gbreference}"
+                                                     th:data-bookId="${extract.book.id}" data-toggle="modal"
+                                                     data-target="#bookModal">
+                                                    <!--       Books are rendered here        -->
+                                                </div>
+                                                <div class="bookshelf-delete">
+                                                    <form th:action="@{/profile/{username}/delete/{id}(username=${user.username}, id=${extract.id})}"
+                                                          method="post">
+                                                        <button class="bookshelf-delete-button" type="submit">X</button>
+                                                    </form>
+                                                </div>
+                                                <div class="bookshelf-select-container">
+                                                    <form th:action="@{/profile/{username}/{bookshelfId}(username=${user.username}, bookshelfId=${extract.id})}"
+                                                          method="post">
+                                                        <select class="bookshelf-select" name="bookshelfStatus" onchange="this.form.submit()">
+                                                            <option th:value="'READ'">READ</option>
+                                                            <option th:value="'READING'" selected disabled>READING</option>
+                                                            <option th:value="'WISHLIST'">WISHLIST</option>
+                                                        </select>
+                                                    </form>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="bookshelf-select-container">
-                                            <form th:action="@{/profile/{username}/{bookshelfId}(username=${user.username}, bookshelfId=${extract.id})}"
-                                                  method="post">
-                                                <select class="bookshelf-select" name="bookshelfStatus" onchange="this.form.submit()">
-                                                    <option th:value="'READ'">READ</option>
-                                                    <option th:value="'READING'" selected disabled>READING</option>
-                                                    <option th:value="'WISHLIST'">WISHLIST</option>
-                                                </select>
-                                            </form>
+                                    </div>
+                                </div>
+
+                                <!--   WISHLIST     -->
+                                <h5 class="club-heading collapse-button-wishlist">Wishlist</h5>
+                                <div id="wishlist">
+                                    <div class="book-shelf book-row">
+                                        <div th:each="extract : ${wishlist}">
+                                            <div class="bookshelf-cover">
+                                                <div class="book wishlistBook " th:id="${extract.book.gbreference}"
+                                                     th:data-bookId="${extract.book.id}" data-toggle="modal"
+                                                     data-target="#bookModal">
+                                                    <!--       Books are rendered here        -->
+                                                </div>
+                                                <div class="bookshelf-delete">
+                                                    <form th:action="@{/profile/{username}/delete/{id}(username=${user.username}, id=${extract.id})}"
+                                                          method="post">
+                                                        <button class="bookshelf-delete-button" type="submit">X</button>
+                                                    </form>
+                                                </div>
+                                                <div class="bookshelf-select-container">
+                                                    <form th:action="@{/profile/{username}/{bookshelfId}(username=${user.username}, bookshelfId=${extract.id})}"
+                                                          method="post">
+                                                        <select class="bookshelf-select" name="bookshelfStatus" onchange="this.form.submit()">
+                                                            <option th:value="'READ'">READ</option>
+                                                            <option th:value="'READING'" selected disabled>READING</option>
+                                                            <option th:value="'WISHLIST'">WISHLIST</option>
+                                                        </select>
+                                                    </form>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <!--   READING BOOKS     -->
-                            <h5 class="club-heading">Reading</h5>
-                            <div class="book-shelf read-shelf book-row">
-                                <div th:each="extract : ${reading}">
-                                    <div class="bookshelf-cover">
-                                        <div class="activeBook" th:id="${extract.book.gbreference}"
-                                                th:data-bookId="${extract.book.id}" data-toggle="modal"
-                                                data-target="#bookModal">
-                                                <!--       Books are rendered here        -->
-                                        </div>
-                                        <div class="bookshelf-delete">
-                                            <form th:action="@{/profile/{username}/delete/{id}(username=${user.username}, id=${extract.id})}"
-                                                  method="post">
-                                                <button class="bookshelf-delete-button" type="submit">X</button>
-                                            </form>
-                                        </div>
-                                        <div class="bookshelf-select-container">
-                                            <form th:action="@{/profile/{username}/{bookshelfId}(username=${user.username}, bookshelfId=${extract.id})}"
-                                                  method="post">
-                                                <select class="bookshelf-select" name="bookshelfStatus" onchange="this.form.submit()">
-                                                    <option th:value="'READ'">READ</option>
-                                                    <option th:value="'READING'" selected disabled>READING</option>
-                                                    <option th:value="'WISHLIST'">WISHLIST</option>
-                                                </select>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
+
+                            <!--      SVG GRAPHIC        -->
+                            <div class="post-container-footer">
+                                <img class="club-page-shapes" th:src="@{../img/profile-shapes.svg}">
                             </div>
-                            <!--   WISHLIST     -->
-                            <h5 class="club-heading">Wishlist</h5>
-                            <div class="book-shelf book-row">
-                                <div th:each="extract : ${wishlist}">
-                                    <div class="bookshelf-cover">
-                                        <div class="wishlistBook" th:id="${extract.book.gbreference}"
-                                                th:data-bookId="${extract.book.id}" data-toggle="modal"
-                                                data-target="#bookModal">
-                                            <!--       Books are rendered here        -->
-                                        </div>
-                                        <div class="bookshelf-delete">
-                                            <form th:action="@{/profile/{username}/delete/{id}(username=${user.username}, id=${extract.id})}"
-                                                  method="post">
-                                                <button class="bookshelf-delete-button" type="submit">X</button>
-                                            </form>
-                                        </div>
-                                        <div class="bookshelf-select-container">
-                                            <form th:action="@{/profile/{username}/{bookshelfId}(username=${user.username}, bookshelfId=${extract.id})}"
-                                                  method="post">
-                                                <select class="bookshelf-select" name="bookshelfStatus" onchange="this.form.submit()">
-                                                    <option th:value="'READ'">READ</option>
-                                                    <option th:value="'READING'" selected disabled>READING</option>
-                                                    <option th:value="'WISHLIST'">WISHLIST</option>
-                                                </select>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         </div>
                     </section>
-
-                    <div class="bookshelf d-flex flex-column">
-                        <div id="loader">Loading....</div>
-
-
-
-
 
                     <!--    SHOW BOOK MODAL    -->
                     <div class="modal" id="bookModal">
