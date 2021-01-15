@@ -63,10 +63,12 @@ public class ClubController {
 
         User user = usersSvc.loggedInUser();
         Date currentDate = new Date();
+        List<Genre> genreList = genreDao.findAll();
 
         if (validation.hasErrors()) {
             viewModel.addAttribute("errors", validation);
             viewModel.addAttribute("club", club);
+            viewModel.addAttribute("genres", genreList);
             return "user/create-club";
         }
 
