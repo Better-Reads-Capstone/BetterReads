@@ -20,7 +20,7 @@
                                     <img class="avatar-responsive club-img" th:src="${user.avatarURL}" alt="avatar profile image"/>
                                 </div>
                                 <!--       Authenticated User Controls         -->
-                                <div class="club-buttons" th:if="${showEditControls}">
+                                <div class="profile-buttons" th:if="${showEditControls}">
                                     <form th:action="@{/edit-profile/{username} (username = ${user.username})}">
                                         <button class="button" type="submit">
                                             Edit Profile

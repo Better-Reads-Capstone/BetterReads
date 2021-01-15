@@ -26,6 +26,12 @@
     hyphens: auto;
 }
 
+.profile-buttons {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 10px;
+}
+
 .owner-card {
     position: relative;
 }
@@ -101,7 +107,7 @@
     border-bottom: 4px solid var(--makeup-tan);
 }
 
-#read:hover, #reading:hover, #wishlist:hover {
+.collapse-button-read:hover, .collapse-button-reading:hover, .collapse-button-wishlist:hover {
     cursor: pointer;
     color: var(--forest-green);
 }
