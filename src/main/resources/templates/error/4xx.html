@@ -4,36 +4,33 @@
 </head>
 <body class="outer-container">
 <nav th:replace="partials/navbar :: navbar"></nav>
-<div class="content-space">
+<main class="content-space">
     <th:block th:switch="${error}">
         <div th:case="'Not Found'" class="right-container">
-            <h2 class="">404 <span th:text="${error}"></span></h2>
+            <h1 class="">404 <span th:text="${error}"></span></h1>
             <h3 class="">We've got lots of pages on this site, except this particular one you're looking for...</h3>
             <p class="">Not to fret though, you've got some options below:</p>
-            <div class="">
-                <div class="">
-                    <button class="button btn-back" type="button"><i
-                            class="bi bi-arrow-left-square"></i><h6>Go Back</h6></button>
-                    <button class="button btn-home"><i class="bi bi-house"></i></button>
-                </div>
+            <div class="err-redirect-btns">
+                <button class="button btn-back" type="button"><i
+                        class="bi bi-arrow-left-square"> Go Back</i>
+                </button>
+                <button class="button btn-home"><i class="bi bi-house"> Go To The Homepage</i></button>
             </div>
         </div>
         <div th:case="'Forbidden'" class="right-container">
-            <h1 class="">403 <span th:text="${error}"></span></h1>
-            <h3 class="">As Gandalf famously shouted "You...shall not...PASS!"</h3>
-            <p class="">Harsh, we know. Fear not, you've got some options below:</p>
-            <div class="">
-                <div class="">
-                    <button class="button btn-back" type="button"><i
-                            class="bi bi-arrow-left-square"></i></button>
+            <h1>403 <span th:text="${error}"></span></h1>
+            <h3>As Gandalf famously shouted "You...shall not...PASS!"</h3>
+            <p>Harsh, we know. Fear not, you've got some options below:</p>
+            <div class="err-redirect-btns">
+                <button class="button btn-back" type="button"><i
+                        class="bi bi-arrow-left-square"> Go Back</i></button>
 
-                    <button class="button btn-home"><i class="bi bi-house"></i></button>
-                </div>
+                <button class="button btn-home"><i class="bi bi-house"> Go To The Homepage</i></button>
             </div>
         </div>
-</div>
+</main>
 </th:block>
 <footer th:replace="partials/footer :: footer"></footer>
-<script th:src="@{/js/utils/error.js}" defer></script>
+<script th:src="@{/js/utils/error-success.js}" defer></script>
 </body>
 </html>

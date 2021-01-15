@@ -4,24 +4,16 @@
 </head>
 <body class="outer-container">
 <nav th:replace="partials/navbar :: navbar"></nav>
-<main>
-        <div class="left-container">
-            <p>Testing size</p>
+<main class="content-space">
+    <div class="right-container">
+        <h1>You've Successfully Reset Your Password!</h1>
+        <div class="d-flex">
+            <h3 class="font-weight-bold">Go Back To The Login Page</h3>
+            <button class="button btn-login ml-2" type="submit">Login</button>
         </div>
-        <div class="right-container">
-            <div class="msg-space">
-                <h2 class="font-weight-bold">You've Successfully Reset Your Password!</h2>
-            </div>
-            <div class="submit-position">
-                <h4 class="font-weight-bold">Go Back To The Login Page</h4>
-                <form th:action="@{/login}" method="get">
-                <button type="submit"
-                        class="form-submit"><i
-                        class="bi bi-arrow-right"></i></button>
-                </form>
-            </div>
-        </div>
+    </div>
 </main>
 <footer th:replace="partials/footer :: footer"></footer>
+<script th:src="@{/js/utils/error-success.js}" defer></script>
 </body>
 </html>
