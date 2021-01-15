@@ -4,11 +4,12 @@
     background-attachment: fixed;
     background-position: center;
 }
+
 .club-container {
     color: var(--dark-brown)
 }
 
-.club-intro-section, .club-blog, .club-members-about-club {
+.club-intro-section, .club-blog, .club-members-about-club, .comment-section, .blog-post-container{
     background-color: var(--blush);
     border: 2px solid var(--makeup-tan);
 }
@@ -190,11 +191,57 @@
     width: 100%;
     overflow: hidden;
     margin-top: -50px;
+    border-radius: var(--border-radius);
 }
 
 .club-page-shapes {
+    margin-top: -50px;
     width: 100%;
 }
+
+
+/* VIEW POST STYLING STARTS HERE*/
+.blog-post-container {
+    width: 50%;
+    border-radius: var(--border-radius);
+    padding: 20px;
+    font-family: var(--montserrat);
+}
+
+.blog-header {
+    display: flex;
+}
+
+.blog-post {
+    border-radius: var(--border-radius);
+    border: 4px solid var(--off-white);
+    padding: 20px;
+    height: 50vh;
+    overflow-y: scroll;
+    margin-bottom: 20px;
+}
+
+.back-btn {
+    margin: 20px;
+}
+
+.blog-heading {
+    margin-left: 20px;
+    font-size: 3rem;
+    font-family: var(--alegreya);
+    color: var(--dark-grey);
+}
+
+.blog-controls {
+    float: right;
+}
+
+.comment-section {
+    width: 30%;
+    border-radius: var(--border-radius);
+    padding: 20px
+}
+
 
 @media (min-width: 425px) {
 
