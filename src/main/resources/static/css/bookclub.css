@@ -158,6 +158,11 @@
     justify-content: space-between;
 }
 
+.posts {
+    height: 50%;
+    overflow-y: scroll;
+}
+
 .blog-card {
     background-color: var(--green);
     border-radius: var(--border-radius);
@@ -184,6 +189,7 @@
 .post-container-footer {
     width: 100%;
     overflow: hidden;
+    margin-top: -50px;
 }
 
 .club-page-shapes {
