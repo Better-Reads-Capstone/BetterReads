@@ -15,10 +15,12 @@
                     <div class="form-group">
                         <label for="name">Name your bookclub</label>
                         <input id="name" class="form-control" th:field="*{name}" />
+                        <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
                     </div>
                     <div class="form-group">
                         <label for="about">Tell us about your book-club</label>
                         <textarea class="form-control" id="about" rows="3" cols="50" th:field="*{about}"></textarea>
+                        <p th:if="${#fields.hasErrors('about')}" th:errors="*{about}"></p>
                     </div>
                     <!--filestack api-->
                     <div class="filestack">

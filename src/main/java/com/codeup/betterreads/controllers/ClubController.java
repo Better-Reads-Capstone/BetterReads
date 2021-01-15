@@ -57,10 +57,18 @@ public class ClubController {
 
 
     @PostMapping("/create-club")
-    public String createClub(@ModelAttribute Club club) {
+    public String createClub(@ModelAttribute @Valid Club club,
+                             Errors validation,
+                             Model viewModel) {
 
         User user = usersSvc.loggedInUser();
         Date currentDate = new Date();
+
+        if (validation.hasErrors()) {
+            viewModel.addAttribute("errors", validation);
+            viewModel.addAttribute("club", club);
+            return "user/create-club";
+        }
 
         club.setOwner(user);
         club.setCreatedDate(currentDate);
