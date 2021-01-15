@@ -11,7 +11,6 @@
 
 }
 
-    /**/
     .form-container {
         border: solid black 1px;
         width: 30rem;
@@ -92,12 +91,17 @@
 
     .showPassSpacing {
         display: flex;
+        align-items: center;
         margin-top: 8px;
     }
 
     .showPassSpacing input {
         margin-left: 8px;
         margin-right: 8px;
+    }
+
+    .showPassSpacing p {
+        margin-bottom: 0;
     }
 
     .desktop-image {

@@ -2,19 +2,18 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="partials/head :: head(title = 'Successful Reset')">
 </head>
-<body>
+<body class="outer-container">
 <nav th:replace="partials/navbar :: navbar"></nav>
 <main>
-    <div class="d-flex site-margin">
-        <div class="form-container">
+        <div class="left-container">
+            <p>Testing size</p>
+        </div>
+        <div class="right-container">
             <div class="msg-space">
-                <h3 class="font-weight-bold">Reset Your Password</h3>
-            </div>
-            <div class="">
-                <h6>You have successfully reset your password!</h6>
+                <h2 class="font-weight-bold">You've Successfully Reset Your Password!</h2>
             </div>
             <div class="submit-position">
-                <h4 class="font-weight-bold">Let's Login</h4>
+                <h4 class="font-weight-bold">Go Back To The Login Page</h4>
                 <form th:action="@{/login}" method="get">
                 <button type="submit"
                         class="form-submit"><i
@@ -22,10 +21,6 @@
                 </form>
             </div>
         </div>
-        <div class="desktop-image">
-            <p>Testing size</p>
-        </div>
-    </div>
 </main>
 <footer th:replace="partials/footer :: footer"></footer>
 </body>

@@ -2,34 +2,37 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="partials/head :: head('Here there be dragons and 400 errors')">
 </head>
-<body>
+<body class="outer-container">
 <nav th:replace="partials/navbar :: navbar"></nav>
-<div class="container">
+<div class="content-space">
     <th:block th:switch="${error}">
-        <div th:case="'Not Found'" class="my-3">
-            <h1 class="text-center my-3">404 <span th:text="${error}"></span></h1>
-            <h3 class="text-center my-3">We've got lots of pages on this site, except this particular one you're looking for...</h3>
-            <p class="text-center my-3">Not to fret though, you've got some options below:</p>
-            <div class="container my-5" id="btn-container">
-                <div class="d-flex justify-content-around">
-                    <button class="btn btn-primary btn-back" type="button">Head <i class="bi bi-arrow-left-square"></i></button>
-                    <a href="/" class="btn btn-primary">Head <i class="bi bi-house"></i></a>
+        <div th:case="'Not Found'" class="right-container">
+            <h2 class="">404 <span th:text="${error}"></span></h2>
+            <h3 class="">We've got lots of pages on this site, except this particular one you're looking for...</h3>
+            <p class="">Not to fret though, you've got some options below:</p>
+            <div class="">
+                <div class="">
+                    <button class="button btn-back" type="button"><i
+                            class="bi bi-arrow-left-square"></i><h6>Go Back</h6></button>
+                    <button class="button btn-home"><i class="bi bi-house"></i></button>
                 </div>
             </div>
         </div>
-        <div th:case="'Forbidden'" class="my-3">
-            <h1 class="text-center my-3">403 <span th:text="${error}"></span></h1>
-            <h3 class="text-center my-3">As Gandalf famously shouted "You...shall not...PASS!"</h3>
-            <p class="text-center my-3">Harsh, we know.  Fear not, you've got some options below:</p>
-            <div class="container my-5" id="btn-container">
-                <div class="d-flex justify-content-around">
-                    <button class="btn btn-primary btn-back" type="button">Head <i class="bi bi-arrow-left-square"></i></button>
-                    <a href="/" class="btn btn-primary">Head <i class="bi bi-house"></i></a>
+        <div th:case="'Forbidden'" class="right-container">
+            <h1 class="">403 <span th:text="${error}"></span></h1>
+            <h3 class="">As Gandalf famously shouted "You...shall not...PASS!"</h3>
+            <p class="">Harsh, we know. Fear not, you've got some options below:</p>
+            <div class="">
+                <div class="">
+                    <button class="button btn-back" type="button"><i
+                            class="bi bi-arrow-left-square"></i></button>
+
+                    <button class="button btn-home"><i class="bi bi-house"></i></button>
                 </div>
             </div>
         </div>
-    </th:block>
 </div>
+</th:block>
 <footer th:replace="partials/footer :: footer"></footer>
 <script th:src="@{/js/utils/error.js}" defer></script>
 </body>
