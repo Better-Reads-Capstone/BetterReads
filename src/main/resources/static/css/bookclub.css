@@ -32,6 +32,7 @@
     width: 150px;
     height: 150px;
     border: 4px solid var(--dark-grey);
+    border-radius: 200px;
 }
 
 .club-name-container, .genre-container {
@@ -56,10 +57,17 @@
     font-family: var(--raleway);
 }
 
-.club-buttons, .admin-controls {
+.admin-controls {
+    display: flex;
+}
+.club-btn {
+    margin: 10px;
+}
+
+.club-buttons {
     width: 100%;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     margin-bottom: 20px;
 }
 
@@ -80,6 +88,7 @@
 }
 
 .member-card {
+    width: 12em;
     margin: 10px;
     flex: 1;
     background-color: var(--green);
@@ -87,8 +96,20 @@
     border-radius: var(--border-radius);
 }
 
+.owner-icon-club {
+    position: absolute;
+    top: 2px;
+    right: 3px;
+}
+
+.member-img-container {
+    display: flex;
+    justify-content: center;
+}
+
 .member-image {
     width: 10em;
+    height: 10em;
     border-radius: var(--img-border-radius);
     border: 4px solid var(--dark-grey);
 }
@@ -101,7 +122,7 @@
 
 .member-name-link, .member-name-link:visited, .post-author, .author-link:visited {
     text-decoration: none;
-    color: #eac9c2;
+    color: var(--link-pink);
 }
 
 .member-name-link:hover, .author-link:hover {
