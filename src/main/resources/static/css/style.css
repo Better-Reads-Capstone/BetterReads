@@ -9,6 +9,7 @@
     --dark-grey: #4F4846;
     --dark-brown: #2A1510;
     --off-white:  #FDF8F5;
+    --danger: #d54f49;
 
     /*  Fonts  */
     --raleway: 'Raleway', sans-serif;
@@ -46,6 +47,10 @@
 .button:hover {
     transform: translateY(-3px);
     cursor: pointer;
+}
+
+.danger-button {
+    background-color: var(--danger);
 }
 
 /*Loading Icon*/

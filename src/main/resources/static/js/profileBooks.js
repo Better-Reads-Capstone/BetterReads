@@ -26,12 +26,8 @@ const getBook = (books) => {
                 let drillPath = book.volumeInfo;
                 let renderBook = `
                         <div>
-                                <img src="${drillPath.imageLinks.smallThumbnail}" alt="book-img">
-                            <div class="d-flex">
-                                <h6>${drillPath.title}</h6>
-                            </div>
+                            <img class="book-img" src="${drillPath.imageLinks.smallThumbnail}" alt="book-img">
                         </div>
-
                         <div id="${'book-' + currentBook}"></div>
                         `
                 $(`#${currentBook}`).html(renderBook);

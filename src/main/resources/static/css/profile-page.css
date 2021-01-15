@@ -30,3 +30,62 @@
     text-align: center;
     margin-bottom: 20px;
 }
+
+.bookshelf-title {
+    text-align: center;
+    margin-bottom: 0;
+}
+
+.book-shelf {
+    margin: 0;
+    white-space: nowrap;
+}
+
+.bookshelf-cover {
+    margin: 16px;
+    background-color: var(--green);
+    border-radius: var(--border-radius);
+    border: 2px solid var(--off-white);
+    position: relative;
+}
+
+.read-shelf {
+    border-bottom: 4px solid var(--makeup-tan);
+}
+
+.bookshelf-delete {
+    position: absolute;
+    top: -16px;
+    right: -16px;
+}
+
+.bookshelf-delete-button {
+    height: 50px;
+    width: 50px;
+    background-color: var(--danger);
+    border: none;
+    outline:none;
+    border-radius: 200px;
+    padding: 5px 10px;
+    color: var(--off-white);
+    font-size: 1.2em;
+}
+
+.bookshelf-delete-button:hover {
+    cursor: pointer;
+    transform: translateY(-2px);
+}
+
+.bookshelf-select-container {
+    display: flex;
+    justify-content: center;
+    margin: 10px 0 20px 0;
+}
+
+.bookshelf-select {
+    padding: 5px 10px;
+    border: none;
+    font-family: var(--raleway);
+    background-color: var(--off-white);
+    color: var(--forest-green);
+}
