@@ -12,6 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -66,6 +67,7 @@ public class ClubController {
         List<Genre> genreList = genreDao.findAll();
 
         if (validation.hasErrors()) {
+            System.err.println("===== CREATE Club Validation errors FOUND, redirecting back =====");
             viewModel.addAttribute("errors", validation);
             viewModel.addAttribute("club", club);
             viewModel.addAttribute("genres", genreList);
@@ -167,8 +169,31 @@ public class ClubController {
     }
 
     @PostMapping("/edit-bookclub/{id}")
-    public String editProfile(@PathVariable long id, @ModelAttribute Club clubToBeUpdated) {
+    public String editProfile(@PathVariable long id,
+                              @ModelAttribute @Valid Club clubToBeUpdated,
+                              BindingResult result,
+                              RedirectAttributes redirectAttributes,
+                              Model viewModel,
+                              Errors validation) {
         Club club = clubDao.getOne(id);
+        List<Genre> genreList = genreDao.findAll();
+
+        System.out.println("This won't be logged on edit validation failure");
+
+        if (result.hasErrors()) {
+//            viewModel.addAttribute("errors", validation);
+//            viewModel.addAttribute("club", club);
+//            viewModel.addAttribute("genres", genreList);
+            System.err.println("===== EDIT Club Validation errors FOUND, redirecting back =====");
+            redirectAttributes.addFlashAttribute("errors", validation);
+//            redirectAttributes.addFlashAttribute("club", club);
+//            redirectAttributes.addFlashAttribute("genres", genreList);
+//            return  "user/edit-bookclub";
+            return  "redirect:/edit-bookclub/" + id;
+        }
+
+        System.err.println("===== NO VALIDATION ISSUES =====");
+
         clubToBeUpdated.setOwner(club.getOwner());
         clubToBeUpdated.setCreatedDate(club.getCreatedDate());
 
