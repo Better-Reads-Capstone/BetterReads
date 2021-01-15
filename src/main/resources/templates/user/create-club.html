@@ -5,35 +5,41 @@
 <body>
 <nav th:replace="partials/navbar :: navbar"></nav>
 <main>
-    <div class="container">
-        <div class="card">
-            <div class="card-header">
-                <h1>Start a Bookclub</h1>
+    <div class="d-flex site-margin">
+        <div class="form-layout">
+            <div>
+                <img src="img-width" alt="">
             </div>
-            <form th:action="@{/create-club}" method="POST" th:object="${club}">
-                <div class="card-body">
-                    <div class="form-group">
-                        <label for="name">Name your bookclub</label>
-                        <input id="name" class="form-control" th:field="*{name}" />
-                    </div>
-                    <div class="form-group">
-                        <label for="about">Tell us about your book-club</label>
-                        <textarea class="form-control" id="about" rows="3" cols="50" th:field="*{about}"></textarea>
-                    </div>
-                    <!--filestack api-->
-                    <div class="filestack">
-                        <img id="avatarPreview" th:src="${club.headerImageUrl}" alt="">
-                        <br />
-                        <input type="hidden" id="avatar" name="product_image_url" th:field="*{headerImageUrl}" />
-                        <button class="btn" id="addPicture">addPicture</button>
-                    </div>
-                    <select th:field="*{genre}" class="form-control">
-                        <option th:each="genre : ${genres}" th:value="${genre.id}"><span th:text="${genre.name}"></span></option>
-                    </select>
-
-                    <button type="submit" class="btn btn-primary">Save</button>
+            <div class="form-container">
+                <div class="msg-space">
+                    <h1>Start a Bookclub</h1>
                 </div>
-            </form>
+                <form th:action="@{/create-club}" method="POST" th:object="${club}">
+                    <div class="">
+                        <div class="form-group">
+                            <label for="name">Name your bookclub</label>
+                            <input id="name" class="form-control" th:field="*{name}"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="about">Tell us about your book-club</label>
+                            <textarea class="form-control" id="about" rows="3" cols="50" th:field="*{about}"></textarea>
+                        </div>
+                        <!--filestack api-->
+                        <div class="filestack">
+                            <img id="avatarPreview" th:src="${club.headerImageUrl}" alt="">
+                            <br/>
+                            <input type="hidden" id="avatar" name="product_image_url" th:field="*{headerImageUrl}"/>
+                            <button class="button" id="addPicture">Add Picture</button>
+                        </div>
+                        <select th:field="*{genre}" class="form-control">
+                            <option th:each="genre : ${genres}" th:value="${genre.id}"><span
+                                    th:text="${genre.name}"></span></option>
+                        </select>
+
+                        <button type="submit" class="button">Save</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </main>
