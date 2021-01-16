@@ -1,0 +1,107 @@
+.about-dev-bg {
+    background-image: url("../img/club-background.svg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+}
+
+.dev-profile-container {
+    color: var(--dark-brown);
+    background-color: var(--blush);
+    border: 2px solid var(--makeup-tan);
+    border-radius: var(--border-radius);
+    text-align: center;
+}
+
+.dev-card-container {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.dev-card {
+    width: 15em;
+    height: 23em;
+    margin: 10px;
+    display: flex;
+    background-color: var(--green);
+    border: 2px solid var(--off-white);
+    border-radius: var(--border-radius);
+    flex-flow: column nowrap;
+    justify-content: space-evenly;
+}
+
+.dev-img-container {
+    flex-flow: column nowrap;
+    justify-content: center;
+}
+
+.dev-img {
+    width: 10em;
+    height: 10em;
+    border-radius: var(--img-border-radius);
+    border: 4px solid var(--dark-grey);
+}
+
+.dev-profile-title {
+    font-family: var(--alegreya);
+    font-size: 2rem;
+    color: var(--dark-grey);
+    margin: 10px;
+}
+
+.dev-name-text {
+    font-family: var(--raleway);
+    font-size: 1.5rem;
+    color: var(--off-white);
+    padding-top: 3px;
+    margin: 3px;
+}
+
+.dev-quote-text {
+    font-family: var(--alegreya);
+    font-size: 1rem;
+    padding: 10px 3px 0 3px;
+    margin: 3px;
+}
+
+.dev-social-media-icon {
+    font-size: 2em;
+    color: var(--off-white);
+    margin-top: 3px;
+}
+
+.dev-social-container {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.dev-social-container:hover {
+    transform: translateY(-3px);
+}
+
+@media (min-width: 768px) {
+    .dev-card-container {
+        flex-flow: row wrap;
+        justify-content: space-evenly;
+    }
+
+    .dev-card {
+        /*width: 15em;*/
+        /*height: 20em;*/
+        /*margin: 10px;*/
+    }
+}
+
+@media (min-width: 992px) {
+    .dev-card-container {
+        flex-direction: row;
+    }
+
+    .dev-card {
+        /*width: 15em;*/
+        /*height: 40vh;*/
+        /*margin: 10px;*/
+    }
+}
