@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.List;
 
@@ -15,6 +17,7 @@ public class Club {
     private long id;
 
     @Column(nullable = false)
+    @NotBlank(message = "A club must have a name.")
     private String name;
 
     @Column(nullable = false)
@@ -22,6 +25,8 @@ public class Club {
     private Date createdDate;
 
     @Column(columnDefinition = "TEXT")
+    @NotBlank(message = "A club requires a description.")
+    @Size(min = 25, message = "Minimum description size is 25 characters.")
     private String about;
 
     @Column

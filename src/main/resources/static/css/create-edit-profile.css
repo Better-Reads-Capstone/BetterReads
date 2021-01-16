@@ -1,0 +1,172 @@
+.form-site-margin {
+
+}
+
+.flex-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-left-section {
+    background-color: var(--blush);
+    border: 2px solid var(--makeup-tan);
+    border-top-left-radius: var(--border-radius);
+    border-top-right-radius: var(--border-radius);
+}
+
+.profile-right-section {
+    background-color: var(--blush);
+    border: 2px solid var(--makeup-tan);
+}
+
+.other-info-container {
+    margin: 10px 20px;
+    display: flex;
+    justify-content: center;
+    overflow: auto;
+}
+
+.other-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-btn-space {
+    margin: 16px auto 0 auto;
+    width: 150px;
+}
+
+.add-margin {
+    margin-top: 30px;
+}
+
+.user-names-block {
+    border-top: 4px solid var(--makeup-tan);
+    padding: 15px 20px 0 20px;
+}
+
+.name-input {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.name-input label {
+    align-self: center;
+    font-size: 1.5rem;
+    margin-bottom: 0;
+    font-family: var(--alegreya);
+    color: var(--forest-green);
+}
+
+.name-input input {
+    width: 150px;
+}
+
+.other-info-group label {
+    font-family: var(--alegreya);
+    margin-bottom: 0;
+}
+
+.other-info-group input, .other-info-group select{
+    width: 200px;
+}
+
+.save-container {
+    display: flex;
+    justify-content: center;
+    padding: .75rem 1.25rem;
+    background-color: rgba(0,0,0,.03);
+    border-top: 1px solid rgba(0,0,0,.125);
+}
+
+.save-container button {
+    width: 150px;
+}
+
+@media (min-width: 768px) {
+
+    .name-input {
+        margin-bottom: 30px;
+    }
+
+    .other-info-container {
+        margin: 15px 20px 10px 20px;
+    }
+
+    .other-info {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .other-info-group {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+        width: 100%;
+    }
+
+    .other-info-group label {
+        align-self: center;
+        font-size: 1.5rem;
+    }
+
+    .other-info-group input,
+    .other-info select,
+    .name-input input {
+        width: 20rem;
+    }
+
+}
+
+@media (min-width: 992px) {
+
+    .flex-form {
+        flex-direction: row;
+    }
+
+    .profile-left-section {
+        border-radius: 10px 0 0 10px;
+    }
+
+    .profile-right-section {
+        border-radius: 0 10px 10px 0;
+    }
+
+    .user-names-block {
+        padding: 0 20px 0 20px;
+    }
+
+    .other-info-container {
+        justify-content: flex-start;
+        margin: 40px 20px 20px 20px;
+    }
+
+    .other-info-group {
+        margin-bottom: 40px;
+    }
+
+    .apply-flex {
+        display: flex;
+    }
+
+    .name-input {
+        margin-bottom: 15px;
+    }
+
+    .name-input input {
+        width: 150px;
+        margin: 20px 0;
+    }
+
+    .about-spacing {
+        margin: 25px 0;
+    }
+
+    .save-container button {
+        margin: 2px 0;
+    }
+
+}
