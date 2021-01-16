@@ -9,4 +9,5 @@ import java.util.List;
 public interface PostRepo extends JpaRepository<Post, Long> {
 
     List<Post> findAllByClub(Club club);
+    List<Post> findAllByClubOrderByIdDesc(Club club);
 }

@@ -118,7 +118,7 @@
                                                         <button class="bookshelf-delete-button" type="submit">X</button>
                                                     </form>
                                                 </div>
-                                                <div class="bookshelf-select-container">
+                                                <div class="select-container bookshelf-select-container">
                                                     <form th:action="@{/profile/{username}/{bookshelfId}(username=${user.username}, bookshelfId=${extract.id})}"
                                                           method="post">
                                                         <select class="bookshelf-select" name="bookshelfStatus" onchange="this.form.submit()">
@@ -150,7 +150,7 @@
                                                         <button class="bookshelf-delete-button" type="submit">X</button>
                                                     </form>
                                                 </div>
-                                                <div class="bookshelf-select-container">
+                                                <div class="select-container bookshelf-select-container">
                                                     <form th:action="@{/profile/{username}/{bookshelfId}(username=${user.username}, bookshelfId=${extract.id})}"
                                                           method="post">
                                                         <select class="bookshelf-select" name="bookshelfStatus" onchange="this.form.submit()">
@@ -182,7 +182,7 @@
                                                         <button class="bookshelf-delete-button" type="submit">X</button>
                                                     </form>
                                                 </div>
-                                                <div class="bookshelf-select-container">
+                                                <div class="select-container bookshelf-select-container">
                                                     <form th:action="@{/profile/{username}/{bookshelfId}(username=${user.username}, bookshelfId=${extract.id})}"
                                                           method="post">
                                                         <select class="bookshelf-select" name="bookshelfStatus" onchange="this.form.submit()">
@@ -206,48 +206,53 @@
                     </section>
 
                     <!--    SHOW BOOK MODAL    -->
-                    <div class="modal" id="bookModal">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title"></h4>
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            </div>
-                            <div class="modal-body"></div>
-                            <div>
-                                <div class="d-flex">
-                                    <h6>Leave a Review</h6>
-                                    <button class="minimize">-</button>
+                    <div class="modal custom-modal fade" id="bookModal">
+                        <div class="modal-dialog modal-dialog-center modal-dialog-scrollable">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title"></h4>
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 </div>
-                                <!-- CREATE A NEW REVIEW -->
+                                <div class="modal-body book-modal-body"></div>
                                 <div>
-                                    <form id="createReview" th:action="@{/createReview}" th:object="${review}" method="post">
-                                        <input id="reviewId" type="hidden">
-                                        <label for="createRating" id="currentRating"></label>
-                                        <select name="createRating" id="createRating" th:field="*{rating}">
-                                            <option th:value="1">1</option>
-                                            <option th:value="2">2</option>
-                                            <option th:value="3">3</option>
-                                            <option th:value="4">4</option>
-                                            <option th:value="5">5</option>
-                                        </select>
-                                        <div>
-                                            <textarea name="createBody" id="createBody" cols="30"
-                                                      rows="10" th:field="*{body}"></textarea>
-                                        </div>
-                                        <button class="btn btn-warning" type="submit" id="reviewSubmit">Submit Review</button>
-                                    </form>
-                                    <form id="deleteReview" th:action="@{/deleteReview}" method="post">
-                                        <button class="btn btn-danger" type="submit">Delete Review</button>
-                                    </form>
+                                    <!-- CREATE A NEW REVIEW -->
+                                    <div class="comment-form-container blog-card modal-review">
+                                        <form class="form-group" id="createReview" th:action="@{/createReview}" th:object="${review}" method="post">
+                                            <input id="reviewId" type="hidden">
+                                            <div th:text="${review.owner}"></div>
+                                            <div class="">
+                                                <label class="comment-heading" for="createBody">Leave a Review</label>
+                                                <textarea class="form-control" name="createBody" id="createBody" rows="10" th:field="*{body}"></textarea>
+                                            </div>
+                                            <div class="select-container review-select-container">
+                                                <label class="rate-me" for="createRating">Rate Me:</label>
+                                                <select class="bookshelf-select" name="createRating" id="createRating" th:field="*{rating}">
+                                                    <option th:value="1">1</option>
+                                                    <option th:value="2">2</option>
+                                                    <option th:value="3">3</option>
+                                                    <option th:value="4">4</option>
+                                                    <option th:value="5">5</option>
+                                                </select>
+                                            </div>
+                                            <button class="button comment-btn" type="submit">Submit</button>
+                                        </form>
+                                        <form id="deleteReview" th:action="@{/deleteReview}" method="post">
+                                            <button class="button danger-button delete-review-modal" type="submit">Delete Review</button>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="modal-ft button close-button" data-dismiss="modal">Close</button>
+                                    </div>
                                 </div>
+
                             </div>
-                            <button type="button" class="modal-ft btn btn-dark" data-dismiss="modal">Close</button>
                         </div>
+
                     </div>
 
                     <!--        Delete modal-->
                     <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
+                        <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="deleteModalLabel">Delete Profile</h5>
@@ -262,8 +267,8 @@
                                         </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-danger">Confirm Deletion</button>
+                                        <button type="button" class="button" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="button danger-button">Confirm Deletion</button>
                                     </div>
                                 </form>
                             </div>

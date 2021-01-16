@@ -22,7 +22,7 @@
                                 </form>
                             </div>
                             <div sec:authorize="isAuthenticated()">
-                                <div th:if="${bookshelf == 'null'}" class="bookshelf-select-container">
+                                <div th:if="${bookshelf == 'null'}" class="select-container bookshelf-select-container">
                                     <form th:action="@{/book/{gbreference}(gbreference = ${book.gbreference})}" method="post">
                                         <label for="bookshelfStatus">Choose a Status:</label>
                                         <select class="bookshelf-select" id="bookshelfStatus" name="bookshelfStatus">
@@ -136,7 +136,7 @@
                                             <label class="comment-heading" for="createBody">Leave a Review</label>
                                             <textarea class="form-control" name="createBody" id="createBody" rows="10" th:field="*{body}"></textarea>
                                         </div>
-                                        <div class="bookshelf-select-container">
+                                        <div class="select-container review-select-container">
                                             <label class="rate-me" for="createRating">Rate Me:</label>
                                             <select class="bookshelf-select" name="createRating" id="createRating" th:field="*{rating}">
                                                 <option th:value="1">1</option>
@@ -160,35 +160,42 @@
                     </div>
 
                     <!-- EDIT REVIEW MODAL BODY -->
-                    <div sec:authorize="${isAuthenticated()}" class="modal" id="reviewModal">
+                    <div sec:authorize="${isAuthenticated()}" class="modal fade" id="reviewModal">
+                        <div class="modal-dialog modal-dialog-center modal-dialog-scrollable">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h4 class="modal-title">Edit Review</h4>
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                             </div>
                             <div class="modal-body">
-                                <!-- EDIT REVIEW FORM -->
-                                <form th:id="editReview" th:action="@{/editReview}"
-                                      th:object="${editReview}"
-                                      th:if="${editReview != 'null'}"
-                                      method="post">
-                                    <input id="reviewId" type="hidden">
-                                    <label for="editRating" id="currentRating"></label>
-                                    <select name="editRating" id="editRating" th:field="*{rating}">
-                                        <option th:value="1">1</option>
-                                        <option th:value="2">2</option>
-                                        <option th:value="3">3</option>
-                                        <option th:value="4">4</option>
-                                        <option th:value="5">5</option>
-                                    </select>
-                                    <div>
-                                        <textarea name="editBody" id="editBody" cols="30" rows="10" th:field="*{body}"></textarea>
-                                    </div>
-                                    <button class="btn btn-warning" type="submit" id="reviewSubmit">Submit</button>
-                                </form>
-                                <div th:unless="${review != 'null'}"></div>
+                                <div class="comment-form-container blog-card modal-review">
+                                    <!-- EDIT REVIEW FORM -->
+                                    <form class="form-group" th:id="editReview" th:action="@{/editReview}"
+                                          th:object="${editReview}"
+                                          th:if="${editReview != 'null'}"
+                                          method="post">
+                                        <input id="reviewId" type="hidden">
+                                        <div>
+                                            <textarea class="form-control" name="editBody" id="editBody" cols="30" rows="10" th:field="*{body}"></textarea>
+                                        </div>
+                                        <div class="select-container review-select-container">
+                                            <label class="rate-me" for="editRating" id="currentRating">Rate Me: </label>
+                                            <select class="bookshelf-select" name="editRating" id="editRating" th:field="*{rating}">
+                                                <option th:value="1">1</option>
+                                                <option th:value="2">2</option>
+                                                <option th:value="3">3</option>
+                                                <option th:value="4">4</option>
+                                                <option th:value="5">5</option>
+                                            </select>
+                                        </div>
+                                        <button class="button" type="submit" id="reviewSubmit">Submit</button>
+                                    </form>
+                                    <div th:unless="${review != 'null'}"></div>
+                                </div>
                             </div>
-                            <button type="button" class="modal-ft btn btn-dark" data-dismiss="modal">Close</button>
+                            <div class="modal-footer">
+                                <button type="button" class="modal-ft button close-button" data-dismiss="modal">Close</button>
+                            </div>
                         </div>
                     </div>
                 </section>

@@ -48,30 +48,30 @@ $(document).ready(function () {
             .then(res => res.json())
             .then(book => {
                 let drillPath = book.volumeInfo;
-                $('.modal-body').html(
+                $('.book-modal-body').html(
                     `
             <div>
-                <div>
-                    <!-- LEFT BOTH IMAGE PATHS AVAILABLE FOR STYLING PURPOSES -->
-                    <img src="${drillPath.imageLinks.thumbnail}" alt="book-image">
-                    <img src="${drillPath.imageLinks.smallThumbnail}" alt="book-image-small">
-                </div>
-                <div>
-                    <h6>${drillPath.title}</h6>
-                    <p>${drillPath.description}</p>
-                    <div>
-                        <p>Author: ${drillPath.authors}</p>
-                        <p>Published Date: ${drillPath.publishedDate}</p>
-                        <p>Categories${drillPath.categories}</p>
-                        <div class="d-flex">
-                        <p>ISBN: </p>
-                        <p>(${drillPath.industryIdentifiers[0].identifier})</p>
-                        <!-- NEED A CONDITIONAL TO NOT DISPLAY A VALUE IF NULL -->
-                        <p>(${drillPath.industryIdentifiers[1].identifier})</p>
+                <div class="view-book-container">
+                    <div class="viewbook-img-container">
+                        <img class="viewbook-img" src="${drillPath.imageLinks.thumbnail}" alt="book-image">
+                    </div>
+                    
+                     <div class="viewbook-info">
+                        <p class="view-book-title custom-modal-title">${drillPath.title}</p>
+                        <p class="view-book-author custom-modal-author">Author: ${drillPath.authors}</p>
+                        <div class="view-book-author custom-modal-author">
+                            <div class="modal-isbn">
+                                <p>ISBN: <span>${drillPath.industryIdentifiers[0].identifier}</span> <span>${drillPath.industryIdentifiers[1].identifier}</span> </p>
+                            </div>
                         </div>
                         <!-- NEED A CONDITIONAL TO NOT DISPLAY A VALUE IF UNDEFINED -->
-                        <a href="#">${book.saleInfo.buyLink}</a>
+                        <a class="member-name-link custom-modal-link" href="#">${book.saleInfo.buyLink}</a>
                     </div>
+                        
+                </div>
+                <p class="club-heading book-desc-heading">Description:</p>
+                <div class="book-desc">
+                        <p>${drillPath.description}</p>
                 </div>
             </div>
             `
@@ -107,7 +107,7 @@ $(document).ready(function () {
                         $('#createReview').attr('action', `/profile/${username}/${bookId}/editReview/${reviewId}`);
                         $('#reviewId').val(id);
                         $('#createBody').val(body);
-                        $('#currentRating').html('Current Rating: ');
+                        $('#currentRating').html('Rate Me: ');
                         $(`#createRating option[value=${rating}]`).attr({
                             selected: 'selected'
                         });
