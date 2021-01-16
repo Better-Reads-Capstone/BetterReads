@@ -24,6 +24,10 @@
     --header-height: 550px;
     --header-small-width: 40vw;
     --header-large-width: 60vw;
+
+    /*  Overflow attribute (set a max height and add this attribute  */
+    /*       height: 400px   */
+    /*  overflow-y: scroll  */
 }
 
 .site-margin {
@@ -47,6 +51,10 @@
 .button:hover {
     transform: translateY(-3px);
     cursor: pointer;
+}
+
+button:focus {
+    outline: 0 !important;
 }
 
 .danger-button {

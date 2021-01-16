@@ -100,6 +100,7 @@
     font-family: var(--raleway);
     background-color: var(--off-white);
     color: var(--forest-green);
+    outline: none;
 }
 
 #read, #reading, #wishlist {
@@ -113,5 +114,6 @@
 }
 
 .profile-page-shapes {
+    margin-top: 40px;
     width: 100%;
 }
