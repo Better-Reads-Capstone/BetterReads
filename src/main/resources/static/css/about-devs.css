@@ -77,8 +77,9 @@
     justify-content: space-evenly;
 }
 
-.dev-social-container:hover {
+.dev-social-media-icon:hover {
     transform: translateY(-3px);
+    color: var(--forest-green);
 }
 
 @media (min-width: 768px) {
