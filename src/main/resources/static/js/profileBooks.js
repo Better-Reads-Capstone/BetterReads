@@ -107,7 +107,7 @@ $(document).ready(function () {
                         $('#createReview').attr('action', `/profile/${username}/${bookId}/editReview/${reviewId}`);
                         $('#reviewId').val(id);
                         $('#createBody').val(body);
-                        $('#currentRating').html('Current Rating: ');
+                        $('#currentRating').html('Rate Me: ');
                         $(`#createRating option[value=${rating}]`).attr({
                             selected: 'selected'
                         });
