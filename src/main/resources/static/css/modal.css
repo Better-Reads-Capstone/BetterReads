@@ -1,0 +1,26 @@
+.modal-header, .modal-footer {
+    background-color: var(--green);
+    color: var(--off-white);
+    font-family: var(--alegreya);
+}
+
+.modal-body {
+    font-family: var(--raleway);
+}
+
+.custom-modal-title {
+    font-size: 1.5em;
+}
+
+.custom-modal-author, .custom-modal-link {
+    font-size: 1em;
+    text-align: center;
+}
+
+.custom-modal-link {
+    word-break: break-word;
+}
+
+.close-button {
+    width: 100%;
+}
