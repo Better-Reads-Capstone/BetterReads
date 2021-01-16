@@ -48,7 +48,7 @@ $(document).ready(function () {
             .then(res => res.json())
             .then(book => {
                 let drillPath = book.volumeInfo;
-                $('.modal-body').html(
+                $('.book-modal-body').html(
                     `
             <div>
                 <div class="view-book-container">

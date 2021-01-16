@@ -88,11 +88,18 @@
     transform: translateY(-2px);
 }
 
-.bookshelf-select-container {
+.select-container {
     display: flex;
-    justify-content: center;
     margin: 10px 0 20px 0;
 }
+.bookshelf-select-container {
+    justify-content: center;
+}
+
+.review-select-container {
+    justify-content: flex-end;
+}
+
 
 .bookshelf-select {
     padding: 5px 10px;
