@@ -45,7 +45,7 @@
                                                 <div class="modal-content">
                                                     <div class="modal-header">
                                                         <h5 class="modal-title" id="deleteClubModalLabel">Delete Club</h5>
-                                                        <button type="button club-btn" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>
                                                     </div>
@@ -54,9 +54,9 @@
                                                         <p><strong>You cannot undo this action.</strong></p>
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <button type="button club-btn" class="btn btn-secondary" data-dismiss="modal">Never mind</button>
+                                                        <button type="button" class="button" data-dismiss="modal">Never mind</button>
                                                         <form th:action="@{/bookclub/{id}/delete (id = ${club.id})}" method="post">
-                                                            <button type="submit" class="button">Delete</button>
+                                                            <button type="submit" class="button danger-button">Delete</button>
                                                         </form>
                                                     </div>
                                                 </div>
