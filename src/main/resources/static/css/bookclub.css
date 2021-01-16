@@ -201,11 +201,13 @@
 
 
 /* VIEW POST STYLING STARTS HERE*/
+
 .blog-post-container {
     width: 100%;
     border-radius: var(--border-radius);
     padding: 20px;
     font-family: var(--montserrat);
+    margin-bottom: 30px;
 }
 
 .blog-header {
@@ -227,10 +229,10 @@
 }
 
 .blog-heading {
-    margin-left: 20px;
     font-size: 3rem;
     font-family: var(--alegreya);
     color: var(--dark-grey);
+    text-align: center;
 }
 
 .comment-heading {
@@ -325,6 +327,17 @@
 }
 
 @media (min-width: 768px) {
+    .blog-post-container {
+        width: 100%;
+    }
+
+    .blog-heading {
+        text-align: left;
+    }
+
+    .comment-section {
+        width: 100%;
+    }
 
     .club-avatar {
         height: 400px;
@@ -340,7 +353,12 @@
 }
 
 
-@media (min-width: 992px) {
+@media (min-width: 1130px) {
+    .blog-container {
+        display: flex;
+        justify-content: space-evenly;
+        margin-bottom: 0;
+    }
 
     .intro-members-sections {
         display: flex;

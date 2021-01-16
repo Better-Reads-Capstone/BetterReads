@@ -5,48 +5,50 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<body>
+<body class="book-bg">
     <nav th:replace="partials/navbar :: navbar"></nav>
     <main>
         <div class="site-margin" id="book" th:data-book-id="${book.id}" th:data-user="${user}" >
-            <div class="club-container">
+            <div class="blog-container">
                 <input id="book-value" th:value="${book.gbreference}" hidden>
                 <section class="blog-post-container">
-                    <p class="blog-heading">Book Information</p>
+                    <div class="book-info-header">
+                        <p class="blog-heading book-info-heading">Book Info</p>
+                        <div class="blog-controls">
+                            <div sec:authorize="isAnonymous()" class="">
+                                <form class="form-group" th:action="@{/login}"
+                                      method="get">
+                                    <button type="submit" class="button login-btn">Login to add this book</button>
+                                </form>
+                            </div>
+                            <div sec:authorize="isAuthenticated()">
+                                <div th:if="${bookshelf == 'null'}" class="bookshelf-select-container">
+                                    <form th:action="@{/book/{gbreference}(gbreference = ${book.gbreference})}" method="post">
+                                        <label for="bookshelfStatus">Choose a Status:</label>
+                                        <select class="bookshelf-select" id="bookshelfStatus" name="bookshelfStatus">
+                                            <option th:value="'READ'">READ</option>
+                                            <option th:value="'READING'">READING</option>
+                                            <option th:value="'WISHLIST'" selected>WISHLIST</option>
+                                        </select>
+                                        <button class="button" type="submit">Add Book</button>
+                                    </form>
+                                </div>
+                                <div th:unless="${bookshelf == 'null'}" class="">
+                                    <form th:action="@{/profile/{username}(username=${user.username})}">
+                                        <button type="submit" class="button">Go to Profile</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="loading-icon mx-auto"></div>
                     <div class="book-container" id="book-container">
                         <!--            Book rendered here                -->
                     </div>
-                    <div class="blog-controls">
-                        <div sec:authorize="isAnonymous()" class="">
-                            <form class="form-group" th:action="@{/login}"
-                                  method="get">
-                                <button type="submit" class="button">Login to add this book</button>
-                            </form>
-                        </div>
-                        <div sec:authorize="isAuthenticated()">
-                            <div th:if="${bookshelf == 'null'}" class="bookshelf-select-container">
-                                <form th:action="@{/book/{gbreference}(gbreference = ${book.gbreference})}" method="post">
-                                    <label for="bookshelfStatus">Choose a Status:</label>
-                                    <select class="bookshelf-select" id="bookshelfStatus" name="bookshelfStatus">
-                                        <option th:value="'READ'">READ</option>
-                                        <option th:value="'READING'">READING</option>
-                                        <option th:value="'WISHLIST'" selected>WISHLIST</option>
-                                    </select>
-                                    <button class="button" type="submit">Add Book</button>
-                                </form>
-                            </div>
-                            <div th:unless="${bookshelf == 'null'}" class="">
-                                <form th:action="@{/profile/{username}(username=${user.username})}">
-                                    <button type="submit" class="button">Go to Profile</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
                 </section>
 
                 <section class="comment-section">
-                    <p class="blog-heading">Comments</p>
+                    <p class="blog-heading">Reviews</p>
                     <ul class="nav nav-tabs" id="commentsTab" role="tablist">
                         <li class="nav-item comment-tab" role="presentation">
                             <a class="nav-link comment-link active" id="reviews-tab" data-toggle="tab" href="#reviews" role="tab" aria-controls="reviews" aria-selected="true">Reviews</a>
@@ -126,21 +128,23 @@
                                     </form>
                                     <img class="review-character" th:src="@{../img/book-reader-4.svg}">
                                 </div>
-                                <div class="comment-form-container" sec:authorize="isAuthenticated()">
-                                    <form th:action="@{/book/{gbreference}/createReview/(gbreference = ${book.gbreference})}"
+                                <div sec:authorize="isAuthenticated()">
+                                    <form class="form-group" th:action="@{/book/{gbreference}/createReview/(gbreference = ${book.gbreference})}"
                                           method="post" th:object="${review}" th:if="${review != 'null'}">
                                         <div th:text="${review.owner}"></div>
-                                        <label class="comment-heading" for="createRating">Rate Me: </label>
-                                        <select name="createRating" id="createRating" th:field="*{rating}">
-                                            <option th:value="1">1</option>
-                                            <option th:value="2">2</option>
-                                            <option th:value="3">3</option>
-                                            <option th:value="4">4</option>
-                                            <option th:value="5">5</option>
-                                        </select>
-                                        <div>
-                                            <label class="comment-heading" for="createBody">Leave a Comment!</label>
-                                            <textarea name="createBody" id="createBody" rows="4" th:field="*{body}"></textarea>
+                                        <div class="">
+                                            <label class="comment-heading" for="createBody">Leave a Review</label>
+                                            <textarea class="form-control" name="createBody" id="createBody" rows="10" th:field="*{body}"></textarea>
+                                        </div>
+                                        <div class="bookshelf-select-container">
+                                            <label class="rate-me" for="createRating">Rate Me:</label>
+                                            <select class="bookshelf-select" name="createRating" id="createRating" th:field="*{rating}">
+                                                <option th:value="1">1</option>
+                                                <option th:value="2">2</option>
+                                                <option th:value="3">3</option>
+                                                <option th:value="4">4</option>
+                                                <option th:value="5">5</option>
+                                            </select>
                                         </div>
                                         <button class="button comment-btn" type="submit">Submit</button>
                                     </form>

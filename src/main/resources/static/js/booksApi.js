@@ -138,15 +138,21 @@ const buildSmallBookCard = (book) => {
 const buildLargeSingleCard = (book) => {
     let cardHTML = '';
     cardHTML =
-        `<div class="card-header">
-             <p>${book.title}</p>
-         </div>
-         <div class="card-body">
-             <img src='${book.img}' class='card-img' alt="Book cover for ${book.title}" style='width: 18rem'>
-             <p>ISBN: ${book.isbn[0].identifier}</p>
-             <p>Author: ${book.auth}</p>
-             <p>Description:</p>
-             <p>${book.desc}</p>
+        `    <div class="view-book-container">
+                <div class="viewbook-img-container">
+                    <img src='${book.img}' class='viewbook-img' alt="Book cover for ${book.title}">
+                </div>
+                <div class="viewbook-info">
+                    <p class="view-book-title">${book.title}</p>
+                    <p class="view-book-author">${book.auth}</p>
+                    <p class="view-book-author">ISBN: ${book.isbn[0].identifier}</p>
+                </div>
+             </div>
+             <p class="club-heading book-desc-heading">Description:</p>
+             <div class="book-desc">
+                <p>${book.desc}</p>
+             </div>
+             
          </div>`
     return cardHTML;
 
