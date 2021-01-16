@@ -32,7 +32,17 @@
                 <!--       comments         -->
                 <section class="comment-section">
                     <p class="blog-heading">Comments</p>
-                    <div th:if="${member != null}" class="comments-container">
+                    <div th:if="${member == null}" class="comments-container join-club-comment">
+                            <div>
+                                <form th:action="@{/bookclub/{id}#post-container (id = ${club.id})}">
+                                    <button type="submit" class="button">Join the Club to Leave a Comment</button>
+                                </form>
+                            </div>
+                            <div>
+                                <img class="comment-img" th:src="@{/img/book-reader-1.svg}" />
+                            </div>
+                    </div>
+                    <div th:unless="${member == null}" class="comments-container">
                         <ul class="nav nav-tabs" id="commentsTab" role="tablist">
                             <li class="nav-item comment-tab" role="presentation">
                                 <a class="nav-link comment-link active" id="comments-tab" data-toggle="tab" href="#comments" role="tab" aria-controls="comments" aria-selected="true">Comments</a>
@@ -80,12 +90,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div th:unless="${member != null}" class="comments-container">
-                        <form th:action="@{/bookclub/{id}#post-container (id = ${club.id})}">
-                            <button type="submit" class="button">Join the Club to Leave a Comment</button>
-                        </form>
-                        <img th:src="@{../img/book-reader-3.svg}" alt="An illustration of a person reading."/>
                     </div>
                 </section>
             </div>
