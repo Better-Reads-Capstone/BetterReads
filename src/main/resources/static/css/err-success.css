@@ -1,24 +1,20 @@
+
 .outer-container {
     overflow: hidden;
     margin: 0;
-    height: 100vh;
-    background-image: url("../img/book-reader-2.svg");
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: 100%;
-    background-position: center bottom;
+    height: 80vh;
+    background-color: #DDAF94;
 }
 
-.left-container {
-    display: none;
-}
+/*.left-container {*/
+/*    display: none;*/
+/*}*/
 
 .right-container {
-    border: solid black 1px;
-    width: 30rem;
     border-radius: 10px;
-    margin: 30px auto;
+    margin: 30px auto 0 auto;
     padding: 0 30px;
+    text-align: center;
 }
 
 .right-container * {
@@ -31,34 +27,51 @@
 
 .err-redirect-btns {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
 @media (min-width: 992px) {
     .outer-container {
+        background-color: #FDF8F5;
         margin: 0;
         height: 100vh;
+        background-image: url("../img/book-reader-2.svg");
         background-repeat: no-repeat;
         background-position: left;
-        background-size: 40% 100%;
+        background-attachment: fixed;
+        background-size: 40%;
     }
 
-    .left-container {
-        display: flex;
-        height: 100vh;
-        width: 50%;
-        background-color: #266150;
-    }
+    /*.left-container {*/
+    /*    display: flex;*/
+    /*    height: 100vh;*/
+    /*    width: 50%;*/
+    /*    background-color: #266150;*/
+    /*}*/
 
     .right-container {
+        border: solid #DDAF94 2px;
+        background-color: #E8CEBF;
         display: flex;
         flex-direction: column;
         justify-content: center;
-        border: none;
         height: 100%;
         width: 50%;
         margin: 0 0 0 auto;
         padding: 0 40px;
+        text-align: left;
+    }
+
+    .right-container h4 {
+        font-size: 3em;
+    }
+
+    .right-container h6 {
+        font-size: 2em;
+    }
+
+    .err-redirect-btns {
+        justify-content: space-between;
     }
 
 }

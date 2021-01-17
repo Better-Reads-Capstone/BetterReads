@@ -6,58 +6,63 @@
 <nav th:replace="partials/navbar :: navbar"></nav>
 <main>
     <div class="d-flex site-margin">
-        <div class="form-container">
-            <div class="register-msg-space">
-                <h3 class="font-weight-bold">Register For</h3>
-                <h3 class="font-weight-bold">An Account</h3>
+        <div class="form-layout">
+            <div>
+                <img class="img-width" th:src="@{../img/organic-shapes-3.svg}" alt="login-img">
             </div>
-            <form th:action="@{/sign-up}" method="POST" th:object="${user}">
-                <div>
-                    <input id="username" class="form-control" th:field="*{username}" placeholder="Username"/>
-                    <div class="err-msg">
-                        <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
-                    </div>
+            <div class="form-container">
+                <div class="register-msg-space">
+                    <h3 class="font-weight-bold">Register For</h3>
+                    <h3 class="font-weight-bold">An Account</h3>
                 </div>
+                <form th:action="@{/sign-up}" method="POST" th:object="${user}">
+                    <div>
+                        <input id="username" class="form-control" th:field="*{username}" placeholder="Username"/>
+                        <div class="err-msg">
+                            <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
+                        </div>
+                    </div>
 
-                <div>
-                    <input id="email" class="form-control" th:field="*{email}" placeholder="Email"/>
-                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
-                        else.</small>
-                    <div class="err-msg">
-                        <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+                    <div>
+                        <input id="email" class="form-control" th:field="*{email}" placeholder="Email"/>
+                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
+                            else.</small>
+                        <div class="err-msg">
+                            <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+                        </div>
                     </div>
-                </div>
 
-                <div>
-                    <input id="first-name" class="form-control" th:field="*{firstName}" placeholder="First Name"/>
-                    <div class="err-msg">
-                        <div th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></div>
+                    <div>
+                        <input id="first-name" class="form-control" th:field="*{firstName}" placeholder="First Name"/>
+                        <div class="err-msg">
+                            <div th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></div>
+                        </div>
                     </div>
-                </div>
 
-                <div>
-                    <input id="last-name" class="form-control" th:field="*{lastName}" placeholder="Last Name"/>
-                    <div class="err-msg">
-                        <div th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></div>
+                    <div>
+                        <input id="last-name" class="form-control" th:field="*{lastName}" placeholder="Last Name"/>
+                        <div class="err-msg">
+                            <div th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></div>
+                        </div>
                     </div>
-                </div>
 
-                <div>
-                    <input id="password" class="form-control" type="password" th:field="*{password}"
-                           placeholder="Password"/>
-                    <div class="err-msg">
-                        <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+                    <div>
+                        <input id="password" class="form-control" type="password" th:field="*{password}"
+                               placeholder="Password"/>
+                        <div class="err-msg">
+                            <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+                        </div>
                     </div>
-                </div>
-                <div class="submit-position">
-                    <h4 class="font-weight-bold">Sign Me Up!</h4>
-                    <button type="submit"
-                            class="form-submit"><i
-                            class="bi bi-arrow-right"></i></button>
-                </div>
-            </form>
+                    <div class="submit-position">
+                        <h4 class="font-weight-bold">Sign Me Up!</h4>
+                        <button type="submit"
+                                class="form-submit"><i
+                                class="bi bi-arrow-right"></i></button>
+                    </div>
+                </form>
+            </div>
         </div>
-        <div class="desktop-image">
+        <div class="desktop-image register-dsktp-clr">
             <p>Testing size</p>
         </div>
     </div>
