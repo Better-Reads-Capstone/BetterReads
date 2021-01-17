@@ -2,45 +2,48 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="partials/head :: head('Here there be dragons and 400 errors')">
 </head>
-<body class="outer-container">
+<body>
 <nav th:replace="partials/navbar :: navbar"></nav>
 <main class="content-space">
-    <th:block th:switch="${error}">
-        <div th:case="'Not Found'" class="right-container">
-            <h1 class="">404 <span th:text="${error}"></span></h1>
-            <h3 class="">We've got lots of pages on this site, except this particular one you're looking for...</h3>
-            <p class="">Not to fret though, you've got some options below:</p>
-            <div class="err-redirect-btns">
-                <button class="button btn-back" type="button"><i
-                        class="bi bi-arrow-left-square"> Go Back</i>
-                </button>
-                <button class="button btn-home"><i class="bi bi-house"> Go To The Homepage</i></button>
+    <div class="outer-container">
+        <th:block th:switch="${error}">
+            <div th:case="'Not Found'" class="right-container">
+                <h4>404 <span th:text="${error}"></span></h4>
+                <h6>We've got lots of pages on this site, except this particular one you're looking for...</h6>
+                <p>Not to fret though, you've got some options below:</p>
+                <div class="err-redirect-btns">
+                    <button class="button btn-back" type="button"><i
+                            class="bi bi-arrow-left-square"> Go Back</i>
+                    </button>
+                    <button class="button btn-home"><i class="bi bi-house"> Go To The Homepage</i></button>
+                </div>
             </div>
-        </div>
-        <div th:case="'Forbidden'" class="right-container">
-            <h1>403 <span th:text="${error}"></span></h1>
-            <h3>As Gandalf famously shouted "You...shall not...PASS!"</h3>
-            <p>Harsh, we know. Fear not, you've got some options below:</p>
-            <div class="err-redirect-btns">
-                <button class="button btn-back" type="button"><i
-                        class="bi bi-arrow-left-square"> Go Back</i></button>
+            <div th:case="'Forbidden'" class="right-container">
+                <h4>403 <span th:text="${error}"></span></h4>
+                <h6>As Gandalf famously shouted "You...shall not...PASS!"</h6>
+                <p>Harsh, we know. Fear not, you've got some options below:</p>
+                <div class="err-redirect-btns">
+                    <button class="button btn-back" type="button"><i
+                            class="bi bi-arrow-left-square"> Go Back</i></button>
 
-                <button class="button btn-home"><i class="bi bi-house"> Go To The Homepage</i></button>
+                    <button class="button btn-home"><i class="bi bi-house"> Go To The Homepage</i></button>
+                </div>
             </div>
-        </div>
-        <div th:case="'Bad Request'" class="right-container">
-            <h1>400 <span th:text="${error}"></span></h1>
-            <h3>Oh no, it looks like a request didn't go through!</h3>
-            <p>Don't worry, we will look into solving this issue. For now try these links:</p>
-            <div class="err-redirect-btns">
-                <button class="button btn-back" type="button"><i
-                        class="bi bi-arrow-left-square"> Go Back</i></button>
+            <div th:case="'Bad Request'" class="right-container">
+                <h4>400 <span th:text="${error}"></span></h4>
+                <h6>Oh no, it looks like a request didn't go through!</h6>
+                <p>Don't worry, we will look into solving this issue. For now try these links:</p>
+                <div class="err-redirect-btns">
+                    <button class="button btn-back" type="button"><i
+                            class="bi bi-arrow-left-square"> Go Back</i></button>
 
-                <button class="button btn-home"><i class="bi bi-house"> Go To The Homepage</i></button>
+                    <button class="button btn-home"><i class="bi bi-house"> Go To The Homepage</i></button>
+                </div>
             </div>
-        </div>
+        </th:block>
+    </div>
 </main>
-</th:block>
+
 <footer th:replace="partials/footer :: footer"></footer>
 <script th:src="@{/js/utils/error-success.js}" defer></script>
 </body>
