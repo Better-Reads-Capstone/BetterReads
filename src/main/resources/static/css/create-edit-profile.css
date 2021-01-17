@@ -1,20 +1,17 @@
-.form-site-margin {
-
-}
 
 .flex-form {
     display: flex;
     flex-direction: column;
 }
 
-.profile-left-section {
+.left-section {
     background-color: var(--blush);
     border: 2px solid var(--makeup-tan);
     border-top-left-radius: var(--border-radius);
     border-top-right-radius: var(--border-radius);
 }
 
-.profile-right-section {
+.right-section {
     background-color: var(--blush);
     border: 2px solid var(--makeup-tan);
 }
@@ -52,7 +49,14 @@
     margin-bottom: 15px;
 }
 
-.name-input label {
+.bookclub-name-input {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.name-input label, .bookclub-name-input label{
     align-self: center;
     font-size: 1.5rem;
     margin-bottom: 0;
@@ -64,13 +68,37 @@
     width: 150px;
 }
 
+.bookclub-name-input input {
+    width: 200px;
+}
+
 .other-info-group label {
     font-family: var(--alegreya);
     margin-bottom: 0;
 }
 
-.other-info-group input, .other-info-group select{
+.other-info-group input, .other-info-group select, .genre-space select {
     width: 200px;
+}
+
+.genre-lbl {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--dark-grey);
+    font-family: var(--alegreya);
+    margin-bottom: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.about-msg {
+    display: flex;
+    justify-content: center;
+}
+
+.text-box-space {
+    width: 200px;
+    margin: 0 auto;
 }
 
 .save-container {
@@ -87,6 +115,12 @@
 
 @media (min-width: 768px) {
 
+    .bookclub-name-input {
+        flex-direction: row;
+        justify-content: space-between;
+        margin-bottom: 30px;
+    }
+
     .name-input {
         margin-bottom: 30px;
     }
@@ -100,7 +134,7 @@
         justify-content: space-between;
     }
 
-    .other-info-group {
+    .other-info-group, .genre-space {
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -108,15 +142,35 @@
         width: 100%;
     }
 
-    .other-info-group label {
+    .other-info-group label, .genre-space label {
         align-self: center;
         font-size: 1.5rem;
     }
 
     .other-info-group input,
     .other-info select,
-    .name-input input {
+    .name-input input,
+    .bookclub-name-input input,
+    .genre-space select {
         width: 20rem;
+    }
+
+    .genre-space {
+        margin-top: 20px;
+    }
+
+    .about-head-space {
+        margin: 0 20px;
+        display: flex;
+        justify-content: flex-start;
+    }
+
+    .about-msg {
+        justify-content: flex-start;
+    }
+    .text-box-space {
+        margin: 0;
+        width: 100%;
     }
 
 }
@@ -127,11 +181,11 @@
         flex-direction: row;
     }
 
-    .profile-left-section {
+    .left-section {
         border-radius: 10px 0 0 10px;
     }
 
-    .profile-right-section {
+    .right-section {
         border-radius: 0 10px 10px 0;
     }
 
@@ -161,8 +215,39 @@
         margin: 20px 0;
     }
 
+    .bookclub-name-input {
+        flex-direction: column;
+        margin-top: 25px;
+    }
+
+    .bookclub-name-input input {
+        width: 200px;
+        margin: 20px 0;
+    }
+
+    .genre-space {
+        margin-top: 20px;
+    }
+
+    .genre-lbl {
+        font-size: 2rem;
+    }
+
+    .genre-lbl-space {
+        margin-left: 20px;
+    }
+
+    .about-head-space {
+        margin: 0;
+        align-items: center;
+    }
+
     .about-spacing {
         margin: 25px 0;
+    }
+
+    .text-box-space {
+        height: 150px;
     }
 
     .save-container button {
