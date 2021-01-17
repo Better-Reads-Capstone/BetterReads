@@ -22,7 +22,7 @@
 
 .dev-card {
     width: 15em;
-    height: 23em;
+    height: 24em;
     margin: 10px;
     display: flex;
     background-color: var(--green);
