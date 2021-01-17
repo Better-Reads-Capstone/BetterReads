@@ -99,7 +99,7 @@ public class ClubController {
         viewModel.addAttribute("user", usersSvc.loggedInUser());
         viewModel.addAttribute("club", clubDao.getOne(id));
         viewModel.addAttribute("members", clubMemberDao.findAllByClub(club));
-        viewModel.addAttribute("posts", postDao.findAllByClub(club));
+        viewModel.addAttribute("posts", postDao.findAllByClubOrderByIdDesc(club));
 
         // For the conditional in the bookclub template; prevents users from joining a club multiple times!
 

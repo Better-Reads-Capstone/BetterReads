@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="partials/head :: head(title = 'About Us')">
 </head>
-<body>
+<body class="about-dev-bg">
 <nav th:replace="partials/navbar :: navbar"></nav>
     <header>
 
@@ -11,25 +11,50 @@
         <div class="site-margin">
             <section>
                 <div class="dev-profile-container">
-                    <div class="dev-profile" id="dev-ally">
-                        <div class="dev-card">
-                            <img th:src="@{/img/dev-ally.jpeg}" alt="" class="dev-img">
-                            <a href="https://github.com/alexandrahamner" class="social-media-icon" id="gh-icon-ally"><i class="bi bi-github"></i></a>
-                            <a href="https://www.linkedin.com/in/alexandrahamner/" class="social-media-icon" id="li-icon-ally"><i class="bi bi-linkedin"></i></a>
+                    <div class="dev-profile-title-container">
+                        <div class="dev-profile-title">
+                            <p>Meet The Developers</p>
                         </div>
                     </div>
-                    <div class="dev-profile" id="dev-caleb">
-                        <div class="dev-card">
-                            <img th:src="@{/img/dev-caleb.jpeg}" alt="" class="dev-img">
-                            <a href="https://github.com/CalebEWheeler" class="social-media-icon" id="gh-icon-caleb"><i class="bi bi-github"></i></a>
-                            <a href="https://www.linkedin.com/in/cew32/" class="social-media-icon" id="li-icon-caleb"><i class="bi bi-linkedin"></i></a>
+                    <div class="dev-card-container">
+                        <div class="dev-profile" id="dev-ally">
+                            <div class="dev-card">
+                                <p class="dev-name-text">Alexandra Hamner</p>
+                                <div class="dev-img-container">
+                                    <img th:src="@{/img/dev-ally.jpeg}" alt="" class="dev-img">
+                                </div>
+                                <p class="dev-quote-text">sapien faucibus et molestie ac feugiat sed lectus</p>
+                                <div class="dev-social-container">
+                                    <a href="https://github.com/alexandrahamner" class="dev-social-media-icon" id="gh-icon-ally"><i class="bi bi-github"></i></a>
+                                    <a href="https://www.linkedin.com/in/alexandrahamner/" class="dev-social-media-icon" id="li-icon-ally"><i class="bi bi-linkedin"></i></a>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="dev-profile" id="dev-levi">
-                        <div class="dev-card">
-                            <img th:src="@{/img/dev-levi.jpeg}" alt="" class="dev-img">
-                            <a href="https://github.com/lbtrejo" class="social-media-icon" id="gh-icon-levi"><i class="bi bi-github"></i></a>
-                            <a href="https://www.linkedin.com/in/levi-trejo-858a5a28/" class="social-media-icon" id="li-icon-levi"><i class="bi bi-linkedin"></i></a>
+                        <div class="dev-profile" id="dev-caleb">
+                            <div class="dev-card">
+                                <p class="dev-name-text">Caleb Wheeler</p>
+                                <div class="dev-img-container">
+                                    <img th:src="@{/img/dev-caleb.jpeg}" alt="" class="dev-img">
+                                </div>
+                                <p class="dev-quote-text">sapien faucibus et molestie ac feugiat sed lectus</p>
+                                <div class="dev-social-container">
+                                    <a href="https://github.com/CalebEWheeler" class="dev-social-media-icon" id="gh-icon-caleb"><i class="bi bi-github"></i></a>
+                                    <a href="https://www.linkedin.com/in/cew32/" class="dev-social-media-icon" id="li-icon-caleb"><i class="bi bi-linkedin"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dev-profile" id="dev-levi">
+                            <div class="dev-card">
+                                <p class="dev-name-text">Levi Trejo</p>
+                                <div class="dev-img-container">
+                                    <img th:src="@{/img/dev-levi.jpeg}" alt="" class="dev-img">
+                                </div>
+                                <p class="dev-quote-text">“All we have to decide is what to do with the time that is given us.”</p>
+                                <div class="dev-social-container">
+                                    <a href="https://github.com/lbtrejo" class="dev-social-media-icon" id="gh-icon-levi"><i class="bi bi-github"></i></a>
+                                    <a href="https://www.linkedin.com/in/levi-trejo-858a5a28/" class="dev-social-media-icon" id="li-icon-levi"><i class="bi bi-linkedin"></i></a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -1,0 +1,39 @@
+.modal-header, .modal-footer {
+    background-color: var(--green);
+    color: var(--off-white);
+    font-family: var(--alegreya);
+}
+
+.modal-body {
+    font-family: var(--raleway);
+}
+
+.custom-modal-title {
+    font-size: 1.5em;
+}
+
+.custom-modal-author, .custom-modal-link {
+    font-size: .8em;
+}
+
+.custom-modal-link {
+    word-break: break-word;
+}
+
+.delete-review-modal {
+    position: absolute;
+    bottom: 132px;
+    right: 37px;
+}
+
+.modal-review {
+    margin: 0 20px 20px 20px;
+}
+
+.close-button {
+    width: 100%;
+}
+
+.review-select {
+    float: right;
+}

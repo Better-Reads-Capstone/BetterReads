@@ -5,9 +5,8 @@
 <body class="book-club-bg">
     <nav th:replace="partials/navbar :: navbar"></nav>
     <main>
-        <br>
         <div class="site-margin">
-            <div class="club-container">
+            <div class="blog-container">
                 <!--       blog         -->
                 <section class="blog-post-container">
                     <div class="blog-header">
@@ -32,8 +31,18 @@
                 </section>
                 <!--       comments         -->
                 <section class="comment-section">
-                    <div th:if="${member != null}" class="comments-container">
-                        <p class="blog-heading">Comments</p>
+                    <p class="blog-heading">Comments</p>
+                    <div th:if="${member == null}" class="comments-container join-club-comment">
+                            <div>
+                                <form th:action="@{/bookclub/{id}#post-container (id = ${club.id})}">
+                                    <button type="submit" class="button">Join the Club to Leave a Comment</button>
+                                </form>
+                            </div>
+                            <div>
+                                <img class="comment-img" th:src="@{/img/book-reader-1.svg}" />
+                            </div>
+                    </div>
+                    <div th:unless="${member == null}" class="comments-container">
                         <ul class="nav nav-tabs" id="commentsTab" role="tablist">
                             <li class="nav-item comment-tab" role="presentation">
                                 <a class="nav-link comment-link active" id="comments-tab" data-toggle="tab" href="#comments" role="tab" aria-controls="comments" aria-selected="true">Comments</a>
@@ -42,7 +51,7 @@
                                 <a class="nav-link comment-link" id="add-comment-tab" data-toggle="tab" href="#add-comment" role="tab" aria-controls="add-a-comment" aria-selected="false">Add a Comment</a>
                             </li>
                         </ul>
-                        <div class="tab-content" id="myTabContent">
+                        <div class="tab-content comment-content" id="myTabContent">
                             <div class="comments-tab tab-pane fade show active" id="comments" role="tabpanel" aria-labelledby="comments-tab">
                                 <div>
                                     <div th:each="comment: ${comments}">
@@ -81,12 +90,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div th:unless="${member != null}" class="comments-container">
-                        <form th:action="@{/bookclub/{id}#post-container (id = ${club.id})}">
-                            <button type="submit" class="button">Join the Club to Leave a Comment</button>
-                        </form>
-                        <img th:src="@{../img/book-reader-3.svg}" alt="An illustration of a person reading."/>
                     </div>
                 </section>
             </div>

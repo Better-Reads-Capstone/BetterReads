@@ -17,7 +17,7 @@
     font-family: var(--montserrat);
     font-weight: 600;
     text-transform: uppercase;
-    color: var(--off-white);
+    color: white;
     text-shadow: 3px 3px 2px rgb(150, 150, 150);
 }
 
@@ -64,7 +64,7 @@
 }
 
 .list-title-one, .list-title-two {
-    font-size: 2em;
+    font-size: 1.8em;
     font-family: var(--alegreya);
     text-align: center;
     padding: 20px;
