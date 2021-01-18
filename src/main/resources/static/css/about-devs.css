@@ -21,15 +21,15 @@
 }
 
 .dev-card {
-    width: 15em;
-    height: 24em;
+    width: 17em;
+    height: 27em;
     margin: 10px;
     display: flex;
     background-color: var(--green);
     border: 2px solid var(--off-white);
     border-radius: var(--border-radius);
     flex-flow: column nowrap;
-    justify-content: space-evenly;
+    justify-content: space-around;
 }
 
 .dev-img-container {
