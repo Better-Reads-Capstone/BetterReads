@@ -1,3 +1,9 @@
+.featured-bg {
+    background-image: url("../img/club-background.svg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+}
 .header-text {
     position: absolute;
     top: 21%;

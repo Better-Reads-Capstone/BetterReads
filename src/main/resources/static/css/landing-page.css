@@ -1,0 +1,41 @@
+.landing-block {
+    display: flex;
+    flex-direction: column;
+}
+
+.better-reads-landing {
+    position: absolute;
+    top: 50px;
+    left: 0;
+}
+
+.better-reads-landing-img {
+    width: 800px;
+}
+
+.landing-links {
+    position: absolute;
+    display: flex;
+    list-style: none;
+    right: 103px;
+    bottom: 59px;
+}
+
+.landing-img {
+    width: 100%;
+    height: 130%;
+    position: absolute;
+    right: 5px;
+    top: -74px;
+}
+
+.landing-bg {
+    background-image: url("../img/club-background.svg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+}
+
+.home-bookshelf-container {
+    position: relative;
+}
