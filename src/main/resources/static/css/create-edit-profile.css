@@ -1,4 +1,11 @@
 
+.create-edit-forms-bg {
+    background-image: url("../img/organic-bg-1.svg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+}
+
 .flex-form {
     display: flex;
     flex-direction: column;
@@ -78,7 +85,7 @@
 }
 
 .other-info-group input, .other-info-group select, .genre-space select {
-    width: 200px;
+    width: 250px;
 }
 
 .genre-lbl {
@@ -179,6 +186,7 @@
 
     .flex-form {
         flex-direction: row;
+        justify-content: center;
     }
 
     .left-section {

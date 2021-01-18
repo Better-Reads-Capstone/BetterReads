@@ -40,6 +40,17 @@
                     <button class="button btn-home"><i class="bi bi-house"> Go To The Homepage</i></button>
                 </div>
             </div>
+            <div th:case="'Method Not Allowed'" class="right-container">
+                <h4>405 <span th:text="${error}"></span></h4>
+                <h6>Hmm that's weird, looks like that's not allowed...</h6>
+                <p>Don't worry, we will look into solving this issue. For now try these links:</p>
+                <div class="err-redirect-btns">
+                    <button class="button btn-back" type="button"><i
+                            class="bi bi-arrow-left-square"> Go Back</i></button>
+
+                    <button class="button btn-home"><i class="bi bi-house"> Go To The Homepage</i></button>
+                </div>
+            </div>
         </th:block>
     </div>
 </main>

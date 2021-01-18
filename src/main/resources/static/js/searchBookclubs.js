@@ -4,3 +4,5 @@ if ($('#genreSelect').attr('value') > 0) {
         selected: 'selected'
     });
 }
+
+$('.btn-login').click(() => {window.location = "/login";})
