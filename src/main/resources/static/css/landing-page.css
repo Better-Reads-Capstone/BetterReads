@@ -1,41 +1,93 @@
+/*.landing-bg {*/
+/*    background-image: url("../img/club-background.svg");*/
+/*    background-repeat: no-repeat;*/
+/*    background-attachment: fixed;*/
+/*    background-position: center;*/
+/*}*/
+
 .landing-block {
     display: flex;
     flex-direction: column;
+    height: 300px;
+}
+
+.landing-block-right {
+    height: 300px;
 }
 
 .better-reads-landing {
     position: absolute;
     top: 50px;
-    left: 0;
+    left: 15px;
 }
 
 .better-reads-landing-img {
-    width: 800px;
+    width: 300px;
 }
 
 .landing-links {
     position: absolute;
     display: flex;
     list-style: none;
-    right: 103px;
-    bottom: 59px;
+    right: -61px;
+    bottom: 40px;
+}
+
+.header-block-right {
+    z-index: -1;
 }
 
 .landing-img {
-    width: 100%;
-    height: 130%;
-    position: absolute;
-    right: 5px;
-    top: -74px;
-}
-
-.landing-bg {
-    background-image: url("../img/club-background.svg");
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-position: center;
+    display: none;
 }
 
 .home-bookshelf-container {
     position: relative;
+}
+
+@media (min-width: 375px)  {
+    .better-reads-landing-img {
+       width: 360px;
+    }
+    
+}
+
+@media (min-width: 768px) {
+    .better-reads-landing-img {
+        top: 50px;
+        left: 0;
+    }
+
+    .header-block-right {
+        display: block;
+    }
+
+    .landing-img {
+        display: block;
+        width: 80%;
+        height: 100%;
+        position: absolute;
+        right: 5px;
+        top: -74px;
+    }
+
+    .home-bookshelf-container {
+        margin-top: 100px;
+    }
+}
+
+@media (min-width: 992px) {
+    .landing-img {
+        width: 100%;
+        height: 130%;
+        position: absolute;
+        right: 5px;
+        top: -74px;
+    }
+}
+
+@media (min-width: 1255px) {
+    .better-reads-landing-img {
+        width: 800px;
+    }
 }
