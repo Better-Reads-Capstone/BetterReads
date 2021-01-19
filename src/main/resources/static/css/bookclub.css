@@ -266,7 +266,7 @@
     border-bottom-left-radius: var(--border-radius);
     border-bottom-right-radius: var(--border-radius);
     height: 30%;
-    overflow-y: scroll;
+    /*overflow-y: scroll;*/
 }
 
 .nav-tabs > li > a{
