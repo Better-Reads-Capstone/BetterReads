@@ -25,6 +25,9 @@
                                             <div class="form-group bookclub-name-input">
                                                 <label for="name">Name your bookclub:</label>
                                                 <input id="name" class="form-control" th:field="*{name}"/>
+                                                <div class="err-msg">
+                                                    <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -47,8 +50,12 @@
                                     <div class="about-club-container">
                                         <div class="form-group about-spacing">
                                             <label for="about" class="about-msg">Tell us about your book-club</label>
+                                            <small id="textHelp" class="form-text text-muted">A description must be 25 characters minimum.</small>
                                             <textarea class="form-control text-box-space" id="about" rows="3" cols="50"
                                                       th:field="*{about}"></textarea>
+                                            <div class="err-msg">
+                                                <div th:if="${#fields.hasErrors('about')}" th:errors="*{about}"></div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="save-container">
