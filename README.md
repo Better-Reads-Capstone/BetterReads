@@ -42,7 +42,7 @@
 1. Make sure to run the `genre-seeder.sql` file in your console when creating the database.
 
 
-### Contribution
+### Contributions
 
 <details>
   <summary>Alexandra Hamner <a href="https://github.com/alexandrahamner" target="_blank">GitHub</a></summary>
