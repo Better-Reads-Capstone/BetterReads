@@ -60,7 +60,7 @@ const createBookObjects = (data) => {
             descSm: data.items[i].volumeInfo.description ?? 'Unavailable',
             pubDate: data.items[i].volumeInfo.publishedDate,
             publisher: data.items[i].volumeInfo.publisher,
-            img: data.items[i].volumeInfo.imageLinks ?? '/img/logo.png',
+            img: data.items[i].volumeInfo.imageLinks ?? '/img/book-cover.png',
             isbn: data.items[i].volumeInfo.industryIdentifiers ?? [{type: 'ISBN', value: 'Unavailable'}],
             result: i + 1
         }
@@ -69,7 +69,7 @@ const createBookObjects = (data) => {
             bookAPIObj.auth = data.items[i].volumeInfo.authors[0];
         }
 
-        if (bookAPIObj.img !== '/img/logo.png'){
+        if (bookAPIObj.img !== '/img/book-cover.png'){
             if (typeof data.items[i].volumeInfo.imageLinks.thumbnail !== 'undefined') {
                 bookAPIObj.img = data.items[i].volumeInfo.imageLinks.thumbnail;
             } else if (typeof data.items[i].volumeInfo.imageLinks.smallThumbnail !== 'undefined') {
@@ -94,7 +94,7 @@ const createSingleBookObj = (data) => {
         descSm: data.volumeInfo.description ?? 'Unavailable',
         pubDate: data.volumeInfo.publishedDate,
         publisher: data.volumeInfo.publisher,
-        img: data.volumeInfo.imageLinks ?? '/img/logo.png',
+        img: data.volumeInfo.imageLinks ?? '/img/book-cover.png',
         isbn: data.volumeInfo.industryIdentifiers ?? [{type: 'ISBN', value: 'Unavailable'}]
     }
 
@@ -102,7 +102,7 @@ const createSingleBookObj = (data) => {
         bookAPIObj.auth = data.volumeInfo.authors[0];
     }
 
-    if (bookAPIObj.img !== '/img/logo.png'){
+    if (bookAPIObj.img !== '/img/book-cover.png'){
         if (typeof data.volumeInfo.imageLinks.thumbnail !== 'undefined') {
             bookAPIObj.img = data.volumeInfo.imageLinks.thumbnail;
         } else if (typeof data.volumeInfo.imageLinks.smallThumbnail !== 'undefined') {

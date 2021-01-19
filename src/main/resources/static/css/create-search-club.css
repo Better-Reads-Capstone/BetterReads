@@ -63,12 +63,20 @@
     -webkit-hyphens: auto;
     hyphens: auto;
     font-family: var(--raleway);
-    margin-top: 10px;
+    margin: 10px 0;
+    text-decoration: underline;
+    text-align: center;
+}
+
+.club-title:hover {
+    transform: translateY(-3px);
+    color: var(--makeup-tan);
 }
 
 .club-about {
     font-family: var(--montserrat);
     color: var(--off-white);
+    text-align: center;
 }
 
 .club-info a {

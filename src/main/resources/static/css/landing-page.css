@@ -13,6 +13,7 @@
 
 .landing-block-right {
     height: 300px;
+    z-index: -1;
 }
 
 .better-reads-landing {
@@ -33,9 +34,6 @@
     bottom: 40px;
 }
 
-.header-block-right {
-    z-index: -1;
-}
 
 .landing-img {
     display: none;
@@ -173,6 +171,12 @@
     }
 }
 
+@media (min-width: 895px) {
+    .landing-block-right {
+        height: 500px;
+    }
+}
+
 @media (min-width: 992px) {
     .landing-img {
         width: 100%;
@@ -201,12 +205,12 @@
     }
 
     .better-reads-landing-img {
-        width: 600px;
+        width: 650px;
     }
 
     .landing-links {
         right: 59px;
-        bottom: 133px;
+        bottom: 100px;
     }
 
     .landing-img {
