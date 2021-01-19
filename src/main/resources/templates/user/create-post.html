@@ -7,21 +7,26 @@
     <div id="content-wrap">
         <div class="site-margin">
             <main>
-                <div>
-                    <div class="create-post-container club-container">
-                        <div class="blog-card">
+                <div class="post-flex">
+                    <div class="create-post-container">
+                        <div class="create-post-title">
+                            <p>Create a Post</p>
+                        </div>
+                        <div class="create-post-card">
                             <form class="form-group" th:action="@{/bookclub/{id}/create-post (id = ${club.id})}" th:object="${post}" method="post">
                                 <input id="blog-title" class="form-control" type="text" th:field="*{title}" placeholder="Title"/>
                                 <br />
-                                <textarea id="editor1" class="form-control" rows="5" cols="20" th:field="*{body}"></textarea>
-                                <input class="button" type="submit" value="Submit" />
+                                <textarea id="editor1" class="form-control" rows="20" cols="20" th:field="*{body}"></textarea>
+                                <div class="blog-controls post-control">
+                                    <input class="button" type="submit" value="Submit" />
+                                </div>
                             </form>
                         </div>
                     </div>
                 </div>
             </main>
-
-            <footer th:replace="partials/footer :: footer"></footer>
+        </div>
+        <footer th:replace="partials/footer :: footer"></footer>
     </div>
     <script src="https://cdn.ckeditor.com/4.15.1/standard-all/ckeditor.js"></script>
     <script>

@@ -2,22 +2,31 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="partials/head :: head(title = 'Edit Post')">
 </head>
-<body>
+<body class="book-club-bg">
 <nav th:replace="partials/navbar :: navbar"></nav>
 <div id="content-wrap">
-    <main>
-        <div class="container">
-            <div class="edit-post-container">
-                <form class="form-group" th:action="@{/bookclub/{id}/edit-post/{postId} (id = ${club.id}, postId = ${post.id})}" th:object="${post}" th:method="POST">
-                    <label for="blog-title">Title</label>
-                    <input id="blog-title" class="form-control" type="text" th:field="*{title}"/>
-                    <label for="editor1">Body</label>
-                    <textarea id="editor1" class="form-control" rows="5" cols="20" th:field="*{body}"></textarea>
-                    <input class="btn btn-secondary" type="submit" value="Submit" />
-                </form>
+    <div class="site-margin">
+        <main>
+            <div class="post-flex">
+                <div class="edit-post-container">
+                    <div class="create-post-title">
+                        <p>Edit a Post</p>
+                    </div>
+                    <div class="create-post-card">
+                        <form class="form-group" th:action="@{/bookclub/{id}/edit-post/{postId} (id = ${club.id}, postId = ${post.id})}" th:object="${post}" th:method="POST">
+                            <input id="blog-title" class="form-control" type="text" th:field="*{title}" placeholder="Title"/>
+                            <br />
+                            <label for="editor1">Body</label>
+                            <textarea id="editor1" class="form-control" rows="20" cols="20" th:field="*{body}"></textarea>
+                            <div class="blog-controls post-control">
+                                <input class="button" type="submit" value="Submit" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
-        </div>
-    </main>
+        </main>
+    </div>
     <footer th:replace="partials/footer :: footer"></footer>
 </div>
 <script src="https://cdn.ckeditor.com/4.15.1/standard-all/ckeditor.js"></script>
