@@ -56,10 +56,13 @@
 <details>
   <summary>Caleb Wheeler  <a href="https://github.com/CalebEWheeler" target="_blank">GitHub</a></summary>
   
-  1.  
-  2. 
-  3. 
-  4. 
+  1.  Created a users ability to add a book to a users bookshelf, update the STATUS of a book on a users bookshelf, and delete a book from a users bookshelf
+  2.  Implemented CRUD functionality for review objects
+  3.  Utilized Spring Boot Framework to create a JSON object paired with JQuery to allow a user to auto-populate a modal to edit a review
+  4.  Passed to a users profile the bookclubs a user is affiliated with along with classes to differentiate if a user is an owner or member of a bookclub
+  5.  Added the functionality to allow a user to view all existing bookclubs
+  6.  Implemented a search method that will allow a user to search for bookclubs by a query, as well as a filter by Genre functionality
+  7.  Utilized an assortment of methods in Spring Boot Framework to allow a user to reset their password.
 </details>
 
 <details>
