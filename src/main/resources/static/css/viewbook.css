@@ -76,7 +76,7 @@
     padding:5px;
     border-bottom-left-radius: var(--border-radius);
     border-bottom-right-radius: var(--border-radius);
-    overflow-y: scroll;
+    /*overflow-y: scroll;*/
 }
 
 .book-rating-container {
