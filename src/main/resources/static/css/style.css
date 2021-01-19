@@ -180,6 +180,17 @@ header {
     transform: translateY(-3px);
 }
 
+.social-media-icon {
+    font-size: 2em;
+    color: var(--forest-green);
+    margin-top: 3px;
+}
+
+.social-media-icon:hover {
+    transform: translateY(-3px);
+    color: var(--green);
+}
+
 @media (min-width: 768px) {
 
     .book-cover {
