@@ -115,6 +115,11 @@
     border-bottom: 4px solid var(--makeup-tan);
 }
 
+.collapse-button-wishlist {
+    position: relative;
+    z-index: 5;
+}
+
 .collapse-button-read:hover, .collapse-button-reading:hover, .collapse-button-wishlist:hover {
     cursor: pointer;
     color: var(--forest-green);
