@@ -9,21 +9,22 @@
 <header>
     <div class="header-block-left d-flex flex-column">
         <div class="header-text">
+            <p class="nyt-text">Find your community</p>
             <p class="booksearch-text">Bookclubs</p>
-            <p class="booksearch-text">Find your community</p>
+            <div class="start-club-placement">
+                <button class="button btn-login" sec:authorize="isAnonymous()" th:href="@{/login}">Login to start a club
+                </button>
+                <form sec:authorize="isAuthenticated()"
+                      th:action="@{/create-club/{username} (username = ${#authentication.principal.username})}"
+                      method="get">
+                    <button class="button">Start a Bookclub</button>
+                </form>
+            </div>
         </div>
-        <div class="start-club-placement">
-            <button class="button btn-login" sec:authorize="isAnonymous()" th:href="@{/login}">Login to start a club
-            </button>
-            <form sec:authorize="isAuthenticated()"
-                  th:action="@{/create-club/{username} (username = ${#authentication.principal.username})}"
-                  method="get">
-                <button class="button">Start a Bookclub</button>
-            </form>
-        </div>
+
     </div>
     <div class="header-block-right">
-        <img class="booksearch-header-img" th:src="@{/img/books.svg}">
+        <img class="bookclub-header-img" th:src="@{/img/books.svg}">
     </div>
 </header>
 <main class="site-margin">

@@ -8,7 +8,6 @@
     position: relative;
     z-index: 100;
     align-self: center;
-    margin: 400px 0 0 0;
 }
 
 .club-search-position {
@@ -53,7 +52,6 @@
 
     .start-club-placement {
         align-self: normal;
-        margin: 485px 0 0 250px;
     }
 
     .club-search-position {
@@ -143,9 +141,6 @@
 }
 
 @media (min-width: 1767px) {
-    .start-club-placement {
-        margin: 445px auto 0 120px;
-    }
 
     .start-club-placement button {
         font-size: 20px;

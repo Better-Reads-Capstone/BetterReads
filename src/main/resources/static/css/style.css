@@ -30,8 +30,18 @@
     /*  overflow-y: scroll  */
 }
 
+
 body {
     position: relative;
+}
+
+.navbar-custom {
+    background-color: transparent;
+}
+
+.nav-font {
+    font-family: var(--montserrat);
+
 }
 
 .site-margin {

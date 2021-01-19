@@ -14,7 +14,7 @@
 }
 
     .form-layout {
-        border: solid black 1px;
+        border: solid var(--makeup-tan) 1px;
         width: 30rem;
         border-radius: 10px;
         margin: 0 auto;
@@ -154,9 +154,9 @@
 @media (min-width: 992px) {
 
     .form-layout {
-        border-top: solid black 1px;
-        border-bottom: solid black 1px;
-        border-left: solid black 1px;
+        border-top: solid var(--makeup-tan) 1px;
+        border-bottom: solid var(--makeup-tan) 1px;
+        border-left: solid var(--makeup-tan) 1px;
         border-right: none;
         width: 40rem;
         border-radius: 10px 0 0 10px;
@@ -204,9 +204,9 @@
     .desktop-image {
         display: flex;
         width: 30rem;
-        border-top: solid black 1px;
-        border-right: solid black 1px;
-        border-bottom: solid black 1px;
+        border-top: solid var(--makeup-tan) 1px;
+        border-right: solid var(--makeup-tan) 1px;
+        border-bottom: solid var(--makeup-tan) 1px;
         border-left: none;
         border-radius: 0 10px 10px 0;
         margin-right: auto;
