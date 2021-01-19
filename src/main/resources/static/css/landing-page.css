@@ -1,9 +1,9 @@
-/*.landing-bg {*/
-/*    background-image: url("../img/club-background.svg");*/
-/*    background-repeat: no-repeat;*/
-/*    background-attachment: fixed;*/
-/*    background-position: center;*/
-/*}*/
+.landing-bg {
+    background-image: url("../img/club-background.svg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+}
 
 .landing-block {
     display: flex;
@@ -45,6 +45,77 @@
     position: relative;
 }
 
+.home-bookshelf-card-container {
+    margin: 20px 0 40px 0;
+}
+
+.home-bookshelf-card {
+    margin-top: 20px;
+    position: relative;
+    background-color: var(--blush);
+    border-radius: var(--border-radius);
+    border: 2px solid var(--makeup-tan);
+}
+
+.home-bookshelf-card-title {
+    margin: 10px;
+    font-size: 1.8em;
+    color: var(--dark-grey);
+    font-family: var(--alegreya);
+    text-align: center;
+}
+
+.home-bookshelf-card-text {
+    margin: 10px;
+    font-family: var(--raleway);
+    text-align: center;
+}
+
+.button-container {
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.home-bookclub-img-container {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+}
+
+.landing-club-img {
+    width: 300px;
+}
+
+.home-bookshelf-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.list-title {
+    text-align: center;
+}
+
+.home-bookclub-container, .home-bestsellers-text-container {
+    margin: 40px 0;
+}
+
+.home-bestsellers-text-container {
+    text-align: center;
+    font-family: var(--raleway);
+    font-size: 1.3em;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: var(--blush);
+    border: 4px solid var(--makeup-tan);
+}
+
+.home-bestsellers-text {
+    margin: 30px 10px 0 10px;
+}
+
 @media (min-width: 375px)  {
     .better-reads-landing-img {
        width: 360px;
@@ -53,26 +124,52 @@
 }
 
 @media (min-width: 768px) {
+    .better-reads-landing {
+        top: 90px;
+        left: -15px;
+    }
+
+    .landing-links {
+        right: 10px;
+        bottom: 100px;
+    }
+
     .better-reads-landing-img {
         top: 50px;
         left: 0;
+        width: 500px;
     }
 
-    .header-block-right {
+    .landing-block {
+        height: 500px;
+    }
+
+    .landing-block-right {
         display: block;
+        height: 500px;
     }
 
     .landing-img {
         display: block;
-        width: 80%;
+        width: 98%;
         height: 100%;
         position: absolute;
         right: 5px;
-        top: -74px;
+        top: -26px;
     }
 
-    .home-bookshelf-container {
-        margin-top: 100px;
+    .bookshelf-card-cont {
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .home-bookshelf-card {
+        width: 300px;
+    }
+
+    .home-bookclub-container {
+        display: flex;
+        justify-content: space-between;
     }
 }
 
@@ -83,6 +180,68 @@
         position: absolute;
         right: 5px;
         top: -74px;
+    }
+
+    .home-bookshelf-container {
+        margin-top: 100px;
+    }
+
+    .home-bookclub-container {
+        justify-content: space-around;
+    }
+
+    .landing-club-img {
+        width: 550px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .landing-block, .landing-block-right {
+        height: 550px;
+    }
+
+    .better-reads-landing-img {
+        width: 600px;
+    }
+
+    .landing-links {
+        right: 59px;
+        bottom: 133px;
+    }
+
+    .landing-img {
+        top: -102px;
+    }
+}
+
+@media (min-width: 1440px) {
+    .landing-block, .landing-block-right {
+        height: 650px;
+    }
+
+    .home-bookshelf-card-container {
+        display: flex;
+    }
+
+    .bookshelf-card-cont {
+        justify-content: flex-start;
+    }
+
+    .home-bookshelf-card {
+        margin-right: 45px;
+    }
+
+    .bookclub-card {
+        width: 500px;
+    }
+
+    .home-bestsellers-text-cont {
+        display: flex;
+        justify-content: center;
+    }
+
+    .home-bestsellers-text-container {
+        width: 75%;
     }
 }
 
