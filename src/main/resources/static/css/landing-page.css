@@ -210,7 +210,8 @@
     }
 
     .landing-img {
-        top: -102px;
+        height: 100%;
+        top: -10px;
     }
 
     .home-bookshelf-card {
