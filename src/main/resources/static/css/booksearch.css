@@ -33,6 +33,10 @@
     display: none;
 }
 
+.bookclub-header-img {
+    display: none;
+}
+
 .book-search-img {
     width: 12rem;
     height: 14rem;
@@ -76,13 +80,21 @@
         top: 117px;
     }
 
+    .bookclub-header-img {
+        display: block;
+        float: right;
+        width: 300px;
+        height: 300px;
+        position: absolute;
+        right: 0;
+        bottom: 60px;
+    }
+
     .booksearch-text {
         font-size: 5em;
     }
 
     .book-grid {
-        /*display: grid;*/
-        /*overflow: auto;*/
         margin: 50px 0;
     }
 }
@@ -96,5 +108,25 @@
         position: absolute;
         right: 30px;
         top: 5px;
+    }
+
+    .bookclub-header-img {
+        width: 375px;
+        height: 375px;
+        right: 5px;
+        bottom: 60px;
+    }
+
+    @media (min-width: 1024px) {
+        .bookclub-header-img {
+            right: 30px;
+            bottom: 60px;
+        }
+    }
+
+    @media (min-width: 1166px) {
+        .bookclub-header-img {
+            right: 80px;
+        }
     }
 }
