@@ -45,6 +45,10 @@
     border-radius: var(--border-radius);
 }
 
+.results-container {
+    position: relative;
+}
+
 .book-search-info {
     display: flex;
     flex-direction: column;
@@ -84,6 +88,8 @@
     border: 2px solid var(--makeup-tan);
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-content: space-between;
     align-items: center;
     text-align: center;
 }
@@ -146,7 +152,7 @@
         width: 500px;
         height: 500px;
         position: absolute;
-        right: 30px;
+        right: 0;
         top: 5px;
     }
 
