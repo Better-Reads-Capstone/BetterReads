@@ -24,8 +24,8 @@
     .form-background-img {
         background-image: url("../img/book-reader-2.png");
         background-repeat: no-repeat;
-        background-position: top;
-        background-size: 175% 90%;
+        background-position: right;
+        background-size: 115% 90%;
     }
 
     .form-img {
