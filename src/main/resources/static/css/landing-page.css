@@ -212,9 +212,17 @@
     .landing-img {
         top: -102px;
     }
+
+    .home-bookshelf-card {
+        width: 450px;
+    }
 }
 
 @media (min-width: 1440px) {
+    .better-reads-landing-img {
+        width: 800px;
+    }
+
     .landing-block, .landing-block-right {
         height: 650px;
     }
@@ -229,10 +237,11 @@
 
     .home-bookshelf-card {
         margin-right: 45px;
+        width: 300px;
     }
 
     .bookclub-card {
-        width: 500px;
+        width: 450px;
     }
 
     .home-bestsellers-text-cont {
@@ -242,11 +251,5 @@
 
     .home-bestsellers-text-container {
         width: 75%;
-    }
-}
-
-@media (min-width: 1255px) {
-    .better-reads-landing-img {
-        width: 800px;
     }
 }
