@@ -14,7 +14,7 @@
                                     <div class="avatar-controls-container">
                                         <div class="club-avatar d-flex flex-column">
                                             <img id="avatarPreview" class="avatar-responsive club-img align-self-center"
-                                                 th:src="${user.avatarURL}"
+                                                 th:src="${club.getHeaderImageUrl()}"
                                                  alt="avatar profile image"/>
                                             <input type="hidden" id="avatar" name="product_image_url" th:field="*{headerImageUrl}" />
                                             <button class="button form-btn-space" id="addPicture">Add Picture</button>
