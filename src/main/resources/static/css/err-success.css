@@ -1,14 +1,24 @@
 
+.err-background-1 {
+    background-image: url("../img/organic-shapes-1.svg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+}
+
+.err-background-2 {
+    background-image: url("../img/organic-shapes-2.svg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+}
+
 .outer-container {
     overflow: hidden;
     margin: 0;
     height: 80vh;
     background-color: #DDAF94;
 }
-
-/*.left-container {*/
-/*    display: none;*/
-/*}*/
 
 .right-container {
     border-radius: 10px;
