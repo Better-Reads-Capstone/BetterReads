@@ -120,16 +120,13 @@ const createSingleBookObj = (data) => {
 const buildSmallBookCard = (book) => {
     let cardHTML = '';
     cardHTML =
-        `<div class="book-cover">
+        `<div class="search-book-cover grid-item">
                 <div class="book-card">
                     <img src="${book.img}" class="book-img" alt="Book cover for ${book.title}" data-ref="${book.id}"/>
                 </div>
-                <div class="book-info-background">
-                    
-                </div>
                 <div class="book-card book-search-info">
-                    <p class="book-title">${book.title}</p>
-                    <p class="book-author">${book.auth}</p>
+                    <p class="search-book-title">${book.title}</p>
+                    <p class="search-book-author">${book.auth}</p>
                 </div>
             </div>`
     return cardHTML;

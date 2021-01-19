@@ -48,8 +48,8 @@
     width: 200px;
     overflow-wrap: break-word;
     color: #000;
-    margin-left: 10px;
-    margin-bottom: 35px;
+    /*margin-left: 10px;*/
+    /*margin-bottom: 35px;*/
 }
 
 .book-grid {
@@ -63,6 +63,46 @@
     font-family: var(--raleway);
     background-color: var(--forest-green);
     border-radius: var(--border-radius);
+}
+
+.header-block-custom {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.search-book-cover {
+    margin: 16px;
+    flex: 1;
+    position: relative;
+    background-color: var(--blush);
+    border-radius: var(--border-radius);
+    border: 2px solid var(--makeup-tan);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.search-book-title{
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+
+    /* Adds a hyphen where the word breaks, if supported (No Blink) */
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+    font-family: var(--raleway);
+    font-weight: 700;
+    font-size: 1.2em;
+}
+
+.search-book-author {
+    font-family: var(--montserrat);
+    color: var(--forest-green);
+    font-size: 1em;
 }
 
 @media (min-width: 768px) {
