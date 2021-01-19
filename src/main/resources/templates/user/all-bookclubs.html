@@ -53,9 +53,11 @@
                     <img class="member-image" th:src="${bookclub.headerImageUrl}" alt="bookclubImg">
                 </div>
                 <div class="club-info">
-                    <a class="book-title" th:href="@{/bookclub/{id}(id=${bookclub.id})}"
-                       th:text="${bookclub.name}"></a>
-                    <p class="book-author" th:text="${bookclub.about}"></p>
+                    <div class="club-card">
+                        <a class="club-title" th:href="@{/bookclub/{id}(id=${bookclub.id})}"
+                           th:text="${bookclub.name}"></a>
+                        <p class="club-about" th:text="${bookclub.about}"></p>
+                    </div>
                 </div>
             </div>
         </section>

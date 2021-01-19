@@ -30,22 +30,22 @@
 <main class="site-margin">
     <div class="mobile-position">
         <section>
-        <form th:action="@{/bookclub/search}" method="post">
-            <div class="form-row">
-                <div class="col form-group club-search-position">
-                    <select class="form-control align-self-center" name="genreSelect" id="genreSelect">
-                        <option th:value="0" selected>Choose a genre...</option>
-                        <div th:each="genre : ${filterGenreList}">
-                            <option th:value="${genre.id}" th:text="${genre.name}"></option>
+            <form th:action="@{/bookclub/search}" method="post">
+                <div class="form-row">
+                    <div class="col form-group club-search-position">
+                        <select class="form-control align-self-center" name="genreSelect" id="genreSelect">
+                            <option th:value="0" selected>Choose a genre...</option>
+                            <div th:each="genre : ${filterGenreList}">
+                                <option th:value="${genre.id}" th:text="${genre.name}"></option>
+                            </div>
+                        </select>
+                        <div class="input-group">
+                            <input class="form-control" name="query" placeholder="Search Bookclubs"/>
+                            <button class="button" type="submit">Search</button>
                         </div>
-                    </select>
-                    <div class="input-group">
-                        <input class="form-control" name="query" placeholder="Search Bookclubs"/>
-                        <button class="button" type="submit">Search</button>
                     </div>
                 </div>
-            </div>
-        </form>
+            </form>
         </section>
         <section class="grid-container">
             <div class="grid-item club-cover" th:each="bookclub : ${bookclubs}">
@@ -53,9 +53,11 @@
                     <img class="member-image" th:src="${bookclub.headerImageUrl}" alt="bookclubImg">
                 </div>
                 <div class="club-info">
-                    <a class="book-title" th:href="@{/bookclub/{id}(id=${bookclub.id})}"
-                       th:text="${bookclub.name}"></a>
-                    <p class="book-author" th:text="${bookclub.about}"></p>
+                    <div class="club-card">
+                        <a class="club-title" th:href="@{/bookclub/{id}(id=${bookclub.id})}"
+                           th:text="${bookclub.name}"></a>
+                        <p class="club-about" th:text="${bookclub.about}"></p>
+                    </div>
                 </div>
             </div>
         </section>
