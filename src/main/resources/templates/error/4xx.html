@@ -4,6 +4,7 @@
 </head>
 <body class="err-background-1">
 <nav th:replace="partials/navbar :: navbar"></nav>
+<div id="content-wrap">
 <main class="content-space">
     <div class="outer-container">
         <th:block th:switch="${error}">
@@ -54,8 +55,8 @@
         </th:block>
     </div>
 </main>
-
 <footer th:replace="partials/footer :: footer"></footer>
+</div>
 <script th:src="@{/js/utils/error-success.js}" defer></script>
 </body>
 </html>

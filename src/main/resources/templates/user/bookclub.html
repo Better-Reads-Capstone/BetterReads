@@ -5,7 +5,8 @@
     </head>
     <body class="book-club-bg">
         <nav th:replace="partials/navbar :: navbar"></nav>
-        <main>
+        <div id="content-wrap">
+            <main>
             <div class="site-margin">
                 <div class="club-container">
                     <div class="intro-members-sections">
@@ -180,6 +181,7 @@
 
             </div>
         </main>
-        <footer th:replace="partials/footer :: footer"></footer>
+            <footer th:replace="partials/footer :: footer"></footer>
+        </div>
     </body>
 </html>

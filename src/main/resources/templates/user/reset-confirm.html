@@ -4,6 +4,7 @@
 </head>
 <body>
 <nav th:replace="partials/navbar :: navbar"></nav>
+<div id="content-wrap">
 <main class="content-space">
     <div class="outer-container">
         <div class="right-container">
@@ -16,6 +17,7 @@
     </div>
 </main>
 <footer th:replace="partials/footer :: footer"></footer>
+</div>
 <script th:src="@{/js/utils/error-success.js}" defer></script>
 </body>
 </html>

@@ -1,66 +1,68 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="partials/head :: head(title = 'Start a Bookclub')">
-</head>
-<body class="create-edit-forms-bg">
-<nav th:replace="partials/navbar :: navbar"></nav>
-<main>
-    <div class="site-margin">
-        <div class="club-container">
-            <div>
-                <form class="flex-form" th:action="@{/create-club}" method="POST" th:object="${club}">
-                    <section class="left-section">
-                        <div class="avatar-controls-container">
-                            <div class="club-avatar d-flex flex-column">
-                                <img id="avatarPreview" class="avatar-responsive club-img align-self-center"
-                                     th:src="${user.avatarURL}"
-                                     alt="avatar profile image"/>
-                                <input type="hidden" id="avatar" name="product_image_url" th:field="*{headerImageUrl}" />
-                                <button class="button form-btn-space" id="addPicture">Add Picture</button>
-                            </div>
+    <head th:replace="partials/head :: head(title = 'Start a Bookclub')">
+    </head>
+    <body class="create-edit-forms-bg">
+        <nav th:replace="partials/navbar :: navbar"></nav>
+        <div id="content-wrap">
+            <main>
+                <div class="site-margin">
+                    <div class="club-container">
+                        <div>
+                            <form class="flex-form" th:action="@{/create-club}" method="POST" th:object="${club}">
+                                <section class="left-section">
+                                    <div class="avatar-controls-container">
+                                        <div class="club-avatar d-flex flex-column">
+                                            <img id="avatarPreview" class="avatar-responsive club-img align-self-center"
+                                                 th:src="${user.avatarURL}"
+                                                 alt="avatar profile image"/>
+                                            <input type="hidden" id="avatar" name="product_image_url" th:field="*{headerImageUrl}" />
+                                            <button class="button form-btn-space" id="addPicture">Add Picture</button>
+                                        </div>
+                                    </div>
+                                    <div class="user-info-container" th:name="user-info">
+                                        <div class="user-names-block add-margin">
+                                            <div class="form-group bookclub-name-input">
+                                                <label for="name">Name your bookclub:</label>
+                                                <input id="name" class="form-control" th:field="*{name}"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                                <section class="right-section">
+                                    <div class="other-info-container">
+                                        <div class="other-info">
+                                            <div class="form-group genre-space">
+                                                <label class="genre-lbl" for="genre">Select a genre:</label>
+                                                <select id="genre" th:field="*{genre}" class="form-control genre-lbl-space">
+                                                    <option th:each="genre : ${genres}" th:value="${genre.id}"><span
+                                                            th:text="${genre.name}"></span></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="about-heading about-head-space">
+                                        <h3 class="club-heading">About:</h3>
+                                    </div>
+                                    <div class="about-club-container">
+                                        <div class="form-group about-spacing">
+                                            <label for="about" class="about-msg">Tell us about your book-club</label>
+                                            <textarea class="form-control text-box-space" id="about" rows="3" cols="50"
+                                                      th:field="*{about}"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="save-container">
+                                        <button id="submit-btn" type="submit" class="button">Save</button>
+                                    </div>
+                                </section>
+                            </form>
                         </div>
-                        <div class="user-info-container" th:name="user-info">
-                            <div class="user-names-block add-margin">
-                                <div class="form-group bookclub-name-input">
-                                    <label for="name">Name your bookclub:</label>
-                                    <input id="name" class="form-control" th:field="*{name}"/>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                    <section class="right-section">
-                        <div class="other-info-container">
-                            <div class="other-info">
-                                <div class="form-group genre-space">
-                                    <label class="genre-lbl" for="genre">Select a genre:</label>
-                                    <select id="genre" th:field="*{genre}" class="form-control genre-lbl-space">
-                                        <option th:each="genre : ${genres}" th:value="${genre.id}"><span
-                                                th:text="${genre.name}"></span></option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="about-heading about-head-space">
-                            <h3 class="club-heading">About:</h3>
-                        </div>
-                        <div class="about-club-container">
-                            <div class="form-group about-spacing">
-                                <label for="about" class="about-msg">Tell us about your book-club</label>
-                                <textarea class="form-control text-box-space" id="about" rows="3" cols="50"
-                                          th:field="*{about}"></textarea>
-                            </div>
-                        </div>
-                        <div class="save-container">
-                            <button id="submit-btn" type="submit" class="button">Save</button>
-                        </div>
-                    </section>
-                </form>
-            </div>
+                    </div>
+                </div>
+            </main>
+            <footer th:replace="partials/footer :: footer"></footer>
         </div>
-    </div>
-</main>
-<footer th:replace="partials/footer :: footer"></footer>
-<script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js" defer></script>
-<script type="text/javascript" th:src="@{/js/filestack.js}" defer></script>
-</body>
+        <script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js" defer></script>
+        <script type="text/javascript" th:src="@{/js/filestack.js}" defer></script>
+    </body>
 </html>

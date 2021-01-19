@@ -5,6 +5,7 @@
 </head>
 <body class="book-club-bg">
 <nav th:replace="partials/navbar :: navbar"></nav>
+<div id="content-wrap">
 <header>
     <div class="header-block-left d-flex flex-column">
         <div class="header-text">
@@ -60,6 +61,7 @@
     </div>
 </main>
 <footer th:replace="partials/footer :: footer"></footer>
+</div>
 <script type="text/javascript" th:src="@{/js/searchBookclubs.js}" defer></script>
 </body>
 </html>

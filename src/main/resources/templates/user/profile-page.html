@@ -4,281 +4,282 @@
     </head>
     <body class="book-club-bg">
         <nav th:replace="partials/navbar :: navbar"></nav>
-        <main>
-            <div class="site-margin" id="userProfile" th:data-userId="${user.id}" th:data-username="${user.username}">
-                <!--       Error Message if a club owner tries to delete a page         -->
-                <div th:if="${clubErr}" class="alert alert-warning" role="alert">
-                    <p>You are a book club owner, please contact our <a href="mailto:help@betterreads.site">support team</a> for
-                        assistance with deleting your profile</p>
-                </div>
-                <div class="club-container">
-                    <div class="intro-members-sections">
-                        <!--        User Intro Section        -->
-                        <section class="club-intro-section">
-                            <div class="avatar-controls-container">
-                                <div class="club-avatar">
-                                    <img class="avatar-responsive club-img" th:src="${user.avatarURL}" alt="avatar profile image"/>
-                                </div>
-                                <!--       Authenticated User Controls         -->
-                                <div class="profile-buttons" th:if="${showEditControls}">
-                                    <form th:action="@{/edit-profile/{username} (username = ${user.username})}">
-                                        <button class="button" type="submit">
-                                            Edit Profile
+        <div id="content-wrap">
+            <main>
+                <div class="site-margin" id="userProfile" th:data-userId="${user.id}" th:data-username="${user.username}">
+                    <!--       Error Message if a club owner tries to delete a page         -->
+                    <div th:if="${clubErr}" class="alert alert-warning" role="alert">
+                        <p>You are a book club owner, please contact our <a href="mailto:help@betterreads.site">support team</a> for
+                            assistance with deleting your profile</p>
+                    </div>
+                    <div class="club-container">
+                        <div class="intro-members-sections">
+                            <!--        User Intro Section        -->
+                            <section class="club-intro-section">
+                                <div class="avatar-controls-container">
+                                    <div class="club-avatar">
+                                        <img class="avatar-responsive club-img" th:src="${user.avatarURL}" alt="avatar profile image"/>
+                                    </div>
+                                    <!--       Authenticated User Controls         -->
+                                    <div class="profile-buttons" th:if="${showEditControls}">
+                                        <form th:action="@{/edit-profile/{username} (username = ${user.username})}">
+                                            <button class="button" type="submit">
+                                                Edit Profile
+                                            </button>
+                                        </form>
+                                        <button type="button" class="button danger-button" data-toggle="modal" data-target="#deleteModal">
+                                            Delete Profile
                                         </button>
-                                    </form>
-                                    <button type="button" class="button danger-button" data-toggle="modal" data-target="#deleteModal">
-                                        Delete Profile
-                                    </button>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="user-info-container" th:name="user-info">
-                                <div class="club-name-container">
-                                    <h4 class="club-name">
-                                        <span th:text="${user.firstName}"></span>
-                                        <span th:text="${user.middleName}"></span>
-                                        <span th:text="${user.lastName}"></span>
-                                    </h4>
+                                <div class="user-info-container" th:name="user-info">
+                                    <div class="club-name-container">
+                                        <h4 class="club-name">
+                                            <span th:text="${user.firstName}"></span>
+                                            <span th:text="${user.middleName}"></span>
+                                            <span th:text="${user.lastName}"></span>
+                                        </h4>
+                                    </div>
+                                    <div class="user-info">
+                                        <div class="user-info-flex">
+                                            <p class="user-info-title">Email: </p>
+                                            <p class="genre user-detail" th:text="${user.email}"></p>
+                                        </div>
+                                        <div class="user-info-flex">
+                                            <p class="user-info-title">Url: </p>
+                                            <p class="genre user-detail" th:text="${user.websiteURL}"></p>
+                                        </div>
+                                        <div class="user-info-flex">
+                                            <p class="user-info-title">Pronouns: </p>
+                                            <p class="genre user-detail" th:text="${user.pronouns}"></p>
+                                        </div>
+                                        <div class="user-info-flex">
+                                            <p class="user-info-title">Location: </p>
+                                            <p class="genre user-detail" th:text="${user.country}"></p>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="user-info">
-                                    <div class="user-info-flex">
-                                        <p class="user-info-title">Email: </p>
-                                        <p class="genre user-detail" th:text="${user.email}"></p>
-                                    </div>
-                                    <div class="user-info-flex">
-                                        <p class="user-info-title">Url: </p>
-                                        <p class="genre user-detail" th:text="${user.websiteURL}"></p>
-                                    </div>
-                                    <div class="user-info-flex">
-                                        <p class="user-info-title">Pronouns: </p>
-                                        <p class="genre user-detail" th:text="${user.pronouns}"></p>
-                                    </div>
-                                    <div class="user-info-flex">
-                                        <p class="user-info-title">Location: </p>
-                                        <p class="genre user-detail" th:text="${user.country}"></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-                        <!--        User Club and About Section        -->
-                        <section class="club-members-about-club">
-                            <h3 class="club-heading">Book Clubs</h3>
-                            <div class="members-container">
-                                <!--    SHOW BOOKCLUBS    -->
-                                <div th:each="bookclub : ${bookclubs}">
-                                    <div th:if="${bookclub.owner.id == user.id}" class="owner-card member-card">
-                                        <div class="member-img-container">
+                            </section>
+                            <!--        User Club and About Section        -->
+                            <section class="club-members-about-club">
+                                <h3 class="club-heading">Book Clubs</h3>
+                                <div class="members-container">
+                                    <!--    SHOW BOOKCLUBS    -->
+                                    <div th:each="bookclub : ${bookclubs}">
+                                        <div th:if="${bookclub.owner.id == user.id}" class="owner-card member-card">
+                                            <div class="member-img-container">
+                                                <img class="member-image" th:src="${bookclub.headerImageUrl}" alt="book club image">
+                                            </div>
+                                            <div class="member-info profile-club-info">
+                                                <a class="member-name-link" th:href="@{/bookclub/{id}(id=${bookclub.id})}" th:text="${bookclub.name}"></a>
+                                            </div>
+                                            <div class="owner-icon-club">
+                                                <img th:src="@{../img/owner-icon.svg}" alt="star doodle"/>
+                                            </div>
+                                        </div>
+                                        <div th:unless="${bookclub.owner.id == user.id}" class="member-card member-card">
                                             <img class="member-image" th:src="${bookclub.headerImageUrl}" alt="book club image">
-                                        </div>
-                                        <div class="member-info profile-club-info">
-                                            <a class="member-name-link" th:href="@{/bookclub/{id}(id=${bookclub.id})}" th:text="${bookclub.name}"></a>
-                                        </div>
-                                        <div class="owner-icon-club">
-                                            <img th:src="@{../img/owner-icon.svg}" alt="star doodle"/>
-                                        </div>
-                                    </div>
-                                    <div th:unless="${bookclub.owner.id == user.id}" class="member-card member-card">
-                                        <img class="member-image" th:src="${bookclub.headerImageUrl}" alt="book club image">
-                                        <div class="member-info profile-club-info">
-                                            <a class="member-name-link" th:href="@{/bookclub/{id}(id=${bookclub.id})}" th:text="${bookclub.name}"></a>
+                                            <div class="member-info profile-club-info">
+                                                <a class="member-name-link" th:href="@{/bookclub/{id}(id=${bookclub.id})}" th:text="${bookclub.name}"></a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="about-heading">
-                                <h3 class="club-heading">About Me</h3>
-                            </div>
-                            <div class="about-club-container">
-                                <div class="about-body">
-                                    <p th:text="${user.aboutMe}"></p>
+                                <div class="about-heading">
+                                    <h3 class="club-heading">About Me</h3>
+                                </div>
+                                <div class="about-club-container">
+                                    <div class="about-body">
+                                        <p th:text="${user.aboutMe}"></p>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+
+                        <!--        Book Shelf Section        -->
+                        <section class="club-blog">
+                            <div class="post-container">
+                                <!--   READ BOOKS     -->
+                                <div class="shelves">
+                                    <h4 class="club-heading bookshelf-title">Bookshelf</h4>
+                                    <h5 class="club-heading collapse-button-read">Read</h5>
+                                    <div id="read">
+                                        <div class="book-shelf book-row">
+                                            <div th:each="extract : ${read}">
+                                                <div class="bookshelf-cover">
+                                                    <div class="book readBook" th:id="${extract.book.gbreference}"
+                                                         th:data-bookId="${extract.book.id}" data-toggle="modal"
+                                                         data-target="#bookModal">
+                                                        <!--       Books are rendered here        -->
+                                                    </div>
+                                                    <div class="bookshelf-delete">
+                                                        <form th:action="@{/profile/{username}/delete/{id}(username=${user.username}, id=${extract.id})}"
+                                                              method="post">
+                                                            <button class="bookshelf-delete-button" type="submit">X</button>
+                                                        </form>
+                                                    </div>
+                                                    <div class="select-container bookshelf-select-container">
+                                                        <form th:action="@{/profile/{username}/{bookshelfId}(username=${user.username}, bookshelfId=${extract.id})}"
+                                                              method="post">
+                                                            <select class="bookshelf-select" name="bookshelfStatus" onchange="this.form.submit()">
+                                                                <option th:value="'READ'" selected disabled>READ</option>
+                                                                <option th:value="'READING'">READING</option>
+                                                                <option th:value="'WISHLIST'">WISHLIST</option>
+                                                            </select>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!--   READING BOOKS     -->
+                                    <h5 class="club-heading collapse-button-reading">Reading</h5>
+                                    <div id="reading">
+                                        <div class="book-shelf book-row">
+                                            <div th:each="extract : ${reading}">
+                                                <div class="bookshelf-cover">
+                                                    <div class="book activeBook" th:id="${extract.book.gbreference}"
+                                                         th:data-bookId="${extract.book.id}" data-toggle="modal"
+                                                         data-target="#bookModal">
+                                                        <!--       Books are rendered here        -->
+                                                    </div>
+                                                    <div class="bookshelf-delete">
+                                                        <form th:action="@{/profile/{username}/delete/{id}(username=${user.username}, id=${extract.id})}"
+                                                              method="post">
+                                                            <button class="bookshelf-delete-button" type="submit">X</button>
+                                                        </form>
+                                                    </div>
+                                                    <div class="select-container bookshelf-select-container">
+                                                        <form th:action="@{/profile/{username}/{bookshelfId}(username=${user.username}, bookshelfId=${extract.id})}"
+                                                              method="post">
+                                                            <select class="bookshelf-select" name="bookshelfStatus" onchange="this.form.submit()">
+                                                                <option th:value="'READ'">READ</option>
+                                                                <option th:value="'READING'" selected disabled>READING</option>
+                                                                <option th:value="'WISHLIST'">WISHLIST</option>
+                                                            </select>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!--   WISHLIST     -->
+                                    <h5 class="club-heading collapse-button-wishlist">Wishlist</h5>
+                                    <div id="wishlist">
+                                        <div class="book-shelf book-row">
+                                            <div th:each="extract : ${wishlist}">
+                                                <div class="bookshelf-cover">
+                                                    <div class="book wishlistBook " th:id="${extract.book.gbreference}"
+                                                         th:data-bookId="${extract.book.id}" data-toggle="modal"
+                                                         data-target="#bookModal">
+                                                        <!--       Books are rendered here        -->
+                                                    </div>
+                                                    <div class="bookshelf-delete">
+                                                        <form th:action="@{/profile/{username}/delete/{id}(username=${user.username}, id=${extract.id})}"
+                                                              method="post">
+                                                            <button class="bookshelf-delete-button" type="submit">X</button>
+                                                        </form>
+                                                    </div>
+                                                    <div class="select-container bookshelf-select-container">
+                                                        <form th:action="@{/profile/{username}/{bookshelfId}(username=${user.username}, bookshelfId=${extract.id})}"
+                                                              method="post">
+                                                            <select class="bookshelf-select" name="bookshelfStatus" onchange="this.form.submit()">
+                                                                <option th:value="'READ'">READ</option>
+                                                                <option th:value="'READING'">READING</option>
+                                                                <option th:value="'WISHLIST'" selected disabled>WISHLIST</option>
+                                                            </select>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--      SVG GRAPHIC        -->
+                                <div class="post-container-footer">
+                                    <img class="profile-page-shapes" th:src="@{../img/profile-shapes.svg}">
                                 </div>
                             </div>
                         </section>
-                    </div>
 
-                    <!--        Book Shelf Section        -->
-                    <section class="club-blog">
-                        <div class="post-container">
-                            <!--   READ BOOKS     -->
-                            <div class="shelves">
-                                <h4 class="club-heading bookshelf-title">Bookshelf</h4>
-                                <h5 class="club-heading collapse-button-read">Read</h5>
-                                <div id="read">
-                                    <div class="book-shelf book-row">
-                                        <div th:each="extract : ${read}">
-                                            <div class="bookshelf-cover">
-                                                <div class="book readBook" th:id="${extract.book.gbreference}"
-                                                     th:data-bookId="${extract.book.id}" data-toggle="modal"
-                                                     data-target="#bookModal">
-                                                    <!--       Books are rendered here        -->
+                        <!--    SHOW BOOK MODAL    -->
+                        <div class="modal custom-modal fade" id="bookModal">
+                            <div class="modal-dialog modal-dialog-center modal-dialog-scrollable">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title"></h4>
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    </div>
+                                    <div class="modal-body book-modal-body"></div>
+                                    <div>
+                                        <!-- CREATE A NEW REVIEW -->
+                                        <div class="comment-form-container blog-card modal-review">
+                                            <form class="form-group" id="createReview" th:action="@{/createReview}" th:object="${review}" method="post">
+                                                <input id="reviewId" type="hidden">
+                                                <div th:text="${review.owner}"></div>
+                                                <div class="">
+                                                    <label class="comment-heading" for="createBody">Leave a Review</label>
+                                                    <textarea class="form-control" name="createBody" id="createBody" rows="10" th:field="*{body}"></textarea>
                                                 </div>
-                                                <div class="bookshelf-delete">
-                                                    <form th:action="@{/profile/{username}/delete/{id}(username=${user.username}, id=${extract.id})}"
-                                                          method="post">
-                                                        <button class="bookshelf-delete-button" type="submit">X</button>
-                                                    </form>
+                                                <div class="select-container review-select-container">
+                                                    <label class="rate-me" for="createRating">Rate Me:</label>
+                                                    <select class="bookshelf-select" name="createRating" id="createRating" th:field="*{rating}">
+                                                        <option th:value="1">1</option>
+                                                        <option th:value="2">2</option>
+                                                        <option th:value="3">3</option>
+                                                        <option th:value="4">4</option>
+                                                        <option th:value="5">5</option>
+                                                    </select>
                                                 </div>
-                                                <div class="select-container bookshelf-select-container">
-                                                    <form th:action="@{/profile/{username}/{bookshelfId}(username=${user.username}, bookshelfId=${extract.id})}"
-                                                          method="post">
-                                                        <select class="bookshelf-select" name="bookshelfStatus" onchange="this.form.submit()">
-                                                            <option th:value="'READ'" selected disabled>READ</option>
-                                                            <option th:value="'READING'">READING</option>
-                                                            <option th:value="'WISHLIST'">WISHLIST</option>
-                                                        </select>
-                                                    </form>
-                                                </div>
-                                            </div>
+                                                <button class="button comment-btn" type="submit">Submit</button>
+                                            </form>
+                                            <form id="deleteReview" th:action="@{/deleteReview}" method="post">
+                                                <button class="button danger-button delete-review-modal" type="submit">Delete Review</button>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="modal-ft button close-button" data-dismiss="modal">Close</button>
                                         </div>
                                     </div>
-                                </div>
 
-                                <!--   READING BOOKS     -->
-                                <h5 class="club-heading collapse-button-reading">Reading</h5>
-                                <div id="reading">
-                                    <div class="book-shelf book-row">
-                                        <div th:each="extract : ${reading}">
-                                            <div class="bookshelf-cover">
-                                                <div class="book activeBook" th:id="${extract.book.gbreference}"
-                                                     th:data-bookId="${extract.book.id}" data-toggle="modal"
-                                                     data-target="#bookModal">
-                                                    <!--       Books are rendered here        -->
-                                                </div>
-                                                <div class="bookshelf-delete">
-                                                    <form th:action="@{/profile/{username}/delete/{id}(username=${user.username}, id=${extract.id})}"
-                                                          method="post">
-                                                        <button class="bookshelf-delete-button" type="submit">X</button>
-                                                    </form>
-                                                </div>
-                                                <div class="select-container bookshelf-select-container">
-                                                    <form th:action="@{/profile/{username}/{bookshelfId}(username=${user.username}, bookshelfId=${extract.id})}"
-                                                          method="post">
-                                                        <select class="bookshelf-select" name="bookshelfStatus" onchange="this.form.submit()">
-                                                            <option th:value="'READ'">READ</option>
-                                                            <option th:value="'READING'" selected disabled>READING</option>
-                                                            <option th:value="'WISHLIST'">WISHLIST</option>
-                                                        </select>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!--   WISHLIST     -->
-                                <h5 class="club-heading collapse-button-wishlist">Wishlist</h5>
-                                <div id="wishlist">
-                                    <div class="book-shelf book-row">
-                                        <div th:each="extract : ${wishlist}">
-                                            <div class="bookshelf-cover">
-                                                <div class="book wishlistBook " th:id="${extract.book.gbreference}"
-                                                     th:data-bookId="${extract.book.id}" data-toggle="modal"
-                                                     data-target="#bookModal">
-                                                    <!--       Books are rendered here        -->
-                                                </div>
-                                                <div class="bookshelf-delete">
-                                                    <form th:action="@{/profile/{username}/delete/{id}(username=${user.username}, id=${extract.id})}"
-                                                          method="post">
-                                                        <button class="bookshelf-delete-button" type="submit">X</button>
-                                                    </form>
-                                                </div>
-                                                <div class="select-container bookshelf-select-container">
-                                                    <form th:action="@{/profile/{username}/{bookshelfId}(username=${user.username}, bookshelfId=${extract.id})}"
-                                                          method="post">
-                                                        <select class="bookshelf-select" name="bookshelfStatus" onchange="this.form.submit()">
-                                                            <option th:value="'READ'">READ</option>
-                                                            <option th:value="'READING'">READING</option>
-                                                            <option th:value="'WISHLIST'" selected disabled>WISHLIST</option>
-                                                        </select>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
 
-                            <!--      SVG GRAPHIC        -->
-                            <div class="post-container-footer">
-                                <img class="profile-page-shapes" th:src="@{../img/profile-shapes.svg}">
-                            </div>
-                        </div>
-                    </section>
-
-                    <!--    SHOW BOOK MODAL    -->
-                    <div class="modal custom-modal fade" id="bookModal">
-                        <div class="modal-dialog modal-dialog-center modal-dialog-scrollable">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h4 class="modal-title"></h4>
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                </div>
-                                <div class="modal-body book-modal-body"></div>
-                                <div>
-                                    <!-- CREATE A NEW REVIEW -->
-                                    <div class="comment-form-container blog-card modal-review">
-                                        <form class="form-group" id="createReview" th:action="@{/createReview}" th:object="${review}" method="post">
-                                            <input id="reviewId" type="hidden">
-                                            <div th:text="${review.owner}"></div>
-                                            <div class="">
-                                                <label class="comment-heading" for="createBody">Leave a Review</label>
-                                                <textarea class="form-control" name="createBody" id="createBody" rows="10" th:field="*{body}"></textarea>
-                                            </div>
-                                            <div class="select-container review-select-container">
-                                                <label class="rate-me" for="createRating">Rate Me:</label>
-                                                <select class="bookshelf-select" name="createRating" id="createRating" th:field="*{rating}">
-                                                    <option th:value="1">1</option>
-                                                    <option th:value="2">2</option>
-                                                    <option th:value="3">3</option>
-                                                    <option th:value="4">4</option>
-                                                    <option th:value="5">5</option>
-                                                </select>
-                                            </div>
-                                            <button class="button comment-btn" type="submit">Submit</button>
-                                        </form>
-                                        <form id="deleteReview" th:action="@{/deleteReview}" method="post">
-                                            <button class="button danger-button delete-review-modal" type="submit">Delete Review</button>
-                                        </form>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="modal-ft button close-button" data-dismiss="modal">Close</button>
-                                    </div>
-                                </div>
-
-                            </div>
                         </div>
 
-                    </div>
-
-                    <!--        Delete modal-->
-                    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="deleteModalLabel">Delete Profile</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <form th:action="@{/profile/{username}/delete(username=${user.username})}" method="post">
-                                    <div class="modal-body">
-                                        <div class="form-group">
-                                            <h5>Are you sure you want to delete your profile?</h5>
+                        <!--        Delete modal-->
+                        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="deleteModalLabel">Delete Profile</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <form th:action="@{/profile/{username}/delete(username=${user.username})}" method="post">
+                                        <div class="modal-body">
+                                            <div class="form-group">
+                                                <h5>Are you sure you want to delete your profile?</h5>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="button" data-dismiss="modal">Close</button>
-                                        <button type="submit" class="button danger-button">Confirm Deletion</button>
-                                    </div>
-                                </form>
+                                        <div class="modal-footer">
+                                            <button type="button" class="button" data-dismiss="modal">Close</button>
+                                            <button type="submit" class="button danger-button">Confirm Deletion</button>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </main>
-
-        <footer th:replace="partials/footer :: footer"></footer>
+            </main>
+            <footer th:replace="partials/footer :: footer"></footer>
+        </div>
         <script type="text/javascript" th:src="@{/js/profileBooks.js}" defer></script>
 
     </body>
