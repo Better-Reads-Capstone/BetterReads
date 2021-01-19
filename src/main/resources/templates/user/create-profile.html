@@ -1,97 +1,99 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head th:replace="partials/head :: head(title = 'Create a profile')">
-</head>
-<body class="create-edit-forms-bg">
-<nav th:replace="partials/navbar :: navbar"></nav>
-<main>
-    <div class="site-margin" id="userProfile" th:data-userId="${user.id}" th:data-username="${user.username}">
-        <div class="club-container">
-            <div>
-                <form class="flex-form" th:action="@{/create-profile/{username} (username = ${user.getUsername()})}"
-                      method="POST"
-                      th:object="${user}">
-                    <!--        User Intro Section        -->
-                    <section class="left-section">
-                        <div class="avatar-controls-container">
-                            <div class="club-avatar d-flex flex-column">
-                                <img id="avatarPreview" class="avatar-responsive club-img align-self-center" th:src="${user.avatarURL}"
-                                     alt="avatar profile image"/>
-                                <input type="hidden" id="avatar" name="product_image_url" th:field="*{avatarURL}" />
-                                <button class="button form-btn-space" id="addPicture">Add Picture</button>
-                            </div>
-                        </div>
+    <head th:replace="partials/head :: head(title = 'Create a profile')">
+    </head>
+    <body class="create-edit-forms-bg">
+        <nav th:replace="partials/navbar :: navbar"></nav>
+        <div id="content-wrap">
+            <main>
+                <div class="site-margin" id="userProfile" th:data-userId="${user.id}" th:data-username="${user.username}">
+                    <div class="club-container">
+                        <div>
+                            <form class="flex-form" th:action="@{/create-profile/{username} (username = ${user.getUsername()})}"
+                                  method="POST"
+                                  th:object="${user}">
+                                <!--        User Intro Section        -->
+                                <section class="left-section">
+                                    <div class="avatar-controls-container">
+                                        <div class="club-avatar d-flex flex-column">
+                                            <img id="avatarPreview" class="avatar-responsive club-img align-self-center" th:src="${user.avatarURL}"
+                                                 alt="avatar profile image"/>
+                                            <input type="hidden" id="avatar" name="product_image_url" th:field="*{avatarURL}" />
+                                            <button class="button form-btn-space" id="addPicture">Add Picture</button>
+                                        </div>
+                                    </div>
 
-                        <div class="user-info-container" th:name="user-info">
-                            <div class="user-names-block add-margin">
-                                <div class="form-group name-input">
-                                    <label for="First">First:</label>
-                                    <input class="form-control" id="First" th:value="${user.firstName}" th:field="${user.firstName}">
-                                </div>
-                                <div class="form-group name-input">
-                                    <label for="Middle">Middle:</label>
-                                    <input class="form-control" id="Middle" th:value="${user.middleName}" th:field="${user.middleName}">
-                                </div>
-                                <div class="form-group name-input">
-                                    <label for="Last">Last:</label>
-                                    <input class="form-control mb-0" id="Last" th:value="${user.lastName}" th:field="${user.lastName}">
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                    <!--        User Club and About Section        -->
-                    <section class="right-section">
-                        <div class="other-info-container">
-                            <div class="other-info">
-                                    <div class="form-group other-info-group">
-                                        <label for="dob">Date of Birth:</label>
-                                        <input id="dob" class="form-control" th:field="*{dob}" placeholder="yyyy-mm-dd"/>
+                                    <div class="user-info-container" th:name="user-info">
+                                        <div class="user-names-block add-margin">
+                                            <div class="form-group name-input">
+                                                <label for="First">First:</label>
+                                                <input class="form-control" id="First" th:value="${user.firstName}" th:field="${user.firstName}">
+                                            </div>
+                                            <div class="form-group name-input">
+                                                <label for="Middle">Middle:</label>
+                                                <input class="form-control" id="Middle" th:value="${user.middleName}" th:field="${user.middleName}">
+                                            </div>
+                                            <div class="form-group name-input">
+                                                <label for="Last">Last:</label>
+                                                <input class="form-control mb-0" id="Last" th:value="${user.lastName}" th:field="${user.lastName}">
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="form-group other-info-group">
-                                        <label for="website-url">Website:</label>
-                                        <input id="website-url" class="form-control" th:field="*{websiteURL}" />
+                                </section>
+                                <!--        User Club and About Section        -->
+                                <section class="right-section">
+                                    <div class="other-info-container">
+                                        <div class="other-info">
+                                                <div class="form-group other-info-group">
+                                                    <label for="dob">Date of Birth:</label>
+                                                    <input id="dob" class="form-control" th:field="*{dob}" placeholder="yyyy-mm-dd"/>
+                                                </div>
+                                                <div class="form-group other-info-group">
+                                                    <label for="website-url">Website:</label>
+                                                    <input id="website-url" class="form-control" th:field="*{websiteURL}" />
+                                                </div>
+                                            <div class="form-group other-info-group">
+                                                <label for="pronouns">Preferred Pronouns:</label>
+                                                <select name="pronouns" class="form-control" th:field="*{pronouns}" id="pronouns">
+                                                    <option th:value="''" selected>Prefer to Not Disclose</option>
+                                                    <option th:value="'he'" selected>He/Him</option>
+                                                    <option th:value="'she'" selected>She/Her</option>
+                                                    <option th:value="'nonbinary'" selected>Non-Binary</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group other-info-group">
+                                                <label for="country">Country:</label>
+                                                <select name="country" class="form-control" th:field="*{country}" id="country">
+                                                    <option th:value="'United States'">United States</option>
+                                                    <option th:value="'United Kingdom'">United Kingdom</option>
+                                                    <option th:value="'Canada'">Canada</option>
+                                                </select>
+                                            </div>
+                                        </div>
                                     </div>
-                                <div class="form-group other-info-group">
-                                    <label for="pronouns">Preferred Pronouns:</label>
-                                    <select name="pronouns" class="form-control" th:field="*{pronouns}" id="pronouns">
-                                        <option th:value="''" selected>Prefer to Not Disclose</option>
-                                        <option th:value="'he'" selected>He/Him</option>
-                                        <option th:value="'she'" selected>She/Her</option>
-                                        <option th:value="'nonbinary'" selected>Non-Binary</option>
-                                    </select>
-                                </div>
-                                <div class="form-group other-info-group">
-                                    <label for="country">Country:</label>
-                                    <select name="country" class="form-control" th:field="*{country}" id="country">
-                                        <option th:value="'United States'">United States</option>
-                                        <option th:value="'United Kingdom'">United Kingdom</option>
-                                        <option th:value="'Canada'">Canada</option>
-                                    </select>
-                                </div>
-                            </div>
+                                    <div class="about-heading">
+                                        <h3 class="club-heading">About Me</h3>
+                                    </div>
+                                    <div class="about-club-container">
+                                        <div class="form-group about-spacing">
+                                            <textarea class="form-control" id="about-me" rows="3" cols="50" th:field="*{aboutMe}"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="save-container">
+                                        <button id="submit-btn" type="submit" class="button">Save</button>
+                                    </div>
+                                </section>
+                            </form>
                         </div>
-                        <div class="about-heading">
-                            <h3 class="club-heading">About Me</h3>
-                        </div>
-                        <div class="about-club-container">
-                            <div class="form-group about-spacing">
-                                <textarea class="form-control" id="about-me" rows="3" cols="50" th:field="*{aboutMe}"></textarea>
-                            </div>
-                        </div>
-                        <div class="save-container">
-                            <button id="submit-btn" type="submit" class="button">Save</button>
-                        </div>
-                    </section>
-                </form>
-            </div>
+                    </div>
+                </div>
+            </main>
+            <footer th:replace="partials/footer :: footer"></footer>
         </div>
-    </div>
-</main>
-<footer th:replace="partials/footer :: footer"></footer>
-<script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js" defer></script>
-<script type="text/javascript" th:src="@{/js/filestack.js}" defer></script>
-<script th:src="@{/js/utils/datepicker.js}" defer></script>
-<script th:src="@{/js/editPassword.js}" defer></script>
-</body>
+        <script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js" defer></script>
+        <script type="text/javascript" th:src="@{/js/filestack.js}" defer></script>
+        <script th:src="@{/js/utils/datepicker.js}" defer></script>
+        <script th:src="@{/js/editPassword.js}" defer></script>
+    </body>
 </html>

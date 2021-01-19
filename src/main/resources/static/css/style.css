@@ -30,12 +30,18 @@
     /*  overflow-y: scroll  */
 }
 
+
+body {
+    position: relative;
+}
+
 .navbar-custom {
     background-color: transparent;
 }
 
 .nav-font {
     font-family: var(--montserrat);
+
 }
 
 .site-margin {
@@ -199,6 +205,45 @@ header {
     color: var(--green);
 }
 
+#content-wrap {
+
+    padding-bottom: 2.5rem;
+}
+
+#footer-container {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 2.5rem;
+}
+
+.post-flex {
+    display: flex;
+    justify-content: center;
+}
+
+.create-post-container {
+    width: 100%;
+}
+
+.create-post-title {
+    font-size: 2.5em;
+    text-align: center;
+    color: var(--dark-grey);
+    font-family: var(--alegreya);
+}
+
+.post-control {
+    margin-top: 20px;
+}
+
+.create-post-card {
+    background-color: var(--blush);
+    border-radius: var(--border-radius);
+    border: 2px solid var(--makeup-tan) ;
+    padding: 30px;
+}
+
 @media (min-width: 768px) {
 
     .book-cover {
@@ -220,5 +265,9 @@ header {
 
     .book-info {
         margin: 0;
+    }
+
+    .create-post-container {
+        width: 60%;
     }
 }
