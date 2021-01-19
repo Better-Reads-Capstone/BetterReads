@@ -30,6 +30,14 @@
     /*  overflow-y: scroll  */
 }
 
+.navbar-custom {
+    background-color: transparent;
+}
+
+.nav-font {
+    font-family: var(--montserrat);
+}
+
 .site-margin {
     margin: 30px 50px;
     overflow: hidden;
