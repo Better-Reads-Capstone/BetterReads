@@ -99,7 +99,7 @@ public class PostController {
                 @PathVariable long postId,
                 @ModelAttribute Comment comment){
 
-        Comment dbComment = new Comment();
+        Comment dbComment = comment;
         Date currentDate = new Date();
         User user = usersSvc.loggedInUser();
         Post post = postDao.getOne(postId);
