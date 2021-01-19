@@ -46,9 +46,8 @@
 
 .dev-profile-title {
     font-family: var(--alegreya);
-    font-size: 2rem;
+    font-size: 3rem;
     color: var(--dark-grey);
-    margin: 10px;
 }
 
 .dev-name-text {
@@ -89,6 +88,20 @@
     color: var(--forest-green);
 }
 
+.about-us-graphic {
+    margin-top: 75px;
+}
+
+.about-us-svg-top {
+    width: 100%;
+    transform: rotate(180deg);
+}
+
+.about-us-svg-bottom, .about-us-svg-top {
+    border-bottom-left-radius: var(--border-radius);
+    border-bottom-right-radius: var(--border-radius);
+}
+
 @media (min-width: 768px) {
     .dev-card-container {
         flex-flow: row wrap;
@@ -103,6 +116,12 @@
 }
 
 @media (min-width: 992px) {
+
+    .about-us-container {
+        width: 75%;
+        margin: 0 auto;
+    }
+
     .dev-card-container {
         flex-direction: row;
     }
