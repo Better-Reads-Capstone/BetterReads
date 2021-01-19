@@ -37,10 +37,38 @@
 .club-info {
     display: flex;
     flex-direction: column;
-    width: 200px;
+    width: 275px;
     overflow-wrap: break-word;
     color: #000;
-    margin: 0 auto 35px auto;
+    padding: 10px;
+    margin: 0 auto;
+}
+
+.club-card {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--green);
+    border-radius: var(--border-radius);
+    border: 2px solid var(--off-white);
+    padding: 10px;
+}
+
+.club-title {
+    font-weight: 700;
+    font-size: 1.3em;
+    word-wrap: break-word;
+    word-break: break-word;
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+    font-family: var(--raleway);
+    margin-top: 10px;
+}
+
+.club-about {
+    font-family: var(--montserrat);
+    color: var(--off-white);
 }
 
 .club-info a {
