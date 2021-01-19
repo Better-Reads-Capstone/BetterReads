@@ -11,7 +11,7 @@
     font-family: var(--montserrat);
     color: var(--forest-green);
     text-decoration: underline;
-    margin-right: 5px;
+    margin-right: 10px;
 }
 
 .user-detail, .member-info {
