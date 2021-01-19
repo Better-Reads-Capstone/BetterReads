@@ -18,11 +18,28 @@
         width: 30rem;
         border-radius: 10px;
         margin: 0 auto;
+        background-color: var(--off-white);
+    }
+
+    .form-background-img {
+        background-image: url("../img/book-reader-2.png");
+        background-repeat: no-repeat;
+        background-position: top;
+        background-size: 175% 90%;
+    }
+
+    .form-img {
+        height: 100%;
+        width: 100%;
+    }
+
+    .form-img-flip {
+        transform: scaleX(-1);
     }
 
     .img-width {
         position: relative;
-        z-index: -1;
+        z-index: 0;
         width: 100%;
         border-radius: 10px;
         margin-bottom: -175px;
@@ -30,7 +47,7 @@
 
     .img-flip {
         position: relative;
-        z-index: -1;
+        z-index: 0;
         transform: rotate(180deg);
         width: 100%;
         border-radius: 10px;
@@ -40,6 +57,8 @@
     .form-container {
         margin: auto;
         padding: 0 30px;
+        position: relative;
+        z-index: 1;
     }
 
     .msg-space {
